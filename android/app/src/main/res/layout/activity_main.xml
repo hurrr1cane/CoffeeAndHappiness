@@ -38,6 +38,7 @@
                 android:layout_weight="1" />
 
             <ImageButton
+                android:id="@+id/modeButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Кава та Щастя</string>
+
+    <!-- This is a navigation bar section -->
+    <string name="nav_bar_info">Інфо</string>
+    <string name="nav_bar_menu">Меню</string>
+    <string name="nav_bar_home">Головна</string>
+    <string name="nav_bar_map">Карта</string>
+    <string name="nav_bar_account">Профіль</string>
+
+</resources>
