@@ -1,6 +1,7 @@
 package com.mdn.backend.model;
 
 
+import com.mdn.backend.model.review.FoodReview;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -9,6 +10,8 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -51,4 +54,7 @@ public class Food {
 
     @Enumerated(EnumType.STRING)
     private FoodType type;
+
+    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FoodReview> reviews;
 }

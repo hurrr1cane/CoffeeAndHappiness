@@ -4,11 +4,15 @@
     overflow: hidden;
     position: sticky; 
     top: 0;
-    height: 7.5vh;
-    background-color: #66bb6a;
+    height: 10vh;
+    background-color: #4caf50;
+    h1 {
+        font-weight: 500;
+    }
 }
 
 .link {
+    font-size: 20px;
     margin: 5rem;
     color:inherit;
     text-decoration: none;
