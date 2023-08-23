@@ -1,9 +1,11 @@
-import Link from "next/link";
+import styles from './page.module.scss'
 
 export default function Home() {
-    return (
-        <div>
-            <h1>Institutions page</h1>
-        </div>
-    )
+  return (
+   <main className={styles.main}>
+      <h1>Institutions page</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi corporis soluta nisi aliquam pariatur hic, illum voluptate omnis mollitia, quas, natus at! Similique dolores accusantium laborum minima repellat! Officiis!</p>
+   </main>
+
+  )
 }

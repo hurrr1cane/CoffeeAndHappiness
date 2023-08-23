@@ -1,7 +1,7 @@
 import './globals.scss'
 import { Raleway } from 'next/font/google'
 import Navbar from './components/Navbar'
-
+import Footer from './components/Footer'
 export const metadata = {
   title: 'Coffee and Happiness',
   description: 'Coffe and Happiness website',
@@ -14,7 +14,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={raleway.className}>
         <Navbar/>
-        {children}
+        <div>{children}</div>
+        <Footer/>
       </body>
     </html>
   )
