@@ -1,1 +1,7 @@
-@use 'base.scss'
+@use './base.scss';
+
+.main {
+    color: white;
+    position: relative;
+    z-index: 1;
+}
