@@ -18,4 +18,7 @@ public class CafeReview extends Review {
     @JoinColumn(name = "cafe_id")
     private Cafe cafe;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

@@ -19,4 +19,7 @@ public class FoodReview extends Review {
     @JoinColumn(name = "food_id")
     private Food food;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
