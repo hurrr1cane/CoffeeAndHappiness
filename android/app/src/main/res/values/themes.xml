@@ -6,4 +6,18 @@
     </style>
 
     <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness" />
+
+    <style name = "SCREEN_STYLE">
+        <item name="android:background">#FFF</item>
+    </style>
+    <style name = "HEAD_TEXT">
+        <item name="android:textColor">#101010</item>
+        <item name="android:textSize">33sp</item>
+        <item name="fontFamily">@font/sofiasans</item>
+    </style>
+
+    <style name="TOP_BAR">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
 </resources>
