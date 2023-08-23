@@ -1,4 +1,4 @@
-import './globals.css'
+import './globals.scss'
 import { Raleway } from 'next/font/google'
 import Navbar from './components/Navbar'
 
