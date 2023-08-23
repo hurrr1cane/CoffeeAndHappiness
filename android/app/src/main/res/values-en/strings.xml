@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Coffee and Happiness</string>
+
+    <!-- This is a navigation bar section -->
+    <string name="nav_bar_info">Info</string>
+    <string name="nav_bar_menu">Menu</string>
+    <string name="nav_bar_home">Home</string>
+    <string name="nav_bar_map">Map</string>
+    <string name="nav_bar_account">Profile</string>
+</resources>
