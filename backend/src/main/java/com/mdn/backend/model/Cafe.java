@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -32,4 +34,7 @@ public class Cafe {
     @Pattern(regexp = "(?:\\+380|0)\\d{9}",
             message = "Phone number must be in format +380XXXXXXXXX or 0XXXXXXXXX")
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CafeReview> reviews;
 }
