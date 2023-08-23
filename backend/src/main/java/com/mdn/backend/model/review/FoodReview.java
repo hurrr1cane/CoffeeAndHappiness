@@ -1,5 +1,6 @@
 package com.mdn.backend.model.review;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.user.User;
 import jakarta.persistence.Entity;
@@ -19,9 +20,11 @@ public class FoodReview extends Review {
 
     @ManyToOne
     @JoinColumn(name = "food_id")
+    @JsonIgnore
     private Food food;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 }
