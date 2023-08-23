@@ -61,12 +61,12 @@ class MainActivity : LocalizationActivity() {
         /**
          * Setting the language
          */
-        controllerForLanguage(sharedPreferences)
+        controllerLanguage(sharedPreferences)
 
 
     }
 
-    private fun controllerForLanguage(sharedPreferences: SharedPreferences) {
+    private fun controllerLanguage(sharedPreferences: SharedPreferences) {
         var language = sharedPreferences.getString("Language", "uk")
 
         var languageButton = findViewById<ImageButton>(R.id.languageButton)
@@ -103,7 +103,7 @@ class MainActivity : LocalizationActivity() {
         }
     }
 
-    private fun controllerLanguage(sharedPreferences: SharedPreferences) {
+    private fun oldControllerLanguage(sharedPreferences: SharedPreferences) {
         var language = sharedPreferences.getString("Language", "uk")
 
         var languageButton = findViewById<ImageButton>(R.id.languageButton)
@@ -162,6 +162,11 @@ class MainActivity : LocalizationActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             modeButton.setImageResource(R.drawable.darkmode_icon)
         }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            modeButton.setImageResource(R.drawable.lightmode_icon)
+        }
+
         modeButton.setOnClickListener() {
             val editor = sharedPreferences.edit()
             if (nightMode) {
