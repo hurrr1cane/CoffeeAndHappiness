@@ -3,7 +3,9 @@
     <style name="Base.Theme.CoffeeAndHappiness" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">#FFF</item>
     </style>
+
 
     <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness" />
 
@@ -12,7 +14,7 @@
     </style>
     <style name = "HEAD_TEXT">
         <item name="android:textColor">#101010</item>
-        <item name="android:textSize">33sp</item>
+        <item name="android:textSize">32sp</item>
         <item name="fontFamily">@font/sofiasans</item>
     </style>
 

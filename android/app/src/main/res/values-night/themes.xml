@@ -3,6 +3,7 @@
     <style name="Base.Theme.CoffeeAndHappiness" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:statusBarColor">#000</item>
     </style>
 
     <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness" />
@@ -12,7 +13,7 @@
     </style>
     <style name = "HEAD_TEXT">
         <item name="android:textColor">#EEE</item>
-        <item name="android:textSize">33sp</item>
+        <item name="android:textSize">32sp</item>
         <item name="fontFamily">@font/sofiasans</item>
     </style>
 
