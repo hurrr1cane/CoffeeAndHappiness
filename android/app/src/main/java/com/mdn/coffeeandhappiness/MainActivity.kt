@@ -13,15 +13,18 @@ import android.view.Menu
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.mdn.coffeeandhappiness.databinding.ActivityMainBinding
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : LocalizationActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -58,25 +61,17 @@ class MainActivity : AppCompatActivity() {
         /**
          * Setting the language
          */
-        controllerLanguage(sharedPreferences)
+        controllerForLanguage(sharedPreferences)
 
 
     }
 
-    private fun controllerLanguage(sharedPreferences: SharedPreferences) {
+    private fun controllerForLanguage(sharedPreferences: SharedPreferences) {
         var language = sharedPreferences.getString("Language", "uk")
-        var locale = Locale(language)
-        Locale.setDefault(locale)
-        var configuration: Configuration = resources.configuration
-        configuration.setLocale(locale)
-        baseContext.resources.updateConfiguration(
-            configuration,
-            baseContext.resources.displayMetrics
-        )
 
         var languageButton = findViewById<ImageButton>(R.id.languageButton)
 
-        when(sharedPreferences.getString("Language", "uk")) {
+        when(language) {
             "uk" -> {
                 languageButton.setImageResource(R.drawable.ukrainian_flag_icon)
             }
@@ -84,10 +79,14 @@ class MainActivity : AppCompatActivity() {
                 languageButton.setImageResource(R.drawable.english_flag_icon)
             }
         }
+        if (language != null) {
+            setLanguage(language)
+        }
 
-        var editor = sharedPreferences.edit()
+        val editor = sharedPreferences.edit()
         languageButton.setOnClickListener() {
-            when (sharedPreferences.getString("Language", "uk")) {
+            language = sharedPreferences.getString("Language", "uk")
+            when (language) {
                 "uk" -> {
                     editor.putString("Language", "en")
                     editor.apply()
@@ -98,7 +97,52 @@ class MainActivity : AppCompatActivity() {
                     editor.apply()
                 }
             }
-            locale = Locale(sharedPreferences.getString("Language", "uk"))
+            language = sharedPreferences.getString("Language", "uk")
+            setLanguage(language!!)
+            restartApp()
+        }
+    }
+
+    private fun controllerLanguage(sharedPreferences: SharedPreferences) {
+        var language = sharedPreferences.getString("Language", "uk")
+
+        var languageButton = findViewById<ImageButton>(R.id.languageButton)
+
+        when(language) {
+            "uk" -> {
+                languageButton.setImageResource(R.drawable.ukrainian_flag_icon)
+            }
+            "en" -> {
+                languageButton.setImageResource(R.drawable.english_flag_icon)
+            }
+        }
+
+        var locale = Locale(language)
+        Locale.setDefault(locale)
+        var configuration: Configuration = resources.configuration
+        configuration.setLocale(locale)
+        baseContext.resources.updateConfiguration(
+            configuration,
+            baseContext.resources.displayMetrics
+        )
+
+
+        var editor = sharedPreferences.edit()
+        languageButton.setOnClickListener() {
+            language = sharedPreferences.getString("Language", "uk")
+            when (language) {
+                "uk" -> {
+                    editor.putString("Language", "en")
+                    editor.apply()
+                }
+
+                "en" -> {
+                    editor.putString("Language", "uk")
+                    editor.apply()
+                }
+            }
+            language = sharedPreferences.getString("Language", "uk")
+            locale = Locale(language)
             Locale.setDefault(locale)
             configuration.setLocale(locale)
             baseContext.resources.updateConfiguration(
@@ -107,6 +151,7 @@ class MainActivity : AppCompatActivity() {
             )
             restartApp()
         }
+
     }
 
 
