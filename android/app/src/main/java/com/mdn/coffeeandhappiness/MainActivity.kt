@@ -62,8 +62,6 @@ class MainActivity : LocalizationActivity() {
          * Setting the language
          */
         controllerLanguage(sharedPreferences)
-
-
     }
 
     private fun controllerLanguage(sharedPreferences: SharedPreferences) {
