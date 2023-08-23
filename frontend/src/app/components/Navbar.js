@@ -1,36 +1,14 @@
-import AppBar from "@mui/material/AppBar";
-import { Stack, Typography, Toolbar } from "@mui/material";
-import Link from "next/link";
+import Link from "next/link"
+import styles from "./Navbar.module.scss"
+
 export default function Navbar() {
-  return (
-    <>
-    <AppBar sx={{height: "8vh", mt: 2, width:"98vw", ml:"auto", mr:"auto", borderRadius:8}}>
-        <Stack
-          sx={{ height: "100%" }}
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Stack direction="row" alignItems="center">
-            <Typography sx={{ m: 5 }}>
-              <Link href="/">Home</Link>
-            </Typography>
-            <Typography sx={{ m: 5 }}>
-              <Link href="/institutions">Institutions</Link>
-            </Typography>
-            <Typography sx={{ m: 5 }}>
-              <Link href="/menu">Menu</Link>
-            </Typography>
-            <Typography sx={{ m: 5 }}>
-              <Link href="/about-us">About us</Link>
-            </Typography>
-          </Stack>
-          <Typography sx={{ m: 5 }}>
-            <Link href="/user">User</Link>
-          </Typography>
-        </Stack>
-    </AppBar>
-    <Toolbar/>
-    </>
-  );
+    return (
+        <nav className={styles.navbar}>
+            <Link className={styles.link} href="/"><h1>Home</h1></Link>
+            <Link className={styles.link} href="/institutions"><h1>Institutions</h1></Link>
+            <Link className={styles.link} href="/menu"><h1>Menu</h1></Link>
+            <Link className={styles.link} href="/about-us"><h1>About us</h1> </Link>
+            <Link className={styles.link} href="/user"><h1>User</h1> </Link>
+        </nav>
+    )
 }

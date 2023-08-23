@@ -1,7 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import Link from "next/link"
 
 export default function Home() {
   return (
-      <Box><Typography variant="h1">Hello</Typography></Box>
+   <div>
+      <h1>Main page</h1>
+   </div>
+
   )
 }
