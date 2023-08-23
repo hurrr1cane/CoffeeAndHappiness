@@ -1,5 +1,6 @@
 package com.mdn.backend.model;
 
+import com.mdn.backend.model.review.CafeReview;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -7,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -32,4 +35,7 @@ public class Cafe {
     @Pattern(regexp = "(?:\\+380|0)\\d{9}",
             message = "Phone number must be in format +380XXXXXXXXX or 0XXXXXXXXX")
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CafeReview> reviews;
 }
