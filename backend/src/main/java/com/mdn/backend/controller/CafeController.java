@@ -28,14 +28,14 @@ public class CafeController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Cafe> getCafeById(@PathVariable Integer id) {
+    public ResponseEntity<?> getCafeById(@PathVariable Integer id) {
         log.info("Getting cafe with id {}", id);
         try {
             Cafe cafe = cafeService.getCafeById(id);
             return ResponseEntity.ok(cafe);
         } catch (CafeNotFoundException ex) {
             log.error("Cafe not found with id: {}", id);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cafe not found with id: " + id);
         }
     }
 
@@ -61,22 +61,29 @@ public class CafeController {
             return ResponseEntity.ok(editedCafe);
         } catch (CafeNotFoundException ex) {
             log.error("Cafe not found with id: {}", id);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Cafe not found with id: " + id);
         } catch (Exception ex) {
             log.error("Error while editing cafe: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while editing cafe: " + ex.getMessage());
         }
     }
 
     @DeleteMapping({"{id}"})
-    public ResponseEntity<Void> deleteCafe(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteCafe(@PathVariable Integer id) {
         log.info("Deleting cafe with id {}", id);
         try {
             cafeService.deleteCafe(id);
             return ResponseEntity.noContent().build();
         } catch (CafeNotFoundException ex) {
             log.error("Cafe not found with id: {}", id);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Cafe not found with id: " + id);
+        } catch (Exception ex) {
+            log.error("Error while deleting cafe: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while deleting cafe: " + ex.getMessage());
         }
     }
 
