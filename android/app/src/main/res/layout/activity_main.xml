@@ -38,12 +38,14 @@
                 android:layout_weight="1" />
 
             <ImageButton
+                android:id="@+id/modeButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/lightmode_icon" />
 
             <ImageButton
+                android:id="@+id/languageButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="1dp"

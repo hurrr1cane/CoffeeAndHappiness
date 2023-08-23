@@ -12,7 +12,7 @@
     </style>
     <style name = "HEAD_TEXT">
         <item name="android:textColor">#101010</item>
-        <item name="android:textSize">37sp</item>
+        <item name="android:textSize">33sp</item>
         <item name="fontFamily">@font/sofiasans</item>
     </style>
 
