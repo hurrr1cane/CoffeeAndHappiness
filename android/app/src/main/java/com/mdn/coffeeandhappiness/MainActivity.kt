@@ -1,15 +1,20 @@
 package com.mdn.coffeeandhappiness
 
 import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.Menu
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.mdn.coffeeandhappiness.databinding.ActivityMainBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,8 +55,60 @@ class MainActivity : AppCompatActivity() {
          */
         controllerLightDarkMode(sharedPreferences)
 
+        /**
+         * Setting the language
+         */
+        controllerLanguage(sharedPreferences)
+
 
     }
+
+    private fun controllerLanguage(sharedPreferences: SharedPreferences) {
+        var language = sharedPreferences.getString("Language", "uk")
+        var locale = Locale(language)
+        Locale.setDefault(locale)
+        var configuration: Configuration = resources.configuration
+        configuration.setLocale(locale)
+        baseContext.resources.updateConfiguration(
+            configuration,
+            baseContext.resources.displayMetrics
+        )
+
+        var languageButton = findViewById<ImageButton>(R.id.languageButton)
+
+        when(sharedPreferences.getString("Language", "uk")) {
+            "uk" -> {
+                languageButton.setImageResource(R.drawable.ukrainian_flag_icon)
+            }
+            "en" -> {
+                languageButton.setImageResource(R.drawable.english_flag_icon)
+            }
+        }
+
+        var editor = sharedPreferences.edit()
+        languageButton.setOnClickListener() {
+            when (sharedPreferences.getString("Language", "uk")) {
+                "uk" -> {
+                    editor.putString("Language", "en")
+                    editor.apply()
+                }
+
+                "en" -> {
+                    editor.putString("Language", "uk")
+                    editor.apply()
+                }
+            }
+            locale = Locale(sharedPreferences.getString("Language", "uk"))
+            Locale.setDefault(locale)
+            configuration.setLocale(locale)
+            baseContext.resources.updateConfiguration(
+                configuration,
+                baseContext.resources.displayMetrics
+            )
+            restartApp()
+        }
+    }
+
 
     private fun controllerLightDarkMode(sharedPreferences: SharedPreferences) {
         val nightMode: Boolean = sharedPreferences.getBoolean("Night", true)
@@ -72,7 +129,16 @@ class MainActivity : AppCompatActivity() {
                 editor.putBoolean("Night", true)
             }
             editor.apply()
+
+            restartApp()
         }
+    }
+
+    private fun restartApp() {
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+        finish()
     }
 
     private fun replaceFragment(fragment: Fragment) {
