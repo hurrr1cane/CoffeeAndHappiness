@@ -1,5 +1,6 @@
 package com.mdn.backend.model.review;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mdn.backend.model.Cafe;
 import com.mdn.backend.model.user.User;
 import jakarta.persistence.*;
@@ -18,9 +19,11 @@ public class CafeReview extends Review {
 
     @ManyToOne
     @JoinColumn(name = "cafe_id")
+    @JsonIgnore
     private Cafe cafe;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 }
