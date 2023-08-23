@@ -1,5 +1,7 @@
-package com.mdn.backend.model;
+package com.mdn.backend.model.review;
 
+import com.mdn.backend.model.Food;
+import com.mdn.backend.model.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

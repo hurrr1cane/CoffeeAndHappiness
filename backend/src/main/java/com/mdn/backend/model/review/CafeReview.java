@@ -1,5 +1,7 @@
-package com.mdn.backend.model;
+package com.mdn.backend.model.review;
 
+import com.mdn.backend.model.Cafe;
+import com.mdn.backend.model.user.User;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;

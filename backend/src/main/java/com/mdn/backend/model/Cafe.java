@@ -1,5 +1,6 @@
 package com.mdn.backend.model;
 
+import com.mdn.backend.model.review.CafeReview;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

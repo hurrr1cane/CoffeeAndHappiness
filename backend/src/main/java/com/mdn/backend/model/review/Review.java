@@ -1,4 +1,4 @@
-package com.mdn.backend.model;
+package com.mdn.backend.model.review;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;

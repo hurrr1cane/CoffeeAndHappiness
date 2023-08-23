@@ -1,6 +1,7 @@
 package com.mdn.backend.model;
 
 
+import com.mdn.backend.model.review.FoodReview;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

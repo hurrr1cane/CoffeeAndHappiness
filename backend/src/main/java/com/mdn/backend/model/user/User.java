@@ -1,5 +1,7 @@
-package com.mdn.backend.model;
+package com.mdn.backend.model.user;
 
+import com.mdn.backend.model.review.CafeReview;
+import com.mdn.backend.model.review.FoodReview;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
