@@ -9,7 +9,7 @@
     <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness" />
 
     <style name = "SCREEN_STYLE">
-        <item name="android:background">#FFF</item>
+        <item name="android:background">#101010</item>
     </style>
     <style name = "HEAD_TEXT">
         <item name="android:textColor">#EEE</item>
