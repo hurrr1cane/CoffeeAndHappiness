@@ -5,6 +5,10 @@ import com.mdn.backend.model.Cafe;
 import com.mdn.backend.repository.CafeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 
 import java.util.List;
 
@@ -13,6 +17,7 @@ import java.util.List;
 public class CafeService {
 
     private final CafeRepository cafeRepository;
+    private final Validator validator;
 
     public List<Cafe> getAllCafes() {
         return cafeRepository.findAll();
@@ -25,7 +30,11 @@ public class CafeService {
     }
 
     public Cafe addCafe(Cafe cafe) {
-        return cafeRepository.save(cafe);
+        try {
+            return cafeRepository.save(cafe);
+        } catch (Exception ex) {
+            throw new RuntimeException("Error while adding cafe: " + ex.getMessage(), ex);
+        }
     }
 
     public Cafe editCafe(Integer id, Cafe cafe) {
@@ -37,7 +46,11 @@ public class CafeService {
         editedCafe.setLocation(cafe.getLocation());
         editedCafe.setPhoneNumber(cafe.getPhoneNumber());
 
-        return cafeRepository.save(editedCafe);
+        try {
+            return cafeRepository.save(editedCafe);
+        } catch (Exception ex) {
+            throw new RuntimeException("Error while editing cafe: " + ex.getMessage(), ex);
+        }
     }
 
     public void deleteCafe(Integer id) {
