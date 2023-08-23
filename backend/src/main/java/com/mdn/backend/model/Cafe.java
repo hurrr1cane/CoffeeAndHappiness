@@ -1,13 +1,12 @@
 package com.mdn.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -20,7 +19,7 @@ public class Cafe {
     private Integer id;
 
     @Column(name = "location")
-    @NotBlank(message = "Location is required")
+    @NotNull(message = "Location is required")
     @Size(max = 255, message = "Location cannot exceed 255 characters")
     private String location;
 

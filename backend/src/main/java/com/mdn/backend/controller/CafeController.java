@@ -3,14 +3,11 @@ package com.mdn.backend.controller;
 import com.mdn.backend.exception.CafeNotFoundException;
 import com.mdn.backend.model.Cafe;
 import com.mdn.backend.service.CafeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +20,6 @@ import java.util.List;
 public class CafeController {
 
     private final CafeService cafeService;
-    private final Validator validator;
 
     @GetMapping
     public ResponseEntity<List<Cafe>> getAllCafes() {
@@ -44,7 +40,7 @@ public class CafeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addCafe(@RequestBody Cafe cafe) {
+    public ResponseEntity<?> addCafe(@RequestBody @Valid Cafe cafe) {
         log.info("Adding new cafe");
 
         try {
@@ -57,7 +53,7 @@ public class CafeController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> editCafe(@PathVariable Integer id, @RequestBody Cafe cafe) {
+    public ResponseEntity<?> editCafe(@PathVariable Integer id, @RequestBody @Valid Cafe cafe) {
         log.info("Editing cafe with id {}", id);
 
         try {

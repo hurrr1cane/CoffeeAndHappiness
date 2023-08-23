@@ -5,10 +5,6 @@ import com.mdn.backend.model.Cafe;
 import com.mdn.backend.repository.CafeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
 
 import java.util.List;
 
@@ -17,7 +13,6 @@ import java.util.List;
 public class CafeService {
 
     private final CafeRepository cafeRepository;
-    private final Validator validator;
 
     public List<Cafe> getAllCafes() {
         return cafeRepository.findAll();
