@@ -36,6 +36,12 @@ public class Cafe {
             message = "Phone number must be in format +380XXXXXXXXX or 0XXXXXXXXX")
     private String phoneNumber;
 
+    @Column(name = "average_rating")
+    private double averageRating;
+
+    @Column(name = "total_reviews")
+    private int totalReviews;
+
     @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CafeReview> reviews;
 }
