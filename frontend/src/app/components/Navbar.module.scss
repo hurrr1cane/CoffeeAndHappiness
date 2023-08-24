@@ -31,6 +31,19 @@
     margin-bottom: 0.5rem;
     animation: selectedTabAnimation 0.1s ease; /* Add your animation */
     color: white !important;
+    &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: white !important; /* Change to your preferred underline color */
+        transform: scaleX(0); /* Initially, the underline is not visible */
+        transform-origin: left;
+        transition: transform 0.3s ease; /* Add transition for smooth animation */
+    }
+    &:hover::after{
+        transform: scaleX(1);
+    }
   }
 
 .link {
