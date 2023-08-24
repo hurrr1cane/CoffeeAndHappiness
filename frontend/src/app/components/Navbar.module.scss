@@ -5,18 +5,40 @@
     overflow: hidden;
     position: sticky; 
     top: 0;
-    height: 7.5vh;
+    height: 8.75vh;
     background-color: #4caf50;
     h1 {
         font-weight: 500;
     }
 }
 
+
+  
+@keyframes selectedTabAnimation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+ 
+.selected {
+    transform: translateY(-3px);    
+    margin-bottom: 0.5rem;
+    animation: selectedTabAnimation 0.1s ease; /* Add your animation */
+    color: white !important;
+  }
+
 .link {
     font-size: 20px;
     margin: 5rem;
     color:inherit;
     text-decoration: none;
+    
 }
 
 .link:last-of-type {
