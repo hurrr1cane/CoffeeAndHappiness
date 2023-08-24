@@ -4,7 +4,7 @@ const VideoBackground = (props) => {
   return (
     <div className={styles['video-background']}>
       <video preload autoPlay muted loop>
-        <source src='/videoLower.mp4' type="video/mp4" />
+        <source src='/video.mp4' type="video/mp4" />
       </video>
       {props.children}
     </div>
