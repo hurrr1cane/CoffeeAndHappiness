@@ -75,7 +75,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu">
+        app:menu="@menu/bottom_nav_menu"
+        style="@style/TOP_BAR">
         <RelativeLayout
             android:id="@+id/nav_middle"
             android:layout_width="wrap_content"

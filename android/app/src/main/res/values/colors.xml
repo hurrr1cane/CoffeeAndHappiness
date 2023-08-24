@@ -5,8 +5,10 @@
     <color name="dark_background_main">#202020</color>
     <color name="dark_background_behind">#101010</color>
     <color name="light_background_main">#EEE</color>
-    <color name="light_background_behind">#DDD</color>
+    <color name="light_background_behind">#D8D8D8</color>
     <color name="black_text">#050505</color>
+    <color name="gray_black_text">#555</color>
+    <color name="gray_white_text">#AAA</color>
     <color name="white_text">#E5E5E5</color>
 
 
