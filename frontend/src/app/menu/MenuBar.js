@@ -6,19 +6,19 @@ export default function MenuBar() {
   return (
     <nav className={styles.container}>
       <div className={styles.menuItem}>
-        <i>Main</i>
+        <p>Main</p>
       </div>
       <div className={styles.menuItem}>
-        <i>Drinks</i>
+        <p>Drinks</p>
       </div>
       <div className={styles.menuItem}>
-        <i>Desserts</i>
+        <p>Desserts</p>
       </div>
       <div className={styles.menuItem}>
-        <i>Coffee</i>
+        <p>Coffee</p>
       </div>
       <div className={styles.menuItem}>
-        <i>Ice cream</i>
+        <p>Ice cream</p>
       </div>
     </nav>
   );
