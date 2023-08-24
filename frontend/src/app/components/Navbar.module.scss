@@ -93,10 +93,14 @@ $lightgreen: #66bb69;
 }
 
 
-.marker {
+.highlight {
+  z-index: -5;
+  border-radius: 30px;
+  background-color: white;
+  // outline: 1px solid red;
   position: absolute;
-  bottom: 0;
-  height: 3px;
+  bottom: 5px;
+  height: 8.75vh;
   background-color: $lightgreen;
   transition: left 0.3s, width 0.3s;
 }

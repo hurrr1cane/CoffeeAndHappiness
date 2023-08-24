@@ -1,5 +1,6 @@
 import styles from './page.module.scss'
-import VideoBackground from './components/VideoBackgrounds'
+import VideoBackground from './components/VideoBackground'
+import dynamic from 'next/dynamic'
 
 export default function Home() {
   return (
