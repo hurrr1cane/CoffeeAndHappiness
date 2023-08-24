@@ -3,23 +3,23 @@
     <style name="Base.Theme.CoffeeAndHappiness" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:statusBarColor">#FFF</item>
+        <item name="android:statusBarColor">@color/light_background_behind</item>
     </style>
 
 
     <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness" />
 
     <style name = "SCREEN_STYLE">
-        <item name="android:background">#EEE</item>
+        <item name="android:background">@color/light_background_behind</item>
     </style>
     <style name = "HEAD_TEXT">
-        <item name="android:textColor">#101010</item>
+        <item name="android:textColor">@color/black_text</item>
         <item name="android:textSize">32sp</item>
         <item name="fontFamily">@font/sofiasans</item>
     </style>
 
     <style name="TOP_BAR">
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">@color/light_background_main</item>
     </style>
     
     <style name="HOME_NAME">
@@ -32,7 +32,7 @@
     </style>
 
     <style name="BOTTOM_NAV_BAR_MIDDLE">
-        <item name="android:tint">#EEE</item>
+        <item name="android:tint">@color/white_text</item>
     </style>
 
 </resources>
