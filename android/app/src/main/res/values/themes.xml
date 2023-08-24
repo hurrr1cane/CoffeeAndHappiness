@@ -31,4 +31,8 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="BOTTOM_NAV_BAR_MIDDLE">
+        <item name="android:tint">#EEE</item>
+    </style>
+
 </resources>

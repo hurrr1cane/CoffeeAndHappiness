@@ -20,4 +20,8 @@
     <style name="TOP_BAR">
         <item name="android:background">#101010</item>
     </style>
+
+    <style name="BOTTOM_NAV_BAR_MIDDLE">
+        <item name="android:tint">#101010</item>
+    </style>
 </resources>
