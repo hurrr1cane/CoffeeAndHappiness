@@ -1,5 +1,6 @@
 package com.mdn.backend.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mdn.backend.model.review.CafeReview;
 import com.mdn.backend.model.review.FoodReview;
 import jakarta.persistence.*;
@@ -67,11 +68,13 @@ public class User implements UserDetails {
     private List<CafeReview> cafeReviews;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return email;
     }
@@ -82,21 +85,25 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }
