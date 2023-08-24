@@ -11,5 +11,6 @@
     <!-- This is a home section -->
     <string name="home_name">Coffee and Happiness</string>
     <string name="home_description">We\'re here.\nWe\`re taste.\nWe\'re always.</string>
+    <string name="home_news">Our news</string>
 
 </resources>
