@@ -23,13 +23,13 @@
     }
     100% {
       transform: scale(1);
+      
     }
   }
  
 .selected {
-    transform: translateY(-3px);    
     margin-bottom: 0.5rem;
-    animation: selectedTabAnimation 0.1s ease; /* Add your animation */
+    animation: selectedTabAnimation 0.3s ease; /* Add your animation */
     color: white !important;
     &:after {
         content: '';
