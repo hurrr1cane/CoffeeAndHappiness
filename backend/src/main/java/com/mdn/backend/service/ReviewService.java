@@ -11,7 +11,6 @@ import com.mdn.backend.model.user.User;
 import com.mdn.backend.repository.CafeRepository;
 import com.mdn.backend.repository.FoodRepository;
 import com.mdn.backend.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,6 @@ public class ReviewService {
         cafeReview.setUser(user);
 
         cafe.getReviews().add(cafeReview);
-        user.getCafeReviews().add(cafeReview);
 
         cafeRepository.save(cafe);
         userRepository.save(user);
@@ -53,7 +51,6 @@ public class ReviewService {
         foodReview.setUser(user);
 
         food.getReviews().add(foodReview);
-        user.getFoodReviews().add(foodReview);
 
         foodRepository.save(food);
         userRepository.save(user);
