@@ -5,9 +5,11 @@
   import Brightness2Icon from '@mui/icons-material/Brightness2';
   import Brightness5Icon from '@mui/icons-material/Brightness5';
   import { useState, useEffect } from "react";
-
+  import { usePathname } from 'next/navigation'
   export default function Navbar() {
-    const [selectedTab, setSelectedTab] = useState(localStorage.getItem("selectedTab") ?? "home");
+    const pathname = usePathname();
+    const isWindow = typeof window === undefined
+    const [selectedTab, setSelectedTab] = useState(isWindow ? localStorage.getItem("selectedTab") ?? "home" : "home");
 
   useEffect(() => {
     const storedTab = localStorage.getItem("selectedTab");
@@ -15,6 +17,11 @@
       setSelectedTab(storedTab);
     }
   }, []);
+
+  useEffect(() => {
+    const routeName = pathname.replace("/", "");
+    setSelectedTab(routeName || "home");
+  }, [pathname]);
 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
