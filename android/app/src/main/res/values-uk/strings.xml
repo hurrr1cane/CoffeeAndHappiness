@@ -3,10 +3,14 @@
     <string name="app_name">Кава та Щастя</string>
 
     <!-- This is a navigation bar section -->
-    <string name="nav_bar_info">Інфо</string>
+    <string name="nav_bar_code">Код</string>
     <string name="nav_bar_menu">Меню</string>
     <string name="nav_bar_home">Головна</string>
     <string name="nav_bar_map">Карта</string>
     <string name="nav_bar_account">Профіль</string>
+
+    <!-- This is a home section -->
+    <string name="home_name">Кава та щастя</string>
+    <string name="home_description">Ми тут.\nМи - смак.\nМи завжди.</string>
 
 </resources>

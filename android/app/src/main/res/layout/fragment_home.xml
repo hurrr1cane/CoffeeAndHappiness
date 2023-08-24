@@ -1,37 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SCREEN_STYLE"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/SCREEN_STYLE"
     tools:context=".HomeFragment">
 
-
-    <LinearLayout
+    <!-- ScrollView for scrollable content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <!-- Linear layout for vertical arrangement -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-
-            <VideoView
-                android:id="@+id/homeBackgroundVideo"
+            <androidx.cardview.widget.CardView
+                style="@style/SCREEN_STYLE"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="Your Text Goes Here"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
-        </RelativeLayout>
+                <!-- RelativeLayout to stack the VideoView and TextView -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    </LinearLayout>
+                    <!-- VideoView -->
+                    <VideoView
+                        android:id="@+id/homeBackgroundVideo"
+                        android:layout_width="match_parent"
+                        android:layout_height="800dp"
+                        android:background="@drawable/home_video_gradient" />
 
+                    <!-- TextView with text on top of VideoView -->
+                    <TextView
+                        style="@style/HOME_NAME"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="180dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="start"
+                        android:text="@string/home_name"
+                        android:textColor="#FFFFFF"
+                        android:textSize="60sp" />
+
+                    <TextView
+                        style="@style/HOME_DESCRIPTION"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="350dp"
+                        android:gravity="start"
+                        android:text="@string/home_description"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

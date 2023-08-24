@@ -24,6 +24,8 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var videoView: VideoView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -41,7 +43,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val videoView = rootView.findViewById<VideoView>(R.id.homeBackgroundVideo)
+        videoView = rootView.findViewById<VideoView>(R.id.homeBackgroundVideo)
         val uri = Uri.parse("android.resource://"+ requireContext().packageName +"/" + R.raw.cafe_video)
         videoView.setVideoURI(uri)
         videoView.start()
@@ -54,6 +56,13 @@ class HomeFragment : Fragment() {
         })
 
         return rootView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // to restart the video after coming from other activity like Sing up
+        videoView.start();
+
     }
 
     companion object {

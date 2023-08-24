@@ -5,3 +5,10 @@
     position: relative;
     z-index: 1;
 }
+
+.content {
+    z-index: 100;
+    padding: 1rem;
+    font-size: 18px;
+    font-weight: 500;
+}

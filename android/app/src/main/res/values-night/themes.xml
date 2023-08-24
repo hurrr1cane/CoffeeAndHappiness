@@ -3,21 +3,25 @@
     <style name="Base.Theme.CoffeeAndHappiness" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="android:statusBarColor">#000</item>
+        <item name="android:statusBarColor">@color/dark_background_behind</item>
     </style>
 
     <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness" />
 
     <style name = "SCREEN_STYLE">
-        <item name="android:background">#101010</item>
+        <item name="android:background">@color/dark_background_behind</item>
     </style>
     <style name = "HEAD_TEXT">
-        <item name="android:textColor">#EEE</item>
+        <item name="android:textColor">@color/white_text</item>
         <item name="android:textSize">32sp</item>
         <item name="fontFamily">@font/sofiasans</item>
     </style>
 
     <style name="TOP_BAR">
-        <item name="android:background">#101010</item>
+        <item name="android:background">@color/dark_background_main</item>
+    </style>
+
+    <style name="BOTTOM_NAV_BAR_MIDDLE">
+        <item name="android:tint">@color/black_text</item>
     </style>
 </resources>
