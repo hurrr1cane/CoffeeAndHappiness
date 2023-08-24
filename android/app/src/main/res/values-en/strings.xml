@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Coffee and Happiness</string>
 
@@ -8,4 +7,9 @@
     <string name="nav_bar_home">Home</string>
     <string name="nav_bar_map">Map</string>
     <string name="nav_bar_account">Profile</string>
+
+    <!-- This is a home section -->
+    <string name="home_name">Coffee and Happiness</string>
+    <string name="home_description">We\'re here.\nWe\`re taste.\nWe\'re always.</string>
+
 </resources>

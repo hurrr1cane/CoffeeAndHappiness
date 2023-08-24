@@ -21,5 +21,14 @@
     <style name="TOP_BAR">
         <item name="android:background">@android:color/white</item>
     </style>
+    
+    <style name="HOME_NAME">
+        <item name="fontFamily">@font/sofiasans</item>
+    </style>
+
+    <style name="HOME_DESCRIPTION">
+        <item name="fontFamily">@font/sofiasans</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 
 </resources>
