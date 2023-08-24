@@ -1,5 +1,6 @@
 import './globals.scss'
 import { Raleway } from 'next/font/google'
+import { Sofia_Sans } from 'next/font/google'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 export const metadata = {
@@ -8,11 +9,12 @@ export const metadata = {
 }
 
 const raleway = Raleway({subsets: ['latin', 'cyrillic']})
+const sofiaSans = Sofia_Sans({subsets: ['latin', 'cyrillic']})
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={raleway.className}>
+      <body className={sofiaSans.className}>
         <Navbar/>
         <div>{children}</div>
         <Footer/>

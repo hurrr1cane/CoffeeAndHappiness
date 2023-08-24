@@ -3,8 +3,8 @@ import styles from './Video.module.scss'
 const VideoBackground = (props) => {
   return (
     <div className={styles['video-background']}>
-      <video autoPlay muted loop>
-        <source src='/video.mp4' type="video/mp4" />
+      <video preload='auto' autoPlay muted loop>
+        <source src='/videoLower.mp4' type="video/mp4" />
       </video>
       {props.children}
     </div>
