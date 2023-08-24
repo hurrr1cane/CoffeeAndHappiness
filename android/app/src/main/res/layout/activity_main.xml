@@ -71,10 +71,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemIconTint="#4caf50"
+        app:itemIconSize="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu">
+        <RelativeLayout
+            android:id="@+id/nav_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <!-- Custom background for the middle item -->
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/nav_bar_middle"
+                android:layout_centerInParent="true" />
+
+            <!-- Custom icon for the middle item -->
+            <ImageView
+                android:id="@+id/custom_middle_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/baseline_qr_code_24"
+                style="@style/BOTTOM_NAV_BAR_MIDDLE"/>
+
+        </RelativeLayout>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

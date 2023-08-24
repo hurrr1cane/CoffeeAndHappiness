@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="@string/nav_bar_info"
-        android:icon="@drawable/baseline_info_24"
-        android:id="@+id/nav_info"/>
-    <item android:title="@string/nav_bar_menu"
-        android:icon="@drawable/baseline_menu_book_24"
-        android:id="@+id/nav_menu"/>
     <item android:title="@string/nav_bar_home"
         android:icon="@drawable/baseline_home_24"
         android:id="@+id/nav_home"/>
+    <item android:title="@string/nav_bar_menu"
+        android:icon="@drawable/baseline_menu_book_24"
+        android:id="@+id/nav_menu"/>
+    <item android:title="@string/nav_bar_code"
+        android:icon="@drawable/baseline_qr_code_24"
+        android:id="@+id/nav_code" />
     <item android:title="@string/nav_bar_map"
         android:icon="@drawable/baseline_map_24"
         android:id="@+id/nav_map"/>
