@@ -12,6 +12,20 @@
     }
 }
 
+.icons-container {
+  margin-right: 1rem;
+  margin-top: 0.25rem;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+// @media (prefers-color-scheme: dark) {
+//   .navbar {
+//     color: white;
+//     background-color: rgba(0, 0, 0, 0.6)!important;
+//   }
+// }
 
   
 @keyframes selectedTabAnimation {
@@ -59,5 +73,6 @@
 }
 
 .link:last-of-type {
+    margin-right: 1rem;
     margin-left: auto;
 }
