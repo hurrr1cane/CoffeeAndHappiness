@@ -29,10 +29,15 @@ public class ReviewService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
 
+        double updatedRating = (cafe.getAverageRating() * cafe.getReviews().size() + cafeReview.getRating()) / (cafe.getReviews().size() + 1);
+        updatedRating = Math.round(updatedRating * 10.0) / 10.0;
+
         cafeReview.setCafe(cafe);
         cafeReview.setUser(user);
 
         cafe.getReviews().add(cafeReview);
+        cafe.setAverageRating(updatedRating);
+        cafe.setTotalReviews(cafe.getReviews().size());
 
         cafeRepository.save(cafe);
         userRepository.save(user);
@@ -47,10 +52,15 @@ public class ReviewService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
 
+        double updatedRating = (food.getAverageRating() * food.getReviews().size() + foodReview.getRating()) / (food.getReviews().size() + 1);
+        updatedRating = Math.round(updatedRating * 10.0) / 10.0;
+
         foodReview.setFood(food);
         foodReview.setUser(user);
 
         food.getReviews().add(foodReview);
+        food.setAverageRating(updatedRating);
+        food.setTotalReviews(food.getReviews().size());
 
         foodRepository.save(food);
         userRepository.save(user);
