@@ -3,13 +3,14 @@ import VideoBackground from './components/VideoBackgrounds'
 
 export default function Home() {
   return (
+    <div className={styles.container}>
     <VideoBackground>
-   <main className={styles.main}>
+    <main className={styles.main}>
       <h1>Main page</h1>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi corporis soluta nisi aliquam pariatur hic, illum voluptate omnis mollitia, quas, natus at! Similique dolores accusantium laborum minima repellat! Officiis!</p>
-   </main>
-   </VideoBackground>
-   
-
+    </main>
+    </VideoBackground>
+    
+   </div>
   )
 }
