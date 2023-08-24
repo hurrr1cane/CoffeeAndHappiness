@@ -2,6 +2,7 @@ import Link from "next/link"
 import styles from "./Navbar.module.scss"
 
 export default function Navbar() {
+    // Todo: add an animation for changing the page
     return (
         <nav className={styles.navbar}>
             <Link className={styles.link} href="/"><h1>Home</h1></Link>

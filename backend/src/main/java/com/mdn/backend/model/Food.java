@@ -55,6 +55,12 @@ public class Food {
     @Enumerated(EnumType.STRING)
     private FoodType type;
 
+    @Column(name = "average_rating")
+    private double averageRating;
+
+    @Column(name = "total_reviews")
+    private int totalReviews;
+
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FoodReview> reviews;
 }
