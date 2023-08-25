@@ -19,12 +19,19 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "title")
+    @Column(name = "title_en")
     @NotNull(message = "Title is required")
-    private String title;
+    private String titleEN;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "title_ua")
+    @NotNull(message = "Title is required")
+    private String titleUA;
+
+    @Column(name = "description_en")
+    private String descriptionEN;
+
+    @Column(name = "description_ua")
+    private String descriptionUA;
 
     @Column(name = "url")
     @Pattern(regexp = "^https?://.*",
