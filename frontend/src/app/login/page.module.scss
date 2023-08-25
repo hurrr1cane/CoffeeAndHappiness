@@ -1,0 +1,18 @@
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    @include flex-center();
+    height: 83.25vh;
+    
+}
+
+.form {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    border-radius: 30px;
+    height: 500px;
+    width: 400px;
+}
