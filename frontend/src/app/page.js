@@ -1,5 +1,5 @@
 import styles from './page.module.scss'
-import VideoBackground from './components/VideoBackground'
+import VideoBackground from './components/VideoBackground/VideoBackground'
 
 export default function Home() {
   return (

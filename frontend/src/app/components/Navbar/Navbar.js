@@ -4,7 +4,7 @@
   import styles from "./Navbar.module.scss";
   import Brightness2Icon from '@mui/icons-material/Brightness2';
   import Brightness5Icon from '@mui/icons-material/Brightness5';
-  import EnglishImage from '../../../public/english.png'
+  import EnglishImage from '../../../../public/english.png'
   import Image from "next/image";
   import { useState, useEffect, useRef } from "react";
   import { usePathname } from 'next/navigation'

@@ -1,8 +1,8 @@
 import './globals.scss'
 import { Raleway } from 'next/font/google'
 import { Sofia_Sans } from 'next/font/google'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
+import Navbar from './components/Navbar/Navbar'
+import Footer from './components/Footer/Footer'
 export const metadata = {
   title: 'Coffee and Happiness',
   description: 'Coffe and Happiness website',
