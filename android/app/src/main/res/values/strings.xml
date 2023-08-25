@@ -21,4 +21,7 @@
     <string name="menu_desserts">Desserts</string>
     <string name="menu_ice_cream">Ice cream</string>
 
+    <string name="menu_food_rating">Rating:</string>
+    <string name="menu_food_price">Price:</string>
+
 </resources>

@@ -82,4 +82,41 @@
         <item name="fontFamily">@font/sofiasans_straight</item>
     </style>
 
+    <style name="MENU_FOOD_CARD">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:background">@color/light_background_main</item>
+        <item name="cardBackgroundColor">@color/light_background_main</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="MENU_FOOD_NAME">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:fontFamily">@font/sofiasans_straight</item>
+    </style>
+
+    <style name="MENU_FOOD_DESCRIPTION">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:fontFamily">@font/sofiasans_straight</item>
+    </style>
+
+    <style name="MENU_FOOD_SUPPORTIVE_TEXT">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/gray_black_text</item>
+        <item name="android:fontFamily">@font/sofiasans_straight</item>
+    </style>
+
+    <style name="MENU_FOOD_PRICE">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/default_green</item>
+        <item name="android:fontFamily">@font/sofiasans_straight</item>
+    </style>
+
+
+
 </resources>

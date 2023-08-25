@@ -1,12 +1,10 @@
 package com.mdn.backend.model;
 
 public enum FoodType {
-    BREAKFAST,
-    SANDWICH,
-    BURGER,
+    MAIN,
+    DRINK,
+    COFFEE,
     SALAD,
     DESSERT,
-    DRINK,
-    SOUP,
-    PASTA
+    ICE_CREAM,
 }

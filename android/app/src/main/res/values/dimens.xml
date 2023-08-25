@@ -3,4 +3,8 @@
     <dimen name="card_width">300dp</dimen>
     <dimen name="card_height">200dp</dimen>
     <dimen name="card_margin">12dp</dimen>
+
+    <!-- Food -->
+    <dimen name="food_card_height">150dp</dimen>
+    <dimen name="food_card_margin">6dp</dimen>
 </resources>

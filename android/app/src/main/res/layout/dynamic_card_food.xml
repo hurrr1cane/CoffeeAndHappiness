@@ -1,0 +1,96 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MENU_FOOD_CARD">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp">
+
+            <ImageView
+                android:id="@+id/foodCardImageView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:scaleType="centerCrop"
+                android:src="@raw/news_1" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/foodCardTitleTextView"
+                style="@style/MENU_FOOD_NAME"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Default Text" />
+
+            <TextView
+                android:id="@+id/foodCardDescriptionTextView"
+                style="@style/MENU_FOOD_DESCRIPTION"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="This is a food" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/MENU_FOOD_SUPPORTIVE_TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:text="@string/menu_food_rating" />
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/foodCardRating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:max="5"
+                    android:scaleX="1.2"
+                    android:scaleY="1.2"
+                    android:transformPivotX="0dp"
+                    android:transformPivotY="0dp"
+                    android:progressTint="@color/default_green" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/MENU_FOOD_SUPPORTIVE_TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:text="@string/menu_food_price" />
+
+                <TextView
+                    android:id="@+id/foodCardPrice"
+                    style="@style/MENU_FOOD_PRICE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20 грн" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
