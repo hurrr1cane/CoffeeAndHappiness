@@ -1,3 +1,9 @@
+@use '../base.scss';
+
 .main {
-    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 83.25vh;
+    padding-bottom: 8rem;
 }
