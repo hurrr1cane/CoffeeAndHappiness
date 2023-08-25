@@ -6,6 +6,7 @@ import com.mdn.backend.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,6 +27,7 @@ public class NewsService {
 
     public News addNews(News news) {
         try {
+            news.setPublishedAt(new Date());
             return newsRepository.save(news);
         } catch (Exception ex) {
             throw new RuntimeException("Error while adding news: " + ex.getMessage(), ex);

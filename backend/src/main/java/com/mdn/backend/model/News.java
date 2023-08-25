@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,7 +32,6 @@ public class News {
     private String imageUrl;
 
     @Column(name = "published_at")
-    @NotNull(message = "Published at is required")
-    private String publishedAt;
+    private Date publishedAt;
 
 }
