@@ -39,8 +39,10 @@ public class NewsService {
                 () -> new NewsNotFoundException("No news found with id " + id)
         );
 
-        editedNews.setTitle(news.getTitle());
-        editedNews.setDescription(news.getDescription());
+        editedNews.setTitleEN(news.getTitleEN());
+        editedNews.setTitleUA(news.getTitleUA());
+        editedNews.setDescriptionEN(news.getDescriptionEN());
+        editedNews.setDescriptionUA(news.getDescriptionUA());
         editedNews.setImageUrl(news.getImageUrl());
         editedNews.setPublishedAt(news.getPublishedAt());
 

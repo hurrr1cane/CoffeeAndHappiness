@@ -38,7 +38,8 @@ public class CafeService {
         );
 
         editedCafe.setImageUrl(cafe.getImageUrl());
-        editedCafe.setLocation(cafe.getLocation());
+        editedCafe.setLocationEN(cafe.getLocationEN());
+        editedCafe.setLocationUA(cafe.getLocationUA());
         editedCafe.setPhoneNumber(cafe.getPhoneNumber());
 
         try {

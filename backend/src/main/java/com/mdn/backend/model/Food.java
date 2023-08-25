@@ -23,12 +23,19 @@ public class Food {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "name_en")
     @NotNull(message = "Name is required")
-    @Column(name = "name")
-    private String name;
+    private String nameEN;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "name_ua")
+    @NotNull(message = "Name is required")
+    private String nameUA;
+
+    @Column(name = "description_en")
+    private String descriptionEN;
+
+    @Column(name = "description_ua")
+    private String descriptionUA;
 
     @Column(name = "image_url")
     @Pattern(regexp = "^https?://.*",
@@ -41,11 +48,15 @@ public class Food {
     @NotNull(message = "Price is required")
     private Double price;
 
-    @Column(name = "ingredients")
-    @NotNull(message = "Ingredients are required")
+    @Column(name = "ingredients_en")
     @Pattern(regexp = "^[a-zA-Z\\s,]*$",
             message = "Ingredients can only contain letters, commas, and spaces")
-    private String ingredients;
+    private String ingredientsEN;
+
+    @Column(name = "ingredients_ua")
+    @Pattern(regexp = "^[a-zA-Z\\s,]*$",
+            message = "Ingredients can only contain letters, commas, and spaces")
+    private String ingredientsUA;
 
     @Column(name = "weight")
     @Min(value = 0, message = "Weight must be greater than 0")

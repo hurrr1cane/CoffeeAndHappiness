@@ -14,12 +14,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Configuration class responsible for setting up security-related beans.
+ */
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
 
+    /**
+     * Creates a UserDetailsService bean that retrieves user details from the UserRepository.
+     *
+     * @return An instance of UserDetailsService.
+     */
     @Bean
     public UserDetailsService userDetailsService() {
         return email -> (UserDetails) userRepository.findByEmail(email).orElseThrow(
@@ -27,6 +35,11 @@ public class ApplicationConfig {
         );
     }
 
+    /**
+     * Creates an AuthenticationProvider bean for DAO-based authentication.
+     *
+     * @return An instance of AuthenticationProvider.
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -35,11 +48,23 @@ public class ApplicationConfig {
         return authenticationProvider;
     }
 
+    /**
+     * Creates an AuthenticationManager bean using the provided AuthenticationConfiguration.
+     *
+     * @param configuration The AuthenticationConfiguration to use.
+     * @return An instance of AuthenticationManager.
+     * @throws Exception If an error occurs while creating the AuthenticationManager.
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
 
+    /**
+     * Creates a PasswordEncoder bean for password hashing.
+     *
+     * @return An instance of PasswordEncoder.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
