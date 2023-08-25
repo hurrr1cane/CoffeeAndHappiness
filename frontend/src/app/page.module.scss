@@ -1,10 +1,17 @@
 @use './base.scss';
 
 .main {
+    font-size: 22px;
+    height: 100%;
     color: white;
     position: relative;
     z-index: 1;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
 }
+
 
 .content {
     z-index: 100;
