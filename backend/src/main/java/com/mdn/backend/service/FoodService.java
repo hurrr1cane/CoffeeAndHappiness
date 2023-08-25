@@ -65,12 +65,15 @@ public class FoodService {
         );
 
         editedFood.setImageUrl(food.getImageUrl());
-        editedFood.setIngredients(food.getIngredients());
-        editedFood.setName(food.getName());
+        editedFood.setIngredientsEN(food.getIngredientsEN());
+        editedFood.setIngredientsUA(food.getIngredientsUA());
+        editedFood.setNameEN(food.getNameEN());
+        editedFood.setNameUA(food.getNameUA());
         editedFood.setPrice(food.getPrice());
         editedFood.setType(food.getType());
         editedFood.setWeight(food.getWeight());
-        editedFood.setDescription(food.getDescription());
+        editedFood.setDescriptionEN(food.getDescriptionEN());
+        editedFood.setDescriptionUA(food.getDescriptionUA());
 
         try {
             return foodRepository.save(editedFood);
