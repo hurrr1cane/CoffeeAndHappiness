@@ -1,11 +1,10 @@
-package com.mdn.coffeeandhappiness
+package com.mdn.coffeeandhappiness.fragments
 
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +14,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.cardview.widget.CardView
+import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.model.News
-import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,9 +49,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = setVideo(inflater, container)
-
-
-
         setNewsSection(rootView!!)
 
         return rootView

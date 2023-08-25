@@ -13,4 +13,12 @@
     <string name="home_description">We\'re here.\nWe\`re taste.\nWe\'re always.</string>
     <string name="home_news">Our news</string>
 
+    <!-- This is a menu section -->
+    <string name="menu_main">Main</string>
+    <string name="menu_drinks">Drinks</string>
+    <string name="menu_coffee">Coffee</string>
+    <string name="menu_salads">Salads</string>
+    <string name="menu_desserts">Desserts</string>
+    <string name="menu_ice_cream">Ice cream</string>
+
 </resources>
