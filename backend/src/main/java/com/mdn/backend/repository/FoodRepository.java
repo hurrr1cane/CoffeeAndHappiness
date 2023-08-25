@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface FoodRepository extends JpaRepository<Food, Integer> {
     List<Food> findByType(FoodType type);
+    List<Food> findByIdIn(List<Integer> foodIds);
 }

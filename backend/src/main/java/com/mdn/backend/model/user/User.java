@@ -1,6 +1,7 @@
 package com.mdn.backend.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mdn.backend.model.order.Order;
 import com.mdn.backend.model.review.CafeReview;
 import com.mdn.backend.model.review.FoodReview;
 import jakarta.persistence.*;
@@ -66,6 +67,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CafeReview> cafeReviews;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
 
     @Override
     @JsonIgnore
