@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.controller.FoodController
+import com.mdn.coffeeandhappiness.tools.SectionSetter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,12 +35,38 @@ class MenuDrinksFragment : Fragment() {
         }
     }
 
+    /*override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val rootView = inflater.inflate(R.layout.fragment_menu_drinks, container, false)
+
+        val listOfFood = FoodController().getFood("drink")
+
+        SectionSetter().setFoodSection(listOfFood, rootView, layoutInflater, context, "Drinks")
+
+        return rootView
+    }*/
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu_drinks, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_menu_drinks, container, false)
+
+        // Use lifecycleScope.launch to call getFood asynchronously
+        lifecycleScope.launch(Dispatchers.IO) {
+            val listOfFood = FoodController().getFood("drink")
+
+            // Update the UI on the main thread
+            launch(Dispatchers.Main) {
+                SectionSetter().setFoodSection(listOfFood, rootView, layoutInflater, context, "Drinks")
+            }
+        }
+
+        return rootView
     }
 
     companion object {

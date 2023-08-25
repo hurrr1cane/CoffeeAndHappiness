@@ -21,7 +21,7 @@ style="@style/HOME_NEWS_CARD">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/HOME_NEWS_CARD_TEXT"
-        android:text="MyDick is so big!" />
+        android:text="Default Text" />
     <TextView
         android:id="@+id/cardDateTextView"
         android:layout_width="match_parent"

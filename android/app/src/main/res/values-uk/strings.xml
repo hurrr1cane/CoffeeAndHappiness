@@ -22,4 +22,7 @@
     <string name="menu_desserts">Десерти</string>
     <string name="menu_ice_cream">Морозиво</string>
 
+    <string name="menu_food_rating">Рейтинг:</string>
+    <string name="menu_food_price">Ціна:</string>
+
 </resources>

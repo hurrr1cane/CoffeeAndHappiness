@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".fragments.menufragments.MenuIceCreamFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is an ice cream section" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/menuIceCreamLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            style="@style/SCREEN_STYLE">
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
