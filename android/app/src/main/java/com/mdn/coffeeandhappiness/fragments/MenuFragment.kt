@@ -34,6 +34,10 @@ class MenuFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,7 +59,9 @@ class MenuFragment : Fragment() {
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                viewPager.currentItem = tab!!.position
+            }
 
         })
 
