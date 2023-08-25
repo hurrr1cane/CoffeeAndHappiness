@@ -21,10 +21,15 @@ public class Cafe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "location")
+    @Column(name = "location_en")
     @NotNull(message = "Location is required")
     @Size(max = 255, message = "Location cannot exceed 255 characters")
-    private String location;
+    private String locationEN;
+
+    @Column(name = "location_ua")
+    @NotNull(message = "Location is required")
+    @Size(max = 255, message = "Location cannot exceed 255 characters")
+    private String locationUA;
 
     @Column(name = "image_url")
     @Pattern(regexp = "^https?://.*",
