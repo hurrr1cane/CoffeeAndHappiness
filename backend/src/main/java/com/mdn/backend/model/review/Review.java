@@ -23,9 +23,6 @@ public abstract class Review {
     @Max(value = 5, message = "Rating must be at most 5")
     private int rating;
 
-    @Column(name = "comment_en")
-    private String commentEN;
-
-    @Column(name = "comment_ua")
-    private String commentUA;
+    @Column(name = "comment")
+    private String comment;
 }
