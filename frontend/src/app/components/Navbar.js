@@ -8,6 +8,9 @@
   import Image from "next/image";
   import { useState, useEffect, useRef } from "react";
   import { usePathname } from 'next/navigation'
+
+  //Todo: fix reload bugs, fix video page lag
+
   export default function Navbar() {
     const pathname = usePathname();
     const [stylesData, setStylesData] = useState({
@@ -25,12 +28,12 @@
       'user': useRef()
     };
   
+
     useEffect(() => {
       const storedTab = localStorage.getItem("selectedTab") || "home";
       const routeName = pathname.replace("/", "") || "home";
       
-      setStylesData(prevStyles => ({
-        ...prevStyles,
+      setStylesData(({
         selectedTab: storedTab,
         highlightLeft: tabRefs[routeName]?.current?.offsetLeft || 0,
         highlightWidth: tabRefs[routeName]?.current?.offsetWidth || 0,
@@ -40,8 +43,7 @@
   
     const handleTabClick = (tab) => {
       localStorage.setItem("selectedTab", tab);
-      setStylesData(prevStyles => ({
-        ...prevStyles,
+      setStylesData(({
         selectedTab: tab,
         highlightLeft: tabRefs[tab]?.current?.offsetLeft || 0,
         highlightWidth: tabRefs[tab]?.current?.offsetWidth || 0,
