@@ -1,8 +1,10 @@
 package com.mdn.backend.security;
 
+import com.mdn.backend.model.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,12 +23,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.
-                csrf()
+        http
+                .csrf()
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**")
                     .permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/**")
+                    .permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/**")
+                    .hasRole(Role.USER.name())
+                .requestMatchers(HttpMethod.PUT, "/api/**")
+                    .hasRole(Role.USER.name())
+                .requestMatchers(HttpMethod.DELETE, "/api/**")
+                    .hasRole(Role.USER.name())
                 .anyRequest()
                     .authenticated()
                 .and()
