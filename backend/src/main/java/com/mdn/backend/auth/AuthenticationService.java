@@ -1,5 +1,6 @@
 package com.mdn.backend.auth;
 
+import com.mdn.backend.exception.UserAlreadyExistsException;
 import com.mdn.backend.exception.UserNotFoundException;
 import com.mdn.backend.model.user.Role;
 import com.mdn.backend.model.user.User;
@@ -14,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -25,6 +28,12 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+
+        if (userOptional.isPresent()) {
+            throw new UserAlreadyExistsException("User already exists with email: " + request.getEmail());
+        }
 
         User user = User
                 .builder()
