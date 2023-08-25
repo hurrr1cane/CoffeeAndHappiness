@@ -33,8 +33,8 @@
 
     useEffect(() => {
       const storedTab = localStorage.getItem("selectedTab") || "home";
-      const routeName = pathname.replace("/", "") || "home";
-      
+      let routeName = pathname.replace("/", "") || "home";
+      routeName = routeName.split('/')[0]       
 
       setStylesData(({
         selectedTab: (routeName === storedTab ? storedTab : routeName),
