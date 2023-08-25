@@ -2,11 +2,14 @@ package com.mdn.coffeeandhappiness.model
 
 data class Food(
     val id: Int,
-    val name: String,
-    val description: String,
+    val nameEN: String,
+    val nameUA: String,
+    val descriptionEN: String,
+    val descriptionUA: String,
     val imageUrl: String,
     val price: Double,
-    val ingredients: String,
+    val ingredientsEN: String,
+    val ingredientsUA: String,
     val weight: Double,
     val type: String,
     val averageRating: Double,

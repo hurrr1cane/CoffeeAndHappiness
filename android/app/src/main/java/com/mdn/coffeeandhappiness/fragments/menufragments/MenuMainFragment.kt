@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
 import com.mdn.coffeeandhappiness.controller.FoodController
-import com.mdn.coffeeandhappiness.tools.SectionSetter
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -42,15 +45,28 @@ class MenuMainFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_menu_main, container, false)
 
+        var listId: MutableList<Int> = mutableListOf()
+
+        val recyclerView = rootView.findViewById<RecyclerView>(R.id.menuMainRecyclerView)
+
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+
+
+
         // Use lifecycleScope.launch to call getFood asynchronously
         lifecycleScope.launch(Dispatchers.IO) {
             val listOfFood = FoodController().getFood("main")
 
             // Update the UI on the main thread
             launch(Dispatchers.Main) {
-                SectionSetter().setFoodSection(listOfFood, rootView, layoutInflater, context, "Main")
+                val adapter = FoodRecyclerViewAdapter(requireContext(), listOfFood) // Provide your data here
+                recyclerView.adapter = adapter
             }
         }
+
+
 
         return rootView
     }

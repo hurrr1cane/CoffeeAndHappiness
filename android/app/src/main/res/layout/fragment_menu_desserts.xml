@@ -5,18 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".fragments.menufragments.MenuDessertsFragment">
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/menuDessertsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/menuDessertsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            style="@style/SCREEN_STYLE">
-
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

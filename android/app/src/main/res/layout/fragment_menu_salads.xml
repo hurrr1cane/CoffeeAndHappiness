@@ -5,17 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".fragments.menufragments.MenuSaladsFragment">
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/menuSaladsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/menuSaladsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            style="@style/SCREEN_STYLE">
+        android:layout_height="wrap_content" />
 
-
-        </LinearLayout>
-    </ScrollView>
 </FrameLayout>
