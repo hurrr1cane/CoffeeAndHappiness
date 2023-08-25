@@ -5,6 +5,6 @@ public enum FoodType {
     DRINK,
     COFFEE,
     SALAD,
-    DESERT,
+    DESSERT,
     ICE_CREAM,
 }
