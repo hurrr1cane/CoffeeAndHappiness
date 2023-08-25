@@ -15,11 +15,15 @@ import Container from '@mui/material/Container';
 import { useForm } from 'react-hook-form'
 // import axios from 'axios';
 import { useState } from 'react';
-import { IconButton, InputAdornment } from '@mui/material';
+import { IconButton, InputAdornment, styled } from '@mui/material';
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from './page.module.scss'
 import { NextLink } from 'next/link'
+
+
+
+
 export default function Home() {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -49,6 +53,7 @@ export default function Home() {
               </Typography>
               <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                 <TextField
+                  
                   {...register('email', {
                     required: 'Email address is required',
                     pattern: {
@@ -77,7 +82,12 @@ export default function Home() {
                   name="password"
                   label="Password"
                   type={showPassword ? "text" : "password"}
-                  InputProps={{ // <-- This is where the toggle button is added.
+                  sx = {{
+                    fieldset: {
+                        outlineColor: "red"
+                    }
+                  }}
+                  InputProps={{ 
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
@@ -102,7 +112,7 @@ export default function Home() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2, bgcolor:"#4caf50" }}
+                  sx={{ mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "} }}
                 >
                   Sign In
                 </Button>

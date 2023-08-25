@@ -7,7 +7,7 @@
     </style>
 
 
-    <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness" />
+    <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness"/>
 
     <style name = "SCREEN_STYLE">
         <item name="android:background">@color/light_background_behind</item>
@@ -62,6 +62,24 @@
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:gravity">end</item>
+    </style>
+    
+    
+    <!-- Menu section -->
+    <style name="MENU_TAB_LAYOUT">
+        <item name="tabIndicatorColor">@color/default_green</item>
+        <item name="tabIconTint">@color/default_green</item>
+        <item name="tabSelectedTextAppearance">@color/default_green</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabSelectedTextColor">@color/default_green</item>
+        <item name="tabRippleColor">@color/default_green</item>
+        <item name="tabBackground">@color/light_background_main</item>
+    </style>
+
+    <style name="MENU_TAB_LAYOUT_TEXT">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white_text</item>
+        <item name="fontFamily">@font/sofiasans_straight</item>
     </style>
 
 </resources>

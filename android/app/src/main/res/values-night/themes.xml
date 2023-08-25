@@ -52,4 +52,21 @@
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:gravity">end</item>
     </style>
+
+    <!-- Menu section -->
+    <style name="MENU_TAB_LAYOUT">
+        <item name="tabIndicatorColor">@color/default_green</item>
+        <item name="tabIconTint">@color/default_green</item>
+        <item name="tabSelectedTextAppearance">@color/default_green</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabSelectedTextColor">@color/default_green</item>
+        <item name="tabRippleColor">@color/default_green</item>
+        <item name="tabBackground">@color/dark_background_main</item>
+    </style>
+
+    <style name="MENU_TAB_LAYOUT_TEXT">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white_text</item>
+        <item name="android:fontFamily">@font/sofiasans_straight</item>
+    </style>
 </resources>
