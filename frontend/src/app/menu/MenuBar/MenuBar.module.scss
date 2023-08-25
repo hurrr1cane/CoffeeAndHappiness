@@ -37,4 +37,8 @@ $green: #4caf50;
             border-bottom-left-radius: 30px;
         }
     }
+    .selected {
+        background-color: $green;
+        color: white;
+    }
 }

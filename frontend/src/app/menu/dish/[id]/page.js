@@ -1,5 +1,5 @@
 import styles from './page.module.scss'
-import Dish from './dish'
+import Dish from './Dish'
 import Review from './Review'
 export default function Home() {
     return (
