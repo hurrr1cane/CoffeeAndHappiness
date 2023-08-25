@@ -9,7 +9,7 @@
   import { useState, useEffect, useRef } from "react";
   import { usePathname } from 'next/navigation'
 
-  //Todo: fix reload bugs, fix video page lag
+  //Todo: fix video page lag
 
   export default function Navbar() {
     const pathname = usePathname();
@@ -33,11 +33,12 @@
       const storedTab = localStorage.getItem("selectedTab") || "home";
       const routeName = pathname.replace("/", "") || "home";
       
+
       setStylesData(({
-        selectedTab: storedTab,
-        highlightLeft: tabRefs[routeName]?.current?.offsetLeft || 0,
-        highlightWidth: tabRefs[routeName]?.current?.offsetWidth || 0,
-        highlightHeight: tabRefs[routeName]?.current?.offsetHeight || 0
+        selectedTab: (routeName === storedTab ? storedTab : routeName),
+        highlightLeft: tabRefs[routeName]?.current?.offsetLeft,
+        highlightWidth: tabRefs[routeName]?.current?.offsetWidth,
+        highlightHeight: tabRefs[routeName]?.current?.offsetHeight
       }));
     }, [pathname]);
   
@@ -45,9 +46,9 @@
       localStorage.setItem("selectedTab", tab);
       setStylesData(({
         selectedTab: tab,
-        highlightLeft: tabRefs[tab]?.current?.offsetLeft || 0,
-        highlightWidth: tabRefs[tab]?.current?.offsetWidth || 0,
-        highlightHeight: tabRefs[tab]?.current?.offsetHeight || 0
+        highlightLeft: tabRefs[tab]?.current?.offsetLeft,
+        highlightWidth: tabRefs[tab]?.current?.offsetWidth,
+        highlightHeight: tabRefs[tab]?.current?.offsetHeight
       }));  
     };
     return (
