@@ -1,0 +1,35 @@
+.error-h1 {
+    display:inline-block;
+    margin:0 1rem 0 0;
+    // padding-right:23px;
+    font-size:24px;
+    font-weight:500;
+    vertical-align:top
+}
+
+.div {
+    margin-left: 1rem;
+    display: inline-block;
+}
+
+.line {
+    border-left: 2px solid black;
+    height: 50px;
+    position:relative
+
+}
+
+.error-div {
+    height:83.75vh;
+    text-align:center;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center
+}
+
+.error-h2 {
+    font-size:18px;
+    font-weight:400;
+    line-height:28px
+}

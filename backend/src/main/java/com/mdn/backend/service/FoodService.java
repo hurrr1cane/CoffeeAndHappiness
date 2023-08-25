@@ -25,6 +25,24 @@ public class FoodService {
         );
     }
 
+    public List<Food> getFoodsByIds(List<Integer> foodIds) {
+        List<Food> foods = foodRepository.findByIdIn(foodIds);
+
+        if (foods.size() != foodIds.size()) {
+            List<Integer> foundFoodIds = foods.stream()
+                    .map(Food::getId)
+                    .toList();
+
+            List<Integer> notFoundFoodIds = foodIds.stream()
+                    .filter(id -> !foundFoodIds.contains(id))
+                    .toList();
+
+            throw new FoodNotFoundException("Food not found with IDs: " + notFoundFoodIds);
+        }
+
+        return foods;
+    }
+
     public List<Food> getFoodByType(FoodType type) {
         List<Food> foodList = foodRepository.findByType(type);
         if (foodList.isEmpty()) {
