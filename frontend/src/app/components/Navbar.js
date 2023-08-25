@@ -10,40 +10,56 @@
   import { usePathname } from 'next/navigation'
   export default function Navbar() {
     const pathname = usePathname();
-    const isWindow = typeof window === undefined
-    const [selectedTab, setSelectedTab] = useState(isWindow ? localStorage.getItem("selectedTab") ?? "home" : "home");
-    useEffect(() => {
-      const storedTab = localStorage.getItem("selectedTab");
-      if (storedTab) {
-        setSelectedTab(storedTab);
-      }
-    }, []);
-
+    const [stylesData, setStylesData] = useState({
+      selectedTab: "",
+      highlightLeft: 0,
+      highlightWidth: 0,
+      highlightHeight: 0
+    });
+  
     const tabRefs = {
       'home': useRef(),
       'institutions': useRef(),
       'menu': useRef(),
       'about-us': useRef(),
       'user': useRef()
-    }
-  useEffect(() => {
-    const routeName = pathname.replace("/", "");
-    setSelectedTab(routeName || "home");
-  }, [pathname]);
-
-  const handleTabClick = (tab) => {
-    setSelectedTab(tab);
-    localStorage.setItem("selectedTab", tab); 
-    
-  };
+    };
+  
+    useEffect(() => {
+      const storedTab = localStorage.getItem("selectedTab") || "home";
+      const routeName = pathname.replace("/", "") || "home";
+      
+      setStylesData(prevStyles => ({
+        ...prevStyles,
+        selectedTab: storedTab,
+        highlightLeft: tabRefs[routeName]?.current?.offsetLeft || 0,
+        highlightWidth: tabRefs[routeName]?.current?.offsetWidth || 0,
+        highlightHeight: tabRefs[routeName]?.current?.offsetHeight || 0
+      }));
+    }, [pathname]);
+  
+    const handleTabClick = (tab) => {
+      localStorage.setItem("selectedTab", tab);
+      setStylesData(prevStyles => ({
+        ...prevStyles,
+        selectedTab: tab,
+        highlightLeft: tabRefs[tab]?.current?.offsetLeft || 0,
+        highlightWidth: tabRefs[tab]?.current?.offsetWidth || 0,
+        highlightHeight: tabRefs[tab]?.current?.offsetHeight || 0
+      }));  
+    };
     return (
       <nav className={styles.navbar}>
-        {/* <div className={styles.highlight} style={{left:tabRefs[selectedTab].current?.offsetLeft, width: tabRefs[selectedTab].current?.offsetWidth, height:tabRefs[selectedTab].current?.offsetHeight}}></div> */}
-        <Link ref={tabRefs.home} onClick={() => {handleTabClick('home')}} className={`${styles.link} ${selectedTab === 'home' ? styles.selected : '' }`} href="/"><h1>Home</h1></Link>
-        <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>Institutions</h1></Link>
-        <Link ref={tabRefs.menu} onClick={() => {handleTabClick('menu')}} className={`${styles.link} ${selectedTab === 'menu' ? styles.selected : '' }`} href="/menu"><h1>Menu</h1></Link>
-        <Link ref={tabRefs["about-us"]} onClick={() => {handleTabClick('about-us')}} className={`${styles.link} ${selectedTab === 'about-us' ? styles.selected : '' }`} href="/about-us"><h1>About us</h1></Link>
-        <Link ref={tabRefs.user} onClick={() => {handleTabClick('user')}} className={`${styles.link} ${selectedTab === 'user' ? styles.selected : '' }`} href="/user"><h1>User</h1></Link>
+        <div className={styles.highlight} style={{
+        left: stylesData.highlightLeft,
+        width: stylesData.highlightWidth,
+        height: stylesData.highlightHeight
+      }}></div>
+        <Link ref={tabRefs.home} onClick={() => {handleTabClick('home')}} className={`${styles.link} ${stylesData.selectedTab === 'home' ? styles.selected : '' }`} href="/"><h1>Home</h1></Link>
+        <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${stylesData.selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>Institutions</h1></Link>
+        <Link ref={tabRefs.menu} onClick={() => {handleTabClick('menu')}} className={`${styles.link} ${stylesData.selectedTab === 'menu' ? styles.selected : '' }`} href="/menu"><h1>Menu</h1></Link>
+        <Link ref={tabRefs["about-us"]} onClick={() => {handleTabClick('about-us')}} className={`${styles.link} ${stylesData.selectedTab === 'about-us' ? styles.selected : '' }`} href="/about-us"><h1>About us</h1></Link>
+        <Link ref={tabRefs.user} onClick={() => {handleTabClick('user')}} className={`${styles.link} ${stylesData.selectedTab === 'user' ? styles.selected : '' }`} href="/user"><h1>User</h1></Link>
         <div className={styles['icons-container']}>
           <Brightness2Icon/>
           <Image className={styles.image} src={EnglishImage} alt="image of the flag of United Kingdom"/>

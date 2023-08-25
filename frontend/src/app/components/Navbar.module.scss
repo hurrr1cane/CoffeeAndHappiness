@@ -9,7 +9,7 @@ $lightgreen: #66bb69;
     overflow: hidden;
     position: sticky; 
     top: 0;
-    height: 8.75vh;
+    height: 9.25vh;
     background-color: $green;
     h1 {
         font-weight: 500;
@@ -39,27 +39,27 @@ $lightgreen: #66bb69;
 // }
 
   
-@keyframes selectedTabAnimation {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
+// @keyframes selectedTabAnimation {
+//     0% {
+//       transform: scale(1);
+//     }
+//     50% {
+//       transform: scale(1.1);
+//     }
+//     100% {
+//       transform: scale(1);
       
-    }
-  }
+//     }
+//   }
  
 .selected {
-    background-color: white;
-    animation: selectedTabAnimation 0.3s ease; 
-    color: $lightgreen !important;
-    &:after {
-        background-color: inherit !important; 
-
-    }
+    color: white !important;
+    // animation: selectedTabAnimation 0.3s ease; 
+    // color: $lightgreen !important;
+    // &:after {
+    //     background-color: inherit !important;   
+    // }
+    transform: translateY(-2px);
   }
 
 .link {
@@ -81,11 +81,13 @@ $lightgreen: #66bb69;
         background-color: black;
         transform: scaleX(0); 
         transform-origin: left;
-        transition: transform 0.4s ease; 
+        transition: transform 0.3s ease; 
     }
-    // &:hover::after{
-    //     transform: scaleX(1);
-    // }
+    &:hover{
+        color: white;
+        transition: transform 0.3s ease;
+        transform: translateY(-2px);
+    }
     &:last-of-type {
       margin-right: 8rem;
       margin-left: auto;
@@ -99,8 +101,8 @@ $lightgreen: #66bb69;
   background-color: white;
   // outline: 1px solid red;
   position: absolute;
-  bottom: 5px;
-  height: 8.75vh;
+  bottom: 7.5px;
+  height: 9.25vh;
   background-color: $lightgreen;
   transition: left 0.3s, width 0.3s;
 }
