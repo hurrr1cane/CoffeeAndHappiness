@@ -5,7 +5,7 @@
     style="@style/SCREEN_STYLE"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".fragments.HomeFragment">
 
     <!-- ScrollView for scrollable content -->
     <ScrollView

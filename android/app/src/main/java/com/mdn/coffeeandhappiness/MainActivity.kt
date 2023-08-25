@@ -12,6 +12,11 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.mdn.coffeeandhappiness.databinding.ActivityMainBinding
+import com.mdn.coffeeandhappiness.fragments.AccountFragment
+import com.mdn.coffeeandhappiness.fragments.CodeFragment
+import com.mdn.coffeeandhappiness.fragments.HomeFragment
+import com.mdn.coffeeandhappiness.fragments.MapFragment
+import com.mdn.coffeeandhappiness.fragments.MenuFragment
 import java.util.Locale
 
 class MainActivity : LocalizationActivity() {
@@ -28,8 +33,6 @@ class MainActivity : LocalizationActivity() {
         replaceFragment(HomeFragment())
 
         binding.bottomNavigationView.selectedItemId = R.id.nav_home
-
-
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {

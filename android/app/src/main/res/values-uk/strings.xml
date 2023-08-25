@@ -14,4 +14,12 @@
     <string name="home_description">Ми тут.\nМи - смак.\nМи завжди.</string>
     <string name="home_news">Наші новини</string>
 
+    <!-- This is a menu section -->
+    <string name="menu_main">Основні</string>
+    <string name="menu_drinks">Напої</string>
+    <string name="menu_coffee">Кава</string>
+    <string name="menu_salads">Салати</string>
+    <string name="menu_desserts">Десерти</string>
+    <string name="menu_ice_cream">Морозиво</string>
+
 </resources>
