@@ -3,6 +3,9 @@ package com.mdn.backend.controller;
 import com.mdn.backend.exception.NewsNotFoundException;
 import com.mdn.backend.model.News;
 import com.mdn.backend.service.NewsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +24,22 @@ public class NewsController {
 
     private final NewsService newsService;
 
+    @Operation(summary = "Get all news", description = "Retrieve a list of all available news.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping
     public ResponseEntity<List<News>> getAllNews() {
         log.info("Getting all news");
         return ResponseEntity.ok(newsService.getAllNews());
     }
 
+    @Operation(summary = "Get news by id", description = "Retrieve a news by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "News not found")
+    })
     @GetMapping("{id}")
     public ResponseEntity<?> getNewsById(@PathVariable Integer id) {
         log.info("Getting news with id {}", id);
@@ -39,6 +52,11 @@ public class NewsController {
         }
     }
 
+    @Operation(summary = "Get news by title", description = "Retrieve a news by its title.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "News not found"),
+    })
     @PostMapping
     public ResponseEntity<?> addNews(@RequestBody @Valid News news) {
         log.info("Adding new news");
@@ -52,6 +70,12 @@ public class NewsController {
         }
     }
 
+    @Operation(summary = "Edit news", description = "Edit a news by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "News not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @PutMapping("{id}")
     public ResponseEntity<?> editNews(@PathVariable Integer id, @RequestBody @Valid News news) {
         log.info("Editing news with id {}", id);
@@ -70,6 +94,12 @@ public class NewsController {
         }
     }
 
+    @Operation(summary = "Delete news", description = "Delete a news by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "News not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @DeleteMapping({"{id}"})
     public ResponseEntity<?> deleteNews(@PathVariable Integer id) {
         log.info("Deleting news with id {}", id);
