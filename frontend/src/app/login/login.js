@@ -14,33 +14,38 @@ import Container from '@mui/material/Container';
 import { useForm } from 'react-hook-form'
 import axios from 'axios';
 import { useState } from 'react';
-import { IconButton, InputAdornment, styled } from '@mui/material';
+import { IconButton, InputAdornment } from '@mui/material';
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { NextLink } from 'next/link'
 import { useGlobalContext } from '../store/store';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
+
+    const { push } = useRouter();
     const {user, setUser} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
+
     const onSubmit = (data) => {
+
         axios.post('http://localhost:8080/api/auth/login', {
             email:data.email,
             password: data.password
         })
         .then(res => {
-          console.log(res)
-          setUser({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            role: 'USER',
-          })
+            console.log(res)
+            push('/user')
         })
         .catch(err => console.log(err))
+
+        axios.get(`http://localhost:8080/user/email/${data.email}`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
+
     return (
         <Container component="main" maxWidth="xs">
             <Box

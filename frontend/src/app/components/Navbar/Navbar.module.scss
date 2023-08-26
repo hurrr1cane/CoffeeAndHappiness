@@ -85,6 +85,7 @@ $lightgreen: #66bb69;
         transition: transform 0.3s ease; 
     }
     &:hover{
+        cursor: pointer;
         color: white;
         transition: transform 0.3s ease;
         transform: translateY(-2px);

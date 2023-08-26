@@ -9,12 +9,15 @@
   import { useState, useEffect, useRef } from "react";
   import { usePathname } from 'next/navigation'
   import { useGlobalContext } from "@/app/store/store";
+  import { useRouter } from "next/navigation";
   //Todo: fix video page lag
 
   export default function Navbar() {
+    const { push } = useRouter()
     const {user, setUser} = useGlobalContext()
 
     const handleLogout = () => {
+      push('/login')
       setUser({})
     }
 
@@ -34,7 +37,6 @@
       'user': useRef(),
       'login': useRef(),
       'register': useRef(),
-      'logout': useRef()
     };
   
 
@@ -75,7 +77,7 @@
         {user?.firstName ? 
         <>
         <Link ref={tabRefs.user} onClick={() => {handleTabClick('user')}} className={`${styles.link} ${stylesData.selectedTab === 'user' ? styles.selected : '' }`} href="/user"><h1>User</h1></Link>
-        <Link ref={tabRefs.logout} onClick={() => {handleTabClick('logout'); handleLogout()}} className={`${styles.link} ${stylesData.selectedTab === 'logout' ? styles.selected : '' }`} href="/login"><h1>Log out</h1></Link>  
+        <p onClick={() => {handleLogout()}} className={styles.link}><h1>Log out</h1></p>  
         </>:
         <>
           <Link ref={tabRefs.login} onClick={() => {handleTabClick('login')}} className={`${styles.link} ${stylesData.selectedTab === 'login' ? styles.selected : '' }`} href="/login"><h1>Log in</h1></Link>

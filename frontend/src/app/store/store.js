@@ -8,10 +8,14 @@ const GlobalContext = createContext({
 });
 
 export const GlobalContextProvider = ({ children }) => {
-    const [user, setUser] = useState(() => {
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
         const storedUser = localStorage.getItem("user");
-        return storedUser ? JSON.parse(storedUser) : {};
-    });
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
 
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify(user));

@@ -17,8 +17,10 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import NextLink from 'next/link'
 import { useGlobalContext } from '../store/store';
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
+    const { push } = useRouter();
     const {user, setUser} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -40,16 +42,9 @@ export default function Register() {
             email: data.email,
             role: 'USER',
           })
+          push('/user')
         })
         .catch(err => console.log(err))
-    //   console.log(
-    //     {
-    //       firstName: data.firstName,
-    //       lastName: data.lastName,
-    //       email: data.email,
-    //       password: data.password,
-    //       role: 'USER'
-    //     });
     };
     return (
     <Container component="main" maxWidth="xs">
