@@ -13,7 +13,7 @@ export default function DishCard(props) {
                 <h1 className={styles.property}>{props.name}</h1>
                 <p className={styles.property}>Description: {props.description}</p>
                 <p className={styles.property}>Price: {props.price}</p>
-                <p className={styles.property}>Rating: <Rating sx={{top: "5px"}} name="read-only" value={props.rating} readOnly /></p>
+                <p className={styles.property}>Rating: <Rating sx={{top: "5px"}} name="read-only" value={Number(props.rating)} readOnly /></p>
             </div>
         </div>
     )

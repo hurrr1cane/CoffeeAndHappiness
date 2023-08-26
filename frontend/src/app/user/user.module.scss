@@ -1,5 +1,14 @@
 .main {
     display: flex;
-    // justify-content: center;
-    // align-items: center;
+    align-items: center;
+    margin-top: 2.5rem;
+    .image {
+        margin-right: 5rem;
+    }
+    div {
+        margin-bottom: 3.5rem;
+        h1 {
+            padding: 1rem;
+        }
+    }
 }

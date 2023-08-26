@@ -24,26 +24,26 @@ import { useRouter } from 'next/navigation';
 export default function Login() {
 
     const { push } = useRouter();
-    const {user, setUser} = useGlobalContext()
+    const {_, setUser} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
 
+        setUser({
+          email: data.email
+        })
         axios.post('http://localhost:8080/api/auth/login', {
             email:data.email,
             password: data.password
         })
         .then(res => {
-            console.log(res)
             push('/user')
         })
         .catch(err => console.log(err))
 
-        axios.get(`http://localhost:8080/user/email/${data.email}`)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+        
     }
 
     return (
@@ -60,7 +60,7 @@ export default function Login() {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Sign in
+                Log in
               </Typography>
               <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                 <TextField

@@ -20,13 +20,18 @@ import { useGlobalContext } from '../store/store';
 import { useRouter } from 'next/navigation';
 
 export default function Register() {
+
     const { push } = useRouter();
-    const {user, setUser} = useGlobalContext()
+    const {_, setUser} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
     const [errorMessage, setErrorMessage] = useState('');
+
     const onSubmit = (data) => {
+        setUser({
+          email: data.email
+        })
         axios.post('http://localhost:8080/api/auth/register', {
             firstName: data.firstName,
             lastName: data.lastName,
@@ -35,16 +40,11 @@ export default function Register() {
             role: 'USER'
         })
         .then(res => {
-          console.log(res)
-          setUser({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            role: 'USER',
-          })
           push('/user')
         })
         .catch(err => console.log(err))
+
+        
     };
     return (
     <Container component="main" maxWidth="xs">
