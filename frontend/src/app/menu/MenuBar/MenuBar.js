@@ -1,37 +1,25 @@
-"use client";
-
-import { useState } from "react";
 import styles from "./MenuBar.module.scss";
-export default function MenuBar() {
-  const [tab, setTab] = useState();
 
-  const tabs = [
-    'main',
-    'drinks',
-    'coffee',
-    'salads',
-    'desserts',
-    'icecream'
-  ]
-
-  return (
+export default function MenuBar({tab, setTab}) {
+  
+return (
     <nav className={styles.container}>
-      <div onClick={() => {setTab("main")}} className={`${styles.menuItem} ${tab === "main" ? styles.selected : ''}`}>
+      <div onClick={() => {setTab("MAIN")}} className={`${styles.menuItem} ${tab === "MAIN" ? styles.selected : ''}`}>
         <p>Main</p>
       </div>
-      <div onClick={() => {setTab("drinks")}} className={`${styles.menuItem} ${tab === "drinks" ? styles.selected : ''}`}>
+      <div onClick={() => {setTab("DRINK")}} className={`${styles.menuItem} ${tab === "DRINK" ? styles.selected : ''}`}>
         <p>Drinks</p>
       </div>
-      <div onClick={() => {setTab("coffee")}} className={`${styles.menuItem} ${tab === "coffee" ? styles.selected : ''}`}>
+      <div onClick={() => {setTab("COFFEE")}} className={`${styles.menuItem} ${tab === "COFFEE" ? styles.selected : ''}`}>
         <p>Coffee</p>
       </div>
-      <div onClick={() => {setTab("salads")}} className={`${styles.menuItem} ${tab === "salads" ? styles.selected : ''}`}>
+      <div onClick={() => {setTab("SALAD")}} className={`${styles.menuItem} ${tab === "SALAD" ? styles.selected : ''}`}>
         <p>Salads</p>
       </div>
-      <div onClick={() => {setTab("desserts")}} className={`${styles.menuItem} ${tab === "desserts" ? styles.selected : ''}`}>
+      <div onClick={() => {setTab("DESERT")}} className={`${styles.menuItem} ${tab === "DESERT" ? styles.selected : ''}`}>
         <p>Desserts</p>
       </div>
-      <div onClick={() => {setTab("icecream")}} className={`${styles.menuItem} ${tab === "icecream" ? styles.selected : ''}`}>
+      <div onClick={() => {setTab("ICE_CREAM")}} className={`${styles.menuItem} ${tab === "ICE_CREAM" ? styles.selected : ''}`}>
         <p>Ice cream</p>
       </div>
     </nav>

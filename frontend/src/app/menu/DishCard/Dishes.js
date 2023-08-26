@@ -1,7 +1,13 @@
+"use client"
 import dishPic from '../../../../public/pizza.jpg'
 import styles from './Dishes.module.scss'
 import DishCard from "./DishCard";
-export default function Dishes() {
+import { useEffect } from 'react';
+import axios from 'axios';
+export default function Dishes({ tab }) {
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/food/type/${tab}`)
+    })
     const data = [
         {
             name: "Pizza",
