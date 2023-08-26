@@ -52,10 +52,10 @@ public class CafeController {
         }
     }
 
-    @Operation(summary = "Get cafe by name", description = "Retrieve a cafe by its name.")
+    @Operation(summary = "Add cafe", description = "Add a new cafe.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "404", description = "Cafe not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping
     public ResponseEntity<?> addCafe(@RequestBody @Valid Cafe cafe) {

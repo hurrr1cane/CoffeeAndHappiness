@@ -53,7 +53,7 @@ public class FoodController {
         }
     }
 
-    @Operation(summary = "Get food by name", description = "Retrieve a food by its name.")
+    @Operation(summary = "Get food by type", description = "Retrieve a food by its type.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Food not found"),

@@ -57,6 +57,12 @@ public class ReviewController {
         }
     }
 
+    @Operation(summary = "Add food review", description = "Add a review for a food.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Review added successfully"),
+            @ApiResponse(responseCode = "404", description = "Food or user not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @PostMapping("food/{foodId}/{userId}")
     public ResponseEntity<?> addFoodReview(
             @PathVariable Integer foodId,

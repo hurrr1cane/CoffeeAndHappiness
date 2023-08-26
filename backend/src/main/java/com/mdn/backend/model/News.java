@@ -1,5 +1,6 @@
 package com.mdn.backend.model;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -17,6 +18,7 @@ public class News {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Hidden
     private Integer id;
 
     @Column(name = "title_en")
@@ -39,6 +41,7 @@ public class News {
     private String imageUrl;
 
     @Column(name = "published_at")
+    @Hidden
     private Date publishedAt;
 
 }

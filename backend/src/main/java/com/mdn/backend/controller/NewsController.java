@@ -52,10 +52,10 @@ public class NewsController {
         }
     }
 
-    @Operation(summary = "Get news by title", description = "Retrieve a news by its title.")
+    @Operation(summary = "Add news", description = "Add a new news.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "404", description = "News not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping
     public ResponseEntity<?> addNews(@RequestBody @Valid News news) {
