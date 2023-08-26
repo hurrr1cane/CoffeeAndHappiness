@@ -1,6 +1,7 @@
 package com.mdn.backend.model;
 
 import com.mdn.backend.model.review.CafeReview;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -19,6 +20,7 @@ public class Cafe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Hidden
     private Integer id;
 
     @Column(name = "location_en")
@@ -42,11 +44,14 @@ public class Cafe {
     private String phoneNumber;
 
     @Column(name = "average_rating")
+    @Hidden
     private double averageRating;
 
     @Column(name = "total_reviews")
+    @Hidden
     private int totalReviews;
 
     @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Hidden
     private List<CafeReview> reviews;
 }
