@@ -18,9 +18,10 @@ import { IconButton, InputAdornment, styled } from '@mui/material';
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { NextLink } from 'next/link'
-
+import { useGlobalContext } from '../store/store';
 
 export default function Login() {
+    const {user, setUser} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
@@ -29,10 +30,16 @@ export default function Login() {
             email:data.email,
             password: data.password
         })
-        // console.log({
-        // email:data.email,
-        // password: data.password
-        // })
+        .then(res => {
+          console.log(res)
+          setUser({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            role: 'USER',
+          })
+        })
+        .catch(err => console.log(err))
     }
     return (
         <Container component="main" maxWidth="xs">
