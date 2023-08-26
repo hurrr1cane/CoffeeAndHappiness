@@ -2,6 +2,8 @@ package com.mdn.backend.model;
 
 
 import com.mdn.backend.model.review.FoodReview;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -21,6 +23,7 @@ public class Food {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Hidden
     private Integer id;
 
     @Column(name = "name_en")
@@ -64,14 +67,20 @@ public class Food {
     private Double weight;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    @NotNull(message = "Type is required")
+    @Schema(title = "Food type", allowableValues = "MAIN, DRINK, COFFEE, SALAD, DESSERT, ICE_CREAM")
     private FoodType type;
 
     @Column(name = "average_rating")
+    @Hidden
     private double averageRating;
 
     @Column(name = "total_reviews")
+    @Hidden
     private int totalReviews;
 
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Hidden
     private List<FoodReview> reviews;
 }
