@@ -3,6 +3,9 @@ package com.mdn.backend.controller;
 import com.mdn.backend.exception.UserNotFoundException;
 import com.mdn.backend.model.user.User;
 import com.mdn.backend.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +27,22 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Get all users", description = "Retrieve a list of all available users.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         log.info("Getting all users");
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+    @Operation(summary = "Get user by id", description = "Retrieve a user by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
     @GetMapping("{id}")
     public ResponseEntity<?> getUserById(@PathVariable Integer id) {
         log.info("Getting user with id {}", id);
