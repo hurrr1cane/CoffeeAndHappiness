@@ -6,6 +6,9 @@ import com.mdn.backend.exception.UserNotFoundException;
 import com.mdn.backend.model.review.CafeReview;
 import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.service.ReviewService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,12 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
+    @Operation(summary = "Add cafe review", description = "Add a review for a cafe.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Review added successfully"),
+            @ApiResponse(responseCode = "404", description = "Cafe or user not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @PostMapping("cafe/{cafeId}/{userId}")
     public ResponseEntity<?> addCafeReview(
             @PathVariable Integer cafeId,
