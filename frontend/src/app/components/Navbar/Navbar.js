@@ -8,10 +8,16 @@
   import Image from "next/image";
   import { useState, useEffect, useRef } from "react";
   import { usePathname } from 'next/navigation'
-
+  import { useGlobalContext } from "@/app/store/store";
   //Todo: fix video page lag
 
   export default function Navbar() {
+    const {user, setUser} = useGlobalContext()
+
+    const handleLogout = () => {
+      setUser({})
+    }
+
     const pathname = usePathname();
     const [stylesData, setStylesData] = useState({
       selectedTab: "",
@@ -27,7 +33,8 @@
       'about-us': useRef(),
       'user': useRef(),
       'login': useRef(),
-      'register':useRef()
+      'register': useRef(),
+      'logout': useRef()
     };
   
 
@@ -64,9 +71,16 @@
         <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${stylesData.selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>Institutions</h1></Link>
         <Link ref={tabRefs.menu} onClick={() => {handleTabClick('menu')}} className={`${styles.link} ${stylesData.selectedTab === 'menu' ? styles.selected : '' }`} href="/menu"><h1>Menu</h1></Link>
         <Link ref={tabRefs["about-us"]} onClick={() => {handleTabClick('about-us')}} className={`${styles.link} ${stylesData.selectedTab === 'about-us' ? styles.selected : '' }`} href="/about-us"><h1>About us</h1></Link>
-        {/* <Link ref={tabRefs.user} onClick={() => {handleTabClick('user')}} className={`${styles.link} ${stylesData.selectedTab === 'user' ? styles.selected : '' }`} href="/user"><h1>User</h1></Link> */}
-        <Link ref={tabRefs.login} onClick={() => {handleTabClick('login')}} className={`${styles.link} ${stylesData.selectedTab === 'login' ? styles.selected : '' }`} href="/login"><h1>Log in</h1></Link>
-        <Link ref={tabRefs.register} onClick={() => {handleTabClick('register')}} className={`${styles.link} ${stylesData.selectedTab === 'register' ? styles.selected : '' }`} href="/register"><h1>Register</h1></Link>
+        
+        {user?.firstName ? 
+        <>
+        <Link ref={tabRefs.user} onClick={() => {handleTabClick('user')}} className={`${styles.link} ${stylesData.selectedTab === 'user' ? styles.selected : '' }`} href="/user"><h1>User</h1></Link>
+        <Link ref={tabRefs.logout} onClick={() => {handleTabClick('logout'); handleLogout()}} className={`${styles.link} ${stylesData.selectedTab === 'logout' ? styles.selected : '' }`} href="/login"><h1>Log out</h1></Link>  
+        </>:
+        <>
+          <Link ref={tabRefs.login} onClick={() => {handleTabClick('login')}} className={`${styles.link} ${stylesData.selectedTab === 'login' ? styles.selected : '' }`} href="/login"><h1>Log in</h1></Link>
+          <Link ref={tabRefs.register} onClick={() => {handleTabClick('register')}} className={`${styles.link} ${stylesData.selectedTab === 'register' ? styles.selected : '' }`} href="/register"><h1>Register</h1></Link>
+        </>}
         
         <div className={styles['icons-container']}>
           <Brightness2Icon/>

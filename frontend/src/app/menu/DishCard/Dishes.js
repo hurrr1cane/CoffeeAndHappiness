@@ -7,6 +7,8 @@ import axios from 'axios';
 export default function Dishes({ tab }) {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/food/type/${tab}`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     })
     const data = [
         {

@@ -16,8 +16,10 @@ import { IconButton, InputAdornment } from '@mui/material';
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import NextLink from 'next/link'
+import { useGlobalContext } from '../store/store';
 
 export default function Register() {
+    const {user, setUser} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
@@ -30,7 +32,16 @@ export default function Register() {
             password: data.password,
             role: 'USER'
         })
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res)
+          setUser({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            role: 'USER',
+          })
+        })
+        .catch(err => console.log(err))
     //   console.log(
     //     {
     //       firstName: data.firstName,
