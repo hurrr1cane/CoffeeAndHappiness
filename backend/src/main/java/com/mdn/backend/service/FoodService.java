@@ -44,11 +44,7 @@ public class FoodService {
     }
 
     public List<Food> getFoodByType(FoodType type) {
-        List<Food> foodList = foodRepository.findByType(type);
-        if (foodList.isEmpty()) {
-            throw new FoodNotFoundException("No such food with type " + type + " found");
-        }
-        return foodList;
+        return foodRepository.findByType(type);
     }
 
     public Food addFood(Food food) {

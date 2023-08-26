@@ -56,8 +56,8 @@ public class FoodController {
     @Operation(summary = "Get food by type", description = "Retrieve a food by its type.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "404", description = "Food not found"),
-            @ApiResponse(responseCode = "400", description = "Invalid food type")
+            @ApiResponse(responseCode = "400", description = "Invalid food type"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("type/{type}")
     public ResponseEntity<?> getFoodByType(@PathVariable String type) {
@@ -69,9 +69,9 @@ public class FoodController {
         } catch (IllegalArgumentException ex) {
             log.error("Invalid food type: {}", type);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid food type: " + type);
-        } catch (FoodNotFoundException ex) {
-            log.error("Food not found with type: {}", type);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Food not found with type: " + type);
+        } catch (Exception ex) {
+            log.error("Error while getting food: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while getting food: " + ex.getMessage());
         }
     }
 
