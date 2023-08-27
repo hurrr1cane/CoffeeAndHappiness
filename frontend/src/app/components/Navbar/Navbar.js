@@ -10,7 +10,7 @@
   import { usePathname } from 'next/navigation'
   import { useGlobalContext } from "@/app/store/store";
   import { useRouter } from "next/navigation";
-  //Todo: fix video page lag
+  //Todo: fix element positioning
 
   export default function Navbar() {
     const { push } = useRouter()

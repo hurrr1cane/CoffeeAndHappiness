@@ -117,7 +117,7 @@ public class AuthenticationService {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refreshToken;
         final String userEmail;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
             return;
         }
         refreshToken = authHeader.substring(7);

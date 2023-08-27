@@ -44,10 +44,12 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("/refresh-token")
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response
-    ) throws IOException {
+    @PostMapping("/refresh")
+    public ResponseEntity<Void> refresh(HttpServletRequest request,
+                                     HttpServletResponse response
+  ) throws IOException {
         authenticationService.refreshToken(request, response);
+        return ResponseEntity.ok().build();
     }
 
 }

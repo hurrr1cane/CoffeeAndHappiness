@@ -2,11 +2,18 @@
 
 import { usePathname } from "next/navigation"
 import styles from './dish.module.scss'
-
+import axios from "axios"
+import { useEffect } from "react"
 
 export default function Dish() {
 
     const pathname = usePathname().split('dish/')[1]
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/food/${pathname}`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }, [])
 
     return (
         <main>

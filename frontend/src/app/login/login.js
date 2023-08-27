@@ -20,6 +20,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { NextLink } from 'next/link'
 import { useGlobalContext } from '../store/store';
 import { useRouter } from 'next/navigation';
+import { Alert, AlertTitle } from '@mui/material';
 
 export default function Login() {
 
@@ -28,6 +29,9 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
+    const [error, setError] = useState("")
+    const [showAlert, setShowAlert] = useState(false)
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false)
 
     const onSubmit = (data) => {
 
@@ -39,18 +43,25 @@ export default function Login() {
             password: data.password
         })
         .then(res => {
-            push('/user')
+            setShowSuccessAlert(true)
+            setTimeout(() => {
+              push('/user')
+            }, 2500)
+            
         })
-        .catch(err => console.log(err))
+        .catch(err => {setError(err.response.data.errorMessage); setShowAlert(true)})
 
         
     }
 
     return (
         <Container component="main" maxWidth="xs">
+          <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8, marginBottom: 1}}><AlertTitle>Logged in successfully</AlertTitle> You will be redirected shortly.</Alert>
+          <Alert onClose={() => {setShowAlert(false)}} sx={{display: showAlert ? "flex" : "none"}}
+           severity="error">{error}</Alert>
             <Box
               sx={{
-                marginTop: 8,
+                marginTop: 2,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -132,7 +143,7 @@ export default function Login() {
                   </Grid>
                   <Grid item>
                     <Link component={NextLink} href='/register' variant='body2'>
-                      Don't have an account? Sign Up
+                      Don't have an account? register
                     </Link>
                   </Grid>
                 </Grid>
