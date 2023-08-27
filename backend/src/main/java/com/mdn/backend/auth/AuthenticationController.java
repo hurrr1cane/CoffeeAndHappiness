@@ -3,9 +3,13 @@ package com.mdn.backend.auth;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -33,6 +37,19 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.login(request));
+    }
+
+    @Operation(summary = "Refresh token", description = "Refresh token.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @PostMapping("/refresh")
+    public ResponseEntity<Void> refresh(HttpServletRequest request,
+                                     HttpServletResponse response
+  ) throws IOException {
+        authenticationService.refreshToken(request, response);
+        return ResponseEntity.ok().build();
     }
 
 }
