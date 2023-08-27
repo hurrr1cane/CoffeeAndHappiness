@@ -72,6 +72,7 @@ export default function Register() {
             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
               <TextField
                 {...register('firstName', { required: 'First name is required' })}
+                color="success"
                 margin="normal"
                 required
                 fullWidth
@@ -83,6 +84,7 @@ export default function Register() {
               />
               <TextField
                 {...register('lastName', { required: 'Last name is required' })}
+                color="success"
                 margin="normal"
                 required
                 fullWidth
@@ -100,7 +102,7 @@ export default function Register() {
                     message: 'Invalid email address'
                   }
                 })}
-                
+                color="success"
                 margin="normal"
                 required
                 fullWidth
@@ -120,6 +122,7 @@ export default function Register() {
                     message: 'Password must be at least 8 characters long'
                   }
                 })}
+                color="success"
                 margin="normal"
                 required
                 fullWidth
@@ -160,7 +163,7 @@ export default function Register() {
                 </Grid>
                 <Grid item>
                   <Link component={NextLink} href='/login' variant="body2">
-                    {"Already have an account? Log in"}
+                      Already have an account? Log in
                   </Link>
                 </Grid>
               </Grid>
