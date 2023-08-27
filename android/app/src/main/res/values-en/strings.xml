@@ -41,9 +41,11 @@
     <string name="account_register_name_hint">Please, enter your name</string>
     <string name="accountSurname">Surname</string>
     <string name="account_register_surname_hint">Please, enter your surname</string>
-    <string name="account_register_re_enter_password">Passwords must match</string>
+    <string name="account_register_re_enter_password">Re-enter password</string>
+    <string name="account_re_enter_password_hint">Passwords must match</string>
     <string name="account_register_sign_up">Sign up</string>
     <string name="account_register_orRegister">Or sign up with</string>
     <string name="account_register_already_have">Alredy have an account?</string>
+    <string name="account_user_exists_hint">A user with this email is already registered</string>
 
 </resources>

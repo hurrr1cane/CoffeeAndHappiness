@@ -42,9 +42,11 @@
     <string name="account_register_name_hint">Будь ласка, введіть ім\'я</string>
     <string name="accountSurname">Прізвище</string>
     <string name="account_register_surname_hint">Будь ласка, введіть прізвище</string>
-    <string name="account_register_re_enter_password">Паролі повинні збігатися</string>
+    <string name="account_register_re_enter_password">Підтвердіть пароль</string>
+    <string name="account_re_enter_password_hint">Паролі повинні збігатися</string>
     <string name="account_register_sign_up">Зареєструватися</string>
     <string name="account_register_orRegister">Або зареєеструйтеся через</string>
     <string name="account_register_already_have">Уже маєте обліковий запис?</string>
+    <string name="account_user_exists_hint">Користувач із такою електронною адресою вже зареєстрований</string>
 
 </resources>
