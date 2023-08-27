@@ -56,7 +56,7 @@ export default function Login() {
 
     return (
         <Container component="main" maxWidth="xs">
-          <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8}}><AlertTitle>Logged in successfully</AlertTitle> You will be redirected shortly.</Alert>
+          <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8, marginBottom: 1}}><AlertTitle>Logged in successfully</AlertTitle> You will be redirected shortly.</Alert>
           <Alert onClose={() => {setShowAlert(false)}} sx={{display: showAlert ? "flex" : "none"}}
            severity="error">{error}</Alert>
             <Box
