@@ -10,6 +10,7 @@
   import { usePathname } from 'next/navigation'
   import { useGlobalContext } from "@/app/store/store";
   import { useRouter } from "next/navigation";
+  
   //Todo: fix element positioning
 
   export default function Navbar() {

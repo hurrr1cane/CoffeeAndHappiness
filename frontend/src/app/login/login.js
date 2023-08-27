@@ -75,7 +75,7 @@ export default function Login() {
               </Typography>
               <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                 <TextField
-                  
+                  color="success"
                   {...register('email', {
                     required: 'Email address is required',
                     pattern: {
@@ -95,6 +95,7 @@ export default function Login() {
                   helperText={errors.email?.message}
                 />
                 <TextField
+                color="success"
                   {...register('password', {
                     required: 'Password is required',
                   })}
