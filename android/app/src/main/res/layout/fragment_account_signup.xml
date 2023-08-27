@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SCREEN_STYLE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.accountfragments.AccountSignupFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/ACCOUNT_TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:gravity="center"
+                android:text="@string/account_register_top_text"
+                android:textSize="35sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ACCOUNT_ENTER_BACKGROUND"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                app:hintTextColor="@color/default_green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/accountRegisterName"
+                    style="@style/ACCOUNT_REGISTER_ENTER_NAME"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="20dp"
+                    android:hint="@string/accountName"
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/gray_black_text"
+                    android:textSize="20sp"
+                    android:theme="@style/ACCOUNT_CURSOR"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/accountRegisterNameHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="@string/account_register_name_hint"
+                android:textColor="@color/default_red"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ACCOUNT_ENTER_BACKGROUND"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:hintTextColor="@color/default_green"
+                android:padding="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/accountRegisterSurname"
+                    style="@style/ACCOUNT_REGISTER_ENTER_NAME"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="20dp"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:hint="@string/accountSurname"
+                    android:inputType="textPersonName"
+                    android:textSize="20sp"
+                    android:theme="@style/ACCOUNT_CURSOR" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/accountRegisterSurnameHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="@string/account_register_surname_hint"
+                android:textColor="@color/default_red"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ACCOUNT_ENTER_BACKGROUND"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                app:hintTextColor="@color/default_green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/accountRegisterEmail"
+                    style="@style/ACCOUNT_ENTER_EMAIL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="20dp"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:hint="@string/account_email"
+                    android:inputType="textEmailAddress"
+                    android:textSize="20sp"
+                    android:theme="@style/ACCOUNT_CURSOR" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/accountRegisterEmailHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="@string/account_email_hint"
+                android:textColor="@color/default_red"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ACCOUNT_ENTER_BACKGROUND"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                app:hintTextColor="@color/default_green"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/accountRegisterPassword"
+                    style="@style/ACCOUNT_ENTER_PASSWORD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="20dp"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:hint="@string/account_password"
+                    android:inputType="textPassword"
+                    android:textSize="20sp"
+                    android:theme="@style/ACCOUNT_CURSOR" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/accountLoginPasswordHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="@string/account_password_hint"
+                android:textColor="@color/default_red"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ACCOUNT_ENTER_BACKGROUND"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                app:hintTextColor="@color/default_green"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/accountRegisterReEnterPassword"
+                    style="@style/ACCOUNT_ENTER_PASSWORD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="20dp"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:hint="@string/account_register_re_enter_password"
+                    android:inputType="textPassword"
+                    android:textSize="20sp"
+                    android:theme="@style/ACCOUNT_CURSOR" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/accountRegisterReEnterPasswordHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="@string/account_password_hint"
+                android:textColor="@color/default_red"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/accountRegisterButton"
+                style="@style/ACCOUNT_ENTER_BUTTON"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/account_button"
+                android:fontFamily="@font/sofiasans_straight"
+                android:padding="15dp"
+                android:text="@string/account_register_sign_up"
+                android:textSize="22sp" />
+
+            <TextView
+                style="@style/ACCOUNT_TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:gravity="center"
+                android:text="@string/account_register_orRegister"
+                android:textSize="18sp" />
+
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                style="@style/ACCOUNT_GOOGLE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:padding="2dp"
+                android:src="@drawable/google_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    style="@style/ACCOUNT_TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:text="@string/account_register_already_have"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/changeFragmentToLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:text="@string/account_login_sign_in"
+                    android:textColor="@color/default_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+
+</FrameLayout>

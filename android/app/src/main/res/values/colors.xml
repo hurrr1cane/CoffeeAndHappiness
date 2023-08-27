@@ -11,6 +11,7 @@
     <color name="gray_white_text">#AAA</color>
     <color name="white_text">#E5E5E5</color>
     <color name="default_green">#4caf50</color>
+    <color name="default_red">#ff4040</color>
 
 
 </resources>
