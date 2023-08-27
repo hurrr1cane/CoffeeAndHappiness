@@ -1,0 +1,188 @@
+/*
+package com.mdn.coffeeandhappiness.controller
+
+import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.IOException
+
+class AccountController {
+
+    suspend public fun login(email: String, password: String, sharedPreferences: SharedPreferences): Boolean {
+        return withContext(Dispatchers.IO) {
+
+            val url = "http://192.168.0.23:8080/api/auth/login"
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create a request object for the GET request
+            val requestBody = FormBody.Builder()
+                .add("email", email)
+                .add("password", password)
+                .build()
+
+
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+
+            var logined = false
+            try {
+                // Use the OkHttpClient to send the POST request
+                val response = client.newCall(request).execute()
+
+                // Check if the request was successful
+                if (response.isSuccessful) {
+                    // Handle the successful response here
+                    val responseBody = response.body?.string()
+
+                    val editor = sharedPreferences.edit()
+                    // Parse the JSON using Gson
+                    val gson = Gson()
+                    val accessTokenResponse = gson.fromJson(responseBody, AccessTokenResponse::class.java)
+
+                    // Extract the accessToken
+                    val accessToken = accessTokenResponse.accessToken
+
+                    editor.putString("AccessToken", accessToken)
+                    editor.apply()
+                    logined = true
+
+                } else {
+                    logined = false
+                }
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+            }
+
+            logined
+        }
+    }
+
+    fun updateUserInPreferences(email: String, sharedPreferences: SharedPreferences) {
+
+
+    }
+}
+
+data class AccessTokenResponse(
+    @SerializedName("accessToken")
+    val accessToken: String
+)*/
+
+package com.mdn.coffeeandhappiness.controller
+
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+
+import android.content.SharedPreferences
+import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.Response
+import java.io.IOException
+
+class AccountController {
+
+    suspend fun login(email: String, password: String, sharedPreferences: SharedPreferences): Boolean {
+        return withContext(Dispatchers.IO) {
+
+            val url = "http://192.168.0.23:8080/api/auth/login"
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create JSON data for the request body
+            val json = """{"email":"$email","password":"$password"}"""
+
+            // Set the media type as JSON
+            val mediaType = "application/json; charset=utf-8".toMediaType()
+
+            // Create a request body
+            val requestBody = json.toRequestBody(mediaType)
+
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            var logined = false
+            try {
+                // Use the OkHttpClient to send the POST request
+                val response: Response = client.newCall(request).execute()
+
+                // Check if the request was successful
+                if (response.isSuccessful) {
+                    // Handle the successful response here
+                    val responseBody = response.body?.string()
+
+                    // Log the response body for debugging
+                    Log.d("AccountController", "Response Body: $responseBody")
+
+                    val editor = sharedPreferences.edit()
+                    // Parse the JSON using Gson
+                    val gson = Gson()
+                    val accessTokenResponse = gson.fromJson(responseBody, AccessTokenResponse::class.java)
+
+                    // Extract the accessToken
+                    val accessToken = accessTokenResponse.accessToken
+
+                    editor.putString("AccessToken", accessToken)
+                    editor.putString("Email", email)
+                    editor.apply()
+                    logined = true
+
+                } else {
+                    logined = false
+                    // Log the error message for debugging
+                    Log.e("AccountController", "HTTP Error: ${response.code}")
+                }
+
+                // Close the response body to release resources
+                response.close()
+
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+            }
+
+            logined
+        }
+    }
+
+    fun updateUserInPreferences(email: String, sharedPreferences: SharedPreferences) {
+        // Implement this method if needed
+    }
+
+    fun logout(sharedPreferences: SharedPreferences) {
+        val editor = sharedPreferences.edit()
+        editor.putString("AccessToken", "")
+        editor.putString("Email", "")
+        editor.putString("Name", "")
+        editor.putString("Surname", "")
+        editor.putBoolean("IsAccountLogged", false)
+        editor.apply()
+    }
+}
+
+data class AccessTokenResponse(
+    @SerializedName("accessToken")
+    val accessToken: String
+)

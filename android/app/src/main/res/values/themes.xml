@@ -117,6 +117,50 @@
         <item name="android:fontFamily">@font/sofiasans_straight</item>
     </style>
 
+    <!-- Account section -->
+    <style name="ACCOUNT_MAIN_DIALOG_TEXT">
+        <item name="fontFamily">@font/sofiasans_straight</item>
+    </style>
+
+    <style name="ACCOUNT_TEXT">
+        <item name="android:textColor">@color/black_text</item>
+    </style>
+
+    <style name="ACCOUNT_ENTER_BACKGROUND">
+        <item name="android:background">@drawable/account_textfield_white</item>
+    </style>
+
+    <style name="ACCOUNT_ENTER_TEXT" parent="ACCOUNT_ENTER_BACKGROUND">
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textColorHint">@color/gray_black_text</item>
+    </style>
+
+    <style name="ACCOUNT_ENTER_EMAIL" parent="ACCOUNT_ENTER_TEXT">
+        <item name="android:drawableStart">@drawable/baseline_email_black_24</item>
+    </style>
+
+    <style name="ACCOUNT_ENTER_PASSWORD" parent="ACCOUNT_ENTER_TEXT">
+        <item name="android:drawableStart">@drawable/baseline_password_black_24</item>
+    </style>
+
+    <style name="ACCOUNT_ENTER_BUTTON">
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+    <style name="ACCOUNT_GOOGLE">
+        <item name="android:background">@drawable/circle_white</item>
+    </style>
+
+    <style name="ACCOUNT_CURSOR" parent="">
+        <item name="android:colorPrimary">@color/default_green</item>
+        <item name="android:colorControlActivated">@color/default_green</item>
+        <item name="colorAccent">@color/default_green</item>
+    </style>
+
+    <style name="ACCOUNT_REGISTER_ENTER_NAME" parent="ACCOUNT_ENTER_TEXT">
+        <item name="android:drawableStart">@drawable/baseline_person_black_24</item>
+    </style>
+
 
 
 </resources>

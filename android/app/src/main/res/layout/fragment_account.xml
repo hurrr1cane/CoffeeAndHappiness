@@ -6,10 +6,12 @@
     style="@style/SCREEN_STYLE"
     tools:context=".fragments.AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
+        android:id="@+id/accountFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="account fragment" />
+        android:layout_height="match_parent" >
+
+
+    </FrameLayout>
 
 </FrameLayout>
