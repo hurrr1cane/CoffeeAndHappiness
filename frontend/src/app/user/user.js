@@ -13,16 +13,18 @@ export default function User() {
         axios.get(`http://localhost:8080/api/user/email/${user?.email}`)
         .then(res => {
           setUser(
+            prev => (
             {
+              ...prev,
               firstName: res.data.firstName,
               lastName: res.data.lastName,
               imageUrl: res.data.imageUrl,
               role: res.data.role,
               bonusPoints: res.data.bonusPoints,
               orders: res.data.orders,
-              email: res.data.email,
               id: res.data.id
             }
+              )
           )
         })
         .catch(err => console.log(err)) 
@@ -39,6 +41,7 @@ export default function User() {
                     <h1>Last name: {user?.lastName}</h1>
                     <h1>Bonus points: {user?.bonusPoints}</h1>
                     <h1>Email: {user?.email}</h1>
+                    <h1>Token : {user?.token}</h1>
                 </div>
         </section>
     )

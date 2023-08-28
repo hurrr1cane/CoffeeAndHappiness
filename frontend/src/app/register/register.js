@@ -42,6 +42,7 @@ export default function Register() {
             role: 'USER'
         })
         .then(res => {
+          setUser(prev => ({...prev, token: res.data.accessToken, refreshToken: res.data.refreshToken}))
           setShowSuccessAlert(true)
           setTimeout(() => {
             push('/user')
