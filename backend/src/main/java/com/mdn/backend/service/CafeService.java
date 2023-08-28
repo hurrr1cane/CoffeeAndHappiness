@@ -17,6 +17,12 @@ public class CafeService {
     private final CafeRepository cafeRepository;
 
     public List<Cafe> getAllCafes() {
+        for (Cafe cafe : cafeRepository.findAll()) {
+            for (CafeReview review : cafe.getReviews()) {
+                Integer userId = review.getUser().getId();
+                review.setUserId(userId);
+            }
+        }
         return cafeRepository.findAll();
     }
 

@@ -17,6 +17,12 @@ public class FoodService {
     private final FoodRepository foodRepository;
 
     public List<Food> getAllFoods() {
+        for (Food food : foodRepository.findAll()) {
+            for (FoodReview review : food.getReviews()) {
+                Integer userId = review.getUser().getId();
+                review.setUserId(userId);
+            }
+        }
         return foodRepository.findAll();
     }
 
