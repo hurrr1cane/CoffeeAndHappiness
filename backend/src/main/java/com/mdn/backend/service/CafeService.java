@@ -2,6 +2,8 @@ package com.mdn.backend.service;
 
 import com.mdn.backend.exception.CafeNotFoundException;
 import com.mdn.backend.model.Cafe;
+import com.mdn.backend.model.review.CafeReview;
+import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.repository.CafeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,14 @@ public class CafeService {
     }
 
     public Cafe getCafeById(Integer id) {
-        return cafeRepository.findById(id).orElseThrow(
+        Cafe cafe = cafeRepository.findById(id).orElseThrow(
                 () -> new CafeNotFoundException("No such cafe with id " + id + " found")
         );
+        for (CafeReview review : cafe.getReviews()) {
+            Integer userId = review.getUser().getId();
+            review.setUserId(userId);
+        }
+        return cafe;
     }
 
     public Cafe addCafe(Cafe cafe) {
