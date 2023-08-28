@@ -90,6 +90,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.mdn.coffeeandhappiness.model.Food
+import com.mdn.coffeeandhappiness.model.Person
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
@@ -97,9 +98,54 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
+import org.json.JSONObject
 import java.io.IOException
 
 class AccountController {
+
+    suspend fun getById(id: Int): Person? {
+        return withContext(Dispatchers.IO) {
+            var person: Person? = null
+
+            // Define the URL you want to send the GET request to
+            val url = "http://192.168.0.23:8080/api/user/"
+
+            val finalUrl = "$url$id"
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create a request object for the GET request
+            val request = Request.Builder()
+                .url(finalUrl)
+                .build()
+
+            try {
+                // Use the OkHttpClient to send the GET request and await the response
+                val response = client.newCall(request).execute()
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+
+                    // Use Gson to parse the JSON response
+                    val gson = Gson()
+                    person = gson.fromJson(responseBody, Person::class.java)
+
+                    //val jsonItem = JSONObject(responseBody)
+                    //val imageUrl = jsonItem.getString("imageUrl")
+                    //val firstName = jsonItem.getString("firstName")
+                    //val lastName = jsonItem.getString("lastName")
+
+
+                }
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+            }
+
+            person
+        }
+    }
 
     suspend fun login(email: String, password: String, sharedPreferences: SharedPreferences): Boolean {
         return withContext(Dispatchers.IO) {
