@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +40,7 @@ public class ReviewService {
         cafeReview.setCafe(cafe);
         cafeReview.setUser(user);
         cafeReview.setUserId(user.getId());
+        cafeReview.setDate(new Date());
 
         cafe.getReviews().add(cafeReview);
         cafe.setAverageRating(updatedRating);
@@ -62,9 +64,10 @@ public class ReviewService {
         double updatedRating = (food.getAverageRating() * food.getReviews().size() + foodReview.getRating()) / (food.getReviews().size() + 1);
         updatedRating = Math.round(updatedRating * 10.0) / 10.0;
 
-        foodReview.setFood(food);
         foodReview.setUser(user);
         foodReview.setUserId(user.getId());
+        foodReview.setDate(new Date());
+        foodReview.setFood(food);
 
         food.getReviews().add(foodReview);
         food.setAverageRating(updatedRating);

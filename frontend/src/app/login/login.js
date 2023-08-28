@@ -43,6 +43,9 @@ export default function Login() {
             password: data.password
         })
         .then(res => {
+            setUser(prev => (
+              {...prev, token:res.data.accessToken, refreshToken: res.data.accessToken}
+            ))
             setShowSuccessAlert(true)
             setTimeout(() => {
               push('/user')
