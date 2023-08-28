@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,4 +27,7 @@ public abstract class Review {
 
     @Column(name = "comment")
     private String comment;
+
+    @Column(name = "date")
+    private Date date;
 }
