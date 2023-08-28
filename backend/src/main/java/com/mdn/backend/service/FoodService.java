@@ -3,6 +3,7 @@ package com.mdn.backend.service;
 import com.mdn.backend.exception.FoodNotFoundException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.FoodType;
+import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.repository.FoodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,24 @@ public class FoodService {
     private final FoodRepository foodRepository;
 
     public List<Food> getAllFoods() {
+        for (Food food : foodRepository.findAll()) {
+            for (FoodReview review : food.getReviews()) {
+                Integer userId = review.getUser().getId();
+                review.setUserId(userId);
+            }
+        }
         return foodRepository.findAll();
     }
 
     public Food getFoodById(Integer id) {
-        return foodRepository.findById(id).orElseThrow(
+        Food food = foodRepository.findById(id).orElseThrow(
                 () -> new FoodNotFoundException("No such food with id " + id + " found")
         );
+        for (FoodReview review : food.getReviews()) {
+            Integer userId = review.getUser().getId();
+            review.setUserId(userId);
+        }
+        return food;
     }
 
     public List<Food> getFoodsByIds(List<Integer> foodIds) {
@@ -38,6 +50,13 @@ public class FoodService {
                     .toList();
 
             throw new FoodNotFoundException("Food not found with IDs: " + notFoundFoodIds);
+        }
+
+        for (Food food : foods) {
+            for (FoodReview review : food.getReviews()) {
+                Integer userId = review.getUser().getId();
+                review.setUserId(userId);
+            }
         }
 
         return foods;

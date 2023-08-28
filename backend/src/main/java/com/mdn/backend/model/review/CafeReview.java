@@ -26,4 +26,7 @@ public class CafeReview extends Review {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @Transient
+    private Integer userId;
 }

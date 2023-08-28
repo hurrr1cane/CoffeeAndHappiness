@@ -14,6 +14,8 @@ import com.mdn.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -22,18 +24,21 @@ public class ReviewService {
     private final FoodRepository foodRepository;
     private final UserRepository userRepository;
 
-    public CafeReview addCafeReview(Integer cafeId, Integer userId, CafeReview cafeReview) {
+    public CafeReview addCafeReview(Integer cafeId, CafeReview cafeReview, Principal principal) {
         Cafe cafe = cafeRepository.findById(cafeId)
                 .orElseThrow(() -> new CafeNotFoundException("Cafe not found with id: " + cafeId));
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
+        String userEmail = principal.getName();
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + userEmail));
 
         double updatedRating = (cafe.getAverageRating() * cafe.getReviews().size() + cafeReview.getRating()) / (cafe.getReviews().size() + 1);
         updatedRating = Math.round(updatedRating * 10.0) / 10.0;
 
         cafeReview.setCafe(cafe);
         cafeReview.setUser(user);
+        cafeReview.setUserId(user.getId());
 
         cafe.getReviews().add(cafeReview);
         cafe.setAverageRating(updatedRating);
@@ -45,18 +50,21 @@ public class ReviewService {
         return cafeReview;
     }
 
-    public FoodReview addFoodReview(Integer foodId, Integer userId, FoodReview foodReview) {
+    public FoodReview addFoodReview(Integer foodId, FoodReview foodReview, Principal principal) {
         Food food = foodRepository.findById(foodId)
                 .orElseThrow(() -> new FoodNotFoundException("Food not found with id: " + foodId));
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
+        String userEmail = principal.getName();
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + userEmail));
 
         double updatedRating = (food.getAverageRating() * food.getReviews().size() + foodReview.getRating()) / (food.getReviews().size() + 1);
         updatedRating = Math.round(updatedRating * 10.0) / 10.0;
 
         foodReview.setFood(food);
         foodReview.setUser(user);
+        foodReview.setUserId(user.getId());
 
         food.getReviews().add(foodReview);
         food.setAverageRating(updatedRating);

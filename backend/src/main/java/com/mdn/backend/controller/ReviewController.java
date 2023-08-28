@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("api/review")
 @CrossOrigin(value = "*")
@@ -34,22 +36,18 @@ public class ReviewController {
             @ApiResponse(responseCode = "404", description = "Cafe or user not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("cafe/{cafeId}/{userId}")
+    @PostMapping("cafe/{cafeId}")
     public ResponseEntity<?> addCafeReview(
             @PathVariable Integer cafeId,
-            @PathVariable Integer userId,
-            @RequestBody CafeReview cafeReview) {
+            @RequestBody CafeReview cafeReview,
+            Principal principal) {
         try {
-            CafeReview addedReview = reviewService.addCafeReview(cafeId, userId, cafeReview);
+            CafeReview addedReview = reviewService.addCafeReview(cafeId, cafeReview, principal);
             return new ResponseEntity<>(addedReview, HttpStatus.CREATED);
         } catch (CafeNotFoundException ex) {
             log.error("Cafe not found with id: {}", cafeId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Cafe not found with id: " + cafeId);
-        } catch (UserNotFoundException ex) {
-            log.error("User not found with id: {}", userId);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found with id: " + userId);
         } catch (Exception ex) {
             log.error("Error while adding cafe review: {}", ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -63,22 +61,18 @@ public class ReviewController {
             @ApiResponse(responseCode = "404", description = "Food or user not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("food/{foodId}/{userId}")
+    @PostMapping("food/{foodId}")
     public ResponseEntity<?> addFoodReview(
             @PathVariable Integer foodId,
-            @PathVariable Integer userId,
-            @RequestBody FoodReview foodReview) {
+            @RequestBody FoodReview foodReview,
+            Principal principal) {
         try {
-            FoodReview addedReview = reviewService.addFoodReview(foodId, userId, foodReview);
+            FoodReview addedReview = reviewService.addFoodReview(foodId, foodReview, principal);
             return new ResponseEntity<>(addedReview, HttpStatus.CREATED);
         } catch (FoodNotFoundException ex) {
             log.error("Food not found with id: {}", foodId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Food not found with id: " + foodId);
-        } catch (UserNotFoundException ex) {
-            log.error("User not found with id: {}", userId);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found with id: " + userId);
         } catch (Exception ex) {
             log.error("Error while adding food review: {}", ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

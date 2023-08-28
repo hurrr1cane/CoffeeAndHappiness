@@ -6,6 +6,7 @@ import com.mdn.backend.model.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,4 +28,7 @@ public class FoodReview extends Review {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @Transient
+    private Integer userId;
 }
