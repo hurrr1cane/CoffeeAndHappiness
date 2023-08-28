@@ -16,7 +16,7 @@ return (
       <div onClick={() => {setTab("SALAD")}} className={`${styles.menuItem} ${tab === "SALAD" ? styles.selected : ''}`}>
         <p>Salads</p>
       </div>
-      <div onClick={() => {setTab("DESERT")}} className={`${styles.menuItem} ${tab === "DESERT" ? styles.selected : ''}`}>
+      <div onClick={() => {setTab("DESSERT")}} className={`${styles.menuItem} ${tab === "DESERT" ? styles.selected : ''}`}>
         <p>Desserts</p>
       </div>
       <div onClick={() => {setTab("ICE_CREAM")}} className={`${styles.menuItem} ${tab === "ICE_CREAM" ? styles.selected : ''}`}>
