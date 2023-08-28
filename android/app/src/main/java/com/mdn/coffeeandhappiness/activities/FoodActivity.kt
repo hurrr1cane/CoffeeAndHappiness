@@ -1,20 +1,26 @@
 package com.mdn.coffeeandhappiness.activities
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatRatingBar
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
+import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.controller.FoodController
 import com.mdn.coffeeandhappiness.model.Food
+import com.mdn.coffeeandhappiness.model.Person
 import com.mdn.coffeeandhappiness.tools.FoodTypeTranslator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -112,7 +118,78 @@ class FoodActivity : AppCompatActivity() {
                     .placeholder(R.drawable.default_placeholder_image)
                     .error(R.drawable.default_error_image)
                     .into(foodPicture)
+
+
+                val viewAllReviews = findViewById<AppCompatButton>(R.id.foodActivityViewAllReviewsButton)
+                if (currentFood?.reviews!!.size > 3) {
+                    viewAllReviews.visibility = View.VISIBLE
+                }
+                else {
+                    viewAllReviews.visibility = View.GONE
+                }
+
+                val reviewsContainer = findViewById<LinearLayout>(R.id.foodActivityReviewsSection)
+
+                val count = if (currentFood!!.reviews.size > 3) {
+                    3
+                } else currentFood!!.reviews.size
+
+                for (i in 0 until count) {
+                    val accountController = AccountController()
+                    var person: Person? = null
+                    lifecycleScope.launch() {
+                        person = accountController.getById(currentFood!!.reviews[i].userId)
+
+
+                        launch() {
+                            val cardView =
+                                layoutInflater.inflate(
+                                    R.layout.dynamic_card_review,
+                                    null
+                                ) as CardView
+                            val userPicture = cardView.findViewById<ImageView>(R.id.reviewPicture)
+                            val userName = cardView.findViewById<TextView>(R.id.reviewName)
+                            val userText = cardView.findViewById<TextView>(R.id.reviewText)
+                            val reviewRating =
+                                cardView.findViewById<AppCompatRatingBar>(R.id.reviewRatingBar)
+
+
+                            Glide.with(applicationContext)
+                                .load(person!!.imageUrl)
+                                .placeholder(R.drawable.baseline_person_white_24)
+                                .error(R.drawable.baseline_person_white_24)
+                                .into(userPicture)
+
+                            userName.text = person!!.firstName + " " + person!!.lastName
+
+                            reviewRating.rating = currentFood!!.reviews[i].rating.toFloat()
+                            userText.text = currentFood!!.reviews[i].comment
+
+                            val layoutParams = LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT
+                            )
+                            cardView.layoutParams = layoutParams
+
+                            reviewsContainer.addView(cardView)
+                        }
+                    }
+                }
+
             }
+        }
+
+
+        val viewAllReviews = findViewById<AppCompatButton>(R.id.foodActivityViewAllReviewsButton)
+
+        viewAllReviews.setOnClickListener() {
+            // Handle the click event here, for example, open a new activity with details
+            val intent = Intent(this, FoodReviewsActivity::class.java)
+            intent.putExtra(
+                "food_id",
+                currentFood!!.id
+            ) // Pass any data you need to the next activity
+            startActivity(intent)
         }
 
     }

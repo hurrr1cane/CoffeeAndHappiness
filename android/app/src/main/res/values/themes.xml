@@ -185,6 +185,11 @@
         <item name="android:drawableStart">@drawable/baseline_person_black_24</item>
     </style>
 
+    <!-- Reviews section -->
+    <style name="REVIEW_SEPARATE_LINE">
+        <item name="android:background">@color/gray_white_text</item>
+    </style>
+
 
 
 </resources>
