@@ -18,14 +18,18 @@ export default function ReviewModal({ open, id, setOpen, token }) {
     const [comment, setComment] = useState("")
 
     const handleSubmit = () => {
-        axios.post(`http://localhost:8080/api/review/food/${id}`, {
+        
+        axios.post(`http://localhost:8080/api/review/food/${id}`, 
+        {
             
-            "rating":rating,
-            "comment": comment
+            rating: rating,
+            comment: comment
             
         }, 
         {
             headers: {
+                "Accept":"*/*",
+                "Access-Control-Allow-Origin": "http://localhost:3000",
                 "Authorization": `Bearer ${token}` 
             }
         }
