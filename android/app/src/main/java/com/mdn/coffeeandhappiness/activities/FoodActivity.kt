@@ -16,7 +16,6 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
-import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
 import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.controller.FoodController
 import com.mdn.coffeeandhappiness.model.Food
@@ -191,6 +190,17 @@ class FoodActivity : AppCompatActivity() {
             ) // Pass any data you need to the next activity
             startActivity(intent)
         }
+
+
+        addReviewButton.setOnClickListener() {
+            val intent = Intent(this, FoodAddReviewActivity::class.java)
+            intent.putExtra(
+                "food_id",
+                currentFood!!.id
+            ) // Pass any data you need to the next activity
+            startActivity(intent)
+        }
+
 
     }
 }
