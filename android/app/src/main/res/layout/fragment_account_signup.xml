@@ -12,10 +12,10 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_marginTop="70dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="90dp"
             android:orientation="vertical">
 
             <TextView
@@ -42,11 +42,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="20dp"
+                    android:fontFamily="@font/sofiasans_straight"
                     android:hint="@string/accountName"
                     android:inputType="textPersonName"
                     android:textColorHint="@color/gray_black_text"
                     android:textSize="20sp"
-                    android:theme="@style/ACCOUNT_CURSOR"/>
+                    android:theme="@style/ACCOUNT_CURSOR" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -68,8 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                app:hintTextColor="@color/default_green"
-                android:padding="5dp">
+                android:padding="5dp"
+                app:hintTextColor="@color/default_green">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/accountRegisterSurname"
