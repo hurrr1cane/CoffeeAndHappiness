@@ -20,7 +20,8 @@ export default function User() {
               role: res.data.role,
               bonusPoints: res.data.bonusPoints,
               orders: res.data.orders,
-              email: res.data.email
+              email: res.data.email,
+              id: res.data.id
             }
           )
         })

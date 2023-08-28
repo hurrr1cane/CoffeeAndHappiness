@@ -3,27 +3,32 @@
 import { usePathname } from "next/navigation"
 import styles from './dish.module.scss'
 import axios from "axios"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import { Rating } from "@mui/material"
 
 export default function Dish() {
 
     const pathname = usePathname().split('dish/')[1]
 
+    const [dish, setDish] = useState({})
+
     useEffect(() => {
-        axios.get(`http://localhost:8080/food/${pathname}`)
-        .then(res => console.log(res))
+        axios.get(`http://localhost:8080/api/food/${pathname}`)
+        .then(res => setDish(res.data))
         .catch(err => console.log(err))
     }, [])
 
     return (
-        <main>
             <section className={styles.section}>
-                <div className={styles.image}> Image placeholder, image id: {pathname}</div>
-                <p>Image description: <br/> 
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                Ad aliquam officiis error dolor voluptate repellat, ullam non suscipit neque recusandae 
-                cupiditate deleniti aliquid quibusdam incidunt deserunt optio facere sequi magni?</p>
+                <Image alt="picture of some food" className={styles.image} width={300} height={300} src={dish.imageUrl ?? "/pizza.jpg"}></Image>
+                <section className={styles.info}>
+                    <h1>{dish.nameEN}</h1>
+                    <p>{dish.descriptionEN}</p>
+                    <p>Ingredients: {dish.ingredientsEN}</p>
+                    <p>Price: {dish.price}</p>
+                    <p>Rating: <Rating sx={{top: "5px"}} name="read-only" value={Number(dish.averageRating)} readOnly/></p>
+                </section>
             </section>
-        </main>
     )
 }

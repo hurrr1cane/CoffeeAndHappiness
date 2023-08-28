@@ -1,15 +1,22 @@
 .section {
+    // height: 100%;
     display: flex;
-    align-items: center;
+    // align-items: flex-start;
     .image {
-        margin: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 400px;
-        height: 250px;
-        outline: 1px solid red;
-        border-radius: 30px;
+        border-radius: 15px;
         box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+    .info {
+        display: flex;
+        flex-direction: column;
+        margin-left: 2rem;
+        font-size: 1.5rem;
+        p, h1 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
     }
 }
