@@ -1,6 +1,6 @@
 import styles from './page.module.scss'
 import Dish from './Dish'
-import Reviews from './Reviews'
+import Reviews from './Reviews/Reviews'
 export default function Home() {
     return (
     <div className={styles.main}>
