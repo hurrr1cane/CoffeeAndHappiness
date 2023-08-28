@@ -15,6 +15,6 @@
         android:icon="@drawable/baseline_map_24"
         android:id="@+id/nav_map"/>
     <item android:title="@string/nav_bar_account"
-        android:icon="@drawable/baseline_person_24"
+        android:icon="@drawable/baseline_person_black_24"
         android:id="@+id/nav_account"/>
 </menu>

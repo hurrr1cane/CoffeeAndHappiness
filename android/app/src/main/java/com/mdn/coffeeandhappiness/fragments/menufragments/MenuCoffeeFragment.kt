@@ -37,20 +37,6 @@ class MenuCoffeeFragment : Fragment() {
         }
     }
 
-    /*override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_menu_coffee, container, false)
-
-        val listOfFood = FoodController().getFood("coffee")
-
-        SectionSetter().setFoodSection(listOfFood, rootView, layoutInflater, context, "Coffee")
-
-        return rootView
-    }*/
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

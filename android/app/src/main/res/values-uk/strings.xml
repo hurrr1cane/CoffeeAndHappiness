@@ -25,4 +25,28 @@
     <string name="menu_food_rating">Рейтинг:</string>
     <string name="menu_food_price">Ціна:</string>
 
+    <!-- This is an account section -->
+    <string name="account_login_top_text">Увійти в обліковий запис</string>
+    <string name="account_email">Електронна пошта</string>
+    <string name="account_email_hint">Будь ласка, введіть електронну пошту</string>
+    <string name="account_password">Пароль</string>
+    <string name="account_password_hint">Будь ласка, введіть пароль</string>
+    <string name="account_login_wrong_password">Пароль невірний або облікового запису не існує</string>
+    <string name="account_login_sign_in">Увійти</string>
+    <string name="account_login_orLogin">Або ввійдіть через</string>
+    <string name="account_login_dont_have">Не маєте облікового запису?</string>
+    <string name="account_sign_up">Зареєструватися</string>
+
+    <string name="account_register_top_text">Зареєструвати обліковий запис</string>
+    <string name="accountName">Ім\'я</string>
+    <string name="account_register_name_hint">Будь ласка, введіть ім\'я</string>
+    <string name="accountSurname">Прізвище</string>
+    <string name="account_register_surname_hint">Будь ласка, введіть прізвище</string>
+    <string name="account_register_re_enter_password">Підтвердіть пароль</string>
+    <string name="account_re_enter_password_hint">Паролі повинні збігатися</string>
+    <string name="account_register_sign_up">Зареєструватися</string>
+    <string name="account_register_orRegister">Або зареєеструйтеся через</string>
+    <string name="account_register_already_have">Уже маєте обліковий запис?</string>
+    <string name="account_user_exists_hint">Користувач із такою електронною адресою вже зареєстрований</string>
+
 </resources>
