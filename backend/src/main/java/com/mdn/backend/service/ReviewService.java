@@ -34,6 +34,7 @@ public class ReviewService {
 
         cafeReview.setCafe(cafe);
         cafeReview.setUser(user);
+        cafeReview.setUserId(userId);
 
         cafe.getReviews().add(cafeReview);
         cafe.setAverageRating(updatedRating);
@@ -57,6 +58,7 @@ public class ReviewService {
 
         foodReview.setFood(food);
         foodReview.setUser(user);
+        foodReview.setUserId(userId);
 
         food.getReviews().add(foodReview);
         food.setAverageRating(updatedRating);
