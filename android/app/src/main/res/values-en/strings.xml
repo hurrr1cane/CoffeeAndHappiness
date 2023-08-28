@@ -24,6 +24,14 @@
     <string name="menu_food_rating">Rating:</string>
     <string name="menu_food_price">Price:</string>
 
+    <string name="food_description">Description:</string>
+    <string name="food_ingredients">Ingredients:</string>
+    <string name="food_weight">Weight:</string>
+    <string name="food_price">Price:</string>
+    <string name="food_average_rating">Average rating:</string>
+    <string name="food_add_review">Add review</string>
+    <string name="food_view_reviews">View all reviews</string>
+
     <!-- This is an account section -->
     <string name="account_login_top_text">Login to account</string>
     <string name="account_email">Email</string>

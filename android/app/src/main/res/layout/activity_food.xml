@@ -2,8 +2,261 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SCREEN_STYLE"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.FoodActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/foodActivityTopBar"
+        style="@style/FOOD_CARD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/foodActivityBackButton"
+            style="@style/FOOD_BACK_BUTTON"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:padding="5dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/foodActivityTopBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/foodActivityImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@raw/news_1" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/FOOD_CARD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    style="@style/FOOD_CARD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/foodActivityName"
+                        style="@style/FOOD_TEXT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="Smoothie"
+                        android:textSize="35sp" />
+
+                    <TextView
+                        android:id="@+id/foodActitityType"
+                        style="@style/FOOD_TEXT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:gravity="end"
+                        android:text="Dessert"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        style="@style/FOOD_TEXT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/food_description"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/foodActivityDescription"
+                        style="@style/FOOD_TEXT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="Nsdoo osdo ao djsk ja dfkfjsas  fjfejjf sjkkjcdcjkssjlcjd djcksdskl ccjd"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/foodActivityIngredientsLabel"
+                        style="@style/FOOD_TEXT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/food_ingredients"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/foodActivityIngredients"
+                        style="@style/FOOD_TEXT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="Asddf nsjdadhkfalkdsa klsa k sl skd, hfjhs m , dsjsdak"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FOOD_TEXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:text="@string/food_weight"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/foodActivityWeight"
+                            style="@style/FOOD_TEXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:text="200kg"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FOOD_TEXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:text="@string/food_price"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/foodActivityPrice"
+                            style="@style/FOOD_GREEN_TEXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:text="10000000$"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/FOOD_CARD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    style="@style/FOOD_CARD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FOOD_TEXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:text="@string/food_average_rating"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/foodActivityRating"
+                            style="@style/FOOD_GREEN_TEXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:text="0.1"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        android:id="@+id/foodActivityRatingBar"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:isIndicator="true"
+                        android:max="5"
+                        android:progressTint="@color/default_green"
+                        android:scaleX="2"
+                        android:scaleY="2"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="0dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/foodActivityAddReviewButton"
+                        style="@style/FOOD_BUTTON"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/food_add_review"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:id="@+id/foodActivityReviewsSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/foodActivityViewAllReviewsButton"
+                        style="@style/FOOD_BUTTON"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/food_view_reviews"
+                        android:textSize="20sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

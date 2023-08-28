@@ -1,12 +1,119 @@
 package com.mdn.coffeeandhappiness.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatRatingBar
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
+import com.mdn.coffeeandhappiness.controller.FoodController
+import com.mdn.coffeeandhappiness.model.Food
+import com.mdn.coffeeandhappiness.tools.FoodTypeTranslator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class FoodActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food)
+
+        val backButton = findViewById<ImageButton>(R.id.foodActivityBackButton)
+
+        backButton.setOnClickListener() {
+            finish()
+        }
+
+        val accountSettings = getSharedPreferences("Account", Context.MODE_PRIVATE)
+        val addReviewButton = findViewById<AppCompatButton>(R.id.foodActivityAddReviewButton)
+        if (accountSettings.getBoolean("IsAccountLogged", false)) {
+            addReviewButton.visibility = View.VISIBLE
+        }
+        else {
+            addReviewButton.visibility = View.GONE
+        }
+
+        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+
+        val language = sharedPreferences.getString("Language", "uk")
+
+        val foodId = intent.extras?.getInt("food_id")
+
+        val foodController = FoodController()
+
+        var currentFood: Food? = null
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            currentFood = foodController.getFood(foodId!!)
+
+            // Update the UI on the main thread
+            launch(Dispatchers.Main) {
+                val foodPicture = findViewById<ImageView>(R.id.foodActivityImage)
+                val foodName = findViewById<TextView>(R.id.foodActivityName)
+                val foodType = findViewById<TextView>(R.id.foodActitityType)
+                val foodDescription = findViewById<TextView>(R.id.foodActivityDescription)
+                val foodIngredients = findViewById<TextView>(R.id.foodActivityIngredients)
+                val foodIngredientsLabel = findViewById<TextView>(R.id.foodActivityIngredientsLabel)
+                val foodWeight = findViewById<TextView>(R.id.foodActivityWeight)
+                val foodPrice = findViewById<TextView>(R.id.foodActivityPrice)
+                val foodRating = findViewById<TextView>(R.id.foodActivityRating)
+                val foodRatingBar = findViewById<AppCompatRatingBar>(R.id.foodActivityRatingBar)
+
+                val foodTypeTranslator = FoodTypeTranslator()
+
+                if (language == "uk") {
+                    foodName.text = currentFood?.nameUA
+                    foodType.text = foodTypeTranslator.translateTo("uk", currentFood?.type!!)
+                    foodDescription.text = currentFood?.descriptionUA
+                    if (currentFood?.ingredientsUA == "null") {
+                        foodIngredients.visibility = View.GONE
+                        foodIngredientsLabel.visibility = View.GONE
+                    }
+                    else {
+                        foodIngredients.visibility = View.VISIBLE
+                        foodIngredientsLabel.visibility = View.VISIBLE
+                        foodIngredients.text = currentFood?.ingredientsUA
+                    }
+                    val foodWeightText = currentFood?.weight.toString() + "г"
+                    foodWeight.text = foodWeightText
+                }
+                else if (language == "en") {
+                    foodName.text = currentFood?.nameEN
+                    foodType.text = foodTypeTranslator.translateTo("en", currentFood?.type!!)
+                    foodDescription.text = currentFood?.descriptionEN
+                    if (currentFood?.ingredientsEN == "null") {
+                        foodIngredients.visibility = View.GONE
+                        foodIngredientsLabel.visibility = View.GONE
+                    }
+                    else {
+                        foodIngredients.visibility = View.VISIBLE
+                        foodIngredientsLabel.visibility = View.VISIBLE
+                        foodIngredients.text = currentFood?.ingredientsEN
+                    }
+                    val foodWeightText = currentFood?.weight.toString() + "g"
+                    foodWeight.text = foodWeightText
+                }
+
+                val foodPriceText = String.format("%.2f", currentFood?.price) + "₴"
+                foodPrice.text = foodPriceText
+
+                foodRating.text = String.format("%.1f", currentFood?.averageRating)
+
+                foodRatingBar.rating = currentFood?.averageRating!!.toFloat()
+
+                Glide.with(applicationContext)
+                    .load(currentFood?.imageUrl)
+                    .placeholder(R.drawable.default_placeholder_image)
+                    .error(R.drawable.default_error_image)
+                    .into(foodPicture)
+            }
+        }
+
     }
 }

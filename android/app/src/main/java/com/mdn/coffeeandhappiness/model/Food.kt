@@ -14,5 +14,5 @@ data class Food(
     val type: String,
     val averageRating: Double,
     val totalReviews: Int,
-    val reviews: List<Any>
+    val reviews: List<Review>
 )

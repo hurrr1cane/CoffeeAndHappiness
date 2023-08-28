@@ -25,6 +25,14 @@
     <string name="menu_food_rating">Рейтинг:</string>
     <string name="menu_food_price">Ціна:</string>
 
+    <string name="food_description">Опис:</string>
+    <string name="food_ingredients">Інгредієнти:</string>
+    <string name="food_weight">Маса:</string>
+    <string name="food_price">Ціна:</string>
+    <string name="food_average_rating">Середній рейтинг:</string>
+    <string name="food_add_review">Додати відгук</string>
+    <string name="food_view_reviews">Побачити всі відгуки</string>
+
     <!-- This is an account section -->
     <string name="account_login_top_text">Увійти в обліковий запис</string>
     <string name="account_email">Електронна пошта</string>

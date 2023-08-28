@@ -105,6 +105,28 @@
         <item name="android:fontFamily">@font/sofiasans_straight</item>
     </style>
 
+    <style name="FOOD_CARD">
+        <item name="android:background">@color/dark_background_main</item>
+    </style>
+
+    <style name="FOOD_BACK_BUTTON">
+        <item name="android:src">@drawable/baseline_arrow_back_white_24</item>
+        <item name="android:background">@drawable/circle_black</item>
+    </style>
+
+    <style name="FOOD_TEXT">
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+    <style name="FOOD_GREEN_TEXT">
+        <item name="android:textColor">@color/default_green</item>
+    </style>
+
+    <style name="FOOD_BUTTON">
+        <item name="android:textColor">@color/white_text</item>
+        <item name="android:background">@color/dark_background_main</item>
+    </style>
+
     <!-- Account section -->
     <style name="ACCOUNT_MAIN_DIALOG_TEXT">
         <item name="fontFamily">@font/sofiasans_straight</item>
