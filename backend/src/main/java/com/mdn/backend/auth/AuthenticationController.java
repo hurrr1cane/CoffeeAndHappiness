@@ -1,5 +1,6 @@
 package com.mdn.backend.auth;
 
+import com.mdn.backend.model.user.Role;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,7 +27,17 @@ public class AuthenticationController {
     })
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authenticationService.register(request));
+        return ResponseEntity.ok(authenticationService.registerUser(request));
+    }
+
+    @Operation(summary = "Register a new admin", description = "Register a new admin.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @PostMapping("/register/admin")
+    public ResponseEntity<AuthenticationResponse> registerAdmin(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authenticationService.registerAdmin(request));
     }
 
     @Operation(summary = "Login", description = "Login.")
