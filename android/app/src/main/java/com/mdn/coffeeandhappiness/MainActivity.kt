@@ -171,6 +171,7 @@ class MainActivity : LocalizationActivity() {
     }
 
 
+
     private fun controllerLightDarkMode(sharedPreferences: SharedPreferences) {
         val nightMode: Boolean = sharedPreferences.getBoolean("Night", true)
         val modeButton = findViewById<ImageButton>(R.id.modeButton)

@@ -3,6 +3,7 @@ package com.mdn.coffeeandhappiness.activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -24,10 +25,13 @@ import com.mdn.coffeeandhappiness.model.Person
 import com.mdn.coffeeandhappiness.tools.FoodTypeTranslator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class FoodActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setLanguage()
         setContentView(R.layout.activity_food)
 
         val backButton = findViewById<ImageButton>(R.id.foodActivityBackButton)
@@ -204,6 +208,20 @@ class FoodActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun setLanguage() {
+        val languagePreferences = getSharedPreferences("Settings", MODE_PRIVATE)
+        var languageToSet = languagePreferences.getString("Language", "uk")
+
+        var locale = Locale(languageToSet)
+        Locale.setDefault(locale)
+        var configuration: Configuration = resources.configuration
+        configuration.setLocale(locale)
+        baseContext.resources.updateConfiguration(
+            configuration,
+            baseContext.resources.displayMetrics
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
