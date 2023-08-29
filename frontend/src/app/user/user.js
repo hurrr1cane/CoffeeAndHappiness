@@ -34,15 +34,18 @@ export default function User() {
         push('/login')
     }
     return (
+      <>
+       <h1>Welcome, {user?.firstName} {user?.lastName}</h1>
         <section className={styles.main}>
-                <Image className={styles.image} src={user?.imageUrl ? imageUrl : "/user.png"} width={350} height={350} alt="avatar image"/>   
-                <div>
-                    <h1>First name: {user?.firstName}</h1>
-                    <h1>Last name: {user?.lastName}</h1>
-                    <h1>Bonus points: {user?.bonusPoints}</h1>
-                    <h1>Email: {user?.email}</h1>
-                    <h1>Token : {user?.token}</h1>
+                <div className={styles.user}>
+                  <Image className={styles.image} src={user?.imageUrl ? imageUrl : "/user.png"} width={100} height={100} alt="avatar image"/>
+                  <h1>{user?.firstName} {user?.lastName}</h1>
+                </div>
+                <div className={styles.info}>
+                    <h2>Bonus points: {user?.bonusPoints}</h2>
+                    <h2>Email: {user?.email}</h2>
                 </div>
         </section>
+      </>
     )
 }
