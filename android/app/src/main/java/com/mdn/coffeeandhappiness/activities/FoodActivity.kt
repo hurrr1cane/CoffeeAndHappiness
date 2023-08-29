@@ -1,7 +1,9 @@
 package com.mdn.coffeeandhappiness.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -23,10 +25,13 @@ import com.mdn.coffeeandhappiness.model.Person
 import com.mdn.coffeeandhappiness.tools.FoodTypeTranslator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class FoodActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setLanguage()
         setContentView(R.layout.activity_food)
 
         val backButton = findViewById<ImageButton>(R.id.foodActivityBackButton)
@@ -198,9 +203,37 @@ class FoodActivity : AppCompatActivity() {
                 "food_id",
                 currentFood!!.id
             ) // Pass any data you need to the next activity
-            startActivity(intent)
+            startActivityForResult(intent, 1)
+
         }
 
 
+    }
+
+    private fun setLanguage() {
+        val languagePreferences = getSharedPreferences("Settings", MODE_PRIVATE)
+        var languageToSet = languagePreferences.getString("Language", "uk")
+
+        var locale = Locale(languageToSet)
+        Locale.setDefault(locale)
+        var configuration: Configuration = resources.configuration
+        configuration.setLocale(locale)
+        baseContext.resources.updateConfiguration(
+            configuration,
+            baseContext.resources.displayMetrics
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                // Reload the current activity here
+                // For example, you can call a function to refresh the UI or recreate the activity
+                // For simplicity, I'm calling recreate() to recreate the activity
+                recreate()
+            }
+        }
     }
 }

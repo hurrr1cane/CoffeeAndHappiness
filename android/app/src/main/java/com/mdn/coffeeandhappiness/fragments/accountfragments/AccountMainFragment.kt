@@ -45,11 +45,7 @@ class AccountMainFragment : Fragment() {
         val logoutButton = view.findViewById<AppCompatButton>(R.id.accountMainLogout)
 
         logoutButton.setOnClickListener() {
-            val sharedPreferences = requireActivity().getSharedPreferences("Account", Context.MODE_PRIVATE)
-            val accountController = AccountController()
             val confirmationDialog = ConfirmationLogoutFragment()
-
-
             confirmationDialog.show(requireActivity().supportFragmentManager, "ConfirmationDialog")
 
         }

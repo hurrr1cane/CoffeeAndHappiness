@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Review
+import com.mdn.coffeeandhappiness.tools.BackendAddress
 import okhttp3.*
 import java.io.IOException
 
@@ -21,7 +22,7 @@ class FoodController {
     public suspend fun addReview(id:Int, rating: Int, comment: String, sharedPreferences:SharedPreferences) {
         return withContext(Dispatchers.IO) {
 
-            val url = "http://192.168.0.23:8080/api/review/food/"
+            val url = "${BackendAddress().address}/api/review/food/"
             val finalUrl = url + id.toString()
 
             // Create an OkHttpClient instance
@@ -83,7 +84,7 @@ class FoodController {
             val foodList: MutableList<Food> = mutableListOf()
 
             // Define the URL you want to send the GET request to
-            val url = "http://192.168.0.23:8080/api/food/type/"
+            val url = "${BackendAddress().address}/api/food/type/"
 
             val finalUrl = "$url$foodType"
 
@@ -117,7 +118,7 @@ class FoodController {
             var myFood: Food? = null
 
             // Define the URL you want to send the GET request to
-            val url = "http://192.168.0.23:8080/api/food/"
+            val url = "${BackendAddress().address}/api/food/"
 
             val finalUrl = "$url$id"
 
