@@ -56,7 +56,7 @@ class CodeUserFragment : Fragment() {
         val multiFormatWriter = MultiFormatWriter()
 
         try {
-            val bitMatrix = multiFormatWriter.encode(sharedPreferences.getInt("Id", 0).toString(), BarcodeFormat.QR_CODE, 800, 800)
+            val bitMatrix = multiFormatWriter.encode(sharedPreferences.getString("AccessToken", ""), BarcodeFormat.QR_CODE, 800, 800)
 
             val barcodeEncoder = BarcodeEncoder()
             val bitmap = barcodeEncoder.createBitmap(bitMatrix)
