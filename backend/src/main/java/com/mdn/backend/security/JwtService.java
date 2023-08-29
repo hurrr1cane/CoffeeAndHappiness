@@ -24,7 +24,7 @@ public class JwtService {
 
     private static final long EXPIRATION = 86400000;
 
-    private static final long REFRESH_EXPIRATION = 259200000;
+    private static final long REFRESH_EXPIRATION = 1209600000;
 
     /**
      * Extracts the email from a JWT token.
