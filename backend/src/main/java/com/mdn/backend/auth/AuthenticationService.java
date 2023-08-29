@@ -32,21 +32,19 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationResponse register(RegisterRequest request) {
-
+    private AuthenticationResponse register(RegisterRequest request, Role role) {
         Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
 
         if (userOptional.isPresent()) {
             throw new UserAlreadyExistsException("User already exists with email: " + request.getEmail());
         }
 
-        User user = User
-                .builder()
+        User user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role(role)
                 .build();
 
         User savedUser = userRepository.save(user);
@@ -54,12 +52,18 @@ public class AuthenticationService {
         String refreshToken = jwtService.generateRefreshToken(savedUser);
         saveUserToken(savedUser, jwtToken);
 
-        return AuthenticationResponse
-                .builder()
+        return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
+    }
 
+    public AuthenticationResponse registerUser(RegisterRequest request) {
+        return register(request, Role.USER);
+    }
+
+    public AuthenticationResponse registerAdmin(RegisterRequest request) {
+        return register(request, Role.ADMIN);
     }
 
     private void saveUserToken(User user, String jwtToken) {
