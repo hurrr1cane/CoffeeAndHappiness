@@ -10,13 +10,17 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
+import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.databinding.ActivityMainBinding
 import com.mdn.coffeeandhappiness.fragments.AccountFragment
 import com.mdn.coffeeandhappiness.fragments.CodeFragment
 import com.mdn.coffeeandhappiness.fragments.HomeFragment
 import com.mdn.coffeeandhappiness.fragments.MapFragment
 import com.mdn.coffeeandhappiness.fragments.MenuFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 class MainActivity : LocalizationActivity() {
@@ -67,6 +71,15 @@ class MainActivity : LocalizationActivity() {
          * Setting the language
          */
         controllerLanguage(sharedPreferences)
+
+        updateToken(sharedPreferences)
+    }
+
+    private fun updateToken(sharedPreferences: SharedPreferences) {
+        val accountController = AccountController()
+        lifecycleScope.launch(Dispatchers.IO) {
+            accountController.updateToken(sharedPreferences)
+        }
     }
 
     private fun controllerLanguage(sharedPreferences: SharedPreferences) {

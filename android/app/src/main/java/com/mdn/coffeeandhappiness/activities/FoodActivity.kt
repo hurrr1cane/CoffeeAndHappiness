@@ -1,5 +1,6 @@
 package com.mdn.coffeeandhappiness.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -198,9 +199,23 @@ class FoodActivity : AppCompatActivity() {
                 "food_id",
                 currentFood!!.id
             ) // Pass any data you need to the next activity
-            startActivity(intent)
+            startActivityForResult(intent, 1)
+
         }
 
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                // Reload the current activity here
+                // For example, you can call a function to refresh the UI or recreate the activity
+                // For simplicity, I'm calling recreate() to recreate the activity
+                recreate()
+            }
+        }
     }
 }

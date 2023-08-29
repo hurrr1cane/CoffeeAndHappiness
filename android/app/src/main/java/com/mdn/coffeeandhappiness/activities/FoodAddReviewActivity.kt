@@ -1,6 +1,8 @@
 package com.mdn.coffeeandhappiness.activities
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
@@ -44,6 +46,9 @@ class FoodAddReviewActivity : AppCompatActivity() {
                     getSharedPreferences("Account", Context.MODE_PRIVATE)
                 )
             }
+            val resultIntent = Intent()
+            setResult(Activity.RESULT_OK, resultIntent)
+            finish()
         }
     }
 }

@@ -100,6 +100,8 @@ import okhttp3.RequestBody
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 class AccountController {
 
@@ -147,7 +149,11 @@ class AccountController {
         }
     }
 
-    suspend fun login(email: String, password: String, sharedPreferences: SharedPreferences): Boolean {
+    suspend fun login(
+        email: String,
+        password: String,
+        sharedPreferences: SharedPreferences
+    ): Boolean {
         return withContext(Dispatchers.IO) {
 
             val url = "http://192.168.0.23:8080/api/auth/login"
@@ -194,6 +200,9 @@ class AccountController {
                     editor.putString("AccessToken", accessToken)
                     editor.putString("RefreshToken", refreshToken)
                     editor.putString("Email", email)
+
+                    editor.putLong("UpdateTime", java.util.Date().time)
+
                     editor.apply()
                     logined = true
 
@@ -260,7 +269,13 @@ class AccountController {
         editor.apply()
     }
 
-    suspend fun register(email: String, password: String, name: String, surname: String, sharedPreferences: SharedPreferences): Boolean {
+    suspend fun register(
+        email: String,
+        password: String,
+        name: String,
+        surname: String,
+        sharedPreferences: SharedPreferences
+    ): Boolean {
         return withContext(Dispatchers.IO) {
 
             val url = "http://192.168.0.23:8080/api/auth/register"
@@ -314,6 +329,9 @@ class AccountController {
                     editor.putString("AccessToken", accessToken)
                     editor.putString("RefreshToken", refreshToken)
                     editor.putString("Email", email)
+
+                    editor.putLong("UpdateTime", java.util.Date().time)
+
                     editor.apply()
                     logined = true
 
@@ -332,6 +350,75 @@ class AccountController {
             }
 
             logined
+        }
+    }
+
+    suspend fun updateToken(sharedPreferences: SharedPreferences) {
+        return withContext(Dispatchers.IO) {
+
+            if (sharedPreferences.getBoolean("IsAccountLogged", false)) {
+                val url = "http://192.168.0.23:8080/api/auth/refresh"
+
+                // Create an OkHttpClient instance
+                val client = OkHttpClient()
+
+                val currentTime = java.util.Date().time
+                val storedTime = sharedPreferences.getLong("UpdateTime", 0)
+
+                if (((currentTime - storedTime) >= 1000 * 60 * 60 * 24) && (currentTime - storedTime < 1000 * 60 * 60 * 24 * 13)) {
+
+                    val token = sharedPreferences.getString("RefreshToken", "")
+
+                    val request = Request.Builder()
+                        .url(url)
+                        .post(RequestBody.create(null, ByteArray(0)))
+                        .addHeader("Authorization", "Bearer $token")
+                        .addHeader("Accept-Encoding", "gzip, deflate, br")
+                        .build()
+
+                    try {
+                        // Use the OkHttpClient to send the POST request
+                        val response: Response = client.newCall(request).execute()
+
+                        // Check if the request was successful
+                        if (response.isSuccessful) {
+                            // Handle the successful response here
+                            val responseBody = response.body?.string()
+
+                            // Log the response body for debugging
+                            Log.d("AccountController", "Response Body: $responseBody")
+
+                            val editor = sharedPreferences.edit()
+                            // Parse the JSON using Gson
+                            val gson = Gson()
+                            val tokenResponse =
+                                gson.fromJson(responseBody, TokenResponse::class.java)
+
+                            val accessToken = tokenResponse.accessToken
+                            val refreshToken = tokenResponse.refreshToken
+
+                            editor.putString("AccessToken", accessToken)
+                            editor.putString("RefreshToken", refreshToken)
+                            editor.putLong("UpdateTime", currentTime)
+
+                            editor.apply()
+
+                        } else {
+                            // Log the error message for debugging
+                            Log.e("AccountController", "HTTP Error: ${response.code}")
+                        }
+
+                        // Close the response body to release resources
+                        response.close()
+
+                    } catch (e: IOException) {
+                        // Handle failure, such as network issues
+                        e.printStackTrace()
+                    }
+                } else if ((currentTime - storedTime > 1000 * 60 * 60 * 24 * 13)) logout(
+                    sharedPreferences
+                )
+            }
         }
     }
 }
