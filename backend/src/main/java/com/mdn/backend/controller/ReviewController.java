@@ -2,7 +2,6 @@ package com.mdn.backend.controller;
 
 import com.mdn.backend.exception.CafeNotFoundException;
 import com.mdn.backend.exception.FoodNotFoundException;
-import com.mdn.backend.exception.UserNotFoundException;
 import com.mdn.backend.model.review.CafeReview;
 import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.service.ReviewService;
@@ -48,6 +47,42 @@ public class ReviewController {
             log.error("Cafe not found with id: {}", cafeId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Cafe not found with id: " + cafeId);
+        } catch (Exception ex) {
+            log.error("Error while adding cafe review: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while adding cafe review: " + ex.getMessage());
+        }
+    }
+
+    @DeleteMapping("cafe/{reviewId}")
+    public ResponseEntity<?> deleteCafeReview(
+            @PathVariable Integer reviewId,
+            Principal principal) {
+        try {
+            CafeReview addedReview = reviewService.deleteCafeReview(reviewId, principal);
+            return new ResponseEntity<>(addedReview, HttpStatus.CREATED);
+        } catch (CafeNotFoundException ex) {
+            log.error("Review not found with id: {}", reviewId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Review not found with id: " + reviewId);
+        } catch (Exception ex) {
+            log.error("Error while adding cafe review: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while adding cafe review: " + ex.getMessage());
+        }
+    }
+
+    @DeleteMapping("food/{reviewId}")
+    public ResponseEntity<?> deleteFoodReview(
+            @PathVariable Integer reviewId,
+            Principal principal) {
+        try {
+            FoodReview addedReview = reviewService.deleteFoodReview(reviewId, principal);
+            return new ResponseEntity<>(addedReview, HttpStatus.CREATED);
+        } catch (CafeNotFoundException ex) {
+            log.error("Review not found with id: {}", reviewId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Review not found with id: " + reviewId);
         } catch (Exception ex) {
             log.error("Error while adding cafe review: {}", ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
