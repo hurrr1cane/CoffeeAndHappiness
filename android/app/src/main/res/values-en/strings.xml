@@ -32,6 +32,10 @@
     <string name="food_add_review">Add review</string>
     <string name="food_view_reviews">View all reviews</string>
 
+    <string name="food_review_add_review">Add a review</string>
+    <string name="food_review_comment">Write your comment here</string>
+    <string name="food_review_submit">Submit</string>
+
     <!-- This is an account section -->
     <string name="account_login_top_text">Login to account</string>
     <string name="account_email">Email</string>
