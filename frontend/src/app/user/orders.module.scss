@@ -1,0 +1,17 @@
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    
+    h2 {
+        flex-grow: 1;
+        padding: 1rem;
+        margin: 0 1rem 1rem 1rem; 
+        font-weight: 500;
+        box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        border-radius: 30px;
+        &:last-of-type {
+            margin: 0 1rem 0rem 1rem
+        }
+    }
+}
