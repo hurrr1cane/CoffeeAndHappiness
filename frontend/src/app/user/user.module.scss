@@ -1,18 +1,20 @@
 .main {
+
+    margin-right: 5rem;
     border-radius: 30px;
     // box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     width: 20%;
+    height: 40%;
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 2.5rem;
-    padding: 1rem;
+    padding: 2rem;
     .image {
         margin: 1rem;
     }
     .user {
-        display: flex;
+                display: flex;
         flex-direction: column;
     }
     .info {
@@ -21,5 +23,11 @@
             font-weight: 500;
         }
         
-    }
+    }   
+}
+
+.container {
+    margin-top: 1.5rem;
+    display: flex;
+    padding: 1rem;
 }

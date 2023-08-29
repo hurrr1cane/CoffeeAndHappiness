@@ -6,6 +6,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import axios from "axios"
+import Orders from "./orders"
 
 export default function User() {
     const {user, setUser} = useGlobalContext()
@@ -22,7 +23,8 @@ export default function User() {
               role: res.data.role,
               bonusPoints: res.data.bonusPoints,
               orders: res.data.orders,
-              id: res.data.id
+              id: res.data.id,
+              orders: res.data.orders
             }
               )
           )
@@ -35,7 +37,8 @@ export default function User() {
     }
     return (
       <>
-       <h1>Welcome, {user?.firstName} {user?.lastName}</h1>
+      <h1>Welcome, {user?.firstName} {user?.lastName}</h1>
+      <div className={styles.container}>
         <section className={styles.main}>
                 <div className={styles.user}>
                   <Image className={styles.image} src={user?.imageUrl ? imageUrl : "/user.png"} width={100} height={100} alt="avatar image"/>
@@ -46,6 +49,9 @@ export default function User() {
                     <h2>Email: {user?.email}</h2>
                 </div>
         </section>
+        <Orders/>
+      </div>
       </>
+
     )
 }
