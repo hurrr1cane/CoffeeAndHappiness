@@ -34,7 +34,7 @@ export default function ReviewModal({ open, id, setOpen, token }) {
             }
         }
         )
-        .then(res => console.log(res))
+        .then(res => {console.log(res); setOpen(false);})
         .catch(err => console.log(err))
     }
     // const handleSubmit = () => {
