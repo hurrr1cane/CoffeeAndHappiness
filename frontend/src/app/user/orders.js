@@ -24,8 +24,8 @@ export default function Orders() {
     function groupArrayByFour(inputArray) {
         const groupedArrays = [];
       
-        for (let i = 0; i < inputArray.length; i += 6) {
-          groupedArrays.push(inputArray.slice(i, i + 6));
+        for (let i = 0; i < inputArray.length; i += 5) {
+          groupedArrays.push(inputArray.slice(i, i + 5));
         }
       
         return groupedArrays;
@@ -41,7 +41,8 @@ export default function Orders() {
         { id: 7, name: "chai latte", date: "24-09-2023" },
         { id: 8, name: "caramel macchiato", date: "25-09-2023" },
         { id: 9, name: "iced coffee", date: "26-09-2023" },
-        { id: 10, name: "flat white", date: "27-09-2023" }
+        { id: 10, name: "flat white", date: "27-09-2023" },
+        { id: 11, name: "earl grey", date: "28-09-2023" }
       ];
       
       const groupedOrders = groupArrayByFour(orders);
@@ -58,7 +59,7 @@ export default function Orders() {
                 key={order.id}
                 expanded={expanded}
                 handleChange={handleChange}
-                name={order.name}
+                name={order.name} 
                 id={order.id}
                 date={order.date}
                
@@ -68,8 +69,8 @@ export default function Orders() {
           <Pagination
             page={page}
             onChange={(event, value) => setPage(value)}
-            count={orders.length}
-            sx={{ alignSelf: "center", marginTop: "1rem" }}
+            count={Math.ceil(orders.length/5)}
+            sx={{ alignSelf: "center", marginTop: "1rem"}}
             color="standard"
           />
         </div>

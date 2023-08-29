@@ -49,7 +49,7 @@ export default function Login() {
             setShowSuccessAlert(true)
             setTimeout(() => {
               push('/user')
-            }, 2500)
+            }, 2000)
             
         })
         .catch(err => {setError(err.response.data.errorMessage); setShowAlert(true)})
