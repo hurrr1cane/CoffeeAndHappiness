@@ -1,21 +1,22 @@
 package com.mdn.backend.auth;
 
-import com.mdn.backend.model.user.Role;
+import com.mdn.backend.exception.UserAlreadyExistsException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @CrossOrigin(value = "*")
+@Slf4j
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
@@ -27,7 +28,17 @@ public class AuthenticationController {
     })
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authenticationService.registerUser(request));
+        log.info("Received registration request for user: {}", request.getEmail());
+        try {
+            AuthenticationResponse response = authenticationService.registerUser(request);
+            log.info("User registered successfully: {}", request.getEmail());
+            return ResponseEntity.ok(response);
+        } catch (UserAlreadyExistsException e) {
+            log.error("Registration failed - User already exists: {}", request.getEmail());
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .build();
+        }
     }
 
     @Operation(summary = "Register a new admin", description = "Register a new admin.")
@@ -37,7 +48,17 @@ public class AuthenticationController {
     })
     @PostMapping("/register/admin")
     public ResponseEntity<AuthenticationResponse> registerAdmin(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authenticationService.registerAdmin(request));
+        log.info("Received registration request for admin: {}", request.getEmail());
+        try {
+            AuthenticationResponse response = authenticationService.registerAdmin(request);
+            log.info("Admin registered successfully: {}", request.getEmail());
+            return ResponseEntity.ok(response);
+        } catch (UserAlreadyExistsException e) {
+            log.error("Registration failed - Admin already exists: {}", request.getEmail());
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .build();
+        }
     }
 
     @Operation(summary = "Login", description = "Login.")
@@ -47,7 +68,17 @@ public class AuthenticationController {
     })
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(authenticationService.login(request));
+        log.info("Received login request for user: {}", request.getEmail());
+        try {
+            AuthenticationResponse response = authenticationService.login(request);
+            log.info("User logged in successfully: {}", request.getEmail());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Login failed - User not found: {}", request.getEmail());
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .build();
+        }
     }
 
     @Operation(summary = "Refresh token", description = "Refresh token.")
@@ -56,11 +87,18 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping("/refresh")
-    public ResponseEntity<Void> refresh(HttpServletRequest request,
-                                     HttpServletResponse response
-  ) throws IOException {
-        authenticationService.refreshToken(request, response);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> refresh(HttpServletRequest request, HttpServletResponse response) {
+        log.info("Received refresh token request");
+        try {
+            authenticationService.refreshToken(request, response);
+            log.info("Token refreshed successfully");
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.error("Refresh token failed");
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .build();
+        }
     }
 
 }
