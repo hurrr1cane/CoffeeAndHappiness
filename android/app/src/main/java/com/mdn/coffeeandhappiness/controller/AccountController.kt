@@ -88,27 +88,22 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
-import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Person
+import com.mdn.coffeeandhappiness.model.PersonInReview
 import com.mdn.coffeeandhappiness.tools.BackendAddress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
-import org.json.JSONObject
 import java.io.IOException
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 class AccountController {
 
-    suspend fun getById(id: Int): Person? {
+    suspend fun getById(id: Int): PersonInReview? {
         return withContext(Dispatchers.IO) {
-            var person: Person? = null
+            var personInReview: PersonInReview? = null
 
             // Define the URL you want to send the GET request to
             val url = "${BackendAddress().address}/api/user/"
@@ -132,7 +127,7 @@ class AccountController {
 
                     // Use Gson to parse the JSON response
                     val gson = Gson()
-                    person = gson.fromJson(responseBody, Person::class.java)
+                    personInReview = gson.fromJson(responseBody, PersonInReview::class.java)
 
                     //val jsonItem = JSONObject(responseBody)
                     //val imageUrl = jsonItem.getString("imageUrl")
@@ -146,7 +141,7 @@ class AccountController {
                 e.printStackTrace()
             }
 
-            person
+            personInReview
         }
     }
 
@@ -201,6 +196,7 @@ class AccountController {
                     editor.putString("AccessToken", accessToken)
                     editor.putString("RefreshToken", refreshToken)
                     editor.putString("Email", email)
+                    editor.putString("Password", password)
 
                     editor.putLong("UpdateTime", java.util.Date().time)
 
@@ -266,7 +262,12 @@ class AccountController {
         editor.putString("Email", "")
         editor.putString("Name", "")
         editor.putString("Surname", "")
+        editor.putString("Password", "")
         editor.putBoolean("IsAccountLogged", false)
+        editor.putInt("Id", 0)
+        editor.putString("ImageUrl", "")
+        editor.putString("Role", "")
+        editor.putInt("BonusPoints", 0)
         editor.apply()
     }
 
@@ -330,6 +331,7 @@ class AccountController {
                     editor.putString("AccessToken", accessToken)
                     editor.putString("RefreshToken", refreshToken)
                     editor.putString("Email", email)
+                    editor.putString("Password", password)
 
                     editor.putLong("UpdateTime", java.util.Date().time)
 
@@ -416,10 +418,59 @@ class AccountController {
                         // Handle failure, such as network issues
                         e.printStackTrace()
                     }
-                } else if ((currentTime - storedTime > 1000 * 60 * 60 * 24 * 13)) logout(
-                    sharedPreferences
-                )
+                } else if ((currentTime - storedTime > 1000 * 60 * 60 * 24 * 13)) {
+                    login(sharedPreferences.getString("Email", "")!!, sharedPreferences.getString("Password", "")!!, sharedPreferences)
+                }
             }
+        }
+    }
+
+    suspend fun updateMyself(sharedPreferences: SharedPreferences) {
+        return withContext(Dispatchers.IO) {
+            var person: Person? = null
+
+            // Define the URL you want to send the GET request to
+            val url = "${BackendAddress().address}/api/user/me"
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            val token = sharedPreferences.getString("AccessToken", "")
+
+            // Create a request object for the GET request
+            val request = Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Use the OkHttpClient to send the GET request and await the response
+                val response = client.newCall(request).execute()
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+
+                    // Use Gson to parse the JSON response
+                    val gson = Gson()
+                    person = gson.fromJson(responseBody, Person::class.java)
+
+                    val editor = sharedPreferences.edit()
+                    editor.putInt("Id", person.id)
+                    editor.putString("Name", person.firstName)
+                    editor.putString("Surname", person.lastName)
+                    editor.putString("Email", person.email)
+                    editor.putString("ImageUrl", person.imageUrl)
+                    editor.putString("Role", person.role)
+                    editor.putInt("BonusPoints", person.bonusPoints)
+                    editor.apply()
+
+                }
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+            }
+
         }
     }
 }

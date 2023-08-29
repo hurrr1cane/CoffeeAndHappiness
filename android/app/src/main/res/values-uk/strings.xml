@@ -61,4 +61,18 @@
     <string name="account_register_already_have">Уже маєте обліковий запис?</string>
     <string name="account_user_exists_hint">Користувач із такою електронною адресою вже зареєстрований</string>
 
+    <string name="account_main_edit">Редагувати обліковий запис</string>
+    <string name="account_main_reviews">Мої відгуки</string>
+    <string name="account_main_faq">ЧаПи</string>
+    <string name="account_main_privacy">Політика конфіденційности</string>
+    <string name="account_main_feedback">Зворотній зв\'язок</string>
+    <string name="account_main_logout">Вийти</string>
+
+    <!-- This is a code section -->
+    <string name="code_user_show_qr">Покажіть свій QR код офіціанту</string>
+    <string name="code_user_balance">Баланс</string>
+    <string name="code_view_your_orders">Мої замовлення</string>
+
+    <string name="code_unlogged_text">Вам потрібно увійти у свій акаунт, щоб переглянути цю сторінку</string>
+
 </resources>

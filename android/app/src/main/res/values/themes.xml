@@ -14,8 +14,8 @@
     </style>
     <style name = "HEAD_TEXT">
         <item name="android:textColor">@color/black_text</item>
-        <item name="android:textSize">32sp</item>
-        <item name="fontFamily">@font/sofiasans</item>
+        <item name="android:textSize">30sp</item>
+        <item name="fontFamily">@font/sofiasans_straight</item>
     </style>
 
     <style name="TOP_BAR">
@@ -185,9 +185,24 @@
         <item name="android:drawableStart">@drawable/baseline_person_black_24</item>
     </style>
 
+    <style name="ACCOUNT_MAIN_BUTTON">
+        <item name="android:background">@color/light_background_main</item>
+        <item name="android:textColor">@color/black_text</item>
+    </style>
+
+    <style name="ACCOUNT_MAIN_PICTURE">
+        <item name="background">@color/light_background_behind</item>
+    </style>
+
     <!-- Reviews section -->
     <style name="REVIEW_SEPARATE_LINE">
         <item name="android:background">@color/gray_white_text</item>
+    </style>
+
+    <!-- Code section -->
+    <style name="CODE_VIEW_ORDERS">
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:background">@color/light_background_main</item>
     </style>
 
 

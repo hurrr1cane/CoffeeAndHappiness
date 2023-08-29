@@ -21,7 +21,7 @@ import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.controller.FoodController
 import com.mdn.coffeeandhappiness.model.Food
-import com.mdn.coffeeandhappiness.model.Person
+import com.mdn.coffeeandhappiness.model.PersonInReview
 import com.mdn.coffeeandhappiness.tools.FoodTypeTranslator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -140,9 +140,9 @@ class FoodActivity : AppCompatActivity() {
 
                 for (i in 0 until count) {
                     val accountController = AccountController()
-                    var person: Person? = null
+                    var personInReview: PersonInReview? = null
                     lifecycleScope.launch() {
-                        person = accountController.getById(currentFood!!.reviews[i].userId)
+                        personInReview = accountController.getById(currentFood!!.reviews[i].userId)
 
 
                         launch() {
@@ -159,12 +159,12 @@ class FoodActivity : AppCompatActivity() {
 
 
                             Glide.with(applicationContext)
-                                .load(person!!.imageUrl)
+                                .load(personInReview!!.imageUrl)
                                 .placeholder(R.drawable.baseline_person_white_24)
                                 .error(R.drawable.baseline_person_white_24)
                                 .into(userPicture)
 
-                            userName.text = person!!.firstName + " " + person!!.lastName
+                            userName.text = personInReview!!.firstName + " " + personInReview!!.lastName
 
                             reviewRating.rating = currentFood!!.reviews[i].rating.toFloat()
                             userText.text = currentFood!!.reviews[i].comment

@@ -8,9 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,6 +48,16 @@ class AccountMainFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_account_main, container, false)
 
+        val accountController = AccountController()
+        lifecycleScope.launch(Dispatchers.IO) {
+            accountController.updateMyself(
+                requireContext().getSharedPreferences(
+                    "Account",
+                    Context.MODE_PRIVATE
+                )
+            )
+        }
+
         val logoutButton = view.findViewById<AppCompatButton>(R.id.accountMainLogout)
 
         logoutButton.setOnClickListener() {
@@ -49,6 +65,34 @@ class AccountMainFragment : Fragment() {
             confirmationDialog.show(requireActivity().supportFragmentManager, "ConfirmationDialog")
 
         }
+
+        val accountPreferences = requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
+
+        val name = view.findViewById<TextView>(R.id.accountMainName)
+        val surname = view.findViewById<TextView>(R.id.accountMainSurname)
+        val email = view.findViewById<TextView>(R.id.accountMainEmail)
+
+        name.text = accountPreferences.getString("Name", "")
+        surname.text = accountPreferences.getString("Surname", "")
+        email.text = accountPreferences.getString("Email", "")
+
+        val settingsPreferences = requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val nightMode: Boolean = settingsPreferences.getBoolean("Night", true)
+
+        val defaultImage = if (nightMode) {
+            R.drawable.baseline_person_white_24
+        }
+        else {
+            R.drawable.baseline_person_black_24
+        }
+
+        val image = view.findViewById<ImageView>(R.id.accountMainPicture)
+
+        Glide.with(requireContext())
+            .load(accountPreferences.getString("ImageUrl", ""))
+            .placeholder(defaultImage)
+            .error(defaultImage)
+            .into(image)
 
         return view
     }

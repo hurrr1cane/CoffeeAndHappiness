@@ -61,4 +61,18 @@
     <string name="account_register_already_have">Alredy have an account?</string>
     <string name="account_user_exists_hint">A user with this email is already registered</string>
 
+    <string name="account_main_edit">Edit account</string>
+    <string name="account_main_reviews">My reviews</string>
+    <string name="account_main_faq">FAQ</string>
+    <string name="account_main_privacy">Privacy policy</string>
+    <string name="account_main_feedback">Feedback</string>
+    <string name="account_main_logout">Logout</string>
+
+    <!-- This is a code section -->
+    <string name="code_user_show_qr">Show your QR code to waiter</string>
+    <string name="code_user_balance">Balance</string>
+    <string name="code_view_your_orders">View your orders</string>
+
+    <string name="code_unlogged_text">You have to be logged in to view this page</string>
+
 </resources>
