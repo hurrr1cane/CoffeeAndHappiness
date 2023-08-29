@@ -1,5 +1,8 @@
 package com.mdn.coffeeandhappiness.controller
 
+import android.content.SharedPreferences
+import android.util.Log
+import com.google.gson.Gson
 import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Review
 import okhttp3.*
@@ -10,8 +13,70 @@ import org.json.JSONObject
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class FoodController {
+
+    public suspend fun addReview(id:Int, rating: Int, comment: String, sharedPreferences:SharedPreferences) {
+        return withContext(Dispatchers.IO) {
+
+            val url = "http://192.168.0.23:8080/api/review/food/"
+            val finalUrl = url + id.toString()
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create JSON data for the request body
+            val json = """
+                {
+                    "rating": $rating,
+                    "comment": "$comment"
+                }
+            """.trimIndent()
+
+            // Set the media type as JSON
+            val mediaType = "application/json; charset=utf-8".toMediaType()
+
+            // Create a request body
+            val requestBody = json.toRequestBody(mediaType)
+
+            val token = sharedPreferences.getString("AccessToken", "")
+
+            val request = Request.Builder()
+                .url(finalUrl)
+                .post(requestBody)
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Use the OkHttpClient to send the POST request
+                val response: Response = client.newCall(request).execute()
+
+                // Check if the request was successful
+                if (response.isSuccessful) {
+                    // Handle the successful response here
+                    val responseBody = response.body?.string()
+
+                    // Log the response body for debugging
+                    Log.d("FoodController", "Response Body: $responseBody")
+
+                } else {
+                    // Log the error message for debugging
+                    Log.e("FoodController", "HTTP Error: ${response.code}")
+                }
+
+                // Close the response body to release resources
+                response.close()
+
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+            }
+
+        }
+    }
 
     public suspend fun getFood(foodType: String): MutableList<Food> {
         return withContext(Dispatchers.IO) {
