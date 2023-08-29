@@ -6,6 +6,7 @@ import com.mdn.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -26,5 +27,10 @@ public class UserService {
     public User getUserByEmail(String name) {
         return userRepository.findByEmail(name)
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + name));
+    }
+
+    public User getMyself(Principal principal) {
+        return userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
     }
 }

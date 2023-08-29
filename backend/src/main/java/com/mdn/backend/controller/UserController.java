@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.security.Provider;
 import java.util.List;
 
 @RestController
@@ -70,6 +72,23 @@ public class UserController {
         } catch (UserNotFoundException ex) {
             log.error("User not found with email: {}", email);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + email);
+        }
+    }
+
+    @Operation(summary = "Get myself", description = "Retrieve the user that is currently logged in.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    @GetMapping("me")
+    public ResponseEntity<?> getMyself(Principal principal) {
+        log.info("Getting myself");
+        try {
+            User user = userService.getMyself(principal);
+            return ResponseEntity.ok(user);
+        } catch (UserNotFoundException ex) {
+            log.error("User not found with email: {}", principal.getName());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + principal.getName());
         }
     }
 }
