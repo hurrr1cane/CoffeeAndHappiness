@@ -104,6 +104,26 @@
                         android:text="Edit account" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/accountMainReviews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MyReviews" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/accountMainFAQ"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
