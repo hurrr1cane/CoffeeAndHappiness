@@ -46,7 +46,7 @@ export default function Register() {
           setShowSuccessAlert(true)
           setTimeout(() => {
             push('/user')
-          }, 2500 ) 
+          }, 2000) 
         })
         .catch(err => {setError(err.response.data.errorMessage); setShowErrorAlert(true)})
 

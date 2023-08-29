@@ -4,13 +4,13 @@ import { useGlobalContext } from "../store/store"
 import styles from './user.module.scss'
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 import Orders from "./orders"
-import { Pagination } from "@mui/material"
 
 
 export default function User() {
+
     const {user, setUser} = useGlobalContext()
     useEffect(() => {
         axios.get(`http://localhost:8080/api/user/email/${user?.email}`)
