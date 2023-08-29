@@ -16,13 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Configuration class for setting up security filters and rules.
@@ -63,22 +56,22 @@ public class SecurityConfig {
                         "/webjars/**",
                         "/swagger-ui.html"
                 )
-                    .permitAll()
+                .permitAll()
                 .requestMatchers("/api/auth/**")
-                    .permitAll()
+                .permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/**")
-                    .permitAll()
+                .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/**")
-                    .hasRole(Role.USER.name())
+                .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                 .requestMatchers(HttpMethod.PUT, "/api/**")
-                    .hasRole(Role.USER.name())
+                .hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                 .requestMatchers(HttpMethod.DELETE, "/api/**")
-                    .hasRole(Role.USER.name())
+                .hasRole(Role.ADMIN.name())
                 .anyRequest()
-                    .authenticated()
+                .authenticated()
                 .and()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(provider)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
