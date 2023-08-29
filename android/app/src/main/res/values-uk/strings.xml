@@ -33,6 +33,10 @@
     <string name="food_add_review">Додати відгук</string>
     <string name="food_view_reviews">Побачити всі відгуки</string>
 
+    <string name="food_review_add_review">Додати відгук</string>
+    <string name="food_review_comment">Напишіть свій коментар тут</string>
+    <string name="food_review_submit">Додати</string>
+
     <!-- This is an account section -->
     <string name="account_login_top_text">Увійти в обліковий запис</string>
     <string name="account_email">Електронна пошта</string>
