@@ -1,12 +1,18 @@
 package com.mdn.coffeeandhappiness.fragments.codefragments
 
+import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.mdn.coffeeandhappiness.R
 import java.lang.RuntimeException
 
@@ -40,12 +46,25 @@ class CodeUserFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_code_user, container, false)
 
+        val sharedPreferences = requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
+
+        val userBalance = view.findViewById<TextView>(R.id.codeUserBalance)
+        userBalance.text = sharedPreferences.getInt("BonusPoints", 0).toString()
+
+        val imageView = view.findViewById<ImageView>(R.id.codeUserQR)
+
         val multiFormatWriter = MultiFormatWriter()
 
         try {
-            //val bitMatrix = multiFormatWriter.encode()
+            val bitMatrix = multiFormatWriter.encode(sharedPreferences.getString("AccessToken", ""), BarcodeFormat.QR_CODE, 800, 800)
 
-        }catch (e: WriterException) {
+            val barcodeEncoder = BarcodeEncoder()
+            val bitmap = barcodeEncoder.createBitmap(bitMatrix)
+
+            imageView.setImageBitmap(bitmap)
+
+        }
+        catch (e: WriterException) {
             throw RuntimeException()
         }
 
