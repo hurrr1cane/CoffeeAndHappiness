@@ -91,6 +91,7 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Person
+import com.mdn.coffeeandhappiness.tools.BackendAddress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
@@ -110,7 +111,7 @@ class AccountController {
             var person: Person? = null
 
             // Define the URL you want to send the GET request to
-            val url = "http://192.168.0.23:8080/api/user/"
+            val url = "${BackendAddress().address}/api/user/"
 
             val finalUrl = "$url$id"
 
@@ -156,7 +157,7 @@ class AccountController {
     ): Boolean {
         return withContext(Dispatchers.IO) {
 
-            val url = "http://192.168.0.23:8080/api/auth/login"
+            val url = "${BackendAddress().address}/api/auth/login"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -278,7 +279,7 @@ class AccountController {
     ): Boolean {
         return withContext(Dispatchers.IO) {
 
-            val url = "http://192.168.0.23:8080/api/auth/register"
+            val url = "${BackendAddress().address}/api/auth/register"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -357,7 +358,7 @@ class AccountController {
         return withContext(Dispatchers.IO) {
 
             if (sharedPreferences.getBoolean("IsAccountLogged", false)) {
-                val url = "http://192.168.0.23:8080/api/auth/refresh"
+                val url = "${BackendAddress().address}/api/auth/refresh"
 
                 // Create an OkHttpClient instance
                 val client = OkHttpClient()
