@@ -27,7 +27,7 @@ export default function Dish() {
     return (
             <section className={styles.section}>
                 <ReviewModal open={open} id={dish.id} token={user.token} setOpen={setOpen}/>
-                <Image alt="picture of some food" className={styles.image} width={300} height={300} src={dish.imageUrl ?? "/pizza.jpg"}></Image>
+                <Image alt="picture of some food" className={styles.image} width={300} height={300} src={dish.imageUrl ?? "/placeholder.png"}></Image>
                 <section className={styles.info}>
                     <h1>{dish.nameEN}</h1>
                     <p>{dish.descriptionEN}</p>
