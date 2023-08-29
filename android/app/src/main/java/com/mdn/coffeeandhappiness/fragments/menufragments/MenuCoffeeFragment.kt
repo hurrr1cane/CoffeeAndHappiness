@@ -44,8 +44,6 @@ class MenuCoffeeFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_menu_coffee, container, false)
 
-        var listId: MutableList<Int> = mutableListOf()
-
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.menuCoffeeRecyclerView)
 
         val layoutManager = LinearLayoutManager(context)

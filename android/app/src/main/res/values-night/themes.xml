@@ -171,6 +171,15 @@
         <item name="android:drawableStart">@drawable/baseline_person_white_24</item>
     </style>
 
+    <style name="ACCOUNT_MAIN_BUTTON">
+        <item name="android:background">@color/dark_background_main</item>
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+    <style name="ACCOUNT_MAIN_PICTURE">
+        <item name="background">@color/dark_background_behind</item>
+    </style>
+
     <!-- Reviews section -->
     <style name="REVIEW_SEPARATE_LINE">
         <item name="android:background">@color/gray_black_text</item>
