@@ -15,7 +15,7 @@
     <style name = "HEAD_TEXT">
         <item name="android:textColor">@color/black_text</item>
         <item name="android:textSize">30sp</item>
-        <item name="fontFamily">@font/sofiasans</item>
+        <item name="fontFamily">@font/sofiasans_straight</item>
     </style>
 
     <style name="TOP_BAR">
