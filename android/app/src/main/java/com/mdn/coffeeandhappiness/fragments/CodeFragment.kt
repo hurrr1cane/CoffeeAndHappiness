@@ -1,11 +1,19 @@
 package com.mdn.coffeeandhappiness.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.controller.AccountController
+import com.mdn.coffeeandhappiness.fragments.codefragments.CodeAdminFragment
+import com.mdn.coffeeandhappiness.fragments.codefragments.CodeUnloggedFragment
+import com.mdn.coffeeandhappiness.fragments.codefragments.CodeUserFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +43,43 @@ class CodeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_code, container, false)
+        val view = inflater.inflate(R.layout.fragment_code, container, false)
+
+        val accountController = AccountController()
+        lifecycleScope.launch(Dispatchers.IO) {
+            accountController.updateMyself(
+                requireContext().getSharedPreferences(
+                    "Account",
+                    Context.MODE_PRIVATE
+                )
+            )
+        }
+
+        val sharedPreferences = requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("IsAccountLogged", false)) {
+            if (sharedPreferences.getString("Role", "USER").equals("USER")) {
+                replaceFragment(CodeUserFragment())
+            }
+            else {
+                replaceFragment(CodeAdminFragment())
+            }
+        }
+        else {
+            replaceFragment(CodeUnloggedFragment())
+        }
+
+
+
+        return view
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(R.id.codeFrame, fragment)
+        fragmentTransaction.commit()
     }
 
     companion object {

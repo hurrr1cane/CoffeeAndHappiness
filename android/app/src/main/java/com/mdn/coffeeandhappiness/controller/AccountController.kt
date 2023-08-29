@@ -88,6 +88,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
+import com.mdn.coffeeandhappiness.model.Person
 import com.mdn.coffeeandhappiness.model.PersonInReview
 import com.mdn.coffeeandhappiness.tools.BackendAddress
 import kotlinx.coroutines.Dispatchers
@@ -263,6 +264,10 @@ class AccountController {
         editor.putString("Surname", "")
         editor.putString("Password", "")
         editor.putBoolean("IsAccountLogged", false)
+        editor.putInt("Id", 0)
+        editor.putString("ImageUrl", "")
+        editor.putString("Role", "")
+        editor.putInt("BonusPoints", 0)
         editor.apply()
     }
 
@@ -420,21 +425,23 @@ class AccountController {
         }
     }
 
-    suspend fun updateByEmail(sharedPreferences: SharedPreferences, email:String) {
+    suspend fun updateMyself(sharedPreferences: SharedPreferences) {
         return withContext(Dispatchers.IO) {
-            var personInReview: PersonInReview? = null
+            var person: Person? = null
 
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/user/email/"
-
-            val finalUrl = "$url$email"
+            val url = "${BackendAddress().address}/api/user/me"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
 
+            val token = sharedPreferences.getString("AccessToken", "")
+
             // Create a request object for the GET request
             val request = Request.Builder()
-                .url(finalUrl)
+                .url(url)
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
                 .build()
 
             try {
@@ -446,13 +453,17 @@ class AccountController {
 
                     // Use Gson to parse the JSON response
                     val gson = Gson()
-                    personInReview = gson.fromJson(responseBody, PersonInReview::class.java)
+                    person = gson.fromJson(responseBody, Person::class.java)
 
-                    //val jsonItem = JSONObject(responseBody)
-                    //val imageUrl = jsonItem.getString("imageUrl")
-                    //val firstName = jsonItem.getString("firstName")
-                    //val lastName = jsonItem.getString("lastName")
-
+                    val editor = sharedPreferences.edit()
+                    editor.putInt("Id", person.id)
+                    editor.putString("Name", person.firstName)
+                    editor.putString("Surname", person.lastName)
+                    editor.putString("Email", person.email)
+                    editor.putString("ImageUrl", person.imageUrl)
+                    editor.putString("Role", person.role)
+                    editor.putInt("BonusPoints", person.bonusPoints)
+                    editor.apply()
 
                 }
             } catch (e: IOException) {
@@ -460,7 +471,6 @@ class AccountController {
                 e.printStackTrace()
             }
 
-            personInReview
         }
     }
 }

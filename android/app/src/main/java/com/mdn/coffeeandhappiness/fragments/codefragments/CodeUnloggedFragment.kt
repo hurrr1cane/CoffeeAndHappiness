@@ -1,19 +1,13 @@
-package com.mdn.coffeeandhappiness.fragments.accountfragments
+package com.mdn.coffeeandhappiness.fragments.codefragments
 
-
-import ConfirmationLogoutFragment
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
-import androidx.lifecycle.lifecycleScope
+import android.widget.ImageView
 import com.mdn.coffeeandhappiness.R
-import com.mdn.coffeeandhappiness.controller.AccountController
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,10 +16,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [AccountMainFragment.newInstance] factory method to
+ * Use the [CodeUnloggedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AccountMainFragment : Fragment() {
+class CodeUnloggedFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -43,24 +37,15 @@ class AccountMainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_account_main, container, false)
+        val view = inflater.inflate(R.layout.fragment_code_unlogged, container, false)
 
-        val accountController = AccountController()
-        lifecycleScope.launch(Dispatchers.IO) {
-            accountController.updateMyself(
-                requireContext().getSharedPreferences(
-                    "Account",
-                    Context.MODE_PRIVATE
-                )
-            )
+        val background = view.findViewById<ImageView>(R.id.codeUnloggedBackground)
+
+        if (requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE).getBoolean("Night", true)) {
+            background.setImageResource(R.drawable.code_unlogged_black)
         }
-
-        val logoutButton = view.findViewById<AppCompatButton>(R.id.accountMainLogout)
-
-        logoutButton.setOnClickListener() {
-            val confirmationDialog = ConfirmationLogoutFragment()
-            confirmationDialog.show(requireActivity().supportFragmentManager, "ConfirmationDialog")
-
+        else {
+            background.setImageResource(R.drawable.code_unlogged_white)
         }
 
         return view
@@ -73,12 +58,12 @@ class AccountMainFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment AccountMainFragment.
+         * @return A new instance of fragment CodeUnloggedFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            AccountMainFragment().apply {
+            CodeUnloggedFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
