@@ -43,6 +43,7 @@ public class ReviewService {
         cafeReview.setCafe(cafe);
         cafeReview.setUser(user);
         cafeReview.setUserId(user.getId());
+        cafeReview.setCafeId(cafe.getId());
         cafeReview.setDate(new Date());
 
         cafe.getReviews().add(cafeReview);
@@ -70,6 +71,7 @@ public class ReviewService {
 
         foodReview.setUser(user);
         foodReview.setUserId(user.getId());
+        foodReview.setFoodId(food.getId());
         foodReview.setDate(new Date());
         foodReview.setFood(food);
 
