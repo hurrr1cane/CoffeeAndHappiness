@@ -7,14 +7,20 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import Orders from "./orders"
+import { headers } from "../../../next.config"
 
 
 export default function User() {
 
     const {user, setUser} = useGlobalContext()
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/user/email/${user?.email}`)
-        .then(res => {
+      axios.get('http://localhost:8080/api/user/me', {
+        headers: {
+          Authorization: 'Bearer ' + user.token
+        }
+      })
+      .then(res => {
+          console.log(res)
           setUser(
             prev => (
             {
