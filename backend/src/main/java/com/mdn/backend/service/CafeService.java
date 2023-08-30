@@ -3,7 +3,6 @@ package com.mdn.backend.service;
 import com.mdn.backend.exception.CafeNotFoundException;
 import com.mdn.backend.model.Cafe;
 import com.mdn.backend.model.review.CafeReview;
-import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.repository.CafeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,9 @@ public class CafeService {
         for (Cafe cafe : cafeRepository.findAll()) {
             for (CafeReview review : cafe.getReviews()) {
                 Integer userId = review.getUser().getId();
+                Integer cafeId = review.getCafe().getId();
                 review.setUserId(userId);
+                review.setCafeId(cafeId);
             }
         }
         return cafeRepository.findAll();
@@ -31,7 +32,9 @@ public class CafeService {
                 () -> new CafeNotFoundException("No such cafe with id " + id + " found")
         );
         for (CafeReview review : cafe.getReviews()) {
+            Integer cafeId = review.getCafe().getId();
             Integer userId = review.getUser().getId();
+            review.setCafeId(cafeId);
             review.setUserId(userId);
         }
         return cafe;
