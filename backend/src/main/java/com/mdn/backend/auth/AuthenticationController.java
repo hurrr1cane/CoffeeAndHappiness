@@ -61,6 +61,26 @@ public class AuthenticationController {
         }
     }
 
+    @Operation(summary = "Register a new waiter", description = "Register a new waiter.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @PostMapping("/register/waiter")
+    public ResponseEntity<AuthenticationResponse> registerWaiter(@RequestBody RegisterRequest request) {
+        log.info("Received registration request for waiter: {}", request.getEmail());
+        try {
+            AuthenticationResponse response = authenticationService.registerWaiter(request);
+            log.info("Waiter registered successfully: {}", request.getEmail());
+            return ResponseEntity.ok(response);
+        } catch (UserAlreadyExistsException e) {
+            log.error("Registration failed - Waiter already exists: {}", request.getEmail());
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .build();
+        }
+    }
+
     @Operation(summary = "Login", description = "Login.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),

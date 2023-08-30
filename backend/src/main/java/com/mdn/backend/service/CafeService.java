@@ -84,7 +84,7 @@ public class CafeService {
                 () -> new CafeNotFoundException("No such cafe with id " + cafeId + " found")
         );
 
-        String imageUrl = storageService.saveImage(image);
+        String imageUrl = storageService.saveImage(image, "cafes", cafeId);
 
         cafe.setImageUrl(imageUrl);
         return cafeRepository.save(cafe);

@@ -19,6 +19,14 @@ public enum Role {
                     Permission.USER_DELETE
             )
     ),
+    WAITER(
+            Set.of(
+                    Permission.WAITER_READ,
+                    Permission.WAITER_CREATE,
+                    Permission.WAITER_UPDATE,
+                    Permission.WAITER_DELETE
+            )
+    ),
     ADMIN(
             Set.of(
                     Permission.ADMIN_READ,
