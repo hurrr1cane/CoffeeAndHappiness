@@ -6,6 +6,7 @@ import com.mdn.backend.model.review.CafeReview;
 import com.mdn.backend.repository.CafeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class CafeService {
 
     private final CafeRepository cafeRepository;
+    private final AmazonS3StorageService storageService;
 
     public List<Cafe> getAllCafes() {
         for (Cafe cafe : cafeRepository.findAll()) {
@@ -74,5 +76,18 @@ public class CafeService {
                 () -> new CafeNotFoundException("No such cafe with id " + id + " found")
         );
         cafeRepository.delete(cafeToDelete);
+    }
+
+    public Cafe addCafeImage(Integer cafeId, MultipartFile image) {
+
+        Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(
+                () -> new CafeNotFoundException("No such cafe with id " + cafeId + " found")
+        );
+
+        String imageUrl = storageService.saveImage(image, "cafes", cafeId);
+
+        cafe.setImageUrl(imageUrl);
+        return cafeRepository.save(cafe);
+
     }
 }

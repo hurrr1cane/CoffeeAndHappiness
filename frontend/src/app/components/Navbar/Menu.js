@@ -34,8 +34,8 @@ export default function PositionedMenu() {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose}>English</MenuItem>
-        <MenuItem onClick={handleClose}>Ukrainian</MenuItem>
+        <MenuItem onClick={handleClose}>English 🇬🇧</MenuItem>
+        <MenuItem onClick={handleClose}>Ukrainian 🇺🇦</MenuItem>
       </Menu>
     </div>
   );
