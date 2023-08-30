@@ -1,6 +1,6 @@
 .section {
+    height: 300px;
     display: flex;
-    // align-items: flex-start;
     .image {
         display: flex;
         align-items: center;
@@ -18,8 +18,5 @@
             padding-top: 0.25rem;
             padding-bottom: 0.25rem;
         }
-    }
-    .buttons {
-        margin-top: 1rem;
     }
 }

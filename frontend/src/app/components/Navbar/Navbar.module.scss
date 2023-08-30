@@ -25,12 +25,9 @@ $lightgreen: #66bb69;
 }
 
 .icons-container {
-  margin-right: 1rem;
   margin-left: auto;
   margin-top: 0.25rem;
-  &:hover{
-    cursor: pointer;
-  }
+  display: flex;
 }
 
 // @media (prefers-color-scheme: dark) {
