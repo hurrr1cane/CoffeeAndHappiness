@@ -1,12 +1,9 @@
-package com.mdn.coffeeandhappiness.tools
+package com.mdn.coffeeandhappiness.adapter
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.Lifecycle
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.mdn.coffeeandhappiness.fragments.menufragments.MenuCoffeeFragment
 import com.mdn.coffeeandhappiness.fragments.menufragments.MenuDessertsFragment
 import com.mdn.coffeeandhappiness.fragments.menufragments.MenuDrinksFragment
@@ -14,7 +11,7 @@ import com.mdn.coffeeandhappiness.fragments.menufragments.MenuIceCreamFragment
 import com.mdn.coffeeandhappiness.fragments.menufragments.MenuMainFragment
 import com.mdn.coffeeandhappiness.fragments.menufragments.MenuSaladsFragment
 
-internal class ViewPagerAdapter(var context: Context, fm: FragmentManager, var totalTabs: Int): FragmentPagerAdapter(fm) {
+internal class MenuViewPagerAdapter(var context: Context, fm: FragmentManager, var totalTabs: Int): FragmentPagerAdapter(fm) {
 
     override fun getCount(): Int {
         return totalTabs
