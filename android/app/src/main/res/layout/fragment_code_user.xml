@@ -103,10 +103,10 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 style="@style/CODE_VIEW_ORDERS"
-                android:padding="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sofiasans_straight"
+                android:padding="20dp"
                 android:text="@string/code_view_your_orders"
                 android:textSize="20sp" />
         </androidx.cardview.widget.CardView>

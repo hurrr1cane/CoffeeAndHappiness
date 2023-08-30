@@ -11,7 +11,8 @@ import com.mdn.coffeeandhappiness.fragments.menufragments.MenuIceCreamFragment
 import com.mdn.coffeeandhappiness.fragments.menufragments.MenuMainFragment
 import com.mdn.coffeeandhappiness.fragments.menufragments.MenuSaladsFragment
 
-internal class MenuViewPagerAdapter(var context: Context, fm: FragmentManager, var totalTabs: Int): FragmentPagerAdapter(fm) {
+internal class MenuViewPagerAdapter(var context: Context, fm: FragmentManager, var totalTabs: Int) :
+    FragmentPagerAdapter(fm) {
 
     override fun getCount(): Int {
         return totalTabs

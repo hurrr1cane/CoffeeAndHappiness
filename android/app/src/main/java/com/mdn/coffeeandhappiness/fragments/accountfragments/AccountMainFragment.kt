@@ -69,7 +69,8 @@ class AccountMainFragment : Fragment() {
 
         }
 
-        val accountPreferences = requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
+        val accountPreferences =
+            requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
 
         val name = view.findViewById<TextView>(R.id.accountMainName)
         val surname = view.findViewById<TextView>(R.id.accountMainSurname)
@@ -79,13 +80,13 @@ class AccountMainFragment : Fragment() {
         surname.text = accountPreferences.getString("Surname", "")
         email.text = accountPreferences.getString("Email", "")
 
-        val settingsPreferences = requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val settingsPreferences =
+            requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE)
         val nightMode: Boolean = settingsPreferences.getBoolean("Night", true)
 
         val defaultImage = if (nightMode) {
             R.drawable.baseline_person_white_24
-        }
-        else {
+        } else {
             R.drawable.baseline_person_black_24
         }
 

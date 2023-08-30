@@ -16,9 +16,12 @@ import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.fragments.accountfragments.reviewsfragments.ConfirmationDeleteFoodReviewFragment
 import com.mdn.coffeeandhappiness.model.FoodReviewWithFood
 
-class AccountReviewsFoodAdapter(private val context: Context, private val reviewsList: MutableList<FoodReviewWithFood>): RecyclerView.Adapter<AccountReviewsFoodAdapter.ReviewHolder>() {
+class AccountReviewsFoodAdapter(
+    private val context: Context,
+    private val reviewsList: MutableList<FoodReviewWithFood>
+) : RecyclerView.Adapter<AccountReviewsFoodAdapter.ReviewHolder>() {
 
-    class ReviewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class ReviewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cardView = itemView.findViewById<CardView>(R.id.accountReviewCardView)
         val cardImageView = itemView.findViewById<ImageView>(R.id.accountReviewImageView)
         val cardTitleTextView = itemView.findViewById<TextView>(R.id.accountReviewTitleTextView)
@@ -29,8 +32,10 @@ class AccountReviewsFoodAdapter(private val context: Context, private val review
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.dynamic_account_review,
-            parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(
+            R.layout.dynamic_account_review,
+            parent, false
+        )
         return ReviewHolder(itemView)
     }
 
@@ -57,6 +62,7 @@ class AccountReviewsFoodAdapter(private val context: Context, private val review
             "uk" -> {
                 titleText = reviewsList[position].nameUA
             }
+
             "en" -> {
                 titleText = reviewsList[position].nameEN
             }
@@ -68,13 +74,17 @@ class AccountReviewsFoodAdapter(private val context: Context, private val review
 
 
         holder.deleteButton.setOnClickListener() {
-            val confirmationDialog = ConfirmationDeleteFoodReviewFragment(reviewsList[position].id) {
-                // This lambda function will be called when the user clicks "Yes"
-                reviewsList.removeAt(position)
-                notifyItemRemoved(position)
-                // Handle the item removal logic here
-            }
-            confirmationDialog.show((context as FragmentActivity).supportFragmentManager , "ConfirmationDialog")
+            val confirmationDialog =
+                ConfirmationDeleteFoodReviewFragment(reviewsList[position].id) {
+                    // This lambda function will be called when the user clicks "Yes"
+                    reviewsList.removeAt(position)
+                    notifyItemRemoved(position)
+                    // Handle the item removal logic here
+                }
+            confirmationDialog.show(
+                (context as FragmentActivity).supportFragmentManager,
+                "ConfirmationDialog"
+            )
 
 
         }

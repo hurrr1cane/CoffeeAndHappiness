@@ -7,7 +7,11 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.mdn.coffeeandhappiness.fragments.accountfragments.reviewsfragments.AccountReviewsCafeFragment
 import com.mdn.coffeeandhappiness.fragments.accountfragments.reviewsfragments.AccountReviewsFoodFragment
 
-internal class AccountReviewsAdapter(var context: Context, fm: FragmentManager, var totalTabs: Int): FragmentPagerAdapter(fm) {
+internal class AccountReviewsAdapter(
+    var context: Context,
+    fm: FragmentManager,
+    var totalTabs: Int
+) : FragmentPagerAdapter(fm) {
 
     override fun getCount(): Int {
         return totalTabs

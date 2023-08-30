@@ -46,7 +46,8 @@ class CodeUserFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_code_user, container, false)
 
-        val sharedPreferences = requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
 
         val userBalance = view.findViewById<TextView>(R.id.codeUserBalance)
         userBalance.text = sharedPreferences.getInt("BonusPoints", 0).toString()
@@ -56,15 +57,19 @@ class CodeUserFragment : Fragment() {
         val multiFormatWriter = MultiFormatWriter()
 
         try {
-            val bitMatrix = multiFormatWriter.encode(sharedPreferences.getString("AccessToken", ""), BarcodeFormat.QR_CODE, 800, 800)
+            val bitMatrix = multiFormatWriter.encode(
+                sharedPreferences.getString("AccessToken", ""),
+                BarcodeFormat.QR_CODE,
+                800,
+                800
+            )
 
             val barcodeEncoder = BarcodeEncoder()
             val bitmap = barcodeEncoder.createBitmap(bitMatrix)
 
             imageView.setImageBitmap(bitmap)
 
-        }
-        catch (e: WriterException) {
+        } catch (e: WriterException) {
             throw RuntimeException()
         }
 

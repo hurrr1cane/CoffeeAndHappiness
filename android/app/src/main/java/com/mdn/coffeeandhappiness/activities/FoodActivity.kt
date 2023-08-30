@@ -44,8 +44,7 @@ class FoodActivity : AppCompatActivity() {
         val addReviewButton = findViewById<AppCompatButton>(R.id.foodActivityAddReviewButton)
         if (accountSettings.getBoolean("IsAccountLogged", false)) {
             addReviewButton.visibility = View.VISIBLE
-        }
-        else {
+        } else {
             addReviewButton.visibility = View.GONE
         }
 
@@ -84,24 +83,21 @@ class FoodActivity : AppCompatActivity() {
                     if (currentFood?.ingredientsUA == "null") {
                         foodIngredients.visibility = View.GONE
                         foodIngredientsLabel.visibility = View.GONE
-                    }
-                    else {
+                    } else {
                         foodIngredients.visibility = View.VISIBLE
                         foodIngredientsLabel.visibility = View.VISIBLE
                         foodIngredients.text = currentFood?.ingredientsUA
                     }
                     val foodWeightText = currentFood?.weight.toString() + "г"
                     foodWeight.text = foodWeightText
-                }
-                else if (language == "en") {
+                } else if (language == "en") {
                     foodName.text = currentFood?.nameEN
                     foodType.text = foodTypeTranslator.translateTo("en", currentFood?.type!!)
                     foodDescription.text = currentFood?.descriptionEN
                     if (currentFood?.ingredientsEN == "null") {
                         foodIngredients.visibility = View.GONE
                         foodIngredientsLabel.visibility = View.GONE
-                    }
-                    else {
+                    } else {
                         foodIngredients.visibility = View.VISIBLE
                         foodIngredientsLabel.visibility = View.VISIBLE
                         foodIngredients.text = currentFood?.ingredientsEN
@@ -124,11 +120,11 @@ class FoodActivity : AppCompatActivity() {
                     .into(foodPicture)
 
 
-                val viewAllReviews = findViewById<AppCompatButton>(R.id.foodActivityViewAllReviewsButton)
+                val viewAllReviews =
+                    findViewById<AppCompatButton>(R.id.foodActivityViewAllReviewsButton)
                 if (currentFood?.reviews!!.size > 3) {
                     viewAllReviews.visibility = View.VISIBLE
-                }
-                else {
+                } else {
                     viewAllReviews.visibility = View.GONE
                 }
 
@@ -164,7 +160,8 @@ class FoodActivity : AppCompatActivity() {
                                 .error(R.drawable.baseline_person_white_24)
                                 .into(userPicture)
 
-                            userName.text = personInReview!!.firstName + " " + personInReview!!.lastName
+                            userName.text =
+                                personInReview!!.firstName + " " + personInReview!!.lastName
 
                             reviewRating.rating = currentFood!!.reviews[i].rating.toFloat()
                             userText.text = currentFood!!.reviews[i].comment

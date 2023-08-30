@@ -44,14 +44,11 @@ class MenuIceCreamFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_menu_ice_cream, container, false)
 
-        var listId: MutableList<Int> = mutableListOf()
-
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.menuIceCreamRecyclerView)
 
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-
 
 
         // Use lifecycleScope.launch to call getFood asynchronously
@@ -60,7 +57,8 @@ class MenuIceCreamFragment : Fragment() {
 
             // Update the UI on the main thread
             launch(Dispatchers.Main) {
-                val adapter = FoodRecyclerViewAdapter(requireContext(), listOfFood) // Provide your data here
+                val adapter =
+                    FoodRecyclerViewAdapter(requireContext(), listOfFood) // Provide your data here
                 recyclerView.adapter = adapter
             }
         }

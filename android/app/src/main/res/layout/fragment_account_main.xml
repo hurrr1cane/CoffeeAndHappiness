@@ -37,10 +37,10 @@
 
                         <ImageView
                             android:id="@+id/accountMainPicture"
+                            style="@style/ACCOUNT_MAIN_PICTURE"
                             android:layout_width="200dp"
                             android:layout_height="200dp"
                             android:layout_gravity="center"
-                            style="@style/ACCOUNT_MAIN_PICTURE"
                             android:scaleType="centerCrop"
                             android:src="@drawable/baseline_person_black_24" />
                     </androidx.cardview.widget.CardView>
@@ -52,8 +52,8 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FOOD_TEXT"
                             android:id="@+id/accountMainName"
+                            style="@style/FOOD_TEXT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
@@ -62,8 +62,8 @@
                             android:textSize="24sp" />
 
                         <TextView
-                            style="@style/FOOD_TEXT"
                             android:id="@+id/accountMainSurname"
+                            style="@style/FOOD_TEXT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
@@ -82,8 +82,8 @@
 
 
                         <TextView
-                            style="@style/FOOD_TEXT"
                             android:id="@+id/accountMainEmail"
+                            style="@style/FOOD_TEXT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
@@ -106,22 +106,22 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        style="@style/ACCOUNT_MAIN_BUTTON"
-                        android:fontFamily="@font/sofiasans_straight"
-                        android:textSize="20sp"
                         android:id="@+id/accountMainEditAccount"
+                        style="@style/ACCOUNT_MAIN_BUTTON"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_main_edit" />
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/account_main_edit"
+                        android:textSize="20sp" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        style="@style/ACCOUNT_MAIN_BUTTON"
-                        android:fontFamily="@font/sofiasans_straight"
-                        android:textSize="20sp"
                         android:id="@+id/accountMainReviews"
+                        style="@style/ACCOUNT_MAIN_BUTTON"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_main_reviews" />
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/account_main_reviews"
+                        android:textSize="20sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -138,31 +138,31 @@
 
 
                     <androidx.appcompat.widget.AppCompatButton
-                        style="@style/ACCOUNT_MAIN_BUTTON"
                         android:id="@+id/accountMainFAQ"
-                        android:fontFamily="@font/sofiasans_straight"
-                        android:textSize="20sp"
+                        style="@style/ACCOUNT_MAIN_BUTTON"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_main_faq" />
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/account_main_faq"
+                        android:textSize="20sp" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        style="@style/ACCOUNT_MAIN_BUTTON"
                         android:id="@+id/accountMainPrivacyPolicy"
+                        style="@style/ACCOUNT_MAIN_BUTTON"
                         android:layout_width="match_parent"
-                        android:fontFamily="@font/sofiasans_straight"
-                        android:textSize="20sp"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_main_privacy" />
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/account_main_privacy"
+                        android:textSize="20sp" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        style="@style/ACCOUNT_MAIN_BUTTON"
-                        android:fontFamily="@font/sofiasans_straight"
-                        android:textSize="20sp"
                         android:id="@+id/accountMainFeedback"
+                        style="@style/ACCOUNT_MAIN_BUTTON"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_main_feedback" />
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/account_main_feedback"
+                        android:textSize="20sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -172,10 +172,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:fontFamily="@font/sofiasans_straight"
-                android:textSize="20sp"
                 android:background="@drawable/account_button_logout"
-                android:text="@string/account_main_logout" />
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="@string/account_main_logout"
+                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>

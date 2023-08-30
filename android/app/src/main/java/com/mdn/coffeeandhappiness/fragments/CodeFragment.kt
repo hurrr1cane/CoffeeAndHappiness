@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
-import com.mdn.coffeeandhappiness.fragments.codefragments.CodeAdminFragment
+import com.mdn.coffeeandhappiness.fragments.codefragments.CodeWaiterFragment
 import com.mdn.coffeeandhappiness.fragments.codefragments.CodeUnloggedFragment
 import com.mdn.coffeeandhappiness.fragments.codefragments.CodeUserFragment
 import kotlinx.coroutines.Dispatchers
@@ -55,17 +55,16 @@ class CodeFragment : Fragment() {
             )
         }
 
-        val sharedPreferences = requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
 
         if (sharedPreferences.getBoolean("IsAccountLogged", false)) {
             if (sharedPreferences.getString("Role", "USER").equals("USER")) {
                 replaceFragment(CodeUserFragment())
+            } else if (sharedPreferences.getString("Role", "USER").equals("WAITER")) {
+                replaceFragment(CodeWaiterFragment())
             }
-            else {
-                replaceFragment(CodeAdminFragment())
-            }
-        }
-        else {
+        } else {
             replaceFragment(CodeUnloggedFragment())
         }
 

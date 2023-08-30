@@ -7,12 +7,13 @@
     </style>
 
 
-    <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness"/>
+    <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness" />
 
-    <style name = "SCREEN_STYLE">
+    <style name="SCREEN_STYLE">
         <item name="android:background">@color/light_background_behind</item>
     </style>
-    <style name = "HEAD_TEXT">
+
+    <style name="HEAD_TEXT">
         <item name="android:textColor">@color/black_text</item>
         <item name="android:textSize">30sp</item>
         <item name="fontFamily">@font/sofiasans_straight</item>
@@ -21,7 +22,7 @@
     <style name="TOP_BAR">
         <item name="android:background">@color/light_background_main</item>
     </style>
-    
+
     <style name="HOME_NAME">
         <item name="fontFamily">@font/sofiasans</item>
     </style>
@@ -54,6 +55,7 @@
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:layout_marginTop">4dp</item>
     </style>
+
     <style name="HOME_NEWS_CARD_YEAR">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/gray_black_text</item>
@@ -63,8 +65,8 @@
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:gravity">end</item>
     </style>
-    
-    
+
+
     <!-- Menu section -->
     <style name="MENU_TAB_LAYOUT">
         <item name="tabIndicatorColor">@color/default_green</item>
@@ -140,7 +142,6 @@
     </style>
 
 
-
     <!-- Account section -->
     <style name="ACCOUNT_MAIN_DIALOG_TEXT">
         <item name="fontFamily">@font/sofiasans_straight</item>
@@ -204,7 +205,6 @@
         <item name="android:textColor">@color/black_text</item>
         <item name="android:background">@color/light_background_main</item>
     </style>
-
 
 
 </resources>

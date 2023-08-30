@@ -15,31 +15,55 @@ import java.io.IOException
 
 class ReviewController {
 
-    suspend fun getCafeReviewsWithCafe (sharedPreferences:SharedPreferences): MutableList<CafeReviewWithCafe> {
+    suspend fun getCafeReviewsWithCafe(sharedPreferences: SharedPreferences): MutableList<CafeReviewWithCafe> {
         return withContext(Dispatchers.IO) {
             var listOfCafeReviewsWithCafe = mutableListOf<CafeReviewWithCafe>()
             val listOfCafeReviews = getCafeReviews(sharedPreferences)
             for (foodReview in listOfCafeReviews) {
                 val food = FoodController().getFood(foodReview.cafeId)
-                listOfCafeReviewsWithCafe.add(CafeReviewWithCafe(foodReview.id, foodReview.rating, foodReview.comment, foodReview.date, foodReview.userId, foodReview.cafeId, food!!.imageUrl, food.nameUA, food.nameEN))
+                listOfCafeReviewsWithCafe.add(
+                    CafeReviewWithCafe(
+                        foodReview.id,
+                        foodReview.rating,
+                        foodReview.comment,
+                        foodReview.date,
+                        foodReview.userId,
+                        foodReview.cafeId,
+                        food!!.imageUrl,
+                        food.nameUA,
+                        food.nameEN
+                    )
+                )
             }
             listOfCafeReviewsWithCafe
         }
     }
 
-    suspend fun getFoodReviewsWithFood (sharedPreferences:SharedPreferences): MutableList<FoodReviewWithFood> {
+    suspend fun getFoodReviewsWithFood(sharedPreferences: SharedPreferences): MutableList<FoodReviewWithFood> {
         return withContext(Dispatchers.IO) {
             var listOfFoodReviewWithFood = mutableListOf<FoodReviewWithFood>()
             val listOfFoodReviews = getFoodReviews(sharedPreferences)
             for (foodReview in listOfFoodReviews) {
                 val food = FoodController().getFood(foodReview.foodId)
-                listOfFoodReviewWithFood.add(FoodReviewWithFood(foodReview.id, foodReview.rating, foodReview.comment, foodReview.date, foodReview.userId, foodReview.foodId, food!!.imageUrl, food.nameUA, food.nameEN))
+                listOfFoodReviewWithFood.add(
+                    FoodReviewWithFood(
+                        foodReview.id,
+                        foodReview.rating,
+                        foodReview.comment,
+                        foodReview.date,
+                        foodReview.userId,
+                        foodReview.foodId,
+                        food!!.imageUrl,
+                        food.nameUA,
+                        food.nameEN
+                    )
+                )
             }
             listOfFoodReviewWithFood
         }
     }
 
-    suspend fun getFoodReviews (sharedPreferences:SharedPreferences): MutableList<FoodReview> {
+    suspend fun getFoodReviews(sharedPreferences: SharedPreferences): MutableList<FoodReview> {
         return withContext(Dispatchers.IO) {
             // Define the URL you want to send the GET request to
             val url = "${BackendAddress().address}/api/user/me"
@@ -96,7 +120,8 @@ class ReviewController {
             val foodId = jsonItemReview.getInt("foodId")
 
             val singleReview = FoodReview(
-                idReview, rating, comment, date, userId, foodId)
+                idReview, rating, comment, date, userId, foodId
+            )
 
             listFoodReviews.add(singleReview)
         }
@@ -104,7 +129,7 @@ class ReviewController {
         return listFoodReviews
     }
 
-    suspend fun getCafeReviews (sharedPreferences:SharedPreferences): MutableList<CafeReview> {
+    suspend fun getCafeReviews(sharedPreferences: SharedPreferences): MutableList<CafeReview> {
         return withContext(Dispatchers.IO) {
             // Define the URL you want to send the GET request to
             val url = "${BackendAddress().address}/api/user/me"
@@ -161,7 +186,8 @@ class ReviewController {
             val cafeId = jsonItemReview.getInt("cafeId")
 
             val singleReview = CafeReview(
-                idReview, rating, comment, date, userId, cafeId)
+                idReview, rating, comment, date, userId, cafeId
+            )
 
             listCafeReviews.add(singleReview)
         }
@@ -169,7 +195,7 @@ class ReviewController {
         return listCafeReviews
     }
 
-    suspend fun deleteFoodReview(sharedPreferences:SharedPreferences, reviewId: Int) {
+    suspend fun deleteFoodReview(sharedPreferences: SharedPreferences, reviewId: Int) {
         return withContext(Dispatchers.IO) {
             // Define the URL you want to send the GET request to
             val url = "${BackendAddress().address}/api/review/food/"
@@ -204,7 +230,7 @@ class ReviewController {
         }
     }
 
-    suspend fun deleteCafeReview(sharedPreferences:SharedPreferences, reviewId: Int) {
+    suspend fun deleteCafeReview(sharedPreferences: SharedPreferences, reviewId: Int) {
         return withContext(Dispatchers.IO) {
             // Define the URL you want to send the GET request to
             val url = "${BackendAddress().address}/api/review/cafe/"

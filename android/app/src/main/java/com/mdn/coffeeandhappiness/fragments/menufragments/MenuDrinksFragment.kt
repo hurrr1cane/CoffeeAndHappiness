@@ -37,28 +37,12 @@ class MenuDrinksFragment : Fragment() {
         }
     }
 
-    /*override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_menu_drinks, container, false)
-
-        val listOfFood = FoodController().getFood("drink")
-
-        SectionSetter().setFoodSection(listOfFood, rootView, layoutInflater, context, "Drinks")
-
-        return rootView
-    }*/
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_menu_drinks, container, false)
-
-        var listId: MutableList<Int> = mutableListOf()
 
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.menuDrinksRecyclerView)
 
@@ -67,14 +51,14 @@ class MenuDrinksFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
 
 
-
         // Use lifecycleScope.launch to call getFood asynchronously
         lifecycleScope.launch(Dispatchers.IO) {
             val listOfFood = FoodController().getFood("drink")
 
             // Update the UI on the main thread
             launch(Dispatchers.Main) {
-                val adapter = FoodRecyclerViewAdapter(requireContext(), listOfFood) // Provide your data here
+                val adapter =
+                    FoodRecyclerViewAdapter(requireContext(), listOfFood) // Provide your data here
                 recyclerView.adapter = adapter
             }
         }

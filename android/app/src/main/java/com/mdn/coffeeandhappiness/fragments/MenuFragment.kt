@@ -34,10 +34,6 @@ class MenuFragment : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,11 +44,12 @@ class MenuFragment : Fragment() {
         val menuTabs = rootView.findViewById<TabLayout>(R.id.menuTabs)
         val viewPager = rootView.findViewById<ViewPager>(R.id.menu_viewPager)
 
-        val adapter = MenuViewPagerAdapter(requireContext(), requireFragmentManager(), menuTabs.tabCount)
+        val adapter =
+            MenuViewPagerAdapter(requireContext(), requireFragmentManager(), menuTabs.tabCount)
         viewPager.adapter = adapter
 
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(menuTabs))
-        menuTabs.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener{
+        menuTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewPager.currentItem = tab!!.position
             }
