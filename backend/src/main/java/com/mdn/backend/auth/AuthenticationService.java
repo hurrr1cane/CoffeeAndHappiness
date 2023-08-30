@@ -40,8 +40,8 @@ public class AuthenticationService {
         }
 
         User user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
+                .firstName(capitalizeFirstLetter(request.getFirstName()))
+                .lastName(capitalizeFirstLetter(request.getLastName()))
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(role)
@@ -56,6 +56,10 @@ public class AuthenticationService {
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
+    }
+
+    private String capitalizeFirstLetter(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
     public AuthenticationResponse registerUser(RegisterRequest request) {
