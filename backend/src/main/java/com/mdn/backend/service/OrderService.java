@@ -1,5 +1,6 @@
 package com.mdn.backend.service;
 
+import com.mdn.backend.exception.NotEnoughBonusPointsException;
 import com.mdn.backend.exception.UserNotFoundException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.order.Order;
@@ -38,6 +39,24 @@ public class OrderService {
         userRepository.save(user);
 
         return orderRepository.save(order);
+    }
+
+    public String spendPoints(Integer userId, List<Food> selectedFoods) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
+
+        Double totalPrice = calculateTotalPrice(selectedFoods);
+        Integer bonusPointsSpent = calculateBonusPoints(totalPrice);
+
+        if (user.getBonusPoints() < bonusPointsSpent) {
+            throw new NotEnoughBonusPointsException("Not enough bonus points");
+        }
+
+        user.setBonusPoints(user.getBonusPoints() - bonusPointsSpent);
+        userRepository.save(user);
+
+        return user.getFirstName() + " " + user.getLastName() + " spent " + bonusPointsSpent + " bonus points";
+
     }
 
     private Double calculateTotalPrice(List<Food> foods) {
