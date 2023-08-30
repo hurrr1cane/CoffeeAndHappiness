@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -67,6 +68,24 @@ public class CafeController {
         } catch (Exception ex) {
             log.error("Error while adding cafe: {}", ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("{cafeId}/image")
+    public ResponseEntity<?> addCafeImage(@PathVariable Integer cafeId, @RequestParam("image") MultipartFile image) {
+        log.info("Adding image to cafe with id {}", cafeId);
+
+        try {
+            Cafe cafe = cafeService.addCafeImage(cafeId, image);
+            return ResponseEntity.ok(cafe);
+        } catch (CafeNotFoundException ex) {
+            log.error("Cafe not found with id: {}", cafeId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Cafe not found with id: " + cafeId);
+        } catch (Exception ex) {
+            log.error("Error while adding image to cafe: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while adding image to cafe: " + ex.getMessage());
         }
     }
 
