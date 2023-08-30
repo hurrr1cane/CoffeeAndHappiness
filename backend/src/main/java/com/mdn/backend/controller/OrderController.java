@@ -1,6 +1,7 @@
 package com.mdn.backend.controller;
 
 import com.mdn.backend.exception.FoodNotFoundException;
+import com.mdn.backend.exception.NotEnoughBonusPointsException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.order.Order;
 import com.mdn.backend.model.order.OrderRequest;
@@ -17,7 +18,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -52,4 +56,29 @@ public class OrderController {
         }
     }
 
+    @Operation(summary = "Spend points", description = "Spend points for a user with a list of selected foods.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Points spent", content = @Content(schema = @Schema(implementation = Order.class))),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content(schema = @Schema(implementation = String.class), examples = {@ExampleObject(name = "User not found", value = "User not found with id: 1")})),
+            @ApiResponse(responseCode = "400", description = "Not enough bonus points", content = @Content(schema = @Schema(implementation = String.class), examples = {@ExampleObject(name = "Not enough bonus points", value = "Not enough bonus points")}))
+    })
+    @PostMapping("/spend-points")
+    public ResponseEntity<?> spendPoints(@RequestBody @Valid OrderRequest orderRequest) {
+        log.info("Spending points");
+
+        try {
+            List<Food> selectedFoods = foodService.getFoodsByIds(orderRequest.getFoodIds());
+            var orderResult = orderService.spendPoints(orderRequest.getUserId(), selectedFoods);
+            return new ResponseEntity<>(orderResult, HttpStatus.OK);
+        } catch (FoodNotFoundException ex) {
+            log.error("One or more selected foods not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("One or more selected foods not found");
+        } catch (NotEnoughBonusPointsException ex) {
+            log.error("Not enough bonus points");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not enough bonus points");
+        } catch (Exception ex) {
+            log.error("Error while spending points: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
