@@ -175,10 +175,11 @@ class FoodController {
             val idReview = jsonItemReview.getInt("id")
             val rating = jsonItemReview.getInt("rating")
             val comment = jsonItemReview.getString("comment")
+            val date = jsonItemReview.getString("date")
             val userId = jsonItemReview.getInt("userId")
 
             val singleReview = Review(
-                idReview, rating, comment, userId)
+                idReview, rating, comment, date, userId)
 
             reviewsList.add(singleReview)
         }

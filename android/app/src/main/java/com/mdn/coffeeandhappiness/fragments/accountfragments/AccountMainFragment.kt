@@ -3,6 +3,7 @@ package com.mdn.coffeeandhappiness.fragments.accountfragments
 
 import ConfirmationLogoutFragment
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,8 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.activities.AccountReviewsActivity
+import com.mdn.coffeeandhappiness.activities.FoodActivity
 import com.mdn.coffeeandhappiness.controller.AccountController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -93,6 +96,15 @@ class AccountMainFragment : Fragment() {
             .placeholder(defaultImage)
             .error(defaultImage)
             .into(image)
+
+
+        val myReviews = view.findViewById<AppCompatButton>(R.id.accountMainReviews)
+
+        myReviews.setOnClickListener() {
+            // Handle the click event here, for example, open a new activity with details
+            val intent = Intent(context, AccountReviewsActivity::class.java)
+            requireContext().startActivity(intent)
+        }
 
         return view
     }

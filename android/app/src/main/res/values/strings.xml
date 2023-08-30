@@ -68,6 +68,9 @@
     <string name="account_main_feedback">Feedback</string>
     <string name="account_main_logout">Logout</string>
 
+    <string name="account_main_reviews_food">Food reviews</string>
+    <string name="account_main_reviews_cafe">Cafe reviews</string>
+
     <!-- This is a code section -->
     <string name="code_user_show_qr">Show your QR code to waiter</string>
     <string name="code_user_balance">Balance</string>
