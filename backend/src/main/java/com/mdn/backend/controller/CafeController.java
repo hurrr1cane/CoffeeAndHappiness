@@ -71,6 +71,12 @@ public class CafeController {
         }
     }
 
+    @Operation(summary = "Add cafe image", description = "Add an image to a cafe by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "Cafe not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @PostMapping("{cafeId}/image")
     public ResponseEntity<?> addCafeImage(@PathVariable Integer cafeId, @RequestParam("image") MultipartFile image) {
         log.info("Adding image to cafe with id {}", cafeId);
