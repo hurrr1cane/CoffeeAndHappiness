@@ -20,9 +20,12 @@ export default function Review( props ) {
         .catch(err => console.log(err))
     }, [])
 
-    useEffect(() => {
-        console.log(commentUser, user)
-    }, [commentUser])
+    const handleClick = () => {
+        axios.delete(`http://localhost:8080/api/review/food/${props.id}`)
+        .then(window.location.reload())
+        .catch(err => console.log(err))
+    }
+
 
     return (
         <section className={styles['review-card']}>
@@ -35,7 +38,7 @@ export default function Review( props ) {
             <section className={styles.comment}>
                 <p>{props?.comment}</p> <Rating sx={{bottom: "5px", right: "3px"}} name="read-only" value={Number(props.rating)} readOnly/>
             </section>
-            {user.id == commentUser.id && <Fab sx={{bgcolor:"#4caf50", "&:hover":{bgcolor:"#4caf50"}, marginLeft:"auto", color:"white "}}><CloseIcon/></Fab>}
+            {((user.id == commentUser.id) || user.role === 'ADMIN') && <Fab onClick={handleClick} sx={{bgcolor:"#4caf50", "&:hover":{bgcolor:"#4caf50"}, marginLeft:"auto", color:"white "}}><CloseIcon/></Fab>}
         </section>
     )
 }
