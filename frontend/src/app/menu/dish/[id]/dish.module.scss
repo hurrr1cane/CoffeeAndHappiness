@@ -1,5 +1,4 @@
 .section {
-    height: 300px;
     display: flex;
     // align-items: flex-start;
     .image {
@@ -22,8 +21,5 @@
     }
     .buttons {
         margin-top: 1rem;
-        button {
-            margin: 1rem
-        }
     }
 }

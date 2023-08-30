@@ -14,7 +14,7 @@ export default function InstitutionCard({ cafe }) {
         />
         <div className={styles.description}>
             <p>{cafe?.locationEN}</p>
-            <p>Working hours: 09:00 - 20:00</p>
+            <p>Phone number: {cafe.phoneNumber}</p>
             <p>
                 <Link href="https://www.google.com/maps">View on a map</Link>
             </p>
