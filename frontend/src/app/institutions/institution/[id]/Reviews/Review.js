@@ -21,8 +21,12 @@ export default function Review( props ) {
     }, [])
 
     const handleClick = () => {
-        axios.delete(`http://localhost:8080/api/review/cafe/${props.id}`)
-        .then(window.location.reload())
+        axios.delete(`http://localhost:8080/api/review/cafe/${props.id}`, {
+            headers:{
+                Authorization: "Bearer " + user.token 
+            }
+        })
+        .then(res => console.log(res))
         .catch(err => console.log(err))
     }
 
