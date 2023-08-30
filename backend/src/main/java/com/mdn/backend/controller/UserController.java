@@ -2,6 +2,7 @@ package com.mdn.backend.controller;
 
 import com.mdn.backend.exception.UserNotFoundException;
 import com.mdn.backend.model.user.User;
+import com.mdn.backend.model.user.UserEditRequest;
 import com.mdn.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -86,6 +87,23 @@ public class UserController {
         try {
             User user = userService.getMyself(principal);
             return ResponseEntity.ok(user);
+        } catch (UserNotFoundException ex) {
+            log.error("User not found with email: {}", principal.getName());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + principal.getName());
+        }
+    }
+
+    @Operation(summary = "Edit myself", description = "Edit the user that is currently logged in.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    @PutMapping("/me/edit")
+    public ResponseEntity<?> editMyself(Principal principal, @RequestBody UserEditRequest user) {
+        log.info("Editing myself");
+        try {
+            User editedUser = userService.editMyself(principal, user);
+            return ResponseEntity.ok(editedUser);
         } catch (UserNotFoundException ex) {
             log.error("User not found with email: {}", principal.getName());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + principal.getName());

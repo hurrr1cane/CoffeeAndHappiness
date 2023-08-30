@@ -2,6 +2,7 @@ package com.mdn.backend.service;
 
 import com.mdn.backend.exception.UserNotFoundException;
 import com.mdn.backend.model.user.User;
+import com.mdn.backend.model.user.UserEditRequest;
 import com.mdn.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,17 @@ public class UserService {
     public User getMyself(Principal principal) {
         return userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
+    }
+
+    public User editMyself(Principal principal, UserEditRequest user) {
+
+        User myself = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
+
+        if (user.getFirstName() != null) myself.setFirstName(user.getFirstName());
+        if (user.getLastName() != null) myself.setLastName(user.getLastName());
+        if (user.getImageUrl() != null) myself.setImageUrl(user.getImageUrl());
+
+        return userRepository.save(myself);
     }
 }
