@@ -37,7 +37,8 @@ public class ReviewService {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + userEmail));
 
-        double updatedRating = (cafe.getAverageRating() * cafe.getReviews().size() + cafeReview.getRating()) / (cafe.getReviews().size() + 1);
+        double updatedRating = (cafe.getAverageRating() * cafe.getReviews().size() +
+                cafeReview.getRating()) / (cafe.getReviews().size() + 1);
         updatedRating = Math.round(updatedRating * 10.0) / 10.0;
 
         cafeReview.setCafe(cafe);
@@ -52,7 +53,6 @@ public class ReviewService {
 
         cafeRepository.save(cafe);
         userRepository.save(user);
-        cafeReviewRepository.save(cafeReview);
 
         return cafeReview;
     }
