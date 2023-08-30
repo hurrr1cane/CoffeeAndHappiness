@@ -67,7 +67,7 @@ public class UserService {
             review.setUserId(userId);
         }
         for (FoodReview foodReview : user.getFoodReviews()) {
-            Integer foodId = foodReview.getId();
+            Integer foodId = foodReview.getFood().getId();
             Integer userId = foodReview.getUser().getId();
             foodReview.setFoodId(foodId);
             foodReview.setUserId(userId);
