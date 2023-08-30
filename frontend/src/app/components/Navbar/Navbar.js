@@ -76,7 +76,7 @@
         
         {user?.firstName ? 
         <>
-        <Link ref={tabRefs.user} onClick={() => {handleTabClick('user')}} className={`${styles.link} ${stylesData.selectedTab === 'user' ? styles.selected : '' }`} href="/user"><h1>User</h1></Link>
+        <Link ref={tabRefs.user} onClick={() => {handleTabClick('user')}} className={`${styles.link} ${stylesData.selectedTab === 'user' ? styles.selected : '' }`} href="/user"><h1>{user.firstName}</h1></Link>
         <span onClick={() => {handleLogout()}} className={styles.link}><h1>Log out</h1></span>  
         </>:
         <>
