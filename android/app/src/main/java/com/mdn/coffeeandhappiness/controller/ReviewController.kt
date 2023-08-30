@@ -1,20 +1,15 @@
 package com.mdn.coffeeandhappiness.controller
 
 import android.content.SharedPreferences
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.mdn.coffeeandhappiness.model.CafeReview
 import com.mdn.coffeeandhappiness.model.CafeReviewWithCafe
-import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.FoodReview
 import com.mdn.coffeeandhappiness.model.FoodReviewWithFood
-import com.mdn.coffeeandhappiness.model.Review
 import com.mdn.coffeeandhappiness.tools.BackendAddress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 

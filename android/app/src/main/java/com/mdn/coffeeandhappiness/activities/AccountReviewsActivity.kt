@@ -3,12 +3,10 @@ package com.mdn.coffeeandhappiness.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
-import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.mdn.coffeeandhappiness.R
-import com.mdn.coffeeandhappiness.tools.AccountReviewsAdapter
-import com.mdn.coffeeandhappiness.tools.ViewPagerAdapter
+import com.mdn.coffeeandhappiness.adapter.AccountReviewsAdapter
 
 class AccountReviewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

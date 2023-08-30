@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.mdn.coffeeandhappiness.R
-import com.mdn.coffeeandhappiness.tools.ViewPagerAdapter
+import com.mdn.coffeeandhappiness.adapter.MenuViewPagerAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,7 +48,7 @@ class MenuFragment : Fragment() {
         val menuTabs = rootView.findViewById<TabLayout>(R.id.menuTabs)
         val viewPager = rootView.findViewById<ViewPager>(R.id.menu_viewPager)
 
-        val adapter = ViewPagerAdapter(requireContext(), requireFragmentManager(), menuTabs.tabCount)
+        val adapter = MenuViewPagerAdapter(requireContext(), requireFragmentManager(), menuTabs.tabCount)
         viewPager.adapter = adapter
 
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(menuTabs))
