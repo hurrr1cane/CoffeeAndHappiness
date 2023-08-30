@@ -10,7 +10,7 @@ import Rating from "@mui/material/Rating";
 import axios from "axios";
 import { useState } from "react";
 
-export default function ReviewModal({ open, id, setOpen, token }) {
+export default function ReviewModal({ open, id, setOpen, token, reset }) {
 
 
     const [rating, setRating] = useState(0)
@@ -34,7 +34,7 @@ export default function ReviewModal({ open, id, setOpen, token }) {
             }
         }
         )
-        .then(res => {console.log(res); setOpen(false); window.location.reload()})
+        .then(res => {console.log(res); setOpen(false); reset()})
         .catch(err => console.log(err))
     }
     

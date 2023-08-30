@@ -70,6 +70,10 @@ public class AuthenticationService {
         return register(request, Role.ADMIN);
     }
 
+    public AuthenticationResponse registerWaiter(RegisterRequest request) {
+        return register(request, Role.WAITER);
+    }
+
     private void saveUserToken(User user, String jwtToken) {
 
         Token token = Token.builder()

@@ -16,7 +16,7 @@ export default function Reviews() {
         .then(response => response.json())
         .then(data => setReviews(data.reviews))
         .catch(error => console.error('Error fetching data:', error));
-    }, [pathname])
+    }, [pathname, reviews])
 
 
     return (
