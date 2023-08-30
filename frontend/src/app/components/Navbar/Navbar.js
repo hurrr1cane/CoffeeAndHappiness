@@ -4,13 +4,12 @@
   import styles from "./Navbar.module.scss";
   import Brightness2Icon from '@mui/icons-material/Brightness2';
   import Brightness5Icon from '@mui/icons-material/Brightness5';
-  import EnglishImage from '../../../../public/english.png'
-  import Image from "next/image";
   import { useState, useEffect, useRef } from "react";
   import { usePathname } from 'next/navigation'
   import { useGlobalContext } from "@/app/store/store";
   import { useRouter } from "next/navigation";
-  
+  import PositionedMenu from "./Menu";
+  import { Fab } from "@mui/material";
   //Todo: fix element positioning
 
   export default function Navbar() {
@@ -86,8 +85,10 @@
         </>}
         
         <div className={styles['icons-container']}>
-          <Brightness2Icon/>
-          <Image className={styles.image} src={EnglishImage} alt="image of the flag of United Kingdom"/>
+        <Fab sx={{bgcolor:"inherit", "&:hover":{bgcolor:"inherit"}, boxShadow:"none"}}>
+            <Brightness2Icon sx={{margin: "0.25rem"}}/>
+        </Fab>
+          <PositionedMenu/>
         </div>
       </nav>
     );
