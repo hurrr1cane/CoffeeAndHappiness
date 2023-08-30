@@ -18,26 +18,25 @@ public class FoodService {
 
     public List<Food> getAllFoods() {
         for (Food food : foodRepository.findAll()) {
-            for (FoodReview review : food.getReviews()) {
-                Integer userId = review.getUser().getId();
-                Integer foodId = review.getFood().getId();
-                review.setUserId(userId);
-                review.setFoodId(foodId);
-            }
+            fetchReviewsToFood(food);
         }
         return foodRepository.findAll();
     }
 
-    public Food getFoodById(Integer id) {
-        Food food = foodRepository.findById(id).orElseThrow(
-                () -> new FoodNotFoundException("No such food with id " + id + " found")
-        );
+    private static void fetchReviewsToFood(Food food) {
         for (FoodReview review : food.getReviews()) {
             Integer userId = review.getUser().getId();
             Integer foodId = review.getFood().getId();
             review.setUserId(userId);
             review.setFoodId(foodId);
         }
+    }
+
+    public Food getFoodById(Integer id) {
+        Food food = foodRepository.findById(id).orElseThrow(
+                () -> new FoodNotFoundException("No such food with id " + id + " found")
+        );
+        fetchReviewsToFood(food);
         return food;
     }
 

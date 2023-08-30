@@ -17,14 +17,18 @@ public class CafeService {
 
     public List<Cafe> getAllCafes() {
         for (Cafe cafe : cafeRepository.findAll()) {
-            for (CafeReview review : cafe.getReviews()) {
-                Integer userId = review.getUser().getId();
-                Integer cafeId = review.getCafe().getId();
-                review.setUserId(userId);
-                review.setCafeId(cafeId);
-            }
+            fetchReviewsToCafe(cafe);
         }
         return cafeRepository.findAll();
+    }
+
+    private static void fetchReviewsToCafe(Cafe cafe) {
+        for (CafeReview review : cafe.getReviews()) {
+            Integer userId = review.getUser().getId();
+            Integer cafeId = review.getCafe().getId();
+            review.setUserId(userId);
+            review.setCafeId(cafeId);
+        }
     }
 
     public Cafe getCafeById(Integer id) {
