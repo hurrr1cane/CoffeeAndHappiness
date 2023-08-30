@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -90,6 +91,30 @@ public class FoodController {
         } catch (Exception ex) {
             log.error("Error while adding food: {}", ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Operation(summary = "Add food image", description = "Add an image to an existing food.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Food image added"),
+            @ApiResponse(responseCode = "404", description = "Food not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @PostMapping("{foodId}/image")
+    public ResponseEntity<?> addFoodImage(@PathVariable Integer foodId, @RequestParam("image") MultipartFile image) {
+        log.info("Adding image to food with id {}", foodId);
+
+        try {
+            Food food = foodService.addFoodImage(foodId, image);
+            return ResponseEntity.ok(food);
+        } catch (FoodNotFoundException ex) {
+            log.error("Food not found with id: {}", foodId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Food not found with id: " + foodId);
+        } catch (Exception ex) {
+            log.error("Error while adding image to food: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while adding image to food: " + ex.getMessage());
         }
     }
 

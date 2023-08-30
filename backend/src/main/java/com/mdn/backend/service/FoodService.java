@@ -7,6 +7,7 @@ import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.repository.FoodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class FoodService {
 
     private final FoodRepository foodRepository;
+    private final AmazonS3StorageService storageService;
 
     public List<Food> getAllFoods() {
         for (Food food : foodRepository.findAll()) {
@@ -105,5 +107,18 @@ public class FoodService {
                 () -> new FoodNotFoundException("No such food with id " + id + " found")
         );
         foodRepository.delete(foodToDelete);
+    }
+
+    public Food addFoodImage(Integer foodId, MultipartFile image) {
+
+        Food food = foodRepository.findById(foodId).orElseThrow(
+                () -> new FoodNotFoundException("No such food with id " + foodId + " found")
+        );
+
+        String imageUrl = storageService.saveImage(image, "food", foodId);
+
+        food.setImageUrl(imageUrl);
+        return foodRepository.save(food);
+
     }
 }
