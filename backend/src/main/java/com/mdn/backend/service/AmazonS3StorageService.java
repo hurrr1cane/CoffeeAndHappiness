@@ -15,7 +15,10 @@ public class AmazonS3StorageService {
     private final AmazonS3 amazonS3Client;
 
     public AmazonS3StorageService() {
-        this.amazonS3Client = AmazonS3ClientBuilder.standard().build();
+        this.amazonS3Client = AmazonS3ClientBuilder
+                .standard()
+                .withRegion("eu-central-1")
+                .build();
     }
 
     public String saveImage(MultipartFile image, String target, Integer entityId) {
