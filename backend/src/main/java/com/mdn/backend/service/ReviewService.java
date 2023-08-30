@@ -81,7 +81,6 @@ public class ReviewService {
 
         foodRepository.save(food);
         userRepository.save(user);
-        foodReviewRepository.save(foodReview);
 
         return foodReview;
     }
