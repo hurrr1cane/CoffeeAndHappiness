@@ -11,11 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
-import java.security.Provider;
 import java.util.List;
 
 @RestController
@@ -73,6 +72,47 @@ public class UserController {
         } catch (UserNotFoundException ex) {
             log.error("User not found with email: {}", email);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + email);
+        }
+    }
+
+    /*
+    *     @Operation(summary = "Add food image", description = "Add an image to an existing food.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Food image added"),
+            @ApiResponse(responseCode = "404", description = "Food not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @PostMapping("{foodId}/image")
+    public ResponseEntity<?> addFoodImage(@PathVariable Integer foodId, @RequestParam("image") MultipartFile image) {
+        log.info("Adding image to food with id {}", foodId);
+
+        try {
+            Food food = foodService.addFoodImage(foodId, image);
+            return ResponseEntity.ok(food);
+        } catch (FoodNotFoundException ex) {
+            log.error("Food not found with id: {}", foodId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Food not found with id: " + foodId);
+        } catch (Exception ex) {
+            log.error("Error while adding image to food: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while adding image to food: " + ex.getMessage());
+        }
+    }*/
+
+    @PostMapping("me/edit/image")
+    public ResponseEntity<?> editMyselfImage(Principal principal, @RequestParam("image") MultipartFile image) {
+        log.info("Editing myself image");
+        try {
+            User editedUser = userService.addUserImage(principal, image);
+            return ResponseEntity.ok(editedUser);
+        } catch (UserNotFoundException ex) {
+            log.error("User not found with email: {}", principal.getName());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + principal.getName());
+        } catch (Exception ex) {
+            log.error("Error while editing image to user: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while editing image to user: " + ex.getMessage());
         }
     }
 

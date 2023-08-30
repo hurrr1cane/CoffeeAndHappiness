@@ -8,6 +8,7 @@ import com.mdn.backend.model.user.UserEditRequest;
 import com.mdn.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final AmazonS3StorageService storageService;
 
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -73,4 +75,17 @@ public class UserService {
             foodReview.setUserId(userId);
         }
     }
+
+    public User addUserImage(Principal principal, MultipartFile image) {
+
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
+
+        String imageUrl = storageService.saveImage(image, "user", user.getId());
+
+        user.setImageUrl(imageUrl);
+        return userRepository.save(user);
+
+    }
+
 }
