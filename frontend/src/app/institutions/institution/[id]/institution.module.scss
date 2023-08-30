@@ -1,0 +1,28 @@
+.section {
+    height: 300px;
+    display: flex;
+    .image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    }
+    .info {
+        display: flex;
+        flex-direction: column;
+        margin-left: 2rem;
+        font-size: 1.5rem;
+        p, h1 {
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+        }
+    }
+    .buttons {
+        margin-top: 1rem;
+        button {
+            margin: 1rem
+        }
+    }
+}
