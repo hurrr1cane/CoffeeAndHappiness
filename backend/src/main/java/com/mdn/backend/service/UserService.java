@@ -1,6 +1,8 @@
 package com.mdn.backend.service;
 
 import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.model.review.CafeReview;
+import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.model.user.User;
 import com.mdn.backend.model.user.UserEditRequest;
 import com.mdn.backend.repository.UserRepository;
@@ -17,22 +19,32 @@ public class UserService {
     private final UserRepository userRepository;
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        for (User user : users) {
+            fetchReviewsToUser(user);
+        }
+        return users;
     }
 
     public User getUserById(Integer id) {
-        return userRepository.findById(id)
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        fetchReviewsToUser(user);
+        return user;
     }
 
     public User getUserByEmail(String name) {
-        return userRepository.findByEmail(name)
+        User user = userRepository.findByEmail(name)
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + name));
+        fetchReviewsToUser(user);
+        return user;
     }
 
     public User getMyself(Principal principal) {
-        return userRepository.findByEmail(principal.getName())
+        User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
+        fetchReviewsToUser(user);
+        return user;
     }
 
     public User editMyself(Principal principal, UserEditRequest user) {
@@ -45,5 +57,20 @@ public class UserService {
         if (user.getImageUrl() != null) myself.setImageUrl(user.getImageUrl());
 
         return userRepository.save(myself);
+    }
+
+    private static void fetchReviewsToUser(User user) {
+        for (CafeReview review : user.getCafeReviews()) {
+            Integer cafeId = review.getCafe().getId();
+            Integer userId = review.getUser().getId();
+            review.setCafeId(cafeId);
+            review.setUserId(userId);
+        }
+        for (FoodReview foodReview : user.getFoodReviews()) {
+            Integer foodId = foodReview.getId();
+            Integer userId = foodReview.getUser().getId();
+            foodReview.setFoodId(foodId);
+            foodReview.setUserId(userId);
+        }
     }
 }

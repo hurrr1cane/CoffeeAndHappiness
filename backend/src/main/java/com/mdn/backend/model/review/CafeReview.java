@@ -29,4 +29,7 @@ public class CafeReview extends Review {
 
     @Transient
     private Integer userId;
+
+    @Transient
+    private Integer cafeId;
 }

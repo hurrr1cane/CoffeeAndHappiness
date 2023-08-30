@@ -20,7 +20,9 @@ public class FoodService {
         for (Food food : foodRepository.findAll()) {
             for (FoodReview review : food.getReviews()) {
                 Integer userId = review.getUser().getId();
+                Integer foodId = review.getFood().getId();
                 review.setUserId(userId);
+                review.setFoodId(foodId);
             }
         }
         return foodRepository.findAll();
@@ -32,7 +34,9 @@ public class FoodService {
         );
         for (FoodReview review : food.getReviews()) {
             Integer userId = review.getUser().getId();
+            Integer foodId = review.getFood().getId();
             review.setUserId(userId);
+            review.setFoodId(foodId);
         }
         return food;
     }
