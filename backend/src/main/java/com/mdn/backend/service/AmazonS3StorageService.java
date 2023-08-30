@@ -18,10 +18,10 @@ public class AmazonS3StorageService {
         this.amazonS3Client = AmazonS3ClientBuilder.standard().build();
     }
 
-    public String saveImage(MultipartFile image) {
+    public String saveImage(MultipartFile image, String target, Integer entityId) {
         try {
             String bucketName = "coffee-and-happiness-images";
-            String key = image.getOriginalFilename();
+            String key = generateImageKey(target, entityId, image.getOriginalFilename());
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(image.getContentType());
             metadata.setContentLength(image.getSize());
@@ -33,5 +33,9 @@ public class AmazonS3StorageService {
         } catch (Exception e) {
             throw new RuntimeException("Error while saving image: " + e.getMessage(), e);
         }
+    }
+
+    private String generateImageKey(String target, Integer entityId, String originalFilename) {
+        return target + "/" + entityId + "/" + originalFilename;
     }
 }
