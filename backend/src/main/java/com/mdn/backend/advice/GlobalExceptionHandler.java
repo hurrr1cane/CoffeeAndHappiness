@@ -1,6 +1,7 @@
 package com.mdn.backend.advice;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.nio.file.AccessDeniedException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -66,6 +68,15 @@ public class GlobalExceptionHandler {
     public Map<String, String> handleNoHandlerFoundException(NoHandlerFoundException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("error", "Resource Not Found");
+        errorMap.put("message", ex.getMessage());
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public Map<String, String> handleGenericException(Exception ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("error", "Internal Server Error");
         errorMap.put("message", ex.getMessage());
         return errorMap;
     }
