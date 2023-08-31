@@ -1,16 +1,19 @@
 package com.mdn.backend.auth;
 
 import com.mdn.backend.exception.UserAlreadyExistsException;
+import com.mdn.backend.exception.UserNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -22,12 +25,8 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @Operation(summary = "Register a new user", description = "Register a new user.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         log.info("Received registration request for user: {}", request.getEmail());
         try {
             AuthenticationResponse response = authenticationService.registerUser(request);
@@ -37,17 +36,13 @@ public class AuthenticationController {
             log.error("Registration failed - User already exists: {}", request.getEmail());
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .build();
+                    .body(new ErrorResponse("User already exists", "The specified user already exists."));
         }
     }
 
     @Operation(summary = "Register a new admin", description = "Register a new admin.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     @PostMapping("/register/admin")
-    public ResponseEntity<AuthenticationResponse> registerAdmin(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> registerAdmin(@RequestBody RegisterRequest request) {
         log.info("Received registration request for admin: {}", request.getEmail());
         try {
             AuthenticationResponse response = authenticationService.registerAdmin(request);
@@ -57,17 +52,13 @@ public class AuthenticationController {
             log.error("Registration failed - Admin already exists: {}", request.getEmail());
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .build();
+                    .body(new ErrorResponse("User already exists", "The specified user already exists."));
         }
     }
 
     @Operation(summary = "Register a new waiter", description = "Register a new waiter.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     @PostMapping("/register/waiter")
-    public ResponseEntity<AuthenticationResponse> registerWaiter(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> registerWaiter(@RequestBody RegisterRequest request) {
         log.info("Received registration request for waiter: {}", request.getEmail());
         try {
             AuthenticationResponse response = authenticationService.registerWaiter(request);
@@ -77,48 +68,47 @@ public class AuthenticationController {
             log.error("Registration failed - Waiter already exists: {}", request.getEmail());
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .build();
+                    .body(new ErrorResponse("User already exists", "The specified user already exists."));
         }
     }
 
     @Operation(summary = "Login", description = "Login.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequest request) {
         log.info("Received login request for user: {}", request.getEmail());
         try {
             AuthenticationResponse response = authenticationService.login(request);
             log.info("User logged in successfully: {}", request.getEmail());
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
+        } catch (UserNotFoundException e) {
             log.error("Login failed - User not found: {}", request.getEmail());
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .build();
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("User not found", "The specified user does not exist."));
         }
     }
 
     @Operation(summary = "Refresh token", description = "Refresh token.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     @PostMapping("/refresh")
-    public ResponseEntity<Void> refresh(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> refresh(HttpServletRequest request, HttpServletResponse response) {
         log.info("Received refresh token request");
         try {
             authenticationService.refreshToken(request, response);
             log.info("Token refreshed successfully");
             return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            log.error("Refresh token failed");
+        } catch (IOException e) {
+            log.error("Token refresh failed");
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .build();
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("Token refresh failed", "The token refresh failed."));
         }
+    }
+
+    @Data
+    @AllArgsConstructor
+    private static class ErrorResponse {
+        private String error;
+        private String message;
     }
 
 }

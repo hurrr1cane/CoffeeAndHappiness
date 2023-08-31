@@ -24,8 +24,8 @@ public class OrderService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
 
-        Double totalPrice = calculateTotalPrice(selectedFoods);
-        Integer bonusPointsEarned = calculateBonusPoints(totalPrice);
+        double totalPrice = calculateTotalPrice(selectedFoods);
+        int bonusPointsEarned = (int) totalPrice;
 
         Order order = Order.builder()
                 .user(user)
@@ -45,27 +45,27 @@ public class OrderService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
 
-        Double totalPrice = calculateTotalPrice(selectedFoods);
-        Integer bonusPointsSpent = calculateBonusPoints(totalPrice);
+        double totalPrice = calculateTotalPrice(selectedFoods);
+        int bonusPointsNeededForOrder = calculateBonusPoints(totalPrice);
 
-        if (user.getBonusPoints() < bonusPointsSpent) {
+        if (user.getBonusPoints() < bonusPointsNeededForOrder) {
             throw new NotEnoughBonusPointsException("Not enough bonus points");
         }
 
-        user.setBonusPoints(user.getBonusPoints() - bonusPointsSpent);
+        user.setBonusPoints(user.getBonusPoints() - bonusPointsNeededForOrder);
         userRepository.save(user);
 
-        return user.getFirstName() + " " + user.getLastName() + " spent " + bonusPointsSpent + " bonus points";
+        return user.getFirstName() + " " + user.getLastName() + "made an order for " + totalPrice + " UAH, using " + bonusPointsNeededForOrder + " bonus points";
 
     }
 
-    private Double calculateTotalPrice(List<Food> foods) {
+    private double calculateTotalPrice(List<Food> foods) {
         return foods.stream()
                 .mapToDouble(Food::getPrice)
                 .sum();
     }
 
-    private Integer calculateBonusPoints(Double totalPrice) {
+    private int calculateBonusPoints(Double totalPrice) {
         return (int) (totalPrice * 10);
     }
 
