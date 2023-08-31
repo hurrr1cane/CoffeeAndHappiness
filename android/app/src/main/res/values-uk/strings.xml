@@ -78,4 +78,13 @@
 
     <string name="code_unlogged_text">Вам потрібно увійти у свій акаунт, щоб переглянути цю сторінку</string>
 
+    <string name="code_waiter_place_an_order">Оформити замовлення</string>
+    <string name="code_waiter_start_right_now">Почніть оформлення замовлення просто зараз!</string>
+    <string name="code_waiter_add_an_order">Додати замовлення</string>
+    <string name="code_waiter_sum_of_an_order">Сума замовлення:</string>
+    <string name="code_waiter_user_authorized">Відвідувач був авторизований</string>
+    <string name="code_waiter_user_can_spend">Відвідувач може потратити очки</string>
+    <string name="code_waiter_place_order">Оформити замовлення</string>
+    <string name="code_waiter_spend_points">Витратити очки</string>
+
 </resources>

@@ -1,11 +1,14 @@
 package com.mdn.coffeeandhappiness.fragments.codefragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.activities.CodeWaiterPlaceOrderActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +38,16 @@ class CodeWaiterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_code_waiter, container, false)
+        val view = inflater.inflate(R.layout.fragment_code_waiter, container, false)
+
+        val placeOrder = view.findViewById<AppCompatButton>(R.id.codeWaiterPlaceOrderButton)
+
+        placeOrder.setOnClickListener() {
+            val intent = Intent(context, CodeWaiterPlaceOrderActivity::class.java)
+            requireContext().startActivity(intent)
+        }
+
+        return view
     }
 
     companion object {

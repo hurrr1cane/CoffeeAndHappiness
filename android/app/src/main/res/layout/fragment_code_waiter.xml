@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SCREEN_STYLE"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/SCREEN_STYLE"
     tools:context=".fragments.codefragments.CodeWaiterFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+
+        <TextView
+            android:id="@+id/codeWaiterTopText"
+            style="@style/FOOD_TEXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:fontFamily="@font/sofiasans_straight"
+            android:gravity="center"
+            android:text="@string/code_waiter_start_right_now"
+            android:textSize="30sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:src="@drawable/code_waiter_order"
+            app:layout_constraintBottom_toTopOf="@id/codeWaiterPlaceOrderButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/codeWaiterTopText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/codeWaiterPlaceOrderButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/account_button"
+            android:fontFamily="@font/sofiasans_straight"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:text="@string/code_waiter_add_an_order"
+            android:textColor="@color/white_text"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

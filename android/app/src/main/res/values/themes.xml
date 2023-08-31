@@ -206,5 +206,17 @@
         <item name="android:background">@color/light_background_main</item>
     </style>
 
+    <style name="CODE_WAITER_CARD">
+        <item name="android:background">@color/light_background_main</item>
+    </style>
+
+    <style name="CODE_WAITER_POP_UP">
+        <item name="android:background">@drawable/bottomsheet_white</item>
+    </style>
+
+    <style name="CODE_WAITER_POP_UP_ICON">
+        <item name="android:src">@drawable/baseline_remove_black_24</item>
+    </style>
+
 
 </resources>

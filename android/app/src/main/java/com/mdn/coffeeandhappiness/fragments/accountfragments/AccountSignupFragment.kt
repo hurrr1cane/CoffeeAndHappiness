@@ -88,6 +88,15 @@ class AccountSignupFragment : Fragment() {
                             var editor = sharedPreferences.edit()
                             editor.putBoolean("IsAccountLogged", true)
                             editor.apply()
+
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                accountController.updateMyself(
+                                    requireContext().getSharedPreferences(
+                                        "Account",
+                                        Context.MODE_PRIVATE
+                                    )
+                                )
+                            }
                         } else {
                             val userExists =
                                 view.findViewById<TextView>(R.id.accountRegisterUserExistsHint)
