@@ -64,10 +64,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/home_news"
-                android:fontFamily="@font/sofiasans_straight"
-                android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="@string/home_news"
                 android:textSize="30sp" />
 
             <HorizontalScrollView

@@ -2,16 +2,13 @@ package com.mdn.coffeeandhappiness.controller
 
 import android.content.SharedPreferences
 import android.util.Log
-import com.google.gson.Gson
 import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Review
 import com.mdn.coffeeandhappiness.tools.BackendAddress
 import okhttp3.*
 import java.io.IOException
-
 import org.json.JSONArray
 import org.json.JSONObject
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
@@ -19,7 +16,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 class FoodController {
 
-    public suspend fun addReview(id:Int, rating: Int, comment: String, sharedPreferences:SharedPreferences) {
+    public suspend fun addReview(
+        id: Int,
+        rating: Int,
+        comment: String,
+        sharedPreferences: SharedPreferences
+    ) {
         return withContext(Dispatchers.IO) {
 
             val url = "${BackendAddress().address}/api/review/food/"
@@ -179,7 +181,8 @@ class FoodController {
             val userId = jsonItemReview.getInt("userId")
 
             val singleReview = Review(
-                idReview, rating, comment, date, userId)
+                idReview, rating, comment, date, userId
+            )
 
             reviewsList.add(singleReview)
         }
@@ -193,7 +196,7 @@ class FoodController {
         return menuItem
     }
 
-    private fun parseFood(response:String): MutableList<Food> {
+    private fun parseFood(response: String): MutableList<Food> {
         // Assuming your JSON response is stored in a variable called responseBody
         val jsonArray = JSONArray(response)
 

@@ -51,14 +51,14 @@ class MenuCoffeeFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
 
 
-
         // Use lifecycleScope.launch to call getFood asynchronously
         lifecycleScope.launch(Dispatchers.IO) {
             val listOfFood = FoodController().getFood("coffee")
 
             // Update the UI on the main thread
             launch(Dispatchers.Main) {
-                val adapter = FoodRecyclerViewAdapter(requireContext(), listOfFood) // Provide your data here
+                val adapter =
+                    FoodRecyclerViewAdapter(requireContext(), listOfFood) // Provide your data here
                 recyclerView.adapter = adapter
             }
         }

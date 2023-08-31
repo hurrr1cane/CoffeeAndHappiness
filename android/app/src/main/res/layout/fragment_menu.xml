@@ -14,11 +14,11 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/menuTabs"
+            style="@style/MENU_TAB_LAYOUT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextAppearance="@style/MENU_TAB_LAYOUT_TEXT"
-            style="@style/MENU_TAB_LAYOUT"
-            app:tabMode="scrollable">
+            app:tabMode="scrollable"
+            app:tabTextAppearance="@style/MENU_TAB_LAYOUT_TEXT">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

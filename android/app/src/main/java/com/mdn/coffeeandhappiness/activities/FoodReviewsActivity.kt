@@ -73,7 +73,8 @@ class FoodReviewsActivity : AppCompatActivity() {
                                 .error(R.drawable.baseline_person_white_24)
                                 .into(userPicture)
 
-                            userName.text = personInReview!!.firstName + " " + personInReview!!.lastName
+                            userName.text =
+                                personInReview!!.firstName + " " + personInReview!!.lastName
 
                             reviewRating.rating = currentFood!!.reviews[i].rating.toFloat()
                             userText.text = currentFood!!.reviews[i].comment
@@ -91,6 +92,7 @@ class FoodReviewsActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setLanguage()
@@ -141,7 +143,8 @@ class FoodReviewsActivity : AppCompatActivity() {
                                 .error(R.drawable.baseline_person_white_24)
                                 .into(userPicture)
 
-                            userName.text = personInReview!!.firstName + " " + personInReview!!.lastName
+                            userName.text =
+                                personInReview!!.firstName + " " + personInReview!!.lastName
 
                             reviewRating.rating = currentFood!!.reviews[i].rating.toFloat()
                             userText.text = currentFood!!.reviews[i].comment

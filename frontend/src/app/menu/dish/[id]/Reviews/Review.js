@@ -8,6 +8,7 @@ import { Rating } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import { Fab } from '@mui/material'
 import { useGlobalContext } from '@/app/store/store'
+import { headers } from '../../../../../../next.config'
 export default function Review( props ) {
 
     const [commentUser, setCommentUser] = useState({})
@@ -21,8 +22,10 @@ export default function Review( props ) {
     }, [])
 
     const handleClick = () => {
-        axios.delete(`http://localhost:8080/api/review/food/${props.id}`)
-        .then(window.location.reload())
+        axios.delete(`http://localhost:8080/api/review/food/${props.id}`, {headers: {
+            Authorization: "Bearer " + user.token
+        }})
+        .then(res => console.log(res))
         .catch(err => console.log(err))
     }
 

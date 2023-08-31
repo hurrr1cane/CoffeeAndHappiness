@@ -58,14 +58,25 @@ class AccountSignupFragment : Fragment() {
         val registerButton = view.findViewById<AppCompatButton>(R.id.accountRegisterButton)
         registerButton.setOnClickListener() {
             if (checkCredentials(view)) {
-                val email = view.findViewById<AppCompatEditText>(R.id.accountRegisterEmail).text.toString()
-                val password = view.findViewById<AppCompatEditText>(R.id.accountRegisterPassword).text.toString()
-                val name = view.findViewById<AppCompatEditText>(R.id.accountRegisterName).text.toString()
-                val surname = view.findViewById<AppCompatEditText>(R.id.accountRegisterSurname).text.toString()
-                val sharedPreferences = requireActivity().getSharedPreferences("Account", Context.MODE_PRIVATE)
+                val email =
+                    view.findViewById<AppCompatEditText>(R.id.accountRegisterEmail).text.toString()
+                val password =
+                    view.findViewById<AppCompatEditText>(R.id.accountRegisterPassword).text.toString()
+                val name =
+                    view.findViewById<AppCompatEditText>(R.id.accountRegisterName).text.toString()
+                val surname =
+                    view.findViewById<AppCompatEditText>(R.id.accountRegisterSurname).text.toString()
+                val sharedPreferences =
+                    requireActivity().getSharedPreferences("Account", Context.MODE_PRIVATE)
                 val accountController = AccountController()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    val isLogged = accountController.register(email, password, name, surname, sharedPreferences)
+                    val isLogged = accountController.register(
+                        email,
+                        password,
+                        name,
+                        surname,
+                        sharedPreferences
+                    )
                     launch(Dispatchers.Main) {
                         if (isLogged) {
                             val mainFragment = AccountMainFragment()
@@ -78,7 +89,8 @@ class AccountSignupFragment : Fragment() {
                             editor.putBoolean("IsAccountLogged", true)
                             editor.apply()
                         } else {
-                            val userExists = view.findViewById<TextView>(R.id.accountRegisterUserExistsHint)
+                            val userExists =
+                                view.findViewById<TextView>(R.id.accountRegisterUserExistsHint)
                             userExists.visibility = View.VISIBLE
                         }
                     }
@@ -94,8 +106,10 @@ class AccountSignupFragment : Fragment() {
         val name = view?.findViewById<AppCompatEditText>(R.id.accountRegisterName)?.text
         val surname = view?.findViewById<AppCompatEditText>(R.id.accountRegisterSurname)?.text
         val email = view?.findViewById<AppCompatEditText>(R.id.accountRegisterEmail)?.text
-        val password = view?.findViewById<AppCompatEditText>(R.id.accountRegisterPassword)?.text.toString()
-        val reEnteredPassword = view?.findViewById<AppCompatEditText>(R.id.accountRegisterReEnterPassword)?.text.toString()
+        val password =
+            view?.findViewById<AppCompatEditText>(R.id.accountRegisterPassword)?.text.toString()
+        val reEnteredPassword =
+            view?.findViewById<AppCompatEditText>(R.id.accountRegisterReEnterPassword)?.text.toString()
         if (email!!.isEmpty()) {
             val textHint = view.findViewById<TextView>(R.id.accountRegisterEmailHint)
             textHint.visibility = View.VISIBLE

@@ -20,7 +20,7 @@ class AccountReviewsActivity : AppCompatActivity() {
         viewPager.adapter = adapter
 
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(menuTabs))
-        menuTabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+        menuTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewPager.currentItem = tab!!.position
             }

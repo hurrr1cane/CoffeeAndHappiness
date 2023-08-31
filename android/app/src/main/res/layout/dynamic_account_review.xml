@@ -37,12 +37,12 @@
                 <TextView
                     android:id="@+id/accountReviewTitleTextView"
                     style="@style/MENU_FOOD_NAME"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:text="Default Text"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/accountReviewDeleteButton"
-                    android:layout_width="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton

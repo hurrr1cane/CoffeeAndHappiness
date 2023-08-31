@@ -27,10 +27,10 @@
 
             <TextView
                 style="@style/HEAD_TEXT"
-                android:layout_marginStart="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="6dp"
                 android:text="@string/app_name" />
 
             <Space
@@ -69,15 +69,16 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
+        style="@style/TOP_BAR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemIconTint="@color/default_green"
         app:itemIconSize="32dp"
+        app:itemIconTint="@color/default_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        style="@style/TOP_BAR">
+        app:menu="@menu/bottom_nav_menu">
+
         <RelativeLayout
             android:id="@+id/nav_middle"
             android:layout_width="wrap_content"
@@ -88,17 +89,17 @@
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@drawable/nav_bar_middle"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:background="@drawable/nav_bar_middle" />
 
             <!-- Custom icon for the middle item -->
             <ImageView
                 android:id="@+id/custom_middle_icon"
+                style="@style/BOTTOM_NAV_BAR_MIDDLE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/baseline_qr_code_24"
-                style="@style/BOTTOM_NAV_BAR_MIDDLE"/>
+                android:src="@drawable/baseline_qr_code_24" />
 
         </RelativeLayout>
     </com.google.android.material.bottomnavigation.BottomNavigationView>

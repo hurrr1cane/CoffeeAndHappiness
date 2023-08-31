@@ -20,7 +20,10 @@ import kotlinx.coroutines.launch
  * Use the [ConfirmationDeleteReviewFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ConfirmationDeleteCafeReviewFragment(var reviewId: Int, private val onDeleteConfirmed: () -> Unit) : DialogFragment() {
+class ConfirmationDeleteCafeReviewFragment(
+    var reviewId: Int,
+    private val onDeleteConfirmed: () -> Unit
+) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -97,9 +100,12 @@ class ConfirmationDeleteCafeReviewFragment(var reviewId: Int, private val onDele
                 // Handle positive button click here
                 val reviewController = ReviewController()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    reviewController.deleteCafeReview(requireContext().getSharedPreferences("Account",
-                        Context.MODE_PRIVATE
-                    ), reviewId)
+                    reviewController.deleteCafeReview(
+                        requireContext().getSharedPreferences(
+                            "Account",
+                            Context.MODE_PRIVATE
+                        ), reviewId
+                    )
                 }
                 onDeleteConfirmed()
                 dialog.dismiss()

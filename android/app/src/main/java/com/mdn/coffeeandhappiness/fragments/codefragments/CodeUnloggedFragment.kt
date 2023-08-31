@@ -41,10 +41,11 @@ class CodeUnloggedFragment : Fragment() {
 
         val background = view.findViewById<ImageView>(R.id.codeUnloggedBackground)
 
-        if (requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE).getBoolean("Night", true)) {
+        if (requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+                .getBoolean("Night", true)
+        ) {
             background.setImageResource(R.drawable.code_unlogged_black)
-        }
-        else {
+        } else {
             background.setImageResource(R.drawable.code_unlogged_white)
         }
 

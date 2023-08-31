@@ -59,9 +59,12 @@ class AccountLoginFragment : Fragment() {
         val loginButton = view.findViewById<AppCompatButton>(R.id.accountLoginButton)
         loginButton.setOnClickListener() {
             if (checkCredentials(view)) {
-                val email = view.findViewById<AppCompatEditText>(R.id.accountLoginEmail).text.toString()
-                val password = view.findViewById<AppCompatEditText>(R.id.accountLoginPassword).text.toString()
-                val sharedPreferences = requireActivity().getSharedPreferences("Account", Context.MODE_PRIVATE)
+                val email =
+                    view.findViewById<AppCompatEditText>(R.id.accountLoginEmail).text.toString()
+                val password =
+                    view.findViewById<AppCompatEditText>(R.id.accountLoginPassword).text.toString()
+                val sharedPreferences =
+                    requireActivity().getSharedPreferences("Account", Context.MODE_PRIVATE)
                 val accountController = AccountController()
                 lifecycleScope.launch(Dispatchers.IO) {
                     val isLogged = accountController.login(email, password, sharedPreferences)
@@ -76,10 +79,12 @@ class AccountLoginFragment : Fragment() {
                             var editor = sharedPreferences.edit()
                             editor.putBoolean("IsAccountLogged", true)
                             editor.apply()
-                            val wrongCredentials = view.findViewById<TextView>(R.id.accountLoginWrong)
+                            val wrongCredentials =
+                                view.findViewById<TextView>(R.id.accountLoginWrong)
                             wrongCredentials.visibility = View.GONE
                         } else {
-                            val wrongCredentials = view.findViewById<TextView>(R.id.accountLoginWrong)
+                            val wrongCredentials =
+                                view.findViewById<TextView>(R.id.accountLoginWrong)
                             wrongCredentials.visibility = View.VISIBLE
                         }
                     }
@@ -124,12 +129,13 @@ class AccountLoginFragment : Fragment() {
          * @return A new instance of fragment AccountLogin.
          */
         // TODO: Rename and change types and number of parameters
-        @JvmStatic fun newInstance(param1: String, param2: String) =
-                AccountLoginFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            AccountLoginFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
+            }
     }
 }

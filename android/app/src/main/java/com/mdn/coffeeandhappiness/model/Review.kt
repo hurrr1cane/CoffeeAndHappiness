@@ -5,7 +5,8 @@ data class Review(
     var rating: Int,
     var comment: String,
     var date: String,
-    var userId: Int)
+    var userId: Int
+)
 
 data class FoodReview(
     var id: Int,

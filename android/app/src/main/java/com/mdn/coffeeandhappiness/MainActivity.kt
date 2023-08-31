@@ -47,6 +47,7 @@ class MainActivity : LocalizationActivity() {
                     val scaleUpAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_up)
                     button.startAnimation(scaleUpAnimation)
                 }
+
                 R.id.nav_account -> replaceFragment(AccountFragment())
                 R.id.nav_map -> replaceFragment(MapFragment())
                 R.id.nav_menu -> replaceFragment(MenuFragment())
@@ -87,10 +88,11 @@ class MainActivity : LocalizationActivity() {
 
         var languageButton = findViewById<ImageButton>(R.id.languageButton)
 
-        when(language) {
+        when (language) {
             "uk" -> {
                 languageButton.setImageResource(R.drawable.ukrainian_flag_icon)
             }
+
             "en" -> {
                 languageButton.setImageResource(R.drawable.english_flag_icon)
             }
@@ -124,10 +126,11 @@ class MainActivity : LocalizationActivity() {
 
         var languageButton = findViewById<ImageButton>(R.id.languageButton)
 
-        when(language) {
+        when (language) {
             "uk" -> {
                 languageButton.setImageResource(R.drawable.ukrainian_flag_icon)
             }
+
             "en" -> {
                 languageButton.setImageResource(R.drawable.english_flag_icon)
             }
@@ -171,15 +174,13 @@ class MainActivity : LocalizationActivity() {
     }
 
 
-
     private fun controllerLightDarkMode(sharedPreferences: SharedPreferences) {
         val nightMode: Boolean = sharedPreferences.getBoolean("Night", true)
         val modeButton = findViewById<ImageButton>(R.id.modeButton)
         if (nightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             modeButton.setImageResource(R.drawable.darkmode_icon)
-        }
-        else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             modeButton.setImageResource(R.drawable.lightmode_icon)
         }

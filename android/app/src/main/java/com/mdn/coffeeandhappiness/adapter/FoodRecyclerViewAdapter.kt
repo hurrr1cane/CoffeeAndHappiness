@@ -15,21 +15,27 @@ import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.activities.FoodActivity
 import com.mdn.coffeeandhappiness.model.Food
 
-class FoodRecyclerViewAdapter(private val context: Context, private val foodList: MutableList<Food>): RecyclerView.Adapter<FoodRecyclerViewAdapter.FoodHolder>() {
+class FoodRecyclerViewAdapter(
+    private val context: Context,
+    private val foodList: MutableList<Food>
+) : RecyclerView.Adapter<FoodRecyclerViewAdapter.FoodHolder>() {
 
-    class FoodHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class FoodHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cardView = itemView.findViewById<CardView>(R.id.foodCardCardView)
         val cardImageView = itemView.findViewById<ImageView>(R.id.foodCardImageView)
         val cardTitleTextView = itemView.findViewById<TextView>(R.id.foodCardTitleTextView)
-        val cardDescriptionTextView = itemView.findViewById<TextView>(R.id.foodCardDescriptionTextView)
+        val cardDescriptionTextView =
+            itemView.findViewById<TextView>(R.id.foodCardDescriptionTextView)
         val cardRatingBarView = itemView.findViewById<RatingBar>(R.id.foodCardRating)
         val cardPriceTextView = itemView.findViewById<TextView>(R.id.foodCardPrice)
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.dynamic_card_food,
-            parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(
+            R.layout.dynamic_card_food,
+            parent, false
+        )
         return FoodHolder(itemView)
     }
 
@@ -58,6 +64,7 @@ class FoodRecyclerViewAdapter(private val context: Context, private val foodList
                 titleText = foodList[position].nameUA
                 descriptionText = foodList[position].descriptionUA
             }
+
             "en" -> {
                 titleText = foodList[position].nameEN
                 descriptionText = foodList[position].descriptionEN

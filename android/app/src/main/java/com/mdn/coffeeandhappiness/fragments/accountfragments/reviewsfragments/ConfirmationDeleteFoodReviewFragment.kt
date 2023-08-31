@@ -28,7 +28,10 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ConfirmationDeleteReviewFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ConfirmationDeleteFoodReviewFragment(var reviewId: Int, private val onDeleteConfirmed: () -> Unit) : DialogFragment() {
+class ConfirmationDeleteFoodReviewFragment(
+    var reviewId: Int,
+    private val onDeleteConfirmed: () -> Unit
+) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -105,7 +108,12 @@ class ConfirmationDeleteFoodReviewFragment(var reviewId: Int, private val onDele
                 // Handle positive button click here
                 val reviewController = ReviewController()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    reviewController.deleteFoodReview(requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE), reviewId)
+                    reviewController.deleteFoodReview(
+                        requireContext().getSharedPreferences(
+                            "Account",
+                            Context.MODE_PRIVATE
+                        ), reviewId
+                    )
                 }
                 onDeleteConfirmed()
                 dialog.dismiss()

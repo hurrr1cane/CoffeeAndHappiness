@@ -2,19 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="@string/nav_bar_home"
+    <item
+        android:id="@+id/nav_home"
         android:icon="@drawable/baseline_home_24"
-        android:id="@+id/nav_home"/>
-    <item android:title="@string/nav_bar_menu"
+        android:title="@string/nav_bar_home" />
+    <item
+        android:id="@+id/nav_menu"
         android:icon="@drawable/baseline_menu_book_24"
-        android:id="@+id/nav_menu"/>
-    <item android:title="@string/nav_bar_code"
+        android:title="@string/nav_bar_menu" />
+    <item
+        android:id="@+id/nav_code"
         android:icon="@drawable/baseline_qr_code_24"
-        android:id="@+id/nav_code" />
-    <item android:title="@string/nav_bar_map"
+        android:title="@string/nav_bar_code" />
+    <item
+        android:id="@+id/nav_map"
         android:icon="@drawable/baseline_map_24"
-        android:id="@+id/nav_map"/>
-    <item android:title="@string/nav_bar_account"
+        android:title="@string/nav_bar_map" />
+    <item
+        android:id="@+id/nav_account"
         android:icon="@drawable/baseline_person_black_24"
-        android:id="@+id/nav_account"/>
+        android:title="@string/nav_bar_account" />
 </menu>

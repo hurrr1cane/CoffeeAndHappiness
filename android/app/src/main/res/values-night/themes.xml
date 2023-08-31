@@ -8,10 +8,11 @@
 
     <style name="Theme.CoffeeAndHappiness" parent="Base.Theme.CoffeeAndHappiness" />
 
-    <style name = "SCREEN_STYLE">
+    <style name="SCREEN_STYLE">
         <item name="android:background">@color/dark_background_behind</item>
     </style>
-    <style name = "HEAD_TEXT">
+
+    <style name="HEAD_TEXT">
         <item name="android:textColor">@color/white_text</item>
         <item name="android:textSize">30sp</item>
         <item name="fontFamily">@font/sofiasans_straight</item>
@@ -43,6 +44,7 @@
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginTop">4dp</item>
     </style>
+
     <style name="HOME_NEWS_CARD_YEAR">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/gray_white_text</item>

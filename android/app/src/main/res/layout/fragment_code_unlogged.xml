@@ -19,7 +19,7 @@
             android:layout_gravity="top"
             android:foregroundGravity="top"
             android:scaleType="centerCrop"
-            android:src="@drawable/code_unlogged_white"/>
+            android:src="@drawable/code_unlogged_white" />
 
         <TextView
             style="@style/FOOD_TEXT"

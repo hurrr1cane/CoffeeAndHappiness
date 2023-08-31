@@ -54,15 +54,22 @@ class AccountReviewsFoodFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
 
 
-
         // Use lifecycleScope.launch to call getFood asynchronously
         lifecycleScope.launch(Dispatchers.IO) {
-            val listOfFoodReviews = ReviewController().getFoodReviewsWithFood(requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE))
+            val listOfFoodReviews = ReviewController().getFoodReviewsWithFood(
+                requireContext().getSharedPreferences(
+                    "Account",
+                    Context.MODE_PRIVATE
+                )
+            )
 
             println(listOfFoodReviews)
             // Update the UI on the main thread
             launch(Dispatchers.Main) {
-                val adapter = AccountReviewsFoodAdapter(requireContext(), listOfFoodReviews) // Provide your data here
+                val adapter = AccountReviewsFoodAdapter(
+                    requireContext(),
+                    listOfFoodReviews
+                ) // Provide your data here
                 recyclerView.adapter = adapter
             }
         }
