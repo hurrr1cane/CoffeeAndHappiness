@@ -36,6 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/codeWaiterScanScannerContainer">
 
             <LinearLayout
+                style="@style/CODE_WAITER_CARD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
