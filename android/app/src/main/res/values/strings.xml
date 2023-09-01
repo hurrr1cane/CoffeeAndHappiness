@@ -78,4 +78,13 @@
 
     <string name="code_unlogged_text">You have to be logged in to view this page</string>
 
+    <string name="code_waiter_place_an_order">Place an order</string>
+    <string name="code_waiter_start_right_now">Start your new order right now!</string>
+    <string name="code_waiter_add_an_order">Add an order</string>
+    <string name="code_waiter_sum_of_an_order">Sum of an order:</string>
+    <string name="code_waiter_user_authorized">User was authorized</string>
+    <string name="code_waiter_user_can_spend">User can spend points</string>
+    <string name="code_waiter_place_order">Place order</string>
+    <string name="code_waiter_spend_points">Spend points</string>
+
 </resources>

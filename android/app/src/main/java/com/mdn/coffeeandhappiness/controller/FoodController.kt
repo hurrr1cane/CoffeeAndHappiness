@@ -204,6 +204,15 @@ class FoodController {
         val menuItems = mutableListOf<Food>()
 
         // Iterate through the JSON array
+        parseArrayOfFood(jsonArray, menuItems)
+
+        return menuItems
+    }
+
+    fun parseArrayOfFood(
+        jsonArray: JSONArray,
+        menuItems: MutableList<Food>
+    ) {
         for (i in 0 until jsonArray.length()) {
             val jsonItem = jsonArray.getJSONObject(i)
 
@@ -230,7 +239,5 @@ class FoodController {
 
             menuItems.add(menuItem)
         }
-
-        return menuItems
     }
 }

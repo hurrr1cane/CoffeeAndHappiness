@@ -1,6 +1,7 @@
 package com.mdn.coffeeandhappiness.fragments.codefragments
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,11 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.activities.CodeMyOrdersActivity
+import com.mdn.coffeeandhappiness.activities.CodeWaiterPlaceOrderActivity
 import java.lang.RuntimeException
 
 // TODO: Rename parameter arguments, choose names that match
@@ -71,6 +75,14 @@ class CodeUserFragment : Fragment() {
 
         } catch (e: WriterException) {
             throw RuntimeException()
+        }
+
+
+        val myOrders = view.findViewById<AppCompatButton>(R.id.codeUserViewOrders)
+
+        myOrders.setOnClickListener() {
+            val intent = Intent(context, CodeMyOrdersActivity::class.java)
+            requireContext().startActivity(intent)
         }
 
 

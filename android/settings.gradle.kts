@@ -13,5 +13,15 @@ dependencyResolutionManagement {
     }
 }
 
+dependencyResolutionManagement {
+
+    repositories {
+
+        maven {
+            setUrl("https://jitpack.io")
+        }
+    }
+}
+
 rootProject.name = "Coffee and Happiness"
 include(":app")

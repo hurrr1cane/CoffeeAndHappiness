@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SCREEN_STYLE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.codefragments.CodeWaiterScanFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/codeWaiterScanScannerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.budiyev.android.codescanner.CodeScannerView
+                android:id="@+id/codeWaiterScanScanner"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                app:autoFocusButtonVisible="false"
+                app:flashButtonVisible="false" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/codeWaiterScanScannerContainer">
+
+            <LinearLayout
+                style="@style/CODE_WAITER_CARD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/code_waiter_sum_of_an_order"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/codeWaiterScanSum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="20"
+                        android:textColor="@color/default_green"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/codeWaiterScanUserAuthorized"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:text="@string/code_waiter_user_authorized"
+                    android:textColor="@color/default_green"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/codeWaiterScanUserCanSpend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:text="@string/code_waiter_user_can_spend"
+                    android:textColor="@color/default_green"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/codeWaiterScanPlaceOrder"
+                    style="@style/ACCOUNT_MAIN_BUTTON"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:text="@string/code_waiter_place_order"
+                    android:textColor="@color/default_red"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/codeWaiterScanSpendPoints"
+                    style="@style/ACCOUNT_MAIN_BUTTON"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:text="@string/code_waiter_spend_points"
+                    android:textColor="@color/default_red"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

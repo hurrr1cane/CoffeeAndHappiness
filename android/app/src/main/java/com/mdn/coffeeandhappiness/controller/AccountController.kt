@@ -361,6 +361,44 @@ class AccountController {
         }
     }
 
+    suspend fun getByToken(token: String): Person? {
+        return withContext(Dispatchers.IO) {
+            var person: Person? = null
+
+            // Define the URL you want to send the GET request to
+            val url = "${BackendAddress().address}/api/user/me"
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+
+            // Create a request object for the GET request
+            val request = Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Use the OkHttpClient to send the GET request and await the response
+                val response = client.newCall(request).execute()
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+
+                    // Use Gson to parse the JSON response
+                    val gson = Gson()
+                    person = gson.fromJson(responseBody, Person::class.java)
+
+                }
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+            }
+            person
+        }
+    }
+
 
 }
 
