@@ -18,6 +18,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                style="@style/FOOD_TEXT"
                 android:id="@+id/cardCodeOrderDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
             </LinearLayout>
 
             <TextView
+                style="@style/FOOD_TEXT"
                 android:id="@+id/cardCodeOrderPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
