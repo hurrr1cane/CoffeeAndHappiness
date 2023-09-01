@@ -55,6 +55,10 @@
         <item name="android:gravity">end</item>
     </style>
 
+    <style name="HOME_NEWS_ADDITIONAL_TEXT">
+        <item name="android:textColor">@color/gray_white_text</item>
+    </style>
+
     <!-- Menu section -->
     <style name="MENU_TAB_LAYOUT">
         <item name="tabIndicatorColor">@color/default_green</item>
