@@ -12,6 +12,8 @@
     <string name="home_name">Coffee and Happiness</string>
     <string name="home_description">We\'re here.\nWe\`re taste.\nWe\'re always.</string>
     <string name="home_news">Our news</string>
+    <string name="home_about_us">About us</string>
+    <string name="home_about_us_text">Welcome to "Coffee and Happiness", where we brew more than just coffee; we cultivate moments of joy. As a young and vibrant company, we are dedicated to crafting exceptional cafes that go beyond the ordinary. Our passion lies in creating spaces where happiness is not just a fleeting feeling but a fundamental part of the experience.\n\nAt "Coffee and Happiness", we believe that true happiness is found in the little moments of life, like savoring a perfectly brewed cup of coffee or sharing a heartfelt conversation with friends. We are committed to crafting not only the finest coffee but also fostering an atmosphere that promotes positivity, community, and well-being.</string>
 
     <!-- This is a menu section -->
     <string name="menu_main">Main</string>
@@ -86,5 +88,9 @@
     <string name="code_waiter_user_can_spend">User can spend points</string>
     <string name="code_waiter_place_order">Place order</string>
     <string name="code_waiter_spend_points">Spend points</string>
+
+
+
+    <string name="internet_no_connection">We can\'t connect to the server</string>
 
 </resources>
