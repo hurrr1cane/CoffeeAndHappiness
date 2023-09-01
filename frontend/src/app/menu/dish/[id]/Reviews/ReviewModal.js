@@ -1,3 +1,5 @@
+"use client"
+
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";

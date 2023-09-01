@@ -21,3 +21,26 @@
         }
     }
 }
+
+.link {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    // height: 250px;
+    width: 100%;
+    .image {
+    border-radius: 15px;
+    margin: 1rem;
+    
+    }
+    .property {
+        align-self: flex-start;
+        padding: 0.75rem;
+        // margin: 1rem;
+        &:not(h1) {
+            font-size: 18px;
+            font-weight: 500;
+        }
+    }
+}

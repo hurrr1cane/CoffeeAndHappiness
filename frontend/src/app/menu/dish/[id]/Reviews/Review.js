@@ -41,7 +41,7 @@ export default function Review( props ) {
             <section className={styles.comment}>
                 <p>{props?.comment}</p> <Rating sx={{bottom: "5px", right: "3px"}} name="read-only" value={Number(props.rating)} readOnly/>
             </section>
-            {((user.id == commentUser.id) || user.role === 'ADMIN') && <Fab onClick={handleClick} sx={{bgcolor:"#4caf50", "&:hover":{bgcolor:"#4caf50"}, marginLeft:"auto", color:"white "}}><CloseIcon/></Fab>}
+            {((user.id == commentUser.id) || user.role === 'ADMIN') && <Fab onClick={handleClick} sx={{bgcolor:"#FF0000", "&:hover":{bgcolor:"#FF0000"}, marginLeft:"auto", color:"white "}}><CloseIcon/></Fab>}
         </section>
     )
 }

@@ -16,7 +16,7 @@ export default function Dishes({ tab }) {
     return (
         <div className={styles.container}>
             {data.map((item, index) => (
-                <DishCard key={index} {...item} />
+                <DishCard key={index} dish = {item} />
             ))}
         </div>
     )
