@@ -88,4 +88,15 @@ public class UserService {
 
     }
 
+    public User deleteUserImage(Principal principal) {
+
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
+
+        storageService.deleteImage("user", user.getId());
+
+        user.setImageUrl(null);
+        return userRepository.save(user);
+
+    }
 }
