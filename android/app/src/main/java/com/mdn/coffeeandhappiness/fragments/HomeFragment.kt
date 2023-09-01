@@ -1,7 +1,5 @@
 package com.mdn.coffeeandhappiness.fragments
 
-import android.content.Context
-import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -9,18 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.VideoView
-import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdn.coffeeandhappiness.R
-import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
 import com.mdn.coffeeandhappiness.adapter.HomeNewsRecyclerViewAdapter
-import com.mdn.coffeeandhappiness.controller.FoodController
 import com.mdn.coffeeandhappiness.controller.NewsController
 import com.mdn.coffeeandhappiness.model.News
 import kotlinx.coroutines.Dispatchers
@@ -71,8 +64,13 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             val listOfNews = NewsController().getNews()
 
+
+
             // Update the UI on the main thread
             launch(Dispatchers.Main) {
+
+                noInternetConnection(rootView, listOfNews)
+
                 val adapter =
                     HomeNewsRecyclerViewAdapter(requireContext(), listOfNews) // Provide your data here
                 recyclerView.adapter = adapter
@@ -80,6 +78,18 @@ class HomeFragment : Fragment() {
         }
 
         return rootView
+    }
+
+    private fun noInternetConnection(
+        rootView: View,
+        listOfNews: MutableList<News>
+    ) {
+        val noInternet = rootView.findViewById<LinearLayout>(R.id.homeNoInternet)
+        if (listOfNews.size == 0) {
+            noInternet.visibility = View.VISIBLE
+        } else {
+            noInternet.visibility = View.GONE
+        }
     }
 
     private fun setVideo(
