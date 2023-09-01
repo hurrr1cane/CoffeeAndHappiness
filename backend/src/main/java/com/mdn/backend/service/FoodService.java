@@ -121,4 +121,16 @@ public class FoodService {
         return foodRepository.save(food);
 
     }
+
+    public Food deleteFoodImage(Integer foodId) {
+
+            Food food = foodRepository.findById(foodId).orElseThrow(
+                    () -> new FoodNotFoundException("No such food with id " + foodId + " found")
+            );
+
+            storageService.deleteImage("food", foodId);
+
+            food.setImageUrl(null);
+            return foodRepository.save(food);
+    }
 }
