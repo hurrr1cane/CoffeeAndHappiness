@@ -14,8 +14,17 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
+import com.mdn.coffeeandhappiness.adapter.HomeNewsRecyclerViewAdapter
+import com.mdn.coffeeandhappiness.controller.FoodController
+import com.mdn.coffeeandhappiness.controller.NewsController
 import com.mdn.coffeeandhappiness.model.News
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,7 +57,27 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = setVideo(inflater, container)
-        setNewsSection(rootView!!)
+        //setNewsSection(rootView!!)
+
+        val recyclerView = rootView!!.findViewById<RecyclerView>(R.id.homeNewsRecyclerView)
+
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+
+
+        // Use lifecycleScope.launch to call getFood asynchronously
+        lifecycleScope.launch(Dispatchers.IO) {
+            val listOfNews = NewsController().getNews()
+
+            // Update the UI on the main thread
+            launch(Dispatchers.Main) {
+                val adapter =
+                    HomeNewsRecyclerViewAdapter(requireContext(), listOfNews) // Provide your data here
+                recyclerView.adapter = adapter
+            }
+        }
 
         return rootView
     }
@@ -75,7 +104,7 @@ class HomeFragment : Fragment() {
         return rootView
     }
 
-    private fun setNewsSection(rootView: View) {
+    /*private fun setNewsSection(rootView: View) {
         val newsLayout = rootView.findViewById<LinearLayout>(R.id.homeNewsLayout)
         val listOfNews = News().getNews()
 
@@ -122,7 +151,7 @@ class HomeFragment : Fragment() {
 
             newsLayout.addView(cardView)
         }
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()

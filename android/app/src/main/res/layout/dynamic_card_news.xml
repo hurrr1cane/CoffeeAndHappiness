@@ -1,6 +1,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeNewsCardView"
     style="@style/HOME_NEWS_CARD">
 
     <LinearLayout
@@ -9,21 +10,21 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/cardImageView"
+            android:id="@+id/homeNewsImageView"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
             android:src="@raw/news_1" />
 
         <TextView
-            android:id="@+id/cardTitleTextView"
+            android:id="@+id/homeNewsTitleTextView"
             style="@style/HOME_NEWS_CARD_TEXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Default Text" />
 
         <TextView
-            android:id="@+id/cardDateTextView"
+            android:id="@+id/homeNewsDateTextView"
             style="@style/HOME_NEWS_CARD_YEAR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
