@@ -27,8 +27,7 @@ public class CafeController {
 
     @Operation(summary = "Get all cafes", description = "Retrieve a list of all available cafes.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "200", description = "Success")
     })
     @GetMapping
     public ResponseEntity<List<Cafe>> getAllCafes() {
@@ -62,22 +61,16 @@ public class CafeController {
     public ResponseEntity<?> addCafe(@RequestBody @Valid Cafe cafe) {
         log.info("Adding new cafe");
 
-        try {
-            Cafe addedCafe = cafeService.addCafe(cafe);
-            return new ResponseEntity<>(addedCafe, HttpStatus.CREATED);
-        } catch (Exception ex) {
-            log.error("Error while adding cafe: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        Cafe addedCafe = cafeService.addCafe(cafe);
+        return new ResponseEntity<>(addedCafe, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Add cafe image", description = "Add an image to a cafe by its id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Cafe not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("{cafeId}/image")
+    @PostMapping("{cafeId}/image/add")
     public ResponseEntity<?> addCafeImage(@PathVariable Integer cafeId, @RequestParam("image") MultipartFile image) {
         log.info("Adding image to cafe with id {}", cafeId);
 
@@ -88,10 +81,25 @@ public class CafeController {
             log.error("Cafe not found with id: {}", cafeId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Cafe not found with id: " + cafeId);
-        } catch (Exception ex) {
-            log.error("Error while adding image to cafe: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while adding image to cafe: " + ex.getMessage());
+        }
+    }
+
+    @Operation(summary = "Delete cafe image", description = "Delete an image from a cafe by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "Cafe not found"),
+    })
+    @DeleteMapping("{cafeId}/image/delete")
+    public ResponseEntity<?> deleteCafeImage(@PathVariable Integer cafeId) {
+        log.info("Deleting image from cafe with id {}", cafeId);
+
+        try {
+            Cafe cafe = cafeService.deleteCafeImage(cafeId);
+            return ResponseEntity.ok(cafe);
+        } catch (CafeNotFoundException ex) {
+            log.error("Cafe not found with id: {}", cafeId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Cafe not found with id: " + cafeId);
         }
     }
 
@@ -111,10 +119,6 @@ public class CafeController {
             log.error("Cafe not found with id: {}", id);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Cafe not found with id: " + id);
-        } catch (Exception ex) {
-            log.error("Error while editing cafe: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while editing cafe: " + ex.getMessage());
         }
     }
 
@@ -133,10 +137,6 @@ public class CafeController {
             log.error("Cafe not found with id: {}", id);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Cafe not found with id: " + id);
-        } catch (Exception ex) {
-            log.error("Error while deleting cafe: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while deleting cafe: " + ex.getMessage());
         }
     }
 
