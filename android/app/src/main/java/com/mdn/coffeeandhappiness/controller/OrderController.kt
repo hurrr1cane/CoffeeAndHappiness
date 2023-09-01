@@ -2,6 +2,11 @@ package com.mdn.coffeeandhappiness.controller
 
 import android.content.SharedPreferences
 import android.util.Log
+import com.google.gson.Gson
+import com.mdn.coffeeandhappiness.model.CafeReview
+import com.mdn.coffeeandhappiness.model.Food
+import com.mdn.coffeeandhappiness.model.Order
+import com.mdn.coffeeandhappiness.model.Person
 import com.mdn.coffeeandhappiness.tools.BackendAddress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -126,6 +131,74 @@ class OrderController {
 
         val jsonMediaType = "application/json; charset=utf-8".toMediaType()
         return jsonBody.toString().toRequestBody(jsonMediaType)
+    }
+
+    suspend fun getMyOrders(sharedPreferences: SharedPreferences): MutableList<Order> {
+        return withContext(Dispatchers.IO) {
+            var listOfOrders = mutableListOf<Order>()
+
+            // Define the URL you want to send the GET request to
+            val url = "${BackendAddress().address}/api/user/me"
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            val token = sharedPreferences.getString("AccessToken", "")
+
+            // Create a request object for the GET request
+            val request = Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Use the OkHttpClient to send the GET request and await the response
+                val response = client.newCall(request).execute()
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+
+                    listOfOrders = parseOrdersFromJson(responseBody)
+
+
+                }
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+            }
+
+            listOfOrders
+        }
+    }
+
+    private fun parseOrdersFromJson(responseBody: String?): MutableList<Order> {
+        var listOfOrders = mutableListOf<Order>()
+        val jsonItem = JSONObject(responseBody)
+
+        val orders = jsonItem.getJSONArray("orders")
+
+        for (i in 0 until orders.length()) {
+            val jsonItemOrder = orders.getJSONObject(i)
+
+            val orderId = jsonItemOrder.getInt("id")
+            val foods = jsonItemOrder.getJSONArray("foods")
+            val totalPrice = jsonItemOrder.getDouble("totalPrice")
+            val orderDate = jsonItemOrder.getString("orderDate")
+            val bonusPointsGained = jsonItemOrder.getInt("bonusPointsEarned")
+
+
+            val listOfFood = mutableListOf<Food>()
+
+            FoodController().parseArrayOfFood(foods, listOfFood)
+
+            val order = Order(orderId, listOfFood, totalPrice, orderDate, bonusPointsGained)
+
+
+            listOfOrders.add(order)
+        }
+
+        return listOfOrders
     }
 
 }

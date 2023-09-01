@@ -102,6 +102,7 @@
             app:cardCornerRadius="10dp">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/codeUserViewOrders"
                 style="@style/CODE_VIEW_ORDERS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

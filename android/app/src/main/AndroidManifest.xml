@@ -22,13 +22,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activities.CodeWaiterPlaceOrderActivity"
+            android:name=".activities.CodeMyOrdersActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activities.CodeWaiterPlaceOrderActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.AccountReviewsActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FoodAddReviewActivity"
             android:exported="false"
