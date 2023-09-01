@@ -68,9 +68,13 @@ public class OrderService {
     }
 
     private double calculateTotalPrice(List<Food> foods) {
-        return foods.stream()
+        double totalPrice = foods.stream()
                 .mapToDouble(Food::getPrice)
                 .sum();
+
+        totalPrice = Math.round(totalPrice * 100.0) / 100.0;
+
+        return totalPrice;
     }
 
     private int calculateBonusPoints(Double totalPrice) {
