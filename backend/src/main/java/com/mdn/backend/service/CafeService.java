@@ -84,10 +84,22 @@ public class CafeService {
                 () -> new CafeNotFoundException("No such cafe with id " + cafeId + " found")
         );
 
-        String imageUrl = storageService.saveImage(image, "cafes", cafeId);
+        String imageUrl = storageService.saveImage(image, "cafe", cafeId);
 
         cafe.setImageUrl(imageUrl);
         return cafeRepository.save(cafe);
 
+    }
+
+    public Cafe deleteCafeImage(Integer cafeId) {
+
+            Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(
+                    () -> new CafeNotFoundException("No such cafe with id " + cafeId + " found")
+            );
+
+            storageService.deleteImage("cafe", cafeId);
+
+            cafe.setImageUrl(null);
+            return cafeRepository.save(cafe);
     }
 }

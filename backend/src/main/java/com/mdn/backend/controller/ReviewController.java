@@ -33,7 +33,6 @@ public class ReviewController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Review added successfully"),
             @ApiResponse(responseCode = "404", description = "Cafe or user not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping("cafe/{cafeId}")
     public ResponseEntity<?> addCafeReview(
@@ -47,13 +46,14 @@ public class ReviewController {
             log.error("Cafe not found with id: {}", cafeId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Cafe not found with id: " + cafeId);
-        } catch (Exception ex) {
-            log.error("Error while adding cafe review: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while adding cafe review: " + ex.getMessage());
         }
     }
 
+    @Operation(summary = "Add food review", description = "Add a review for a food.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Review added successfully"),
+            @ApiResponse(responseCode = "404", description = "Food or user not found"),
+    })
     @DeleteMapping("cafe/{reviewId}")
     public ResponseEntity<?> deleteCafeReview(
             @PathVariable Integer reviewId,
@@ -65,13 +65,14 @@ public class ReviewController {
             log.error("Review not found with id: {}", reviewId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Review not found with id: " + reviewId);
-        } catch (Exception ex) {
-            log.error("Error while adding cafe review: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while adding cafe review: " + ex.getMessage());
         }
     }
 
+    @Operation(summary = "Delete food review", description = "Delete a review for a food.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Review deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Review or user not found"),
+    })
     @DeleteMapping("food/{reviewId}")
     public ResponseEntity<?> deleteFoodReview(
             @PathVariable Integer reviewId,
@@ -83,10 +84,6 @@ public class ReviewController {
             log.error("Review not found with id: {}", reviewId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Review not found with id: " + reviewId);
-        } catch (Exception ex) {
-            log.error("Error while adding cafe review: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while adding cafe review: " + ex.getMessage());
         }
     }
 
@@ -94,7 +91,6 @@ public class ReviewController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Review added successfully"),
             @ApiResponse(responseCode = "404", description = "Food or user not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping("food/{foodId}")
     public ResponseEntity<?> addFoodReview(
@@ -108,10 +104,6 @@ public class ReviewController {
             log.error("Food not found with id: {}", foodId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Food not found with id: " + foodId);
-        } catch (Exception ex) {
-            log.error("Error while adding food review: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while adding food review: " + ex.getMessage());
         }
     }
 }

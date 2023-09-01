@@ -37,7 +37,7 @@ public class OrderController {
     @Operation(summary = "Place a new order", description = "Place a new order for a user with a list of selected foods.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Order created", content = @Content(schema = @Schema(implementation = Order.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid food id", content = @Content(schema = @Schema(implementation = String.class), examples = {@ExampleObject(name = "Invalid food id", value = "One or more selected foods not found")}))
+            @ApiResponse(responseCode = "404", description = "Invalid food id", content = @Content(schema = @Schema(implementation = String.class), examples = {@ExampleObject(name = "Invalid food id", value = "One or more selected foods not found")}))
     })
     @PostMapping
     public ResponseEntity<?> placeOrder(@RequestBody @Valid OrderRequest orderRequest) {
@@ -50,9 +50,6 @@ public class OrderController {
         } catch (FoodNotFoundException ex) {
             log.error("One or more selected foods not found");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more selected foods not found");
-        } catch (Exception ex) {
-            log.error("Error while placing an order: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -76,9 +73,6 @@ public class OrderController {
         } catch (NotEnoughBonusPointsException ex) {
             log.error("Not enough bonus points");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not enough bonus points");
-        } catch (Exception ex) {
-            log.error("Error while spending points: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

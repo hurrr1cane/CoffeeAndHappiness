@@ -75,33 +75,8 @@ public class UserController {
         }
     }
 
-    /*
-    *     @Operation(summary = "Add food image", description = "Add an image to an existing food.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Food image added"),
-            @ApiResponse(responseCode = "404", description = "Food not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
-    @PostMapping("{foodId}/image")
-    public ResponseEntity<?> addFoodImage(@PathVariable Integer foodId, @RequestParam("image") MultipartFile image) {
-        log.info("Adding image to food with id {}", foodId);
-
-        try {
-            Food food = foodService.addFoodImage(foodId, image);
-            return ResponseEntity.ok(food);
-        } catch (FoodNotFoundException ex) {
-            log.error("Food not found with id: {}", foodId);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Food not found with id: " + foodId);
-        } catch (Exception ex) {
-            log.error("Error while adding image to food: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while adding image to food: " + ex.getMessage());
-        }
-    }*/
-
-    @PostMapping("me/edit/image")
-    public ResponseEntity<?> editMyselfImage(Principal principal, @RequestParam("image") MultipartFile image) {
+    @PostMapping("me/image/add")
+    public ResponseEntity<?> addMyselfImage(Principal principal, @RequestParam("image") MultipartFile image) {
         log.info("Editing myself image");
         try {
             User editedUser = userService.addUserImage(principal, image);
@@ -116,7 +91,24 @@ public class UserController {
         }
     }
 
-    @Operation(summary = "Get myself", description = "Retrieve the user that is currently logged in.")
+    @DeleteMapping("me/image/delete")
+    public ResponseEntity<?> deleteMyselfImage(Principal principal) {
+        log.info("Deleting myself image");
+        try {
+            User editedUser = userService.deleteUserImage(principal);
+            return ResponseEntity.ok(editedUser);
+        } catch (UserNotFoundException ex) {
+            log.error("User not found with email: {}", principal.getName());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + principal.getName());
+        } catch (Exception ex) {
+            log.error("Error while deleting image to user: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while deleting image to user: " + ex.getMessage());
+        }
+    }
+
+
+        @Operation(summary = "Get myself", description = "Retrieve the user that is currently logged in.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "User not found")

@@ -58,7 +58,6 @@ public class FoodController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "400", description = "Invalid food type"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("type/{type}")
     public ResponseEntity<?> getFoodByType(@PathVariable String type) {
@@ -70,9 +69,6 @@ public class FoodController {
         } catch (IllegalArgumentException ex) {
             log.error("Invalid food type: {}", type);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid food type: " + type);
-        } catch (Exception ex) {
-            log.error("Error while getting food: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while getting food: " + ex.getMessage());
         }
     }
 
@@ -85,22 +81,16 @@ public class FoodController {
     public ResponseEntity<?> addFood(@RequestBody @Valid Food food) {
         log.info("Adding new food");
 
-        try {
-            Food addedFood = foodService.addFood(food);
-            return new ResponseEntity<>(addedFood, HttpStatus.CREATED);
-        } catch (Exception ex) {
-            log.error("Error while adding food: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        Food addedFood = foodService.addFood(food);
+        return new ResponseEntity<>(addedFood, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Add food image", description = "Add an image to an existing food.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Food image added"),
             @ApiResponse(responseCode = "404", description = "Food not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("{foodId}/image")
+    @PostMapping("{foodId}/image/add")
     public ResponseEntity<?> addFoodImage(@PathVariable Integer foodId, @RequestParam("image") MultipartFile image) {
         log.info("Adding image to food with id {}", foodId);
 
@@ -111,10 +101,25 @@ public class FoodController {
             log.error("Food not found with id: {}", foodId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Food not found with id: " + foodId);
-        } catch (Exception ex) {
-            log.error("Error while adding image to food: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while adding image to food: " + ex.getMessage());
+        }
+    }
+
+    @Operation(summary = "Delete food", description = "Delete an existing food.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Food deleted"),
+            @ApiResponse(responseCode = "404", description = "Food not found"),
+    })
+    @DeleteMapping("{foodId}/image/delete")
+    public ResponseEntity<?> deleteFoodImage(@PathVariable Integer foodId) {
+        log.info("Deleting image from food with id {}", foodId);
+
+        try {
+            Food food = foodService.deleteFoodImage(foodId);
+            return ResponseEntity.ok(food);
+        } catch (FoodNotFoundException ex) {
+            log.error("Food not found with id: {}", foodId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Food not found with id: " + foodId);
         }
     }
 
@@ -122,7 +127,6 @@ public class FoodController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Food edited"),
             @ApiResponse(responseCode = "404", description = "Food not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PutMapping("{id}")
     public ResponseEntity<?> editFood(@PathVariable Integer id, @RequestBody @Valid Food food) {
@@ -135,10 +139,6 @@ public class FoodController {
             log.error("Food not found with id: {}", id);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Food not found with id: " + id);
-        } catch (Exception ex) {
-            log.error("Error while editing food: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while editing food: " + ex.getMessage());
         }
     }
 
@@ -146,7 +146,6 @@ public class FoodController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Food deleted"),
             @ApiResponse(responseCode = "404", description = "Food not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @DeleteMapping({"{id}"})
     public ResponseEntity<?> deleteFood(@PathVariable Integer id) {
@@ -158,10 +157,6 @@ public class FoodController {
             log.error("Food not found with id: {}", id);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Food not found with id: " + id);
-        } catch (Exception ex) {
-            log.error("Error while deleting food: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while deleting food: " + ex.getMessage());
         }
     }
 }
