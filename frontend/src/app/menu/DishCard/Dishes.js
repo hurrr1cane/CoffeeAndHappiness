@@ -1,5 +1,4 @@
 "use client"
-import dishPic from '../../../../public/pizza.jpg'
 import styles from './Dishes.module.scss'
 import DishCard from "./DishCard";
 import { useEffect, useState } from 'react';
