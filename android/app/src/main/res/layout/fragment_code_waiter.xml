@@ -26,12 +26,24 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="270dp"
             android:src="@drawable/code_waiter_order"
-            app:layout_constraintBottom_toTopOf="@id/codeWaiterPlaceOrderButton"
+            app:layout_constraintBottom_toTopOf="@id/codeWaiterNoInternet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/codeWaiterTopText" />
+
+        <TextView
+            android:id="@+id/codeWaiterNoInternet"
+            app:layout_constraintBottom_toTopOf="@id/codeWaiterPlaceOrderButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:fontFamily="@font/sofiasans_straight"
+            android:text="@string/internet_no_connection_error"
+            android:textColor="@color/default_red"
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/codeWaiterPlaceOrderButton"

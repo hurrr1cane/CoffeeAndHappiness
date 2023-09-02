@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.ReviewController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -100,12 +101,16 @@ class ConfirmationDeleteCafeReviewFragment(
                 // Handle positive button click here
                 val reviewController = ReviewController()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    reviewController.deleteCafeReview(
-                        requireContext().getSharedPreferences(
-                            "Account",
-                            Context.MODE_PRIVATE
-                        ), reviewId
-                    )
+                    try {
+                        reviewController.deleteCafeReview(
+                            requireContext().getSharedPreferences(
+                                "Account",
+                                Context.MODE_PRIVATE
+                            ), reviewId
+                        )
+                    } catch (e: NoInternetException) {
+
+                    }
                 }
                 onDeleteConfirmed()
                 dialog.dismiss()

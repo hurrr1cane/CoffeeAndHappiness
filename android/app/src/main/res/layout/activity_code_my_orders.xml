@@ -24,6 +24,8 @@
             android:padding="5dp" />
     </LinearLayout>
 
+
+
     <LinearLayout
         app:layout_constraintTop_toBottomOf="@+id/codeMyOrdersActivityTopBar"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,6 +50,34 @@
             android:fontFamily="@font/sofiasans_straight"
             android:gravity="center"
             android:text="@string/internet_no_connection"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/codeMyOrdersActivityTopBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/codeMyOrdersActivityEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/empty" />
+
+        <TextView
+            style="@style/FOOD_TEXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/sofiasans_straight"
+            android:gravity="center"
+            android:text="@string/empty_page_text"
             android:textSize="25sp" />
 
     </LinearLayout>

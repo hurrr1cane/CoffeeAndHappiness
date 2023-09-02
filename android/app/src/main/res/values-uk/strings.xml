@@ -43,7 +43,7 @@
     <!-- This is an account section -->
     <string name="account_login_top_text">Увійти в обліковий запис</string>
     <string name="account_email">Електронна пошта</string>
-    <string name="account_email_hint">Будь ласка, введіть електронну пошту</string>
+    <string name="account_email_hint">Будь ласка, введіть коректну електронну пошту</string>
     <string name="account_password">Пароль</string>
     <string name="account_password_hint">Будь ласка, введіть пароль</string>
     <string name="account_login_wrong_password">Пароль невірний або облікового запису не існує</string>
@@ -93,5 +93,7 @@
 
 
     <string name="internet_no_connection">Ми не можемо з\'єднатися з сервером</string>
+    <string name="internet_no_connection_error">Відсутнє з\'єднання із сервером</string>
+    <string name="empty_page_text">Ого, тут так порожньо!</string>
 
 </resources>

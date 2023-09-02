@@ -6,13 +6,17 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.FoodController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -42,12 +46,19 @@ class FoodAddReviewActivity : AppCompatActivity() {
 
             val foodController = FoodController()
             lifecycleScope.launch() {
-                foodController.addReview(
-                    foodId!!,
-                    rating,
-                    comment,
-                    getSharedPreferences("Account", Context.MODE_PRIVATE)
-                )
+                try {
+                    foodController.addReview(
+                        foodId!!,
+                        rating,
+                        comment,
+                        getSharedPreferences("Account", Context.MODE_PRIVATE)
+                    )
+                } catch (e: NoInternetException) {
+                    launch(Dispatchers.Main) {
+                        val noConnection = findViewById<TextView>(R.id.foodAddReviewNoInternet)
+                        noConnection.visibility = View.VISIBLE
+                    }
+                }
             }
             val resultIntent = Intent()
             setResult(Activity.RESULT_OK, resultIntent)

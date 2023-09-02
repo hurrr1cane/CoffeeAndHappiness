@@ -22,6 +22,7 @@ import com.budiyev.android.codescanner.ScanMode
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.controller.OrderController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.tools.OrderHelper
 import kotlinx.coroutines.Dispatchers
@@ -84,78 +85,96 @@ class CodeWaiterScanFragment(var listOfFood: MutableList<Food>) : Fragment() {
                     accessToken = it.text
 
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val person = AccountController().getByToken(accessToken)
-                        launch(Dispatchers.Main) {
-                            if (person != null) {
-                                val userAuthorized =
-                                    view.findViewById<TextView>(R.id.codeWaiterScanUserAuthorized)
-                                userAuthorized.visibility = View.VISIBLE
+                        try {
+                            val person = AccountController().getByToken(accessToken)
+                            launch(Dispatchers.Main) {
+                                if (person != null) {
+                                    val userAuthorized =
+                                        view.findViewById<TextView>(R.id.codeWaiterScanUserAuthorized)
+                                    userAuthorized.visibility = View.VISIBLE
 
-                                val userCanSpend =
-                                    view.findViewById<TextView>(R.id.codeWaiterScanUserCanSpend)
+                                    val userCanSpend =
+                                        view.findViewById<TextView>(R.id.codeWaiterScanUserCanSpend)
 
-                                val spendPoints =
-                                    view.findViewById<AppCompatButton>(R.id.codeWaiterScanSpendPoints)
-                                val placeOrder =
-                                    view.findViewById<AppCompatButton>(R.id.codeWaiterScanPlaceOrder)
-                                if (person.bonusPoints >= OrderHelper().countTotalPrice(listOfFood)
-                                        .toInt() * 10
-                                ) {
-                                    spendPoints.isEnabled = true
-                                    spendPoints.setTextColor(resources.getColor(R.color.default_green))
-                                    userCanSpend.visibility = View.VISIBLE
-                                }
-
-                                placeOrder.isEnabled = true
-                                placeOrder.setTextColor(resources.getColor(R.color.default_green))
-
-                                placeOrder.setOnClickListener {
-                                    lifecycleScope.launch(Dispatchers.IO) {
-                                        OrderController().placeOrder(
-                                            requireContext().getSharedPreferences(
-                                                "Account",
-                                                Context.MODE_PRIVATE
-                                            ), person.id, OrderHelper().getListOfIds(listOfFood)
+                                    val spendPoints =
+                                        view.findViewById<AppCompatButton>(R.id.codeWaiterScanSpendPoints)
+                                    val placeOrder =
+                                        view.findViewById<AppCompatButton>(R.id.codeWaiterScanPlaceOrder)
+                                    if (person.bonusPoints >= OrderHelper().countTotalPrice(
+                                            listOfFood
                                         )
-
-                                        val confirmationDialog =
-                                            ConfirmationOrderPlacedFragment() {
-                                                // This lambda function will be called when the user clicks "Yes"
-                                                requireActivity().finish()
-                                            }
-                                        confirmationDialog.show(
-                                            (context as FragmentActivity).supportFragmentManager,
-                                            "ConfirmationDialog"
-                                        )
+                                            .toInt() * 10
+                                    ) {
+                                        spendPoints.isEnabled = true
+                                        spendPoints.setTextColor(resources.getColor(R.color.default_green))
+                                        userCanSpend.visibility = View.VISIBLE
                                     }
-                                }
 
-                                spendPoints.setOnClickListener {
+                                    placeOrder.isEnabled = true
+                                    placeOrder.setTextColor(resources.getColor(R.color.default_green))
 
-                                    lifecycleScope.launch(Dispatchers.IO) {
-                                        OrderController().spendPoints(
-                                            requireContext().getSharedPreferences(
-                                                "Account",
-                                                Context.MODE_PRIVATE
-                                            ), person.id, OrderHelper().getListOfIds(listOfFood)
-                                        )
+                                    placeOrder.setOnClickListener {
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            try {
+                                                OrderController().placeOrder(
+                                                    requireContext().getSharedPreferences(
+                                                        "Account",
+                                                        Context.MODE_PRIVATE
+                                                    ),
+                                                    person.id,
+                                                    OrderHelper().getListOfIds(listOfFood)
+                                                )
 
-                                        val confirmationDialog =
-                                            ConfirmationOrderPlacedFragment() {
-                                                // This lambda function will be called when the user clicks "Yes"
-                                                requireActivity().finish()
+                                                val confirmationDialog =
+                                                    ConfirmationOrderPlacedFragment() {
+                                                        // This lambda function will be called when the user clicks "Yes"
+                                                        requireActivity().finish()
+                                                    }
+                                                confirmationDialog.show(
+                                                    (context as FragmentActivity).supportFragmentManager,
+                                                    "ConfirmationDialog"
+                                                )
+                                            } catch (e: NoInternetException) {
+
                                             }
-                                        confirmationDialog.show(
-                                            (context as FragmentActivity).supportFragmentManager,
-                                            "ConfirmationDialog"
-                                        )
+                                        }
                                     }
+
+                                    spendPoints.setOnClickListener {
+
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            try {
+                                                OrderController().spendPoints(
+                                                    requireContext().getSharedPreferences(
+                                                        "Account",
+                                                        Context.MODE_PRIVATE
+                                                    ),
+                                                    person.id,
+                                                    OrderHelper().getListOfIds(listOfFood)
+                                                )
+
+                                                val confirmationDialog =
+                                                    ConfirmationOrderPlacedFragment() {
+                                                        // This lambda function will be called when the user clicks "Yes"
+                                                        requireActivity().finish()
+                                                    }
+                                                confirmationDialog.show(
+                                                    (context as FragmentActivity).supportFragmentManager,
+                                                    "ConfirmationDialog"
+                                                )
+                                            } catch (e: NoInternetException) {
+
+                                            }
+                                        }
+                                    }
+
+
+                                } else {
+                                    codeScanner.startPreview()
                                 }
-
-
-                            } else {
-                                codeScanner.startPreview()
                             }
+                        } catch (e: NoInternetException) {
+
                         }
                     }
                 }

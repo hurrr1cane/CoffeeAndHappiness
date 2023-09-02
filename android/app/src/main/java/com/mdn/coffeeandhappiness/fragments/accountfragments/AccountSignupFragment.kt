@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -70,37 +71,47 @@ class AccountSignupFragment : Fragment() {
                     requireActivity().getSharedPreferences("Account", Context.MODE_PRIVATE)
                 val accountController = AccountController()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    val isLogged = accountController.register(
-                        email,
-                        password,
-                        name,
-                        surname,
-                        sharedPreferences
-                    )
-                    launch(Dispatchers.Main) {
-                        if (isLogged) {
-                            val mainFragment = AccountMainFragment()
-                            val fragmentManager = requireActivity().supportFragmentManager
-                            val transaction = fragmentManager.beginTransaction()
-                            transaction.replace(R.id.accountFrame, mainFragment)
-                            transaction.addToBackStack(null) // Optional: Add to back stack for navigation
-                            transaction.commit()
-                            var editor = sharedPreferences.edit()
-                            editor.putBoolean("IsAccountLogged", true)
-                            editor.apply()
+                    try {
+                        val isLogged = accountController.register(
+                            email,
+                            password,
+                            name,
+                            surname,
+                            sharedPreferences
+                        )
+                        launch(Dispatchers.Main) {
+                            val noConnection = view.findViewById<TextView>(R.id.accountSignupNoInternet)
+                            noConnection.visibility = View.GONE
 
-                            lifecycleScope.launch(Dispatchers.IO) {
-                                accountController.updateMyself(
-                                    requireContext().getSharedPreferences(
-                                        "Account",
-                                        Context.MODE_PRIVATE
+                            if (isLogged) {
+                                val mainFragment = AccountMainFragment()
+                                val fragmentManager = requireActivity().supportFragmentManager
+                                val transaction = fragmentManager.beginTransaction()
+                                transaction.replace(R.id.accountFrame, mainFragment)
+                                transaction.addToBackStack(null) // Optional: Add to back stack for navigation
+                                transaction.commit()
+                                var editor = sharedPreferences.edit()
+                                editor.putBoolean("IsAccountLogged", true)
+                                editor.apply()
+
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    accountController.updateMyself(
+                                        requireContext().getSharedPreferences(
+                                            "Account",
+                                            Context.MODE_PRIVATE
+                                        )
                                     )
-                                )
+                                }
+                            } else {
+                                val userExists =
+                                    view.findViewById<TextView>(R.id.accountRegisterUserExistsHint)
+                                userExists.visibility = View.VISIBLE
                             }
-                        } else {
-                            val userExists =
-                                view.findViewById<TextView>(R.id.accountRegisterUserExistsHint)
-                            userExists.visibility = View.VISIBLE
+                        }
+                    } catch (e: NoInternetException) {
+                        launch(Dispatchers.Main) {
+                            val noConnection = view.findViewById<TextView>(R.id.accountSignupNoInternet)
+                            noConnection.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -119,7 +130,7 @@ class AccountSignupFragment : Fragment() {
             view?.findViewById<AppCompatEditText>(R.id.accountRegisterPassword)?.text.toString()
         val reEnteredPassword =
             view?.findViewById<AppCompatEditText>(R.id.accountRegisterReEnterPassword)?.text.toString()
-        if (email!!.isEmpty()) {
+        if (email!!.isEmpty() || !isEmailValid(email.toString())) {
             val textHint = view.findViewById<TextView>(R.id.accountRegisterEmailHint)
             textHint.visibility = View.VISIBLE
             areCorrect = false
@@ -168,6 +179,11 @@ class AccountSignupFragment : Fragment() {
         userExists.visibility = View.GONE
 
         return areCorrect
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return email.matches(emailPattern.toRegex())
     }
 
     companion object {

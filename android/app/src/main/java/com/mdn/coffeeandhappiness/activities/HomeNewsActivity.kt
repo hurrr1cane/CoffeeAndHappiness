@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.NewsController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.tools.DateConverter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,36 +33,44 @@ class HomeNewsActivity : AppCompatActivity() {
         val context = this
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val news = NewsController().getNews(newsId!!)
+            try {
+                val news = NewsController().getNews(newsId!!)
 
-            // Update the UI on the main thread
-            launch(Dispatchers.Main) {
-                val image = findViewById<ImageView>(R.id.homeNewsActivityImage)
-                val title = findViewById<TextView>(R.id.homeNewsActivityTitle)
-                val description = findViewById<TextView>(R.id.homeNewsActivityDescription)
-                val date = findViewById<TextView>(R.id.homeNewsActivityDate)
+                // Update the UI on the main thread
+                launch(Dispatchers.Main) {
+                    val image = findViewById<ImageView>(R.id.homeNewsActivityImage)
+                    val title = findViewById<TextView>(R.id.homeNewsActivityTitle)
+                    val description = findViewById<TextView>(R.id.homeNewsActivityDescription)
+                    val date = findViewById<TextView>(R.id.homeNewsActivityDate)
 
-                var titleText = ""
-                var descriptionText = ""
+                    var titleText = ""
+                    var descriptionText = ""
 
-                if (language == "uk") {
-                    titleText = news!!.titleUA
-                    descriptionText = news.descriptionUA
-                } else {
-                    titleText = news!!.titleEN
-                    descriptionText = news.descriptionEN
+                    if (language == "uk") {
+                        titleText = news!!.titleUA
+                        descriptionText = news.descriptionUA
+                    } else {
+                        titleText = news!!.titleEN
+                        descriptionText = news.descriptionEN
+                    }
+
+                    title.text = titleText
+                    description.text = descriptionText
+
+                    date.text = DateConverter().formatDate(news.publishedAt)
+
+                    Glide.with(context)
+                        .load(news.imageUrl)
+                        .placeholder(R.drawable.default_placeholder_image)
+                        .error(R.drawable.default_error_image)
+                        .into(image)
                 }
-
-                title.text = titleText
-                description.text = descriptionText
-
-                date.text = DateConverter().formatDate(news.publishedAt)
-
-                Glide.with(context)
-                    .load(news.imageUrl)
-                    .placeholder(R.drawable.default_placeholder_image)
-                    .error(R.drawable.default_error_image)
-                    .into(image)
+            } catch (e: NoInternetException) {
+                launch(Dispatchers.Main) {
+                    val newsPicture = findViewById<ImageView>(R.id.homeNewsActivityImage)
+                    newsPicture.setImageResource(R.drawable.disconnected)
+                    newsPicture.scaleType = ImageView.ScaleType.FIT_CENTER
+                }
             }
         }
     }

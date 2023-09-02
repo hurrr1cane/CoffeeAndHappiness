@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.lifecycleScope
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -18,6 +19,10 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.activities.CodeMyOrdersActivity
 import com.mdn.coffeeandhappiness.activities.CodeWaiterPlaceOrderActivity
+import com.mdn.coffeeandhappiness.controller.AccountController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.lang.RuntimeException
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,6 +54,26 @@ class CodeUserFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_code_user, container, false)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                AccountController().updateMyself(
+                    requireContext().getSharedPreferences(
+                        "Account",
+                        Context.MODE_PRIVATE
+                    )
+                )
+            } catch (e: NoInternetException) {
+                launch(Dispatchers.Main) {
+                    val noInternet = view.findViewById<TextView>(R.id.codeUserNoInternet)
+                    noInternet.visibility = View.VISIBLE
+
+                    val myOrders = view.findViewById<AppCompatButton>(R.id.codeUserViewOrders)
+                    myOrders.isEnabled = false
+                }
+            }
+        }
+
 
         val sharedPreferences =
             requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)

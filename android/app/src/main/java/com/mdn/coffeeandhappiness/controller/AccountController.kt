@@ -5,6 +5,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Person
 import com.mdn.coffeeandhappiness.model.PersonInReview
 import com.mdn.coffeeandhappiness.tools.BackendAddress
@@ -56,6 +57,7 @@ class AccountController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
 
             personInReview
@@ -132,6 +134,7 @@ class AccountController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
 
             logined
@@ -233,6 +236,7 @@ class AccountController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
 
             logined
@@ -251,7 +255,7 @@ class AccountController {
                 val currentTime = java.util.Date().time
                 val storedTime = sharedPreferences.getLong("UpdateTime", 0)
 
-                if (((currentTime - storedTime) >= 1000 * 60 * 60 * 24) && (currentTime - storedTime < 1000 * 60 * 60 * 24 * 13)) {
+                if (((currentTime - storedTime) >= 1000 * 60 * 60 * 23) && (currentTime - storedTime < 1000 * 60 * 60 * 24 * 13)) {
 
                     val token = sharedPreferences.getString("RefreshToken", "")
 
@@ -356,6 +360,7 @@ class AccountController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
 
         }
@@ -394,6 +399,7 @@ class AccountController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
             person
         }

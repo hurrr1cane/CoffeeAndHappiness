@@ -12,11 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.adapter.CodeMyOrdersOrdersRecyclerViewAdapter
-import com.mdn.coffeeandhappiness.adapter.CodeWaiterChosenFoodRecyclerViewAdapter
-import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
-import com.mdn.coffeeandhappiness.controller.FoodController
 import com.mdn.coffeeandhappiness.controller.OrderController
-import com.mdn.coffeeandhappiness.model.Food
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Order
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,28 +42,43 @@ class CodeMyOrdersActivity : AppCompatActivity() {
 
         // Use lifecycleScope.launch to call getFood asynchronously
         lifecycleScope.launch(Dispatchers.IO) {
-            val listOfOrders = OrderController().getMyOrders(getSharedPreferences("Account", Context.MODE_PRIVATE))
+            try {
+                val listOfOrders = OrderController().getMyOrders(
+                    getSharedPreferences(
+                        "Account",
+                        Context.MODE_PRIVATE
+                    )
+                )
 
-            // Update the UI on the main thread
-            launch(Dispatchers.Main) {
+                // Update the UI on the main thread
+                launch(Dispatchers.Main) {
 
-                noInternetConnection(listOfOrders)
-                val adapter =
-                    CodeMyOrdersOrdersRecyclerViewAdapter(context, listOfOrders) // Provide your data here
-                recyclerView.adapter = adapter
+                    checkEmpty(listOfOrders)
+                    val adapter =
+                        CodeMyOrdersOrdersRecyclerViewAdapter(
+                            context,
+                            listOfOrders
+                        ) // Provide your data here
+                    recyclerView.adapter = adapter
+                }
+            } catch (e: NoInternetException) {
+                launch(Dispatchers.Main) {
+                    val noConnection = findViewById<LinearLayout>(R.id.codeMyOrdersActivityNoInternet)
+                    noConnection.visibility = View.VISIBLE
+                }
             }
         }
 
     }
 
-    private fun noInternetConnection(
+    private fun checkEmpty(
         listOfFood: MutableList<Order>
     ) {
-        val noInternet = findViewById<LinearLayout>(R.id.codeMyOrdersActivityNoInternet)
+        val empty = findViewById<LinearLayout>(R.id.codeMyOrdersActivityEmpty)
         if (listOfFood.size == 0) {
-            noInternet.visibility = View.VISIBLE
+            empty.visibility = View.VISIBLE
         } else {
-            noInternet.visibility = View.GONE
+            empty.visibility = View.GONE
         }
     }
 
