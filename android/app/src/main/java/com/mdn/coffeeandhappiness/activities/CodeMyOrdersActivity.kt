@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +17,7 @@ import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
 import com.mdn.coffeeandhappiness.controller.FoodController
 import com.mdn.coffeeandhappiness.controller.OrderController
 import com.mdn.coffeeandhappiness.model.Food
+import com.mdn.coffeeandhappiness.model.Order
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -46,12 +49,25 @@ class CodeMyOrdersActivity : AppCompatActivity() {
 
             // Update the UI on the main thread
             launch(Dispatchers.Main) {
+
+                noInternetConnection(listOfOrders)
                 val adapter =
                     CodeMyOrdersOrdersRecyclerViewAdapter(context, listOfOrders) // Provide your data here
                 recyclerView.adapter = adapter
             }
         }
 
+    }
+
+    private fun noInternetConnection(
+        listOfFood: MutableList<Order>
+    ) {
+        val noInternet = findViewById<LinearLayout>(R.id.codeMyOrdersActivityNoInternet)
+        if (listOfFood.size == 0) {
+            noInternet.visibility = View.VISIBLE
+        } else {
+            noInternet.visibility = View.GONE
+        }
     }
 
     private fun setLanguage() {

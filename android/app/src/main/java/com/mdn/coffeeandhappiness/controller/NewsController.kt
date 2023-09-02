@@ -1,6 +1,5 @@
 package com.mdn.coffeeandhappiness.controller
 
-import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.News
 import com.mdn.coffeeandhappiness.tools.BackendAddress
 import kotlinx.coroutines.Dispatchers

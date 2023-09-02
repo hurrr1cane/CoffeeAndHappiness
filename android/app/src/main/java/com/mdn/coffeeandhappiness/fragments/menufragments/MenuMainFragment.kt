@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
 import com.mdn.coffeeandhappiness.controller.FoodController
+import com.mdn.coffeeandhappiness.model.Food
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,6 +60,9 @@ class MenuMainFragment : Fragment() {
 
             // Update the UI on the main thread
             launch(Dispatchers.Main) {
+
+                noInternetConnection(rootView, listOfFood)
+
                 val adapter =
                     FoodRecyclerViewAdapter(requireContext(), listOfFood) // Provide your data here
                 recyclerView.adapter = adapter
@@ -67,6 +72,18 @@ class MenuMainFragment : Fragment() {
 
 
         return rootView
+    }
+
+    private fun noInternetConnection(
+        rootView: View,
+        listOfFood: MutableList<Food>
+    ) {
+        val noInternet = rootView.findViewById<LinearLayout>(R.id.menuMainNoInternet)
+        if (listOfFood.size == 0) {
+            noInternet.visibility = View.VISIBLE
+        } else {
+            noInternet.visibility = View.GONE
+        }
     }
 
     companion object {
