@@ -265,12 +265,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
 
                 <TextView
                     style="@style/ACCOUNT_TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/sofiasans_straight"
                     android:text="@string/account_register_already_have"
                     android:textSize="18sp" />
@@ -279,6 +281,7 @@
                     android:id="@+id/changeFragmentToLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="3dp"
                     android:fontFamily="@font/sofiasans_straight"
                     android:text="@string/account_login_sign_in"
