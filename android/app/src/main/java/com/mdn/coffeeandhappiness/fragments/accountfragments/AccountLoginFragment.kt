@@ -118,7 +118,7 @@ class AccountLoginFragment : Fragment() {
         var areCorrect = true
         val email = view?.findViewById<AppCompatEditText>(R.id.accountLoginEmail)?.text
         val password = view?.findViewById<AppCompatEditText>(R.id.accountLoginPassword)?.text
-        if (email!!.isEmpty()) {
+        if (email!!.isEmpty() || !isEmailValid(email.toString())) {
             val textHint = view.findViewById<TextView>(R.id.accountLoginEmailHint)
             textHint.visibility = View.VISIBLE
             areCorrect = false
@@ -136,6 +136,11 @@ class AccountLoginFragment : Fragment() {
             textHint.visibility = View.GONE
         }
         return areCorrect
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return email.matches(emailPattern.toRegex())
     }
 
     companion object {
