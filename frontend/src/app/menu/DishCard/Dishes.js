@@ -1,5 +1,4 @@
 "use client"
-import dishPic from '../../../../public/pizza.jpg'
 import styles from './Dishes.module.scss'
 import DishCard from "./DishCard";
 import { useEffect, useState } from 'react';
@@ -16,7 +15,7 @@ export default function Dishes({ tab }) {
     return (
         <div className={styles.container}>
             {data.map((item, index) => (
-                <DishCard key={index} {...item} />
+                <DishCard key={index} dish = {item} />
             ))}
         </div>
     )

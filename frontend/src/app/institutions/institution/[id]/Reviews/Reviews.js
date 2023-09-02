@@ -21,7 +21,7 @@ export default function Reviews() {
 
     return (
         <div>
-        {reviews.map(review => (
+        {reviews && reviews.map(review => (
             <Review key={review.id} {...review}/>
         ))}
         </div>
