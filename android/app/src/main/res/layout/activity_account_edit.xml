@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SCREEN_STYLE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AccountEditActivity">
+
+    <LinearLayout
+        android:id="@+id/accountEditActivityTopBar"
+        style="@style/FOOD_CARD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/accountEditActivityBackButton"
+            style="@style/FOOD_BACK_BUTTON"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:padding="5dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountEditActivityTopBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    style="@style/CODE_WAITER_CARD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="1000dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/accountEditPicture"
+                                style="@style/ACCOUNT_MAIN_PICTURE"
+                                android:layout_width="200dp"
+                                android:layout_height="200dp"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/baseline_person_black_24"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:layout_width="200dp"
+                                android:layout_height="200dp"
+                                android:alpha="0.5"
+                                android:background="@android:color/black"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/accountEditEditIcon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="30dp"
+                                android:src="@drawable/edit"
+                                app:layout_constraintBottom_toBottomOf="@+id/accountEditPicture"
+                                app:layout_constraintEnd_toEndOf="@+id/accountEditPicture"
+                                app:layout_constraintStart_toStartOf="@+id/accountEditPicture"
+                                app:layout_constraintTop_toTopOf="@+id/accountEditPicture" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/ACCOUNT_ENTER_BACKGROUND"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:padding="5dp"
+                        app:hintTextColor="@color/default_green">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/accountEditName"
+                            style="@style/ACCOUNT_REGISTER_ENTER_NAME"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="20dp"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:hint="@string/accountName"
+                            android:inputType="textPersonName"
+                            android:textColorHint="@color/gray_black_text"
+                            android:textSize="20sp"
+                            android:theme="@style/ACCOUNT_CURSOR" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/accountEditNameHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/account_register_name_hint"
+                        android:textColor="@color/default_red"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/ACCOUNT_ENTER_BACKGROUND"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:padding="5dp"
+                        app:hintTextColor="@color/default_green">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/accountEditSurname"
+                            style="@style/ACCOUNT_REGISTER_ENTER_NAME"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="20dp"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:hint="@string/accountSurname"
+                            android:inputType="textPersonName"
+                            android:textSize="20sp"
+                            android:theme="@style/ACCOUNT_CURSOR" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/accountEditSurnameHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/account_register_surname_hint"
+                        android:textColor="@color/default_red"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/ACCOUNT_ENTER_BACKGROUND"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:padding="5dp"
+                        app:hintTextColor="@color/default_green">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/accountEditPhone"
+                            style="@style/ACCOUNT_EDIT_PHONE"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="20dp"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:hint="Phone number"
+                            android:inputType="phone"
+                            android:textSize="20sp"
+                            android:theme="@style/ACCOUNT_CURSOR" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/accountEditPhoneHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/account_register_surname_hint"
+                        android:textColor="@color/default_red"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/accountLoginButton"
+                style="@style/ACCOUNT_ENTER_BUTTON"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/account_button"
+                android:fontFamily="@font/sofiasans_straight"
+                android:padding="15dp"
+                android:text="Save changes"
+                android:textSize="22sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/accountMainEditAccount"
+                    style="@style/ACCOUNT_MAIN_BUTTON"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sofiasans_straight"
+                    android:text="Change password"
+                    android:textSize="20sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/accountMainLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/account_button_logout"
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="Delete account"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

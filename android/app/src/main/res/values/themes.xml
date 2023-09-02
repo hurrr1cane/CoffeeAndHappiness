@@ -199,6 +199,11 @@
         <item name="background">@color/light_background_behind</item>
     </style>
 
+    <style name="ACCOUNT_EDIT_PHONE" parent="ACCOUNT_ENTER_TEXT">
+        <item name="android:drawableStart">@drawable/baseline_phone_black_24</item>
+    </style>
+
+
     <!-- Reviews section -->
     <style name="REVIEW_SEPARATE_LINE">
         <item name="android:background">@color/gray_white_text</item>
