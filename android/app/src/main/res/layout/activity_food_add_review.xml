@@ -107,6 +107,18 @@
             android:text="@string/food_review_submit"
             android:textSize="22sp" />
 
+        <TextView
+            android:id="@+id/foodAddReviewNoInternet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sofiasans_straight"
+            android:text="@string/internet_no_connection_error"
+            android:textColor="@color/default_red"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
     </LinearLayout>
 
 

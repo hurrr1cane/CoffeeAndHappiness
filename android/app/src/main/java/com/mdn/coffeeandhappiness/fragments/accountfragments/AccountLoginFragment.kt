@@ -12,8 +12,8 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -67,25 +67,44 @@ class AccountLoginFragment : Fragment() {
                     requireActivity().getSharedPreferences("Account", Context.MODE_PRIVATE)
                 val accountController = AccountController()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    val isLogged = accountController.login(email, password, sharedPreferences)
-                    launch(Dispatchers.Main) {
-                        if (isLogged) {
-                            val mainFragment = AccountMainFragment()
-                            val fragmentManager = requireActivity().supportFragmentManager
-                            val transaction = fragmentManager.beginTransaction()
-                            transaction.replace(R.id.accountFrame, mainFragment)
-                            transaction.addToBackStack(null) // Optional: Add to back stack for navigation
-                            transaction.commit()
-                            var editor = sharedPreferences.edit()
-                            editor.putBoolean("IsAccountLogged", true)
-                            editor.apply()
-                            val wrongCredentials =
-                                view.findViewById<TextView>(R.id.accountLoginWrong)
-                            wrongCredentials.visibility = View.GONE
-                        } else {
-                            val wrongCredentials =
-                                view.findViewById<TextView>(R.id.accountLoginWrong)
-                            wrongCredentials.visibility = View.VISIBLE
+                    try {
+                        val isLogged = accountController.login(email, password, sharedPreferences)
+                        launch(Dispatchers.Main) {
+                            val noInternet = view.findViewById<TextView>(R.id.accountLoginNoInternet)
+                            noInternet.visibility = View.GONE
+
+                            if (isLogged) {
+                                try {
+                                    lifecycleScope.launch(Dispatchers.IO) {
+                                        AccountController().updateMyself(sharedPreferences)
+                                    }
+                                } catch (e: NoInternetException) {
+
+                                }
+
+                                val mainFragment = AccountMainFragment()
+                                val fragmentManager = requireActivity().supportFragmentManager
+                                val transaction = fragmentManager.beginTransaction()
+                                transaction.replace(R.id.accountFrame, mainFragment)
+                                transaction.addToBackStack(null) // Optional: Add to back stack for navigation
+                                transaction.commit()
+                                var editor = sharedPreferences.edit()
+                                editor.putBoolean("IsAccountLogged", true)
+                                editor.apply()
+                                val wrongCredentials =
+                                    view.findViewById<TextView>(R.id.accountLoginWrong)
+                                wrongCredentials.visibility = View.GONE
+                            } else {
+                                val wrongCredentials =
+                                    view.findViewById<TextView>(R.id.accountLoginWrong)
+                                wrongCredentials.visibility = View.VISIBLE
+                            }
+                        }
+                    } catch(e: NoInternetException) {
+                        // Handle network-related error (no internet connection)
+                        launch(Dispatchers.Main) {
+                            val noInternet = view.findViewById<TextView>(R.id.accountLoginNoInternet)
+                            noInternet.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -99,7 +118,7 @@ class AccountLoginFragment : Fragment() {
         var areCorrect = true
         val email = view?.findViewById<AppCompatEditText>(R.id.accountLoginEmail)?.text
         val password = view?.findViewById<AppCompatEditText>(R.id.accountLoginPassword)?.text
-        if (email!!.isEmpty()) {
+        if (email!!.isEmpty() || !isEmailValid(email.toString())) {
             val textHint = view.findViewById<TextView>(R.id.accountLoginEmailHint)
             textHint.visibility = View.VISIBLE
             areCorrect = false
@@ -117,6 +136,11 @@ class AccountLoginFragment : Fragment() {
             textHint.visibility = View.GONE
         }
         return areCorrect
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return email.matches(emailPattern.toRegex())
     }
 
     companion object {

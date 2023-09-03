@@ -2,6 +2,7 @@ package com.mdn.coffeeandhappiness.controller
 
 import android.content.SharedPreferences
 import android.util.Log
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Review
 import com.mdn.coffeeandhappiness.tools.BackendAddress
@@ -76,6 +77,7 @@ class FoodController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
 
         }
@@ -109,6 +111,7 @@ class FoodController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
 
             foodList
@@ -143,6 +146,7 @@ class FoodController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
 
             myFood

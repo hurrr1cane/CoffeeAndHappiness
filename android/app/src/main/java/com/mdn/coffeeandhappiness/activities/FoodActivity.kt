@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.controller.FoodController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.PersonInReview
 import com.mdn.coffeeandhappiness.tools.FoodTypeTranslator
@@ -59,124 +60,140 @@ class FoodActivity : AppCompatActivity() {
         var currentFood: Food? = null
 
         lifecycleScope.launch(Dispatchers.IO) {
-            currentFood = foodController.getFood(foodId!!)
+            try {
+                currentFood = foodController.getFood(foodId!!)
 
-            // Update the UI on the main thread
-            launch(Dispatchers.Main) {
-                val foodPicture = findViewById<ImageView>(R.id.foodActivityImage)
-                val foodName = findViewById<TextView>(R.id.foodActivityName)
-                val foodType = findViewById<TextView>(R.id.foodActitityType)
-                val foodDescription = findViewById<TextView>(R.id.foodActivityDescription)
-                val foodIngredients = findViewById<TextView>(R.id.foodActivityIngredients)
-                val foodIngredientsLabel = findViewById<TextView>(R.id.foodActivityIngredientsLabel)
-                val foodWeight = findViewById<TextView>(R.id.foodActivityWeight)
-                val foodPrice = findViewById<TextView>(R.id.foodActivityPrice)
-                val foodRating = findViewById<TextView>(R.id.foodActivityRating)
-                val foodRatingBar = findViewById<AppCompatRatingBar>(R.id.foodActivityRatingBar)
+                // Update the UI on the main thread
+                launch(Dispatchers.Main) {
+                    val foodPicture = findViewById<ImageView>(R.id.foodActivityImage)
+                    val foodName = findViewById<TextView>(R.id.foodActivityName)
+                    val foodType = findViewById<TextView>(R.id.foodActitityType)
+                    val foodDescription = findViewById<TextView>(R.id.foodActivityDescription)
+                    val foodIngredients = findViewById<TextView>(R.id.foodActivityIngredients)
+                    val foodIngredientsLabel =
+                        findViewById<TextView>(R.id.foodActivityIngredientsLabel)
+                    val foodWeight = findViewById<TextView>(R.id.foodActivityWeight)
+                    val foodPrice = findViewById<TextView>(R.id.foodActivityPrice)
+                    val foodRating = findViewById<TextView>(R.id.foodActivityRating)
+                    val foodRatingBar = findViewById<AppCompatRatingBar>(R.id.foodActivityRatingBar)
 
-                val foodTypeTranslator = FoodTypeTranslator()
+                    val foodTypeTranslator = FoodTypeTranslator()
 
-                if (language == "uk") {
-                    foodName.text = currentFood?.nameUA
-                    foodType.text = foodTypeTranslator.translateTo("uk", currentFood?.type!!)
-                    foodDescription.text = currentFood?.descriptionUA
-                    if (currentFood?.ingredientsUA == "null") {
-                        foodIngredients.visibility = View.GONE
-                        foodIngredientsLabel.visibility = View.GONE
-                    } else {
-                        foodIngredients.visibility = View.VISIBLE
-                        foodIngredientsLabel.visibility = View.VISIBLE
-                        foodIngredients.text = currentFood?.ingredientsUA
+                    if (language == "uk") {
+                        foodName.text = currentFood?.nameUA
+                        foodType.text = foodTypeTranslator.translateTo("uk", currentFood?.type!!)
+                        foodDescription.text = currentFood?.descriptionUA
+                        if (currentFood?.ingredientsUA == "null") {
+                            foodIngredients.visibility = View.GONE
+                            foodIngredientsLabel.visibility = View.GONE
+                        } else {
+                            foodIngredients.visibility = View.VISIBLE
+                            foodIngredientsLabel.visibility = View.VISIBLE
+                            foodIngredients.text = currentFood?.ingredientsUA
+                        }
+                        val foodWeightText = currentFood?.weight.toString() + "г"
+                        foodWeight.text = foodWeightText
+                    } else if (language == "en") {
+                        foodName.text = currentFood?.nameEN
+                        foodType.text = foodTypeTranslator.translateTo("en", currentFood?.type!!)
+                        foodDescription.text = currentFood?.descriptionEN
+                        if (currentFood?.ingredientsEN == "null") {
+                            foodIngredients.visibility = View.GONE
+                            foodIngredientsLabel.visibility = View.GONE
+                        } else {
+                            foodIngredients.visibility = View.VISIBLE
+                            foodIngredientsLabel.visibility = View.VISIBLE
+                            foodIngredients.text = currentFood?.ingredientsEN
+                        }
+                        val foodWeightText = currentFood?.weight.toString() + "g"
+                        foodWeight.text = foodWeightText
                     }
-                    val foodWeightText = currentFood?.weight.toString() + "г"
-                    foodWeight.text = foodWeightText
-                } else if (language == "en") {
-                    foodName.text = currentFood?.nameEN
-                    foodType.text = foodTypeTranslator.translateTo("en", currentFood?.type!!)
-                    foodDescription.text = currentFood?.descriptionEN
-                    if (currentFood?.ingredientsEN == "null") {
-                        foodIngredients.visibility = View.GONE
-                        foodIngredientsLabel.visibility = View.GONE
+
+                    val foodPriceText = String.format("%.2f", currentFood?.price) + "₴"
+                    foodPrice.text = foodPriceText
+
+                    foodRating.text = String.format("%.1f", currentFood?.averageRating)
+
+                    foodRatingBar.rating = currentFood?.averageRating!!.toFloat()
+
+                    Glide.with(applicationContext)
+                        .load(currentFood?.imageUrl)
+                        .placeholder(R.drawable.default_placeholder_image)
+                        .error(R.drawable.default_error_image)
+                        .into(foodPicture)
+
+
+                    val viewAllReviews =
+                        findViewById<AppCompatButton>(R.id.foodActivityViewAllReviewsButton)
+                    if (currentFood?.reviews!!.size > 3) {
+                        viewAllReviews.visibility = View.VISIBLE
                     } else {
-                        foodIngredients.visibility = View.VISIBLE
-                        foodIngredientsLabel.visibility = View.VISIBLE
-                        foodIngredients.text = currentFood?.ingredientsEN
+                        viewAllReviews.visibility = View.GONE
                     }
-                    val foodWeightText = currentFood?.weight.toString() + "g"
-                    foodWeight.text = foodWeightText
-                }
 
-                val foodPriceText = String.format("%.2f", currentFood?.price) + "₴"
-                foodPrice.text = foodPriceText
+                    val reviewsContainer =
+                        findViewById<LinearLayout>(R.id.foodActivityReviewsSection)
 
-                foodRating.text = String.format("%.1f", currentFood?.averageRating)
+                    val count = if (currentFood!!.reviews.size > 3) {
+                        3
+                    } else currentFood!!.reviews.size
 
-                foodRatingBar.rating = currentFood?.averageRating!!.toFloat()
-
-                Glide.with(applicationContext)
-                    .load(currentFood?.imageUrl)
-                    .placeholder(R.drawable.default_placeholder_image)
-                    .error(R.drawable.default_error_image)
-                    .into(foodPicture)
-
-
-                val viewAllReviews =
-                    findViewById<AppCompatButton>(R.id.foodActivityViewAllReviewsButton)
-                if (currentFood?.reviews!!.size > 3) {
-                    viewAllReviews.visibility = View.VISIBLE
-                } else {
-                    viewAllReviews.visibility = View.GONE
-                }
-
-                val reviewsContainer = findViewById<LinearLayout>(R.id.foodActivityReviewsSection)
-
-                val count = if (currentFood!!.reviews.size > 3) {
-                    3
-                } else currentFood!!.reviews.size
-
-                for (i in 0 until count) {
-                    val accountController = AccountController()
-                    var personInReview: PersonInReview? = null
-                    lifecycleScope.launch() {
-                        personInReview = accountController.getById(currentFood!!.reviews[i].userId)
+                    for (i in 0 until count) {
+                        val accountController = AccountController()
+                        var personInReview: PersonInReview? = null
+                        lifecycleScope.launch() {
+                            try {
+                                personInReview =
+                                    accountController.getById(currentFood!!.reviews[i].userId)
 
 
-                        launch() {
-                            val cardView =
-                                layoutInflater.inflate(
-                                    R.layout.dynamic_card_review,
-                                    null
-                                ) as CardView
-                            val userPicture = cardView.findViewById<ImageView>(R.id.reviewPicture)
-                            val userName = cardView.findViewById<TextView>(R.id.reviewName)
-                            val userText = cardView.findViewById<TextView>(R.id.reviewText)
-                            val reviewRating =
-                                cardView.findViewById<AppCompatRatingBar>(R.id.reviewRatingBar)
+                                launch() {
+                                    val cardView =
+                                        layoutInflater.inflate(
+                                            R.layout.dynamic_card_review,
+                                            null
+                                        ) as CardView
+                                    val userPicture =
+                                        cardView.findViewById<ImageView>(R.id.reviewPicture)
+                                    val userName = cardView.findViewById<TextView>(R.id.reviewName)
+                                    val userText = cardView.findViewById<TextView>(R.id.reviewText)
+                                    val reviewRating =
+                                        cardView.findViewById<AppCompatRatingBar>(R.id.reviewRatingBar)
 
 
-                            Glide.with(applicationContext)
-                                .load(personInReview!!.imageUrl)
-                                .placeholder(R.drawable.baseline_person_white_24)
-                                .error(R.drawable.baseline_person_white_24)
-                                .into(userPicture)
+                                    Glide.with(applicationContext)
+                                        .load(personInReview!!.imageUrl)
+                                        .placeholder(R.drawable.baseline_person_white_24)
+                                        .error(R.drawable.baseline_person_white_24)
+                                        .into(userPicture)
 
-                            userName.text =
-                                personInReview!!.firstName + " " + personInReview!!.lastName
+                                    userName.text =
+                                        personInReview!!.firstName + " " + personInReview!!.lastName
 
-                            reviewRating.rating = currentFood!!.reviews[i].rating.toFloat()
-                            userText.text = currentFood!!.reviews[i].comment
+                                    reviewRating.rating = currentFood!!.reviews[i].rating.toFloat()
+                                    userText.text = currentFood!!.reviews[i].comment
 
-                            val layoutParams = LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT
-                            )
-                            cardView.layoutParams = layoutParams
+                                    val layoutParams = LinearLayout.LayoutParams(
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.WRAP_CONTENT
+                                    )
+                                    cardView.layoutParams = layoutParams
 
-                            reviewsContainer.addView(cardView)
+                                    reviewsContainer.addView(cardView)
+                                }
+                            } catch (e: NoInternetException) {
+                                //Do nothing
+                            }
                         }
                     }
-                }
 
+                }
+            } catch (e: NoInternetException) {
+                launch(Dispatchers.Main) {
+                    val foodPicture = findViewById<ImageView>(R.id.foodActivityImage)
+                    foodPicture.setImageResource(R.drawable.disconnected)
+                    foodPicture.scaleType = ImageView.ScaleType.FIT_CENTER
+                }
             }
         }
 

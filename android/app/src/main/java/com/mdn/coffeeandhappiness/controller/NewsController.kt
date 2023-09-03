@@ -1,5 +1,6 @@
 package com.mdn.coffeeandhappiness.controller
 
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.News
 import com.mdn.coffeeandhappiness.tools.BackendAddress
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +58,7 @@ class NewsController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
 
             newsList
@@ -104,6 +106,7 @@ class NewsController {
             } catch (e: IOException) {
                 // Handle failure, such as network issues
                 e.printStackTrace()
+                throw NoInternetException()
             }
 
             news

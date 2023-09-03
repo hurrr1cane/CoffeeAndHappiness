@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.adapter.HomeNewsRecyclerViewAdapter
 import com.mdn.coffeeandhappiness.controller.NewsController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.News
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -62,18 +63,24 @@ class HomeFragment : Fragment() {
 
         // Use lifecycleScope.launch to call getFood asynchronously
         lifecycleScope.launch(Dispatchers.IO) {
-            val listOfNews = NewsController().getNews()
+            try {
+                val listOfNews = NewsController().getNews()
 
 
+                // Update the UI on the main thread
+                launch(Dispatchers.Main) {
 
-            // Update the UI on the main thread
-            launch(Dispatchers.Main) {
-
-                noInternetConnection(rootView, listOfNews)
-
-                val adapter =
-                    HomeNewsRecyclerViewAdapter(requireContext(), listOfNews) // Provide your data here
-                recyclerView.adapter = adapter
+                    val adapter =
+                        HomeNewsRecyclerViewAdapter(
+                            requireContext(),
+                            listOfNews
+                        ) // Provide your data here
+                    recyclerView.adapter = adapter
+                }
+            } catch (e: NoInternetException) {
+                launch (Dispatchers.Main) {
+                    noInternetConnection(rootView)
+                }
             }
         }
 
@@ -81,15 +88,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun noInternetConnection(
-        rootView: View,
-        listOfNews: MutableList<News>
+        rootView: View
     ) {
         val noInternet = rootView.findViewById<LinearLayout>(R.id.homeNoInternet)
-        if (listOfNews.size == 0) {
             noInternet.visibility = View.VISIBLE
-        } else {
-            noInternet.visibility = View.GONE
-        }
+
     }
 
     private fun setVideo(

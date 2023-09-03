@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.fragments.codefragments.CodeWaiterFragment
 import com.mdn.coffeeandhappiness.fragments.codefragments.CodeUnloggedFragment
 import com.mdn.coffeeandhappiness.fragments.codefragments.CodeUserFragment
@@ -47,12 +48,15 @@ class CodeFragment : Fragment() {
 
         val accountController = AccountController()
         lifecycleScope.launch(Dispatchers.IO) {
-            accountController.updateMyself(
-                requireContext().getSharedPreferences(
-                    "Account",
-                    Context.MODE_PRIVATE
+            try {
+                accountController.updateMyself(
+                    requireContext().getSharedPreferences(
+                        "Account",
+                        Context.MODE_PRIVATE
+                    )
                 )
-            )
+            } catch (e: NoInternetException) {
+            }
         }
 
         val sharedPreferences =

@@ -42,7 +42,7 @@
     <!-- This is an account section -->
     <string name="account_login_top_text">Login to account</string>
     <string name="account_email">Email</string>
-    <string name="account_email_hint">Please, enter email</string>
+    <string name="account_email_hint">Please, enter valid email</string>
     <string name="account_password">Password</string>
     <string name="account_password_hint">Please, enter password</string>
     <string name="account_login_wrong_password">The password is incorrect or account doesn\'t exist</string>
@@ -90,7 +90,8 @@
     <string name="code_waiter_spend_points">Spend points</string>
 
 
-
     <string name="internet_no_connection">We can\'t connect to the server</string>
+    <string name="internet_no_connection_error">There is no connection to the server</string>
+    <string name="empty_page_text">Wow, so empty!</string>
 
 </resources>

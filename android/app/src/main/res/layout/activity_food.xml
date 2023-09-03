@@ -46,8 +46,7 @@
                     android:id="@+id/foodActivityImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@raw/news_1" />
+                    android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -70,7 +69,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sofiasans_straight"
-                        android:text="Smoothie"
                         android:textSize="35sp" />
 
                     <TextView
@@ -80,7 +78,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sofiasans_straight"
                         android:gravity="end"
-                        android:text="Dessert"
                         android:textSize="20sp" />
 
                     <TextView
@@ -98,7 +95,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sofiasans_straight"
-                        android:text="Nsdoo osdo ao djsk ja dfkfjsas  fjfejjf sjkkjcdcjkssjlcjd djcksdskl ccjd"
                         android:textSize="20sp" />
 
                     <TextView
@@ -117,7 +113,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sofiasans_straight"
-                        android:text="Asddf nsjdadhkfalkdsa klsa k sl skd, hfjhs m , dsjsdak"
                         android:textSize="20sp" />
 
                     <LinearLayout
@@ -139,9 +134,8 @@
                             style="@style/FOOD_TEXT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
                             android:fontFamily="@font/sofiasans_straight"
-                            android:text="200kg"
                             android:textSize="20sp" />
                     </LinearLayout>
 
@@ -166,7 +160,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/sofiasans_straight"
-                            android:text="10000000$"
                             android:textSize="20sp" />
                     </LinearLayout>
 
@@ -207,7 +200,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/sofiasans_straight"
-                            android:text="0.1"
                             android:textSize="20sp" />
 
                     </LinearLayout>

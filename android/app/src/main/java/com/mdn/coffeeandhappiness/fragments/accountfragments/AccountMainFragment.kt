@@ -18,6 +18,7 @@ import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.activities.AccountReviewsActivity
 import com.mdn.coffeeandhappiness.activities.FoodActivity
 import com.mdn.coffeeandhappiness.controller.AccountController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -53,12 +54,16 @@ class AccountMainFragment : Fragment() {
 
         val accountController = AccountController()
         lifecycleScope.launch(Dispatchers.IO) {
-            accountController.updateMyself(
-                requireContext().getSharedPreferences(
-                    "Account",
-                    Context.MODE_PRIVATE
+            try {
+                accountController.updateMyself(
+                    requireContext().getSharedPreferences(
+                        "Account",
+                        Context.MODE_PRIVATE
+                    )
                 )
-            )
+            } catch (e: NoInternetException) {
+
+            }
         }
 
         val logoutButton = view.findViewById<AppCompatButton>(R.id.accountMainLogout)

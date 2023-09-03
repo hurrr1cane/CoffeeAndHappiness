@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.adapter.FoodRecyclerViewAdapter
 import com.mdn.coffeeandhappiness.controller.FoodController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Food
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,33 +56,29 @@ class MenuSaladsFragment : Fragment() {
 
         // Use lifecycleScope.launch to call getFood asynchronously
         lifecycleScope.launch(Dispatchers.IO) {
-            val listOfFood = FoodController().getFood("salad")
+            try {
+                val listOfFood = FoodController().getFood("salad")
 
-            // Update the UI on the main thread
-            launch(Dispatchers.Main) {
-
-                noInternetConnection(rootView, listOfFood)
-
-                val adapter =
-                    FoodRecyclerViewAdapter(requireContext(), listOfFood) // Provide your data here
-                recyclerView.adapter = adapter
+                // Update the UI on the main thread
+                launch(Dispatchers.Main) {
+                    val adapter =
+                        FoodRecyclerViewAdapter(
+                            requireContext(),
+                            listOfFood
+                        ) // Provide your data here
+                    recyclerView.adapter = adapter
+                }
+            } catch (e: NoInternetException) {
+                launch(Dispatchers.Main) {
+                    val noInternet = rootView.findViewById<LinearLayout>(R.id.menuSaladsNoInternet)
+                    noInternet.visibility = View.VISIBLE
+                }
             }
         }
 
         return rootView
     }
 
-    private fun noInternetConnection(
-        rootView: View,
-        listOfFood: MutableList<Food>
-    ) {
-        val noInternet = rootView.findViewById<LinearLayout>(R.id.menuSaladsNoInternet)
-        if (listOfFood.size == 0) {
-            noInternet.visibility = View.VISIBLE
-        } else {
-            noInternet.visibility = View.GONE
-        }
-    }
 
     companion object {
         /**

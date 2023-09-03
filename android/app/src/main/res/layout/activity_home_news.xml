@@ -56,7 +56,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/sofiasans_straight"
-                    android:text="Smoothie"
                     android:textSize="35sp" />
 
                 <TextView
@@ -66,7 +65,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/sofiasans_straight"
-                    android:text="adsad"
                     android:textSize="20sp" />
 
                 <TextView
@@ -77,7 +75,6 @@
                     android:layout_margin="10dp"
                     android:fontFamily="@font/sofiasans_straight"
                     android:gravity="end"
-                    android:text="23.02.2023"
                     android:textSize="16sp" />
 
             </LinearLayout>

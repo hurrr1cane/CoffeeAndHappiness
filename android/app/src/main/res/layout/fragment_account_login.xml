@@ -15,7 +15,6 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -124,6 +123,17 @@
                 android:textSize="22sp" />
 
             <TextView
+                android:id="@+id/accountLoginNoInternet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="@string/internet_no_connection_error"
+                android:textColor="@color/default_red"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <TextView
                 style="@style/ACCOUNT_TEXT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,12 +157,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp">
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     style="@style/ACCOUNT_TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/sofiasans_straight"
                     android:text="@string/account_login_dont_have"
                     android:textSize="18sp" />
@@ -161,6 +173,7 @@
                     android:id="@+id/changeFragmentToSignup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="3dp"
                     android:fontFamily="@font/sofiasans_straight"
                     android:text="@string/account_sign_up"

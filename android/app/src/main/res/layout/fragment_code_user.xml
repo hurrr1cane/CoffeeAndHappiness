@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/sofiasans_straight"
-                    android:text="20"
+                    android:text="0"
                     android:textColor="@color/white_text"
                     android:textSize="40sp" />
 
@@ -111,6 +111,17 @@
                 android:text="@string/code_view_your_orders"
                 android:textSize="20sp" />
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/codeUserNoInternet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:fontFamily="@font/sofiasans_straight"
+            android:text="@string/internet_no_connection_error"
+            android:textColor="@color/default_red"
+            android:textSize="18sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
