@@ -74,6 +74,12 @@
     <string name="account_main_reviews_food">Відгуки про їжу</string>
     <string name="account_main_reviews_cafe">Відгуки про кафе</string>
 
+    <string name="account_edit_phone">Номер телефону</string>
+    <string name="account_edit_phone_hint">Будь ласка, введіть свій номер телефону в правильному форматі (380…)</string>
+    <string name="account_edit_save_changes">Зберегти зміни</string>
+    <string name="account_edit_change_password">Змінити пароль</string>
+    <string name="account_edit_delete_account">Видалити акаунт</string>
+
     <!-- This is a code section -->
     <string name="code_user_show_qr">Покажіть свій QR код офіціанту</string>
     <string name="code_user_balance">Баланс</string>
