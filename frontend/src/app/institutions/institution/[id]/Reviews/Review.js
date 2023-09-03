@@ -6,7 +6,7 @@ import axios from 'axios'
 import Image from 'next/image'
 import { Rating } from '@mui/material'
 import { Fab } from '@mui/material'
-import CloseIcon from '@mui/icons-material'
+import CloseIcon from '@mui/icons-material/Close'
 
 export default function Review( props ) {
 
