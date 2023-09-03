@@ -47,53 +47,85 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        app:cardCornerRadius="1000dp">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/accountEditPictureContainer"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            app:cardCornerRadius="1000dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                            <ImageView
-                                android:id="@+id/accountEditPicture"
-                                style="@style/ACCOUNT_MAIN_PICTURE"
-                                android:layout_width="200dp"
-                                android:layout_height="200dp"
-                                android:layout_gravity="center"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/baseline_person_black_24"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <View
-                                android:layout_width="200dp"
-                                android:layout_height="200dp"
-                                android:alpha="0.5"
-                                android:background="@android:color/black"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <ImageView
-                                android:id="@+id/accountEditEditIcon"
+                            <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="30dp"
-                                android:src="@drawable/edit"
-                                app:layout_constraintBottom_toBottomOf="@+id/accountEditPicture"
-                                app:layout_constraintEnd_toEndOf="@+id/accountEditPicture"
-                                app:layout_constraintStart_toStartOf="@+id/accountEditPicture"
-                                app:layout_constraintTop_toTopOf="@+id/accountEditPicture" />
+                                android:layout_height="wrap_content">
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </androidx.cardview.widget.CardView>
+                                <ImageView
+                                    android:id="@+id/accountEditPicture"
+                                    style="@style/ACCOUNT_MAIN_PICTURE"
+                                    android:layout_width="200dp"
+                                    android:layout_height="200dp"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/baseline_person_black_24"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <View
+                                    android:layout_width="200dp"
+                                    android:layout_height="200dp"
+                                    android:alpha="0.5"
+                                    android:background="@android:color/black"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/accountEditEditIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="30dp"
+                                    android:src="@drawable/edit"
+                                    app:layout_constraintBottom_toBottomOf="@+id/accountEditPicture"
+                                    app:layout_constraintEnd_toEndOf="@+id/accountEditPicture"
+                                    app:layout_constraintStart_toStartOf="@+id/accountEditPicture"
+                                    app:layout_constraintTop_toTopOf="@+id/accountEditPicture" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <ImageButton
+                            android:id="@+id/accountEditDeletePicture"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/code_waiter_button_delete"
+                            android:padding="5dp"
+                            android:src="@drawable/baseline_delete_white_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/accountEditPictureContainer"
+                            app:layout_constraintRight_toRightOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/accountEditNoInternet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/sofiasans_straight"
+                        android:text="@string/internet_no_connection_error"
+                        android:textColor="@color/default_red"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/ACCOUNT_ENTER_BACKGROUND"
@@ -124,6 +156,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="@font/sofiasans_straight"
                         android:text="@string/account_register_name_hint"
@@ -159,6 +192,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="@font/sofiasans_straight"
                         android:text="@string/account_register_surname_hint"
@@ -181,7 +215,7 @@
                             android:layout_height="wrap_content"
                             android:drawablePadding="20dp"
                             android:fontFamily="@font/sofiasans_straight"
-                            android:hint="Phone number"
+                            android:hint="@string/account_edit_phone"
                             android:inputType="phone"
                             android:textSize="20sp"
                             android:theme="@style/ACCOUNT_CURSOR" />
@@ -194,9 +228,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="@font/sofiasans_straight"
-                        android:text="@string/account_register_surname_hint"
+                        android:text="@string/account_edit_phone_hint"
                         android:textColor="@color/default_red"
                         android:textSize="18sp"
                         android:visibility="gone" />
@@ -205,7 +240,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/accountLoginButton"
+                android:id="@+id/accountEditSaveChanges"
                 style="@style/ACCOUNT_ENTER_BUTTON"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -213,7 +248,7 @@
                 android:background="@drawable/account_button"
                 android:fontFamily="@font/sofiasans_straight"
                 android:padding="15dp"
-                android:text="Save changes"
+                android:text="@string/account_edit_save_changes"
                 android:textSize="22sp" />
 
             <androidx.cardview.widget.CardView
@@ -223,23 +258,24 @@
                 app:cardCornerRadius="10dp">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/accountMainEditAccount"
+                    android:id="@+id/accountEditChangePassword"
                     style="@style/ACCOUNT_MAIN_BUTTON"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sofiasans_straight"
-                    android:text="Change password"
+                    android:text="@string/account_edit_change_password"
                     android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/accountMainLogout"
+                android:id="@+id/accountEditDeleteAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/account_button_logout"
                 android:fontFamily="@font/sofiasans_straight"
-                android:text="Delete account"
+                android:text="@string/account_edit_delete_account"
+                android:textColor="@color/white_text"
                 android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>

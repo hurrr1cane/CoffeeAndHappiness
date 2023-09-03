@@ -18,8 +18,8 @@
             android:layout_height="wrap_content">
 
             <TextView
-                style="@style/FOOD_TEXT"
                 android:id="@+id/cardCodeOrderDate"
+                style="@style/FOOD_TEXT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -60,14 +60,14 @@
             </LinearLayout>
 
             <TextView
-                style="@style/FOOD_TEXT"
                 android:id="@+id/cardCodeOrderPrice"
+                style="@style/FOOD_TEXT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:fontFamily="@font/sofiasans_straight"
                 android:gravity="end"
                 android:text="20uah"
-                android:layout_margin="8dp"
                 android:textSize="20sp" />
         </LinearLayout>
 

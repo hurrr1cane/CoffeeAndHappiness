@@ -5,6 +5,7 @@ data class Person(
     var firstName: String,
     var lastName: String,
     var email: String,
+    var phoneNumber: String,
     var imageUrl: String,
     var role: String,
     var bonusPoints: Int

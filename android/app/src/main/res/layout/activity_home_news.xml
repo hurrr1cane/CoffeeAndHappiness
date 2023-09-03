@@ -68,8 +68,8 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    style="@style/HOME_NEWS_ADDITIONAL_TEXT"
                     android:id="@+id/homeNewsActivityDate"
+                    style="@style/HOME_NEWS_ADDITIONAL_TEXT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

@@ -64,11 +64,11 @@
     };
     return (
       <nav className={styles.navbar}>
-        <div className={styles.highlight} style={{
+        {/* <div className={styles.highlight} style={{
         left: stylesData.highlightLeft,
         width: stylesData.highlightWidth,
         height: stylesData.highlightHeight
-      }}></div>
+      }}></div> */}
         <Link ref={tabRefs.home} onClick={() => {handleTabClick('home')}} className={`${styles.link} ${stylesData.selectedTab === 'home' ? styles.selected : '' }`} href="/"><h1>Home</h1></Link>
         <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${stylesData.selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>Institutions</h1></Link>
         <Link ref={tabRefs.menu} onClick={() => {handleTabClick('menu')}} className={`${styles.link} ${stylesData.selectedTab === 'menu' ? styles.selected : '' }`} href="/menu"><h1>Menu</h1></Link>

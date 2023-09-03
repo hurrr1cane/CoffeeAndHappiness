@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SCREEN_STYLE"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/SCREEN_STYLE"
     tools:context=".activities.CodeMyOrdersActivity">
 
     <LinearLayout
@@ -25,16 +25,15 @@
     </LinearLayout>
 
 
-
     <LinearLayout
-        app:layout_constraintTop_toBottomOf="@+id/codeMyOrdersActivityTopBar"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/codeMyOrdersActivityNoInternet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeMyOrdersActivityTopBar">
 
         <ImageView
             android:layout_width="120dp"
@@ -55,14 +54,14 @@
     </LinearLayout>
 
     <LinearLayout
-        app:layout_constraintTop_toBottomOf="@+id/codeMyOrdersActivityTopBar"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/codeMyOrdersActivityEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeMyOrdersActivityTopBar">
 
         <ImageView
             android:layout_width="120dp"

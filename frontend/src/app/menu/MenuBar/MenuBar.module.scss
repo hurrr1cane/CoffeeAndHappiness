@@ -4,7 +4,6 @@ $green: #4caf50;
     align-items: center;
     justify-content: space-evenly;
     display: flex;
-    margin-top: 1rem;
     margin-bottom: 1rem;
     border-radius: 30px;
     width: 80vw;
@@ -13,6 +12,7 @@ $green: #4caf50;
     outline: 2px solid $green;
         
     .menuItem {
+        white-space: nowrap;
         font-size: 22px;
         font-weight: 500;
         padding: 1rem;
