@@ -263,6 +263,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sofiasans_straight"
+                    android:padding="15dp"
                     android:text="@string/account_edit_change_password"
                     android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
@@ -274,6 +275,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/account_button_logout"
                 android:fontFamily="@font/sofiasans_straight"
+                android:padding="15dp"
                 android:text="@string/account_edit_delete_account"
                 android:textColor="@color/white_text"
                 android:textSize="20sp" />

@@ -191,7 +191,7 @@
     </style>
 
     <style name="ACCOUNT_MAIN_BUTTON">
-        <item name="android:background">@color/light_background_main</item>
+        <item name="android:background">@drawable/button_square_white</item>
         <item name="android:textColor">@color/black_text</item>
     </style>
 

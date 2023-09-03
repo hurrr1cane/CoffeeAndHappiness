@@ -178,7 +178,7 @@
     </style>
 
     <style name="ACCOUNT_MAIN_BUTTON">
-        <item name="android:background">@color/dark_background_main</item>
+        <item name="android:background">@drawable/button_square_black</item>
         <item name="android:textColor">@color/white_text</item>
     </style>
 
