@@ -57,6 +57,7 @@ public class UserService {
         if (user.getFirstName() != null) myself.setFirstName(user.getFirstName());
         if (user.getLastName() != null) myself.setLastName(user.getLastName());
         if (user.getImageUrl() != null) myself.setImageUrl(user.getImageUrl());
+        if (user.getPhoneNumber() != null) myself.setPhoneNumber(user.getPhoneNumber());
 
         return userRepository.save(myself);
     }

@@ -12,5 +12,6 @@ public class UserEditRequest {
     private String firstName;
     private String lastName;
     private String imageUrl;
+    private String phoneNumber;
 
 }
