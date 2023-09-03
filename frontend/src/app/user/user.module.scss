@@ -1,32 +1,42 @@
 .main {
-
     margin-right: 5rem;
     border-radius: 15px;
-    box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    width: 20%;
-    height: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    min-width: 15%;
+    // width: 20%;
+    height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 2rem;
+    padding: 1rem;
+  
     .image {
-        margin: 1rem;
+      margin: 1rem;
     }
+  
     .user {
-                display: flex;
-        flex-direction: column;
+      display: flex;
+      flex-direction: column;
+  
+      h1 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
+  
     .info {
-        margin-top: 1rem;
-        h2 {
-            font-weight: 500;
-        }
-        
-    }   
-}
-
-.container {
+      margin-top: 1rem;
+      h2 {
+        font-weight: 500;
+      }
+    }
+  }
+  
+  .container {
     margin-top: 1.5rem;
     display: flex;
     padding: 1rem;
-}
+    flex-wrap: wrap;
+  }
+  
