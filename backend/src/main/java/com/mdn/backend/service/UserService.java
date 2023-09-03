@@ -81,6 +81,7 @@ public class UserService {
         User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
 
+        storageService.deleteImage("user", user.getId());
         String imageUrl = storageService.saveImage(image, "user", user.getId());
 
         user.setImageUrl(imageUrl);
