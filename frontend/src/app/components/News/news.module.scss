@@ -1,0 +1,25 @@
+.container {
+    column-count: 3;
+    column-gap: 1;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+        .card {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        display: inline-block;
+        width: 100%;
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+      }
+    .image {
+        object-fit: contain;
+    }
+  }
+  
