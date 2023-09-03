@@ -39,27 +39,28 @@ $lightgreen: #66bb69;
 // }
 
   
-// @keyframes selectedTabAnimation {
-//     0% {
-//       transform: scale(1);
-//     }
-//     50% {
-//       transform: scale(1.1);
-//     }
-//     100% {
-//       transform: scale(1);
+@keyframes selectedTabAnimation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
       
-//     }
-//   }
+    }
+  }
  
 .selected {
     color: white !important;
-    // animation: selectedTabAnimation 0.3s ease; 
-    // color: $lightgreen !important;
-    // &:after {
-    //     background-color: inherit !important;   
-    // }
-    transform: translateY(-2px);
+    animation: selectedTabAnimation 0.3s ease; 
+    color: white !important;
+    background-color: #66bb69;
+    &:after {
+        background-color: inherit !important;   
+    }
+    transform: translateY(-3px);
   }
 
 .link {
@@ -87,7 +88,7 @@ $lightgreen: #66bb69;
         cursor: pointer;
         color: white;
         transition: transform 0.3s ease;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
     }
     &:nth-of-type(5) {
       // margin-right: 5rem;
@@ -106,4 +107,8 @@ $lightgreen: #66bb69;
   height: 9.25dvh;
   background-color: $lightgreen;
   transition: left 0.3s, width 0.3s;
+}
+
+@media (max-width: 768px) {
+  
 }
