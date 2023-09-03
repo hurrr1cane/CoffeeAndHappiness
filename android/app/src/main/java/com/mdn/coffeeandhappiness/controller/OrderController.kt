@@ -164,6 +164,8 @@ class OrderController {
 
                     listOfOrders = parseOrdersFromJson(responseBody)
 
+                    listOfOrders = listOfOrders.sortedByDescending {it.id}.toMutableList()
+
 
                 }
             } catch (e: IOException) {

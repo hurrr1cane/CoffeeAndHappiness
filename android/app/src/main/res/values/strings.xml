@@ -73,6 +73,12 @@
     <string name="account_main_reviews_food">Food reviews</string>
     <string name="account_main_reviews_cafe">Cafe reviews</string>
 
+    <string name="account_edit_phone">Phone number</string>
+    <string name="account_edit_phone_hint">Please, enter your phone number in correct format (380…)</string>
+    <string name="account_edit_save_changes">Save changes</string>
+    <string name="account_edit_change_password">Change password</string>
+    <string name="account_edit_delete_account">Delete account</string>
+
     <!-- This is a code section -->
     <string name="code_user_show_qr">Show your QR code to waiter</string>
     <string name="code_user_balance">Balance</string>

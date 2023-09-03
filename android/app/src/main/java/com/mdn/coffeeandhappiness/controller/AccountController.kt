@@ -1,8 +1,10 @@
 package com.mdn.coffeeandhappiness.controller
 
+import android.content.Context
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import com.google.gson.Gson
 import com.mdn.coffeeandhappiness.exception.NoInternetException
@@ -11,10 +13,14 @@ import com.mdn.coffeeandhappiness.model.PersonInReview
 import com.mdn.coffeeandhappiness.tools.BackendAddress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 
 class AccountController {
@@ -147,6 +153,7 @@ class AccountController {
         editor.putString("RefreshToken", "")
         editor.putString("Email", "")
         editor.putString("Name", "")
+        editor.putString("PhoneNumber", "")
         editor.putString("Surname", "")
         editor.putString("Password", "")
         editor.putBoolean("IsAccountLogged", false)
@@ -351,6 +358,7 @@ class AccountController {
                     editor.putString("Name", person.firstName)
                     editor.putString("Surname", person.lastName)
                     editor.putString("Email", person.email)
+                    editor.putString("PhoneNumber", person.phoneNumber)
                     editor.putString("ImageUrl", person.imageUrl)
                     editor.putString("Role", person.role)
                     editor.putInt("BonusPoints", person.bonusPoints)
@@ -402,6 +410,153 @@ class AccountController {
                 throw NoInternetException()
             }
             person
+        }
+    }
+
+    suspend fun updatePicture(sharedPreferences: SharedPreferences, uri: Uri, context: Context) {
+        return withContext(Dispatchers.IO) {
+            val contentResolver = context.contentResolver
+
+            // Create an InputStream from the Uri
+            val inputStream = contentResolver.openInputStream(uri)
+
+            if (inputStream != null) {
+                // Create a temporary file to store the image
+                val tempFile = File(context.cacheDir, "temp_image.jpg")
+
+                // Use an OutputStream to copy the contents of the InputStream to the file
+                val outputStream = FileOutputStream(tempFile)
+
+                inputStream.use { input ->
+                    outputStream.use { output ->
+                        input.copyTo(output)
+                    }
+                }
+
+                // Now, you can use tempFile for your HTTP request
+
+                val url = "${BackendAddress().address}/api/user/me/image/add"
+                val token = sharedPreferences.getString("AccessToken", "")
+
+                // Create an OkHttpClient instance
+                val client = OkHttpClient()
+
+                // Create a request body with the image file
+                val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), tempFile)
+
+                // Create a multi-part request
+                val request = Request.Builder()
+                    .url(url) // Replace with your server URL
+                    .post(
+                        MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("image", tempFile.name, requestBody)
+                            .build()
+                    )
+                    .addHeader("Authorization", "Bearer $token")
+                    .addHeader("Accept-Encoding", "gzip, deflate, br")
+                    .build()
+
+                try {
+                    // Execute the request
+                    val response = client.newCall(request).execute()
+
+                    // Handle the response as needed
+                    if (response.isSuccessful) {
+                        val responseBody = response.body?.string()
+                        // Do something with the response
+                    } else {
+                        // Handle the error
+                    }
+                } catch (e: IOException) {
+                    throw NoInternetException()
+                }
+            }
+        }
+    }
+
+    suspend fun deletePicture(sharedPreferences: SharedPreferences) {
+        return withContext(Dispatchers.IO) {
+            val url = "${BackendAddress().address}/api/user/me/image/delete"
+
+            val token = sharedPreferences.getString("AccessToken", "")
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create a multi-part request
+            val request = Request.Builder()
+                .url(url) // Replace with your server URL
+                .delete()
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Execute the request
+                val response = client.newCall(request).execute()
+
+                // Handle the response as needed
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+                    // Do something with the response
+                } else {
+                    // Handle the error
+                }
+            } catch (e: IOException) {
+                throw NoInternetException()
+            }
+
+        }
+    }
+
+    suspend fun updateInformation(sharedPreferences: SharedPreferences, name: String, surname: String, phone: String) {
+        return withContext(Dispatchers.IO) {
+            val url = "${BackendAddress().address}/api/user/me/edit"
+
+
+            val json = """
+                {
+                   "firstName": "$name",
+                   "lastName": "$surname",
+                   "phoneNumber": "$phone"
+                }
+            """.trimIndent()
+
+            // Set the media type as JSON
+            val mediaType = "application/json; charset=utf-8".toMediaType()
+
+            // Create a request body
+            val requestBody = json.toRequestBody(mediaType)
+
+            val token = sharedPreferences.getString("AccessToken", "")
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create a multi-part request
+            val request = Request.Builder()
+                .url(url) // Replace with your server URL
+                .put(requestBody)
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Execute the request
+                val response = client.newCall(request).execute()
+
+                // Handle the response as needed
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+                    // Do something with the response
+                } else {
+                    // Handle the error
+                }
+            } catch (e: IOException) {
+                throw NoInternetException()
+            }
+
         }
     }
 

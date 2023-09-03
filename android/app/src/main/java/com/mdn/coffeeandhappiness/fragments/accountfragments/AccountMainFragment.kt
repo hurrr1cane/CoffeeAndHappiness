@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.activities.AccountEditActivity
 import com.mdn.coffeeandhappiness.activities.AccountReviewsActivity
 import com.mdn.coffeeandhappiness.activities.FoodActivity
 import com.mdn.coffeeandhappiness.controller.AccountController
@@ -109,6 +110,14 @@ class AccountMainFragment : Fragment() {
         myReviews.setOnClickListener() {
             // Handle the click event here, for example, open a new activity with details
             val intent = Intent(context, AccountReviewsActivity::class.java)
+            requireContext().startActivity(intent)
+        }
+
+
+        val editAccount = view.findViewById<AppCompatButton>(R.id.accountMainEditAccount)
+
+        editAccount.setOnClickListener() {
+            val intent = Intent(context, AccountEditActivity::class.java)
             requireContext().startActivity(intent)
         }
 
