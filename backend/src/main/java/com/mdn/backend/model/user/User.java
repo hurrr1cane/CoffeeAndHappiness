@@ -53,6 +53,9 @@ public class User implements UserDetails {
             message = "Image URL must start with http:// or https://")
     private String imageUrl;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     @Hidden

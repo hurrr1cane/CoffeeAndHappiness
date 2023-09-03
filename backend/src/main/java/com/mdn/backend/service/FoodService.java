@@ -115,6 +115,7 @@ public class FoodService {
                 () -> new FoodNotFoundException("No such food with id " + foodId + " found")
         );
 
+        storageService.deleteImage("food", foodId);
         String imageUrl = storageService.saveImage(image, "food", foodId);
 
         food.setImageUrl(imageUrl);

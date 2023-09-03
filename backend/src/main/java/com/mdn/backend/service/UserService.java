@@ -57,6 +57,7 @@ public class UserService {
         if (user.getFirstName() != null) myself.setFirstName(user.getFirstName());
         if (user.getLastName() != null) myself.setLastName(user.getLastName());
         if (user.getImageUrl() != null) myself.setImageUrl(user.getImageUrl());
+        if (user.getPhoneNumber() != null) myself.setPhoneNumber(user.getPhoneNumber());
 
         return userRepository.save(myself);
     }
@@ -81,6 +82,7 @@ public class UserService {
         User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
 
+        storageService.deleteImage("user", user.getId());
         String imageUrl = storageService.saveImage(image, "user", user.getId());
 
         user.setImageUrl(imageUrl);
