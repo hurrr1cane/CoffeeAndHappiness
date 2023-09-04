@@ -1,4 +1,4 @@
-package com.mdn.backend.service;
+package com.mdn.backend.auth.forgotpassword;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
