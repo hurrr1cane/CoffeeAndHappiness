@@ -1,6 +1,7 @@
 package com.mdn.backend.controller;
 
 import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.model.user.PasswordChangeRequest;
 import com.mdn.backend.model.user.User;
 import com.mdn.backend.model.user.UserEditRequest;
 import com.mdn.backend.service.UserService;
@@ -135,6 +136,23 @@ public class UserController {
         log.info("Editing myself");
         try {
             User editedUser = userService.editMyself(principal, user);
+            return ResponseEntity.ok(editedUser);
+        } catch (UserNotFoundException ex) {
+            log.error("User not found with email: {}", principal.getName());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + principal.getName());
+        }
+    }
+
+    @Operation(summary = "Change password", description = "Change the password of the user that is currently logged in.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    @PutMapping("/me/change-password")
+    public ResponseEntity<?> changePassword(Principal principal, @RequestBody PasswordChangeRequest request) {
+        log.info("Changing password");
+        try {
+            User editedUser = userService.changePassword(principal, request);
             return ResponseEntity.ok(editedUser);
         } catch (UserNotFoundException ex) {
             log.error("User not found with email: {}", principal.getName());
