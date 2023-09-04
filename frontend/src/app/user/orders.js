@@ -5,14 +5,14 @@ import Order from "./order";
 import styles from './orders.module.scss'
 import { Pagination } from "@mui/material";
 import { useState } from "react";
+import useWindowSize from "../menu/dish/[id]/Reviews/useWindow";
 export default function Orders() {
     const [page, setPage] = useState(1)
 
     // const { user, _} = useGlobalContext()
 
     // const orders = user.orders
-
-    // Todo: Create a function that breaks down a list into objects with four list items  
+    const {width, heigth} = useWindowSize()
 
     const [expanded, setExpanded] = useState(false);
 
@@ -56,6 +56,7 @@ export default function Orders() {
             <div className={styles['order-group']}>
             {displayedOrders.map((order) => (
             <Order
+                width = {width}
                 key={order.id}
                 expanded={expanded}
                 handleChange={handleChange}

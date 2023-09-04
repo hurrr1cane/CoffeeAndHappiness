@@ -3,3 +3,11 @@
 .main {
     height: 83.25dvh;
 }
+
+
+@media (max-width: 768px) {
+    .main {
+        height: auto;
+        padding: 1rem;
+    }
+}

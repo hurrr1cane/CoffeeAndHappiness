@@ -5,12 +5,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 
-export default function Order({ expanded, name, id, date, handleChange }){
+export default function Order({ expanded, name, id, date, handleChange, width }){
 
     
 
     return (
         <Accordion disableGutters sx={{
+                width: width > 768 ? "auto" : width - 30,
                 flexGrow: 1,
                 fontWeight: 500,
                 
@@ -23,7 +24,7 @@ export default function Order({ expanded, name, id, date, handleChange }){
           <Typography variant='h6' fontWeight="400" sx={{ width: '33%', flexShrink: 0 }}>
             {name}
           </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>{date}</Typography>
+          <Typography sx={{ color: 'text.secondary', marginLeft: width < 425 && "3rem" }}>{date}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography component="span">
