@@ -63,6 +63,8 @@ public class CafeService {
         editedCafe.setLocationEN(cafe.getLocationEN());
         editedCafe.setLocationUA(cafe.getLocationUA());
         editedCafe.setPhoneNumber(cafe.getPhoneNumber());
+        editedCafe.setLatitude(cafe.getLatitude());
+        editedCafe.setLongitude(cafe.getLongitude());
 
         try {
             return cafeRepository.save(editedCafe);

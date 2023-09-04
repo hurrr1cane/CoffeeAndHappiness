@@ -33,6 +33,14 @@ public class Cafe {
     @Size(max = 255, message = "Location cannot exceed 255 characters")
     private String locationUA;
 
+    @Column(name = "latitude")
+    @NotNull(message = "Latitude is required")
+    private double latitude;
+
+    @Column(name = "longitude")
+    @NotNull(message = "Longitude is required")
+    private double longitude;
+
     @Column(name = "image_url")
     @Pattern(regexp = "^https?://.*",
             message = "Image URL must start with http:// or https://")
