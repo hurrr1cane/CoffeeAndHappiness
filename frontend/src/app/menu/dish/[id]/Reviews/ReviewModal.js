@@ -46,7 +46,7 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        width: width > 480 ? 650 : width-15,
+        width: width > 650 ? 650 : width-15,
         bgcolor: "white",
         boxShadow: 24,
         p: 4,

@@ -4,13 +4,12 @@ import { usePathname } from "next/navigation"
 import axios from "axios"
 import Review from "./Review"
 import { useEffect, useState } from "react"
-
 import styles from './reviews.module.scss'
 
 export default function Reviews() {
-    const pathname = usePathname().split('dish/')[1]
+    const pathname = usePathname().split('institution/')[1]
     const [reviews, setReviews] = useState([])
-
+    // console.log(pathname)
     useEffect(() => {
         fetch(`http://localhost:8080/api/cafe/${pathname}`, { cache: 'no-store' })
         .then(response => response.json())
@@ -20,7 +19,7 @@ export default function Reviews() {
 
 
     return (
-        <div>
+        <div className={styles.reviews}>
         {reviews && reviews.map(review => (
             <Review key={review.id} {...review}/>
         ))}

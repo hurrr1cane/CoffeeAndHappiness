@@ -13,7 +13,7 @@ export default function InstitutionCards () {
     }, [])
 
     return (
-        <div>
+        <div style={{display: "flex", flexDirection:"column", alignItems:"center"}}>
             {cafes.map(cafe => (
                 <InstitutionCard cafe={cafe} key={cafe.id}/>
             ))}

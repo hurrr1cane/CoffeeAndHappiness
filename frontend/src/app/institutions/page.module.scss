@@ -4,3 +4,10 @@
 .main {
     height: 100dvh;
 }
+
+@media (max-width: 560px) {
+    .main {
+        padding: 1rem;
+        height: auto;
+    }
+}

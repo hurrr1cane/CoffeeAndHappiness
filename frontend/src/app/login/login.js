@@ -147,7 +147,7 @@ export default function Login() {
                   </Grid>
                   <Grid item>
                     <Link component={NextLink} href='/register' variant='body2'>
-                      Don't have an account? register
+                      Don't have an account? Register
                     </Link>
                   </Grid>
                 </Grid>

@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { Rating } from '@mui/material'
 import { Fab } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-
+import { useGlobalContext } from '@/app/store/store'
 export default function Review( props ) {
 
     const [commentUser, setCommentUser] = useState({})
