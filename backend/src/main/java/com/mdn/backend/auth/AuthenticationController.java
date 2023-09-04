@@ -1,12 +1,11 @@
 package com.mdn.backend.auth;
 
+import com.mdn.backend.exception.ErrorResponse;
 import com.mdn.backend.exception.UserAlreadyExistsException;
 import com.mdn.backend.exception.UserNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -102,13 +101,6 @@ public class AuthenticationController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ErrorResponse("Token refresh failed", "The token refresh failed."));
         }
-    }
-
-    @Data
-    @AllArgsConstructor
-    private static class ErrorResponse {
-        private String error;
-        private String message;
     }
 
 }
