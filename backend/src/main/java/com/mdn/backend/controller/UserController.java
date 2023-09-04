@@ -159,4 +159,24 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + principal.getName());
         }
     }
+
+    @Operation(summary = "Delete my account", description = "Delete the user's own account.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Account deleted successfully"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    @DeleteMapping("/me/delete")
+    public ResponseEntity<?> deleteMyAccount(Principal principal) {
+        log.info("Deleting my account");
+        try {
+            userService.deleteMyself(principal);
+            return ResponseEntity.noContent().build();
+        } catch (UserNotFoundException ex) {
+            log.error("User not found with email: {}", principal.getName());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + principal.getName());
+        }
+    }
+
+
 }

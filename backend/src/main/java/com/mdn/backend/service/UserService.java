@@ -8,6 +8,8 @@ import com.mdn.backend.model.user.PasswordChangeRequest;
 import com.mdn.backend.model.user.User;
 import com.mdn.backend.model.user.UserEditRequest;
 import com.mdn.backend.repository.UserRepository;
+import com.mdn.backend.token.TokenRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final AmazonS3StorageService storageService;
     private final PasswordEncoder passwordEncoder;
+    private final TokenRepository tokenRepository;
 
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -122,5 +125,15 @@ public class UserService {
 
         return userRepository.save(myself);
 
+    }
+
+    @Transactional
+    public void deleteMyself(Principal principal) {
+
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
+
+        tokenRepository.deleteAllByUser(user);
+        userRepository.delete(user);
     }
 }
