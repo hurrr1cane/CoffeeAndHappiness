@@ -12,19 +12,8 @@ import axios from "axios";
 import { useState } from "react";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { useGlobalContext } from "../store/store";
 
-export default function CreateCafeModal({open, setOpen}) {
-
-
-    const defaultCafe = {
-        "locationEN": "",
-        "locationUA": "",
-        "imageUrl": "",
-        "phoneNumber": ""
-      }
-
-    const {user, _} = useGlobalContext()
+export default function EditNewsModal({open, id, setOpen, token, item}) {
 
     const style = {
         position: "absolute",
@@ -38,16 +27,16 @@ export default function CreateCafeModal({open, setOpen}) {
         borderRadius: 1,
       };
     
-      const [formData, setFormData] = useState(defaultCafe);
+      const [formData, setFormData] = useState(item);
 
       const handleChange = (key, value) => {
         setFormData({ ...formData, [key]: value });
       };
 
       const handleSubmit = () => {
-        axios.put(`http://localhost:8080/api/cafe`, formData, {
+        axios.put(`http://localhost:8080/api/news/${id}`, formData, {
             headers: {
-                Authorization: "Bearer " + user.token
+                Authorization: "Bearer " + token
             }
         })
         .then(res => console.log(res))
@@ -64,7 +53,7 @@ export default function CreateCafeModal({open, setOpen}) {
       });
     
       
-      const keysToDisplay = Object.keys(defaultCafe);
+      const keysToDisplay = Object.keys(item);
       const halfKeysLength = Math.ceil(keysToDisplay.length / 2);
       const firstColumnKeys = keysToDisplay.slice(0, halfKeysLength);
       const secondColumnKeys = keysToDisplay.slice(halfKeysLength);
@@ -79,7 +68,7 @@ export default function CreateCafeModal({open, setOpen}) {
         <Box sx={style}>
           <Stack direction="row" justifyContent="space-between">
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add cafe
+              Edit news
             </Typography>
             <IconButton onClick={handleClose}>
               <CloseIcon sx={{ color: "black" }} />
@@ -132,7 +121,7 @@ export default function CreateCafeModal({open, setOpen}) {
             }}
           >
             <EditIcon sx={{mr:1}}/>
-            Add cafe
+            Edit news
           </Fab>
         </Box>
       </Modal>

@@ -1,6 +1,7 @@
 .card {
     margin-top: 1rem;
     display: flex;
+    
     align-items: center;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -60,5 +61,19 @@
           font-weight: 500;
         }
       }
+    }
+  }
+
+
+  @media (min-width: 480px) and (max-width: 560px) {
+    .card {
+      width: 75%;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .card {
+      flex-direction: column;
     }
   }

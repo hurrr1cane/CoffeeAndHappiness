@@ -4,27 +4,27 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { styled } from "@mui/material/styles";
 import { Stack, IconButton, Fab } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import EditIcon from "@mui/icons-material/Edit"
+import AddIcon from "@mui/icons-material/Add"
 import axios from "axios";
 import { useState } from "react";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { useGlobalContext } from "../store/store";
+import { useGlobalContext } from "@/app/store/store";
 
-export default function CreateCafeModal({open, setOpen}) {
+export default function CreateNewsModal({open, setOpen}) {
 
-
-    const defaultCafe = {
-        "locationEN": "",
-        "locationUA": "",
-        "imageUrl": "",
-        "phoneNumber": ""
-      }
-
+    
     const {user, _} = useGlobalContext()
+
+    const defaultNews = {
+        "titleEN": "",
+        "titleUA": "",
+        "descriptionEN": "",
+        "descriptionUA": "",
+        "imageUrl": "", 
+      }
 
     const style = {
         position: "absolute",
@@ -38,14 +38,14 @@ export default function CreateCafeModal({open, setOpen}) {
         borderRadius: 1,
       };
     
-      const [formData, setFormData] = useState(defaultCafe);
+      const [formData, setFormData] = useState(defaultNews);
 
       const handleChange = (key, value) => {
         setFormData({ ...formData, [key]: value });
       };
 
       const handleSubmit = () => {
-        axios.put(`http://localhost:8080/api/cafe`, formData, {
+        axios.post(`http://localhost:8080/api/news`, formData, {
             headers: {
                 Authorization: "Bearer " + user.token
             }
@@ -57,14 +57,8 @@ export default function CreateCafeModal({open, setOpen}) {
 
       const handleClose = () => setOpen(false);
     
-      const CustomTextField = styled(TextField)({
-        "& .MuiInput-root::after": {
-          borderBottom: "2px solid #66bb69",
-        },
-      });
-    
       
-      const keysToDisplay = Object.keys(defaultCafe);
+      const keysToDisplay = Object.keys(defaultNews);
       const halfKeysLength = Math.ceil(keysToDisplay.length / 2);
       const firstColumnKeys = keysToDisplay.slice(0, halfKeysLength);
       const secondColumnKeys = keysToDisplay.slice(halfKeysLength);
@@ -79,7 +73,7 @@ export default function CreateCafeModal({open, setOpen}) {
         <Box sx={style}>
           <Stack direction="row" justifyContent="space-between">
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add cafe
+              Add news
             </Typography>
             <IconButton onClick={handleClose}>
               <CloseIcon sx={{ color: "black" }} />
@@ -131,8 +125,8 @@ export default function CreateCafeModal({open, setOpen}) {
               },
             }}
           >
-            <EditIcon sx={{mr:1}}/>
-            Add cafe
+            <AddIcon sx={{mr:1}}/>
+            Add news
           </Fab>
         </Box>
       </Modal>

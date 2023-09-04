@@ -109,6 +109,7 @@
 
   @media (min-width: 800px) and (max-width: 1240px) {
     .navbar {
+      
       padding-left: 2rem;
       .link {
         margin-left: 0rem;
@@ -127,6 +128,7 @@
   @media (max-width: 800px) {
 
     .open {
+        
         padding-left: 2rem; 
         height: auto; 
         flex-direction: column;
@@ -152,6 +154,9 @@
         }
   }
 
+    .logout {
+      margin-left: 1rem !important;
+    }
 
     .menuButton {
       display: block;
@@ -163,7 +168,7 @@
     .navbar {
       padding-left: 0rem;
       .link {
-        margin: 0rem;
+        margin: 0.25rem 0rem 0.25rem 0rem;
         padding: 0rem;
         &:not(:first-of-type) {
           display: none;

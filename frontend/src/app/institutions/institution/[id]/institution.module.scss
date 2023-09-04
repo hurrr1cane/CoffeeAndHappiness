@@ -1,6 +1,6 @@
 .section {
-    height: 300px;
     display: flex;
+    flex-direction: row;
     .image {
         display: flex;
         align-items: center;
@@ -17,6 +17,16 @@
         p, h1 {
             padding-top: 0.25rem;
             padding-bottom: 0.25rem;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        flex-direction: column;
+        align-items: center;
+        .info {
+            margin-left: 0rem;
         }
     }
 }

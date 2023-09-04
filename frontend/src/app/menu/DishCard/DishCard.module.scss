@@ -1,10 +1,10 @@
 .card {
     margin-top: 1rem;
     display: flex;
+    flex-direction: row;
     align-items: center;
     border-radius: 15px;
     box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    // height: 250px;
     width: 100%;
     .image {
     border-radius: 15px;
@@ -14,7 +14,6 @@
     .property {
         align-self: flex-start;
         padding: 0.75rem;
-        // margin: 1rem;
         &:not(h1) {
             font-size: 18px;
             font-weight: 500;
@@ -40,4 +39,13 @@
             font-weight: 500;
         }
     }
+}
+
+@media (max-width: 480px) {
+    .link {
+        flex-direction: column;
+        .image {
+            width: 80%;     
+        }
+    }   
 }

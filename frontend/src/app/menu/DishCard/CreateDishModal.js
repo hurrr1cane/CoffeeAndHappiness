@@ -50,7 +50,7 @@ export default function CreateDishModal({open, setOpen}) {
       };
 
       const handleSubmit = () => {
-        axios.post(`http://localhost:8080/api/food/`, formData, {
+        axios.post(`http://localhost:8080/api/food`, formData, {
             headers: {
                 Authorization: "Bearer " + user.token
             }

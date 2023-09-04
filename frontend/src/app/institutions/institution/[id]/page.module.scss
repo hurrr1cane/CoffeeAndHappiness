@@ -3,3 +3,10 @@
 .reviews-header {
     margin-top: 1rem;
 }
+
+@media (max-width: 480px) {
+    .main {
+        padding: 1rem;
+        height: auto;
+    }
+}

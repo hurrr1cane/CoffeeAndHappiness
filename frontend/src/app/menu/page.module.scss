@@ -3,3 +3,10 @@
 .main {
     height: 100dvh;
 }
+
+@media (max-width: 768px) {
+    .main {
+        padding: 2rem;
+        height: auto;
+    }
+}

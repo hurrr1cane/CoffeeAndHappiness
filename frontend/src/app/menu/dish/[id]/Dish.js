@@ -9,10 +9,12 @@ import { Rating } from "@mui/material"
 import Button from "@mui/material/Button"
 import { useGlobalContext } from "@/app/store/store"
 import ReviewModal from "./Reviews/ReviewModal"
-
+import useWindowSize from "./Reviews/useWindow"
 export default function Dish({ reset }) {
     const { user, _ } = useGlobalContext()
     const pathname = usePathname().split('dish/')[1]
+
+    const { width, height } = useWindowSize()
 
     const [open, setOpen] = useState(false)
 
@@ -26,7 +28,7 @@ export default function Dish({ reset }) {
 
     return (
             <section className={styles.section}>
-                <ReviewModal reset={reset} open={open} id={dish.id} token={user.token} setOpen={setOpen}/>
+                <ReviewModal width={width} reset={reset} open={open} id={dish.id} token={user.token} setOpen={setOpen}/>
                 <Image alt="picture of some food" className={styles.image} width={300} height={300} src={dish.imageUrl ?? "/placeholder.png"}></Image>
                 <section className={styles.info}>
                     <h1>{dish.nameEN}</h1>
@@ -36,8 +38,7 @@ export default function Dish({ reset }) {
                     <p>Weight : {dish?.weight} g</p>
                     <p>Rating: <Rating sx={{top: "5px"}} name="read-only" value={Number(dish.averageRating)} readOnly/></p>
                     <div className={styles.buttons} style={{display: user !== {} ? "flex" : "none"}} >
-                        <Button sx={{bgcolor: "#4caf50", '&:hover': {bgcolor:"#66bb69"}}} variant="contained">Order</Button>
-                        <Button onClick={() => {setOpen(true)}} sx={{marginLeft:"1rem", bgcolor: "#4caf50", '&:hover': {bgcolor:"#66bb69"}}} variant="contained">Add review</Button>
+                        <Button onClick={() => {setOpen(true)}} sx={{bgcolor: "#4caf50", '&:hover': {bgcolor:"#66bb69"}}} variant="contained">Add review</Button>
                     </div>
                 </section>
             </section>
