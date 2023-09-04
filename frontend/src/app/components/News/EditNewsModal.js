@@ -4,32 +4,16 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { styled } from "@mui/material/styles";
 import { Stack, IconButton, Fab } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import AddIcon from "@mui/icons-material/Add"
+import EditIcon from "@mui/icons-material/Edit"
 import axios from "axios";
 import { useState } from "react";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { useGlobalContext } from "@/app/store/store";
 
-export default function CreateDishModal({open, setOpen}) {
-
-    
-    const {user, _} = useGlobalContext()
-
-    const defaultDish = {
-        "nameEN": "",
-        "nameUA": "",
-        "descriptionEN": "",
-        "descriptionUA": "",
-        "imageUrl": "",
-        "price": 0,
-        "ingredientsEN": "",
-        "ingredientsUA": "",
-        "weight": 0,
-        "type": "MAIN"
-      }
+export default function EditNewsModal({open, id, setOpen, token, item}) {
 
     const style = {
         position: "absolute",
@@ -43,16 +27,16 @@ export default function CreateDishModal({open, setOpen}) {
         borderRadius: 1,
       };
     
-      const [formData, setFormData] = useState(defaultDish);
+      const [formData, setFormData] = useState(item);
 
       const handleChange = (key, value) => {
         setFormData({ ...formData, [key]: value });
       };
 
       const handleSubmit = () => {
-        axios.post(`http://localhost:8080/api/food/`, formData, {
+        axios.put(`http://localhost:8080/api/news/${id}`, formData, {
             headers: {
-                Authorization: "Bearer " + user.token
+                Authorization: "Bearer " + token
             }
         })
         .then(res => console.log(res))
@@ -62,8 +46,14 @@ export default function CreateDishModal({open, setOpen}) {
 
       const handleClose = () => setOpen(false);
     
+      const CustomTextField = styled(TextField)({
+        "& .MuiInput-root::after": {
+          borderBottom: "2px solid #66bb69",
+        },
+      });
+    
       
-      const keysToDisplay = Object.keys(defaultDish);
+      const keysToDisplay = Object.keys(item);
       const halfKeysLength = Math.ceil(keysToDisplay.length / 2);
       const firstColumnKeys = keysToDisplay.slice(0, halfKeysLength);
       const secondColumnKeys = keysToDisplay.slice(halfKeysLength);
@@ -78,7 +68,7 @@ export default function CreateDishModal({open, setOpen}) {
         <Box sx={style}>
           <Stack direction="row" justifyContent="space-between">
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add dish
+              Edit news
             </Typography>
             <IconButton onClick={handleClose}>
               <CloseIcon sx={{ color: "black" }} />
@@ -130,8 +120,8 @@ export default function CreateDishModal({open, setOpen}) {
               },
             }}
           >
-            <AddIcon sx={{mr:1}}/>
-            Add dish
+            <EditIcon sx={{mr:1}}/>
+            Edit news
           </Fab>
         </Box>
       </Modal>

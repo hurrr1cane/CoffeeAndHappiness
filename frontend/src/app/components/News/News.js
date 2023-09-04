@@ -9,6 +9,9 @@ import { Edit } from '@mui/icons-material';
 import {Stack, Fab} from '@mui/material'
 import { useGlobalContext } from '@/app/store/store';
 import Link from 'next/link';
+import EditNewsModal from './EditNewsModal';
+import CreateNewsModal from './CreateNewsModal';
+import { Add } from '@mui/icons-material';
 function News() {
 
     const [news, setNews] = useState([])
@@ -16,6 +19,8 @@ function News() {
     const {user, _} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
+
+    const [createOpen, setCreateOpen] = useState(false)
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/news")
@@ -42,6 +47,8 @@ function News() {
 
   return (
     <div className={styles.container}>
+              {user.role === 'ADMIN' &&  <CreateNewsModal open={createOpen} setOpen={setCreateOpen}/>}
+              {user.role === 'ADMIN' && <Fab onClick={() => {setCreateOpen(true)}} sx={{bgcolor:"#7aaf4c", "&:hover": {bgcolor:"#7aaf4c"}}}><Add/></Fab>} 
     <div className={styles.columnContainer}>
       {news.map((newsItem, index) => (
         <div key={newsItem.id} className={styles.card}>
@@ -60,9 +67,9 @@ function News() {
             </div>
           </div>
           {user.role === 'ADMIN' ? 
-            <Stack direction="row">
-              <Fab onClick={() => handleDeleteClick(newsItem.id)} sx={{bgcolor:"#FF0000", "&:hover":{bgcolor:"#FF0000"}, marginLeft:"auto", color:"white", marginRight:"1rem"}}><Close /></Fab>
-              <Fab onClick={handleEditClick} sx={{bgcolor:"#4caf81", "&:hover":{bgcolor:"#4caf81"}, marginLeft:"auto", color:"white", marginRight:"1rem"}}><Edit /></Fab>
+            <Stack direction="column">
+              <Fab onClick={() => handleDeleteClick(newsItem.id)} sx={{bgcolor:"#FF0000", "&:hover":{bgcolor:"#FF0000"}, marginLeft:"auto", color:"white", marginRight:"1rem", marginBottom:"1rem"}}><Close/></Fab>
+              <Fab onClick={handleEditClick} sx={{bgcolor:"#4caf81", "&:hover":{bgcolor:"#4caf81"}, marginLeft:"auto", color:"white", marginRight:"1rem", marginBottom:"1rem"}}><Edit/></Fab>
             </Stack> : ''}
         </div>
       ))}
