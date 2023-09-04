@@ -10,11 +10,13 @@
   import { useRouter } from "next/navigation";
   import PositionedMenu from "./Menu";
   import { Fab } from "@mui/material";
+  import MenuIcon from '@mui/icons-material/Menu';
   //Todo: fix element positioning
 
   export default function Navbar() {
     const { push } = useRouter()
     const {user, setUser} = useGlobalContext()
+    const [menuOpen, setMenuOpen] = useState(false)
 
     const handleLogout = () => {
       push('/login')
@@ -39,6 +41,9 @@
       'register': useRef(),
     };
   
+    const toggleMobileMenu = () => {
+      setMenuOpen((prevMenuOpen) => !prevMenuOpen)
+    }
 
     useEffect(() => {
       const storedTab = localStorage.getItem("selectedTab") || "home";
@@ -63,12 +68,13 @@
       }));  
     };
     return (
-      <nav className={styles.navbar}>
+      <nav className={`${styles.navbar} ${menuOpen ? styles.open : ''}`}>
         {/* <div className={styles.highlight} style={{
         left: stylesData.highlightLeft,
         width: stylesData.highlightWidth,
         height: stylesData.highlightHeight
       }}></div> */}
+        <MenuIcon onClick={toggleMobileMenu} className={styles.menuButton}/>
         <Link ref={tabRefs.home} onClick={() => {handleTabClick('home')}} className={`${styles.link} ${stylesData.selectedTab === 'home' ? styles.selected : '' }`} href="/"><h1>Home</h1></Link>
         <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${stylesData.selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>Institutions</h1></Link>
         <Link ref={tabRefs.menu} onClick={() => {handleTabClick('menu')}} className={`${styles.link} ${stylesData.selectedTab === 'menu' ? styles.selected : '' }`} href="/menu"><h1>Menu</h1></Link>
