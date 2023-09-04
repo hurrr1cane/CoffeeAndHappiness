@@ -1,12 +1,15 @@
 package com.mdn.backend.service;
 
+import com.mdn.backend.exception.InvalidPasswordException;
 import com.mdn.backend.exception.UserNotFoundException;
 import com.mdn.backend.model.review.CafeReview;
 import com.mdn.backend.model.review.FoodReview;
+import com.mdn.backend.model.user.PasswordChangeRequest;
 import com.mdn.backend.model.user.User;
 import com.mdn.backend.model.user.UserEditRequest;
 import com.mdn.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +22,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final AmazonS3StorageService storageService;
+    private final PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -99,6 +103,24 @@ public class UserService {
 
         user.setImageUrl(null);
         return userRepository.save(user);
+
+    }
+
+    public User changePassword(Principal principal, PasswordChangeRequest request) {
+
+        User myself = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
+
+        String storedHashedPassword = myself.getPassword();
+
+        if (!passwordEncoder.matches(request.getOldPassword(), storedHashedPassword)) {
+            throw new InvalidPasswordException("Old password is incorrect");
+        }
+
+        String encodedPassword = passwordEncoder.encode(request.getNewPassword());
+        myself.setPassword(encodedPassword);
+
+        return userRepository.save(myself);
 
     }
 }
