@@ -5,7 +5,6 @@ import axios from "axios"
 import Review from "./Review"
 import { useEffect, useState } from "react"
 
-import styles from './reviews.module.scss'
 
 export default function Reviews() {
     const pathname = usePathname().split('dish/')[1]

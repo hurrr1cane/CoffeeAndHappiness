@@ -12,7 +12,7 @@ import Rating from "@mui/material/Rating";
 import axios from "axios";
 import { useState } from "react";
 
-export default function ReviewModal({ open, id, setOpen, token, reset }) {
+export default function ReviewModal({ open, id, setOpen, token, reset, width }) {
 
 
     const [rating, setRating] = useState(0)
@@ -39,43 +39,14 @@ export default function ReviewModal({ open, id, setOpen, token, reset }) {
         .then(res => {console.log(res); setOpen(false); reset()})
         .catch(err => console.log(err))
     }
-    // const handleSubmit = () => {
-    //     const url = `http://localhost:8080/api/review/food/${id}`;
-    //     const requestBody = JSON.stringify({
-    //       rating: rating,
-    //       comment: comment
-    //     });
-      
-    //     const headers = {
-    //       "Authorization": `Bearer ${token}`,
-    //       "Content-Type": "application/json"
-    //     };
-      
-    //     fetch(url, {
-    //       method: "POST",
-    //       headers: headers,
-    //       body: requestBody
-    //     })
-    //     .then(response => {
-    //       if (!response.ok) {
-    //         throw new Error("Network response was not ok");
-    //       }
-    //       return response.json();
-    //     })
-    //     .then(data => {
-    //       console.log(data);
-    //     })
-    //     .catch(error => {
-    //       console.error("There was a problem with the fetch operation:", error);
-    //     });
-    //   };
+   
 
     const style = {
         position: "absolute",
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        width: 650,
+        width: width > 480 ? 650 : width-15,
         bgcolor: "white",
         boxShadow: 24,
         p: 4,

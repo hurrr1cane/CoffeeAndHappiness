@@ -4,6 +4,7 @@ $green: #4caf50;
     align-items: center;
     justify-content: space-evenly;
     display: flex;
+    flex-direction: row;
     margin-bottom: 1rem;
     border-radius: 30px;
     width: 80vw;
@@ -41,4 +42,31 @@ $green: #4caf50;
         background-color: $green;
         color: white;
     }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        .menuItem {
+            width: 100%;
+            &:not(:last-of-type){
+                border-left: 0px;
+                border-bottom: 2px solid $green;
+            }
+            &:last-of-type{
+                border-left: 0px;
+                border-top-right-radius: 0px;
+                border-top-left-radius:  0px;
+                border-bottom-left-radius:  30px;
+                border-bottom-right-radius: 30px;
+            }
+            &:first-of-type{
+                border-top-right-radius: 30px;
+                border-top-left-radius:  30px;
+                border-bottom-left-radius:  0px;
+                border-bottom-right-radius: 0px;
+            }
+        }
+    }
+    
 }

@@ -1,5 +1,6 @@
 .section {
     display: flex;
+    flex-direction: row;
     // align-items: flex-start;
     .image {
         display: flex;
@@ -22,4 +23,17 @@
     .buttons {
         margin-top: 1rem;
     }
+}
+
+
+@media (max-width: 480px) {
+    .section {
+        flex-direction: column;
+        .info {
+            margin-left: 0rem;
+        }
+    }
+    
+
+
 }
