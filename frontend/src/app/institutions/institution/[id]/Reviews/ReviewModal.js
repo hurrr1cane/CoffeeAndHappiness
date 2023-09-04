@@ -60,7 +60,6 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
       });
     
       return (
-        <>
           <Modal
         open={open}
         onClose={handleClose}
@@ -116,6 +115,5 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
           </Fab>
         </Box>
       </Modal>
-        </>
       );
     }

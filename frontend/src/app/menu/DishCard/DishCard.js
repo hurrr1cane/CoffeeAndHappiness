@@ -35,7 +35,6 @@ export default function DishCard({dish}) {
     }
 
     return (
-        <>
         <div className={styles.card}>
                 {user.role === 'ADMIN' && <EditDishModal dish={dish} open={open} setOpen={setOpen} id={dish.id} token={user.token}/>}
 
@@ -60,6 +59,5 @@ export default function DishCard({dish}) {
                         <Fab onClick={handleEditClick} sx={{bgcolor:"#4caf81", "&:hover":{bgcolor:"#4caf81"}, marginLeft:"auto", color:"white", marginRight:"1rem"}}><EditIcon/></Fab>
                     </Stack> : ''}
         </div>
-    </>
     )
 }
