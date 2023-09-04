@@ -58,7 +58,6 @@
     &:after {
       background-color: inherit !important;
     }
-    transform: translateY(-3px);
   }
 
   .link {
@@ -86,7 +85,6 @@
       cursor: pointer;
       color: white;
       transition: transform 0.3s ease;
-      transform: translateY(-3px);
     }
     &:nth-of-type(5) {
       // margin-right: 5rem;
