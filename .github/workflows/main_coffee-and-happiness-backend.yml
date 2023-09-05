@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
 
       - name: Entering backend folder
-        run: cd backend
+        run: pwd
       - name: Build with Maven
         run: mvn clean install
 
