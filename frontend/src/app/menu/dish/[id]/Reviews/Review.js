@@ -13,7 +13,7 @@ export default function Review( props ) {
 
     const [commentUser, setCommentUser] = useState({})
 
-    const {user, setUser, language, setLanguage} = useGlobalContext()
+    const { user, _ } = useGlobalContext()
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/user/${props?.userId}`)

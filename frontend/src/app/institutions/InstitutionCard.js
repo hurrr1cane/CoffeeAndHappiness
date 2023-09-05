@@ -11,7 +11,7 @@ import { Close } from '@mui/icons-material'
 import EditCafeModal from './EditCafeModal'
 export default function InstitutionCard({ cafe }) {
 
-  const {user, setUser, language, setLanguage} = useGlobalContext()
+    const {user, _} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
 

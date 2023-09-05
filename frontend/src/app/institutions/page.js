@@ -10,7 +10,7 @@ import { useGlobalContext } from '../store/store'
 export default function Home() {
 
   const [open, setOpen] = useState(false)
-  const {user, setUser, language, setLanguage} = useGlobalContext()
+  const {user, _} = useGlobalContext()
 
   return (
    <main className={styles.main}>

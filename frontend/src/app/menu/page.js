@@ -11,7 +11,7 @@ import { useGlobalContext } from '../store/store'
 export default function Home() {
 
   const [tab, setTab] = useState("MAIN")
-  const {user, setUser, language, setLanguage} = useGlobalContext()
+  const {user, _} = useGlobalContext()
   const [open, setOpen] = useState(false)
 
   return (

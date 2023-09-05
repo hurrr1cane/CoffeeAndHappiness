@@ -11,7 +11,7 @@ import { useGlobalContext } from "@/app/store/store"
 import ReviewModal from "./Reviews/ReviewModal"
 import useWindowSize from "./Reviews/useWindow"
 export default function Dish({ reset }) {
-    const {user, setUser, language, setLanguage} = useGlobalContext()
+    const { user, _ } = useGlobalContext()
     const pathname = usePathname().split('dish/')[1]
 
     const { width, height } = useWindowSize()

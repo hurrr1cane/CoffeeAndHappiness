@@ -16,7 +16,7 @@ import { useGlobalContext } from "@/app/store/store";
 export default function CreateDishModal({open, setOpen}) {
 
     
-  const {user, setUser, language, setLanguage} = useGlobalContext()
+    const {user, _} = useGlobalContext()
 
     const defaultDish = {
         "nameEN": "",

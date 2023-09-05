@@ -14,7 +14,7 @@ import EditDishModal from './EditDishModal'
 
 export default function DishCard({dish}) {
 
-    const {user, setUser, language, setLanguage} = useGlobalContext()
+    const {user, _} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
 

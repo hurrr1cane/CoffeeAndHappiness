@@ -24,7 +24,7 @@ export default function CreateCafeModal({open, setOpen}) {
         "phoneNumber": ""
       }
 
-      const {user, setUser, language, setLanguage} = useGlobalContext()
+    const {user, _} = useGlobalContext()
 
     const style = {
         position: "absolute",
