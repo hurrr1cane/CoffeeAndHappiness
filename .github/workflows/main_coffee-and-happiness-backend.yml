@@ -21,10 +21,8 @@ jobs:
         with:
           java-version: '17'
 
-      - name: Entering backend folder
-        run: cd /home/runner/work/CoffeeAndHappiness/CoffeeAndHappiness/backend
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn mvn -f backend/pom.xml clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
