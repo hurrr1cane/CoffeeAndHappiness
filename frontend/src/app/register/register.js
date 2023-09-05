@@ -23,7 +23,7 @@ import { Alert, AlertTitle } from '@mui/material';
 export default function Register() {
 
     const { push } = useRouter();
-    const {_, setUser} = useGlobalContext()
+    const {user, setUser, language, setLanguage} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();

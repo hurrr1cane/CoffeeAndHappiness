@@ -16,7 +16,7 @@ import { useGlobalContext } from "@/app/store/store";
 export default function CreateNewsModal({open, setOpen}) {
 
     
-    const {user, _} = useGlobalContext()
+    const {user, setUser, language, setLanguage} = useGlobalContext()
 
     const defaultNews = {
         "titleEN": "",

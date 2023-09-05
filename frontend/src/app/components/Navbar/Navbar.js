@@ -13,9 +13,10 @@
   import MenuIcon from '@mui/icons-material/Menu';
   //Todo: fix element positioning
 
+
   export default function Navbar() {
     const { push } = useRouter()
-    const {user, setUser} = useGlobalContext()
+    const {user, setUser, language, setLanguage} = useGlobalContext()
     const [menuOpen, setMenuOpen] = useState(false)
 
     const handleLogout = () => {

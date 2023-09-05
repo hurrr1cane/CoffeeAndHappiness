@@ -12,7 +12,7 @@ import { headers } from "../../../next.config"
 
 export default function User() {
 
-    const {user, setUser} = useGlobalContext()
+  const {user, setUser, language, setLanguage} = useGlobalContext()
     useEffect(() => {
       axios.get('http://localhost:8080/api/user/me', {
         headers: {

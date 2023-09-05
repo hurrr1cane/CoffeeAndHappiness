@@ -12,7 +12,7 @@ import ReviewModal from "./Reviews/ReviewModal"
 import useWindowSize from "@/app/menu/dish/[id]/Reviews/useWindow"
 
 export default function Institution({reset}) {
-    const { user, _ } = useGlobalContext()
+    const {user, setUser, language, setLanguage} = useGlobalContext()
     const pathname = usePathname().split('institution/')[1]
     const [open, setOpen] = useState(false)
     const {width, height } = useWindowSize()

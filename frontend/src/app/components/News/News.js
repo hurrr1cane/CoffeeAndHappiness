@@ -16,7 +16,7 @@ function News() {
 
     const [news, setNews] = useState([])
 
-    const {user, _} = useGlobalContext()
+    const {user, setUser, language, setLanguage} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
 
