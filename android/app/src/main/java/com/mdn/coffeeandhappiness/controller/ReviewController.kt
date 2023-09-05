@@ -20,19 +20,19 @@ class ReviewController {
         return withContext(Dispatchers.IO) {
             var listOfCafeReviewsWithCafe = mutableListOf<CafeReviewWithCafe>()
             val listOfCafeReviews = getCafeReviews(sharedPreferences)
-            for (foodReview in listOfCafeReviews) {
-                val food = FoodController().getFood(foodReview.cafeId)
+            for (cafeReviews in listOfCafeReviews) {
+                val cafe = CafeController().getCafe(cafeReviews.cafeId)
                 listOfCafeReviewsWithCafe.add(
                     CafeReviewWithCafe(
-                        foodReview.id,
-                        foodReview.rating,
-                        foodReview.comment,
-                        foodReview.date,
-                        foodReview.userId,
-                        foodReview.cafeId,
-                        food!!.imageUrl,
-                        food.nameUA,
-                        food.nameEN
+                        cafeReviews.id,
+                        cafeReviews.rating,
+                        cafeReviews.comment,
+                        cafeReviews.date,
+                        cafeReviews.userId,
+                        cafeReviews.cafeId,
+                        cafe!!.imageUrl,
+                        cafe.locationUA,
+                        cafe.locationEN
                     )
                 )
             }
