@@ -96,6 +96,8 @@
     <string name="code_waiter_place_order">Оформити замовлення</string>
     <string name="code_waiter_spend_points">Витратити очки</string>
 
+    <!-- This is a cafe section -->
+    <string name="cafe_phone_number">Номер телефону:</string>
 
 
     <string name="internet_no_connection">Ми не можемо з\'єднатися з сервером</string>

@@ -68,12 +68,15 @@ class CafeActivity : AppCompatActivity() {
                     val cafeName = findViewById<TextView>(R.id.cafeActivityName)
                     val cafeRating = findViewById<TextView>(R.id.cafeActivityRating)
                     val cafeRatingBar = findViewById<AppCompatRatingBar>(R.id.cafeActivityRatingBar)
+                    val phoneNumber = findViewById<TextView>(R.id.cafeActivityPhoneNumber)
 
                     if (language == "uk") {
                         cafeName.text = currentCafe?.locationUA
                     } else if (language == "en") {
                         cafeName.text = currentCafe?.locationEN
                     }
+
+                    phoneNumber.text = currentCafe?.phoneNumber
 
                     cafeRating.text = String.format("%.1f", currentCafe?.averageRating)
 

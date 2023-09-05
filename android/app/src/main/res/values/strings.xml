@@ -95,11 +95,13 @@
     <string name="code_waiter_place_order">Place order</string>
     <string name="code_waiter_spend_points">Spend points</string>
 
+    <!-- This is a cafe section -->
+    <string name="cafe_phone_number">Phone number:</string>
+
 
     <string name="internet_no_connection">We can\'t connect to the server</string>
     <string name="internet_no_connection_error">There is no connection to the server</string>
     <string name="empty_page_text">Wow, so empty!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

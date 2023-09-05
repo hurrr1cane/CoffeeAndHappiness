@@ -71,6 +71,29 @@
                         android:fontFamily="@font/sofiasans_straight"
                         android:textSize="35sp" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FOOD_TEXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:text="@string/cafe_phone_number"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/cafeActivityPhoneNumber"
+                            style="@style/FOOD_TEXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/sofiasans_straight"
+                            android:textSize="20sp" />
+                    </LinearLayout>
 
 
                 </LinearLayout>
