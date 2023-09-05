@@ -1,12 +1,9 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    align-items: center;
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 0rem;
-    } 
-}
+.wrapper {
+    display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      @media (max-width: 930px) {
+        display: flex;
+        flex-direction: column;
+      }
+    }
