@@ -2,7 +2,7 @@ package com.mdn.coffeeandhappiness.controller
 
 import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.News
-import com.mdn.coffeeandhappiness.tools.BackendAddress
+import com.mdn.coffeeandhappiness.tools.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -18,7 +18,7 @@ class NewsController {
             val newsList: MutableList<News> = mutableListOf()
 
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/news"
+            val url = "${Constants().address}/api/news"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -70,7 +70,7 @@ class NewsController {
             var news: News? = null
 
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/news/"
+            val url = "${Constants().address}/api/news/"
 
             val finalUrl = "$url$id"
 

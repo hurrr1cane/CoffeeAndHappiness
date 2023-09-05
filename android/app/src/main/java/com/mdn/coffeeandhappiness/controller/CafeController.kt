@@ -4,9 +4,8 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Cafe
-import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Review
-import com.mdn.coffeeandhappiness.tools.BackendAddress
+import com.mdn.coffeeandhappiness.tools.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
@@ -29,7 +28,7 @@ class CafeController {
     ) {
         return withContext(Dispatchers.IO) {
 
-            val url = "${BackendAddress().address}/api/review/cafe/"
+            val url = "${Constants().address}/api/review/cafe/"
             val finalUrl = url + id.toString()
 
             // Create an OkHttpClient instance
@@ -92,7 +91,7 @@ class CafeController {
             val cafeList: MutableList<Cafe> = mutableListOf()
 
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/cafe"
+            val url = "${Constants().address}/api/cafe"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -125,7 +124,7 @@ class CafeController {
             var myCafe: Cafe? = null
 
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/cafe/"
+            val url = "${Constants().address}/api/cafe/"
 
             val finalUrl = "$url$id"
 
