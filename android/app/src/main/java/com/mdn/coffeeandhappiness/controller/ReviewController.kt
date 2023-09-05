@@ -6,7 +6,7 @@ import com.mdn.coffeeandhappiness.model.CafeReview
 import com.mdn.coffeeandhappiness.model.CafeReviewWithCafe
 import com.mdn.coffeeandhappiness.model.FoodReview
 import com.mdn.coffeeandhappiness.model.FoodReviewWithFood
-import com.mdn.coffeeandhappiness.tools.BackendAddress
+import com.mdn.coffeeandhappiness.tools.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -20,19 +20,19 @@ class ReviewController {
         return withContext(Dispatchers.IO) {
             var listOfCafeReviewsWithCafe = mutableListOf<CafeReviewWithCafe>()
             val listOfCafeReviews = getCafeReviews(sharedPreferences)
-            for (foodReview in listOfCafeReviews) {
-                val food = FoodController().getFood(foodReview.cafeId)
+            for (cafeReviews in listOfCafeReviews) {
+                val cafe = CafeController().getCafe(cafeReviews.cafeId)
                 listOfCafeReviewsWithCafe.add(
                     CafeReviewWithCafe(
-                        foodReview.id,
-                        foodReview.rating,
-                        foodReview.comment,
-                        foodReview.date,
-                        foodReview.userId,
-                        foodReview.cafeId,
-                        food!!.imageUrl,
-                        food.nameUA,
-                        food.nameEN
+                        cafeReviews.id,
+                        cafeReviews.rating,
+                        cafeReviews.comment,
+                        cafeReviews.date,
+                        cafeReviews.userId,
+                        cafeReviews.cafeId,
+                        cafe!!.imageUrl,
+                        cafe.locationUA,
+                        cafe.locationEN
                     )
                 )
             }
@@ -67,7 +67,7 @@ class ReviewController {
     suspend fun getFoodReviews(sharedPreferences: SharedPreferences): MutableList<FoodReview> {
         return withContext(Dispatchers.IO) {
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/user/me"
+            val url = "${Constants().address}/api/user/me"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -134,7 +134,7 @@ class ReviewController {
     suspend fun getCafeReviews(sharedPreferences: SharedPreferences): MutableList<CafeReview> {
         return withContext(Dispatchers.IO) {
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/user/me"
+            val url = "${Constants().address}/api/user/me"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -201,7 +201,7 @@ class ReviewController {
     suspend fun deleteFoodReview(sharedPreferences: SharedPreferences, reviewId: Int) {
         return withContext(Dispatchers.IO) {
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/review/food/"
+            val url = "${Constants().address}/api/review/food/"
             val finalUrl = url + reviewId.toString()
 
             // Create an OkHttpClient instance
@@ -237,7 +237,7 @@ class ReviewController {
     suspend fun deleteCafeReview(sharedPreferences: SharedPreferences, reviewId: Int) {
         return withContext(Dispatchers.IO) {
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/review/cafe/"
+            val url = "${Constants().address}/api/review/cafe/"
             val finalUrl = url + reviewId.toString()
 
             // Create an OkHttpClient instance

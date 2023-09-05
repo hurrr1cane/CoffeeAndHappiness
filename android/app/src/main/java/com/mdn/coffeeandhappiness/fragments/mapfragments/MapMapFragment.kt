@@ -1,5 +1,7 @@
 package com.mdn.coffeeandhappiness.fragments.mapfragments
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,12 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.activities.CafeActivity
+import com.mdn.coffeeandhappiness.controller.CafeController
 import com.mdn.coffeeandhappiness.fragments.accountfragments.AccountSignupFragment
+import com.mdn.coffeeandhappiness.tools.Constants
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,15 +67,54 @@ class MapMapFragment : Fragment() {
             transaction.commit()
         }
 
+        val sharedPreferences = requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val language = sharedPreferences.getString("Language", "uk")
+
+        val nightMode = sharedPreferences.getBoolean("Night", true)
+
         mapView = view.findViewById<MapView>(R.id.mapMapView)
         mapView.onCreate(savedInstanceState) // Make sure to handle savedInstanceState
         mapView.getMapAsync { googleMap ->
-            // Initialize GoogleMap here
-            val cafeLatLng = LatLng(49.82160411211895, 23.9741344635085) // Replace with the cafe's coordinates
-            val marker = googleMap.addMarker(MarkerOptions().position(cafeLatLng).title("Cafe Name"))
-            marker!!.tag = 1 // You can set a tag to identify the cafe
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cafeLatLng, 14f)) // Adjust zoom level as needed
+            lifecycleScope.launch(Dispatchers.IO) {
+                val listOfCafes = CafeController().getCafe()
+                launch(Dispatchers.Main) {
+                    for (cafe in listOfCafes) {
+                        val cafeLatLng = LatLng(cafe.latitude, cafe.longitude)
+
+                        val cafeName = when(language) {
+                            "uk" -> cafe.locationUA
+                            "en" -> cafe.locationEN
+                            else -> cafe.locationUA
+                        }
+
+                        val customMarkerIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_marker)
+                        val marker = googleMap.addMarker(MarkerOptions().position(cafeLatLng).title(cafeName).icon(customMarkerIcon))
+                        marker!!.tag = cafe.id
+                    }
+
+                    googleMap.setOnMarkerClickListener { marker ->
+                        val cafeId = marker.tag as Int // Retrieve the cafe's ID
+
+                        val intent = Intent(requireContext(), CafeActivity::class.java)
+                        intent.putExtra(
+                            "cafe_id",
+                            cafeId
+                        ) // Pass any data you need to the next activity
+                        requireContext().startActivity(intent)
+
+                        true // Return true to consume the click event
+                    }
+                }
+            }
+
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Constants().lvivAddress, 13f))
+
+            // Load the appropriate map style based on nightMode
+            val mapStyleResourceId = if (nightMode) R.raw.dark_map_style else R.raw.light_map_style
+            googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), mapStyleResourceId))
         }
+
+
 
         return view
     }
