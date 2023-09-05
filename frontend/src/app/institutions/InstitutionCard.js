@@ -53,7 +53,7 @@ export default function InstitutionCard({ cafe }) {
             height={200}
             width={200}
           />
-          <div style={{marginRight:height > 560 ? 0 : 10}}>
+          <div style={{marginRight:height > 1200 ? 0 : 10}}>
             <h1 className={styles.property}>{cafe?.locationEN}</h1>
             <p className={styles.property}>Phone number: {cafe.phoneNumber}</p>
             <Button variant='contained'  fullWidth  sx={{marginBottom:1, bgcolor:"#4caf50", "&:hover":{bgcolor:"#4caf50"}}}>
