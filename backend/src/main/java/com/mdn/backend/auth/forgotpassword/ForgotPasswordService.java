@@ -49,9 +49,21 @@ public class ForgotPasswordService {
     }
 
     public void resetPassword(ResetPasswordRequest request) {
-
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + request.getEmail()));
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+
+        VerificationCode codeEntity = verificationCodeRepository.findByUser(user);
+        if (codeEntity != null) {
+            verificationCodeRepository.delete(codeEntity);
+        }
+    }
+
+    public void validateVerificationCode(String email, String verificationCode) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
 
         VerificationCode codeEntity = verificationCodeRepository.findByUser(user);
 
@@ -59,18 +71,12 @@ public class ForgotPasswordService {
             throw new VerificationCodeNotFoundException("Verification code not found for the user.");
         }
 
-        if (!codeEntity.getCode().equals(request.getVerificationCode())) {
+        if (!codeEntity.getCode().equals(verificationCode)) {
             throw new VerificationCodeMismatchException("Verification code does not match.");
         }
 
         if (codeEntity.getExpirationTime().isBefore(LocalDateTime.now())) {
             throw new VerificationCodeExpiredException("Verification code has expired.");
         }
-
-        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-        userRepository.save(user);
-
-        verificationCodeRepository.delete(codeEntity);
-
     }
 }

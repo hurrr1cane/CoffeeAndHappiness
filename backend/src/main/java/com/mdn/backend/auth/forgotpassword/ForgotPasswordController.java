@@ -35,6 +35,35 @@ public class ForgotPasswordController {
         }
     }
 
+    @Operation(summary = "Validate verification code", description = "Validate the verification code provided by the user.")
+    @PostMapping("/validate-verification-code")
+    public ResponseEntity<?> validateVerificationCode(@RequestBody ResetPasswordRequest request) {
+        try {
+            forgotPasswordService.validateVerificationCode(request.getEmail(), request.getVerificationCode());
+            return ResponseEntity.ok("Verification code validated successfully");
+        } catch (UserNotFoundException e) {
+            log.error("Validation failed - User not found: {}", request.getEmail());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("User not found", "The specified user does not exist."));
+        } catch (VerificationCodeMismatchException e) {
+            log.error("Validation failed - Verification code mismatch");
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Verification code mismatch", "The verification code provided is incorrect."));
+        } catch (VerificationCodeExpiredException e) {
+            log.error("Validation failed - Verification code expired");
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Verification code expired", "The verification code provided has expired."));
+        } catch (VerificationCodeNotFoundException e) {
+            log.error("Validation failed - Verification code not found");
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Verification code not found", "The verification code provided does not exist."));
+        }
+    }
+
     @Operation(summary = "Reset password", description = "Reset the user's password after verifying the code.")
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request) {
@@ -46,23 +75,8 @@ public class ForgotPasswordController {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse("User not found", "The specified user does not exist."));
-        } catch (VerificationCodeMismatchException e) {
-            log.error("Reset password failed - Verification code mismatch");
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(new ErrorResponse("Verification code mismatch", "The verification code provided is incorrect."));
-        } catch (VerificationCodeExpiredException e) {
-            log.error("Reset password failed - Verification code expired");
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(new ErrorResponse("Verification code expired", "The verification code provided has expired."));
-        } catch (VerificationCodeNotFoundException e) {
-            log.error("Reset password failed - Verification code not found");
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(new ErrorResponse("Verification code not found", "The verification code provided does not exist."));
+        }
     }
 }
 
-}
 
