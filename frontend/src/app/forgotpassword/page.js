@@ -65,14 +65,19 @@ export default function Home() {
 
 
     const onEmailSubmit = (data) => {
+        axios.post(`http://localhost:8080/api/auth/forgotpassword?email=${data?.email}`)
+        .then(res => {
+            console.log(res)
+            setShowSuccessAlert(true)
+            setTimeout(() => {setShowEmailInput(false)
+            setShowOtpInput(true); setShowSuccessAlert(false)}, 1000)
+        })
+        .catch(err => console.log(err))
         setEmail(data.email)
-        console.log(data)
-        setShowSuccessAlert(true)
-        setTimeout(() => {setShowEmailInput(false)
-        setShowOtpInput(true); setShowSuccessAlert(false)}, 1000)
     }
 
     const handleOtpSubmit = (value) => {    
+        axios.post(`http://localhost:8080/api/auth/reset-password`)
         console.log(otp)
         setShowOtpAlert(true)
         
