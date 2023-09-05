@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.activities.CafeActivity
 import com.mdn.coffeeandhappiness.controller.CafeController
+import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.fragments.accountfragments.AccountSignupFragment
 import com.mdn.coffeeandhappiness.tools.Constants
 import kotlinx.coroutines.Dispatchers
@@ -76,33 +78,46 @@ class MapMapFragment : Fragment() {
         mapView.onCreate(savedInstanceState) // Make sure to handle savedInstanceState
         mapView.getMapAsync { googleMap ->
             lifecycleScope.launch(Dispatchers.IO) {
-                val listOfCafes = CafeController().getCafe()
-                launch(Dispatchers.Main) {
-                    for (cafe in listOfCafes) {
-                        val cafeLatLng = LatLng(cafe.latitude, cafe.longitude)
+                try {
+                    val listOfCafes = CafeController().getCafe()
+                    launch(Dispatchers.Main) {
+                        for (cafe in listOfCafes) {
+                            val cafeLatLng = LatLng(cafe.latitude, cafe.longitude)
 
-                        val cafeName = when(language) {
-                            "uk" -> cafe.locationUA
-                            "en" -> cafe.locationEN
-                            else -> cafe.locationUA
+                            val cafeName = when (language) {
+                                "uk" -> cafe.locationUA
+                                "en" -> cafe.locationEN
+                                else -> cafe.locationUA
+                            }
+
+                            val customMarkerIcon =
+                                BitmapDescriptorFactory.fromResource(R.drawable.map_marker)
+                            val marker = googleMap.addMarker(
+                                MarkerOptions().position(cafeLatLng).title(cafeName)
+                                    .icon(customMarkerIcon)
+                            )
+                            marker!!.tag = cafe.id
                         }
 
-                        val customMarkerIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_marker)
-                        val marker = googleMap.addMarker(MarkerOptions().position(cafeLatLng).title(cafeName).icon(customMarkerIcon))
-                        marker!!.tag = cafe.id
+                        googleMap.setOnMarkerClickListener { marker ->
+                            val cafeId = marker.tag as Int // Retrieve the cafe's ID
+
+                            val intent = Intent(requireContext(), CafeActivity::class.java)
+                            intent.putExtra(
+                                "cafe_id",
+                                cafeId
+                            ) // Pass any data you need to the next activity
+                            requireContext().startActivity(intent)
+
+                            true // Return true to consume the click event
+                        }
                     }
+                } catch (e: NoInternetException) {
+                    launch(Dispatchers.Main) {
+                        mapView.visibility = View.GONE
 
-                    googleMap.setOnMarkerClickListener { marker ->
-                        val cafeId = marker.tag as Int // Retrieve the cafe's ID
-
-                        val intent = Intent(requireContext(), CafeActivity::class.java)
-                        intent.putExtra(
-                            "cafe_id",
-                            cafeId
-                        ) // Pass any data you need to the next activity
-                        requireContext().startActivity(intent)
-
-                        true // Return true to consume the click event
+                        val noInternet = view.findViewById<LinearLayout>(R.id.mapMapNoInternet)
+                        noInternet.visibility = View.VISIBLE
                     }
                 }
             }
