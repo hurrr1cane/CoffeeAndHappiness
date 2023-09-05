@@ -33,7 +33,7 @@ export default function Institution({reset}) {
                     <p>Contact: {institution.phoneNumber}</p>
                     <p>Rating: <Rating sx={{top: "5px"}} name="read-only" value={Number(institution.averageRating)} readOnly/></p>
                     <div style={{display: user !== {} ? "flex" : "none"}} >
-                        <Button onClick={() => {setOpen(true)}} sx={{marginTop: "1rem", bgcolor: "#4caf50", '&:hover': {bgcolor:"#66bb69"}}} variant="contained">Add review</Button>
+                    {user.length > 1 &&<Button onClick={() => {setOpen(true)}} sx={{marginTop: "1rem", bgcolor: "#4caf50", '&:hover': {bgcolor:"#66bb69"}}} variant="contained">Add review</Button>}
                     </div>
                 </section>
             </section>

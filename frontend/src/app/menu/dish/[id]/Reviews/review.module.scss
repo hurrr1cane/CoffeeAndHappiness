@@ -13,7 +13,13 @@
     }
     .comment {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         margin-left: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .review-card{
+        width: 90dvw;
     }
 }

@@ -2,13 +2,10 @@ package com.mdn.coffeeandhappiness.controller
 
 import android.content.SharedPreferences
 import android.util.Log
-import com.google.gson.Gson
 import com.mdn.coffeeandhappiness.exception.NoInternetException
-import com.mdn.coffeeandhappiness.model.CafeReview
 import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Order
-import com.mdn.coffeeandhappiness.model.Person
-import com.mdn.coffeeandhappiness.tools.BackendAddress
+import com.mdn.coffeeandhappiness.tools.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
@@ -29,7 +26,7 @@ class OrderController {
     ) {
         return withContext(Dispatchers.IO) {
 
-            val url = "${BackendAddress().address}/api/order"
+            val url = "${Constants().address}/api/order"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -81,7 +78,7 @@ class OrderController {
     ) {
         return withContext(Dispatchers.IO) {
 
-            val url = "${BackendAddress().address}/api/order/spend-points"
+            val url = "${Constants().address}/api/order/spend-points"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -141,7 +138,7 @@ class OrderController {
             var listOfOrders = mutableListOf<Order>()
 
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/user/me"
+            val url = "${Constants().address}/api/user/me"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()

@@ -15,39 +15,41 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
+import com.mdn.coffeeandhappiness.controller.CafeController
 import com.mdn.coffeeandhappiness.controller.FoodController
 import com.mdn.coffeeandhappiness.exception.NoInternetException
+import com.mdn.coffeeandhappiness.model.Cafe
 import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.PersonInReview
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
 
-class FoodReviewsActivity : AppCompatActivity() {
+class CafeReviewsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
         setLanguage()
-        setContentView(R.layout.activity_food_reviews)
+        setContentView(R.layout.activity_cafe_reviews)
 
-        val backButton = findViewById<ImageButton>(R.id.foodReviewsActivityBackButton)
+        val backButton = findViewById<ImageButton>(R.id.cafeReviewsActivityBackButton)
 
         backButton.setOnClickListener() {
             finish()
         }
 
-        val foodId = intent.extras?.getInt("food_id")
+        val cafeId = intent.extras?.getInt("cafe_id")
 
 
-        val reviewsContainer = findViewById<LinearLayout>(R.id.foodReviewsActivityContainer)
-        var currentFood: Food? = null
-        val foodController = FoodController()
+        val reviewsContainer = findViewById<LinearLayout>(R.id.cafeReviewsActivityContainer)
+        var currentCafe: Cafe? = null
+        val cafeController = CafeController()
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                currentFood = foodController.getFood(foodId!!)
+                currentCafe = cafeController.getCafe(cafeId!!)
 
-                val count = currentFood!!.reviews.size
+                val count = currentCafe!!.reviews.size
 
                 launch() {
                     for (i in 0 until count) {
@@ -56,7 +58,7 @@ class FoodReviewsActivity : AppCompatActivity() {
                         lifecycleScope.launch() {
                             try {
                                 personInReview =
-                                    accountController.getById(currentFood!!.reviews[i].userId)
+                                    accountController.getById(currentCafe!!.reviews[i].userId)
 
 
                                 launch(Dispatchers.Main) {
@@ -82,8 +84,8 @@ class FoodReviewsActivity : AppCompatActivity() {
                                     userName.text =
                                         personInReview!!.firstName + " " + personInReview!!.lastName
 
-                                    reviewRating.rating = currentFood!!.reviews[i].rating.toFloat()
-                                    userText.text = currentFood!!.reviews[i].comment
+                                    reviewRating.rating = currentCafe!!.reviews[i].rating.toFloat()
+                                    userText.text = currentCafe!!.reviews[i].comment
 
                                     val layoutParams = LinearLayout.LayoutParams(
                                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -101,7 +103,7 @@ class FoodReviewsActivity : AppCompatActivity() {
                 }
             } catch (e: NoInternetException) {
                 launch(Dispatchers.Main) {
-                    val noConnection = findViewById<LinearLayout>(R.id.foodReviewsNoInternet)
+                    val noConnection = findViewById<LinearLayout>(R.id.cafeReviewsNoInternet)
                     noConnection.visibility = View.VISIBLE
                 }
             }
@@ -111,26 +113,26 @@ class FoodReviewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setLanguage()
-        setContentView(R.layout.activity_food_reviews)
+        setContentView(R.layout.activity_cafe_reviews)
 
-        val backButton = findViewById<ImageButton>(R.id.foodReviewsActivityBackButton)
+        val backButton = findViewById<ImageButton>(R.id.cafeReviewsActivityBackButton)
 
         backButton.setOnClickListener() {
             finish()
         }
 
-        val foodId = intent.extras?.getInt("food_id")
+        val cafeId = intent.extras?.getInt("cafe_id")
 
 
-        val reviewsContainer = findViewById<LinearLayout>(R.id.foodReviewsActivityContainer)
-        var currentFood: Food? = null
-        val foodController = FoodController()
+        val reviewsContainer = findViewById<LinearLayout>(R.id.cafeReviewsActivityContainer)
+        var currentCafe: Cafe? = null
+        val cafeController = CafeController()
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                currentFood = foodController.getFood(foodId!!)
+                currentCafe = cafeController.getCafe(cafeId!!)
 
-                val count = currentFood!!.reviews.size
+                val count = currentCafe!!.reviews.size
 
                 launch() {
                     for (i in 0 until count) {
@@ -139,7 +141,7 @@ class FoodReviewsActivity : AppCompatActivity() {
                         lifecycleScope.launch() {
                             try {
                                 personInReview =
-                                    accountController.getById(currentFood!!.reviews[i].userId)
+                                    accountController.getById(currentCafe!!.reviews[i].userId)
 
 
                                 launch(Dispatchers.Main) {
@@ -165,8 +167,8 @@ class FoodReviewsActivity : AppCompatActivity() {
                                     userName.text =
                                         personInReview!!.firstName + " " + personInReview!!.lastName
 
-                                    reviewRating.rating = currentFood!!.reviews[i].rating.toFloat()
-                                    userText.text = currentFood!!.reviews[i].comment
+                                    reviewRating.rating = currentCafe!!.reviews[i].rating.toFloat()
+                                    userText.text = currentCafe!!.reviews[i].comment
 
                                     val layoutParams = LinearLayout.LayoutParams(
                                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -184,7 +186,7 @@ class FoodReviewsActivity : AppCompatActivity() {
                 }
             } catch (e: NoInternetException) {
                 launch(Dispatchers.Main) {
-                    val noConnection = findViewById<LinearLayout>(R.id.foodReviewsNoInternet)
+                    val noConnection = findViewById<LinearLayout>(R.id.cafeReviewsNoInternet)
                     noConnection.visibility = View.VISIBLE
                 }
             }

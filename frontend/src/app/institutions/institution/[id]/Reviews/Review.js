@@ -35,13 +35,16 @@ export default function Review( props ) {
     return (
         <section className={styles['review-card']}>
             <section className={styles.user}>
-              <Image alt='user avatar' width={50} height={50} src={commentUser.imageUrl ?? "/user.png"}/>
-              <p>
-                  {commentUser.firstName} {commentUser.lastName}
-              </p>
+              <Image alt='user avatar' width={70} height={70} src={commentUser.imageUrl ?? "/user.png"}/>
+              
             </section>
             <section className={styles.comment}>
-                <p>{props?.comment}</p> <Rating sx={{bottom: "5px", right: "3px"}} name="read-only" value={Number(props.rating)} readOnly/>
+                <p>
+                  {commentUser.firstName} {commentUser.lastName}
+                </p>
+                <div style={{display:"flex", flexDirection:"column-reverse"}}>
+                    <p>{props?.comment}</p> <Rating sx={{bottom: "5px", right: "3px"}} name="read-only" value={Number(props.rating)} readOnly/>
+                </div>
             </section>
             {((user.id == commentUser.id) || user.role === 'ADMIN') ? <Fab onClick={handleClick} sx={{bgcolor:"#4caf50", "&:hover":{bgcolor:"#4caf50"}, marginLeft:"auto", color:"white "}}><CloseIcon/></Fab> : null}
         </section>

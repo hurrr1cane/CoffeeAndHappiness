@@ -13,7 +13,7 @@ export default function Dishes({ tab }) {
     }, [tab])
 
     return (
-        <div className={styles.container}>
+        <div className={styles.wrapper}>
             {data.map((item, index) => (
                 <DishCard key={index} dish = {item} />
             ))}

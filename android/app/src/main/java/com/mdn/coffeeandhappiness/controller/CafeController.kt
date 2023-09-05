@@ -3,19 +3,22 @@ package com.mdn.coffeeandhappiness.controller
 import android.content.SharedPreferences
 import android.util.Log
 import com.mdn.coffeeandhappiness.exception.NoInternetException
-import com.mdn.coffeeandhappiness.model.Food
+import com.mdn.coffeeandhappiness.model.Cafe
 import com.mdn.coffeeandhappiness.model.Review
 import com.mdn.coffeeandhappiness.tools.Constants
-import okhttp3.*
-import java.io.IOException
-import org.json.JSONArray
-import org.json.JSONObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
 
-class FoodController {
+class CafeController {
+
 
     public suspend fun addReview(
         id: Int,
@@ -25,7 +28,7 @@ class FoodController {
     ) {
         return withContext(Dispatchers.IO) {
 
-            val url = "${Constants().address}/api/review/food/"
+            val url = "${Constants().address}/api/review/cafe/"
             val finalUrl = url + id.toString()
 
             // Create an OkHttpClient instance
@@ -64,11 +67,11 @@ class FoodController {
                     val responseBody = response.body?.string()
 
                     // Log the response body for debugging
-                    Log.d("FoodController", "Response Body: $responseBody")
+                    Log.d("CafeController", "Response Body: $responseBody")
 
                 } else {
                     // Log the error message for debugging
-                    Log.e("FoodController", "HTTP Error: ${response.code}")
+                    Log.e("CafeController", "HTTP Error: ${response.code}")
                 }
 
                 // Close the response body to release resources
@@ -83,21 +86,19 @@ class FoodController {
         }
     }
 
-    public suspend fun getFood(foodType: String): MutableList<Food> {
+    public suspend fun getCafe(): MutableList<Cafe> {
         return withContext(Dispatchers.IO) {
-            val foodList: MutableList<Food> = mutableListOf()
+            val cafeList: MutableList<Cafe> = mutableListOf()
 
             // Define the URL you want to send the GET request to
-            val url = "${Constants().address}/api/food/type/"
-
-            val finalUrl = "$url$foodType"
+            val url = "${Constants().address}/api/cafe"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
 
             // Create a request object for the GET request
             val request = Request.Builder()
-                .url(finalUrl)
+                .url(url)
                 .build()
 
             try {
@@ -106,7 +107,7 @@ class FoodController {
 
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string()
-                    foodList.addAll(parseFood(responseBody!!))
+                    cafeList.addAll(parseCafe(responseBody!!))
                 }
             } catch (e: IOException) {
                 // Handle failure, such as network issues
@@ -114,16 +115,16 @@ class FoodController {
                 throw NoInternetException()
             }
 
-            foodList
+            cafeList
         }
     }
 
-    public suspend fun getFood(id: Int): Food? {
+    public suspend fun getCafe(id: Int): Cafe? {
         return withContext(Dispatchers.IO) {
-            var myFood: Food? = null
+            var myCafe: Cafe? = null
 
             // Define the URL you want to send the GET request to
-            val url = "${Constants().address}/api/food/"
+            val url = "${Constants().address}/api/cafe/"
 
             val finalUrl = "$url$id"
 
@@ -141,7 +142,7 @@ class FoodController {
 
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string()
-                    myFood = parseSingleFood(responseBody!!)
+                    myCafe = parseSingleCafe(responseBody!!)
                 }
             } catch (e: IOException) {
                 // Handle failure, such as network issues
@@ -149,26 +150,21 @@ class FoodController {
                 throw NoInternetException()
             }
 
-            myFood
+            myCafe
         }
     }
 
-
-    private fun parseSingleFood(response: String): Food {
+    private fun parseSingleCafe(response: String): Cafe {
         val jsonItem = JSONObject(response)
 
         // Parse individual fields from the JSON object
         val id = jsonItem.getInt("id")
-        val nameEN = jsonItem.getString("nameEN")
-        val nameUA = jsonItem.getString("nameUA")
-        val descriptionEN = jsonItem.getString("descriptionEN")
-        val descriptionUA = jsonItem.getString("descriptionUA")
+        val locationEN = jsonItem.getString("locationEN")
+        val locationUA = jsonItem.getString("locationUA")
+        val latitude = jsonItem.getDouble("latitude")
+        val longitude = jsonItem.getDouble("longitude")
         val imageUrl = jsonItem.getString("imageUrl")
-        val price = jsonItem.getDouble("price")
-        val ingredientsEN = jsonItem.getString("ingredientsEN")
-        val ingredientsUA = jsonItem.getString("ingredientsEN")
-        val weight = jsonItem.getDouble("weight")
-        val type = jsonItem.getString("type")
+        val phoneNumber = jsonItem.getString("phoneNumber")
         val averageRating = jsonItem.getDouble("averageRating")
         val totalReviews = jsonItem.getInt("totalReviews")
         val reviews = jsonItem.getJSONArray("reviews")
@@ -192,56 +188,52 @@ class FoodController {
         }
 
         // Create a MenuItem object
-        val menuItem = Food(
-            id, nameEN, nameUA, descriptionEN, descriptionUA, imageUrl, price, ingredientsEN,
-            ingredientsUA, weight, type, averageRating, totalReviews, reviewsList
+        val cafe = Cafe(
+            id, locationEN, locationUA, latitude, longitude, imageUrl, phoneNumber,
+            averageRating, totalReviews, reviewsList
         )
 
-        return menuItem
+        return cafe
     }
 
-    private fun parseFood(response: String): MutableList<Food> {
+    private fun parseCafe(response: String): MutableList<Cafe> {
         // Assuming your JSON response is stored in a variable called responseBody
         val jsonArray = JSONArray(response)
 
         // Create a list to store parsed objects
-        val menuItems = mutableListOf<Food>()
+        val menuItems = mutableListOf<Cafe>()
 
         // Iterate through the JSON array
-        parseArrayOfFood(jsonArray, menuItems)
+        parseArrayOfCafe(jsonArray, menuItems)
 
         return menuItems
     }
 
-    fun parseArrayOfFood(
+    private fun parseArrayOfCafe(
         jsonArray: JSONArray,
-        menuItems: MutableList<Food>
+        cafes: MutableList<Cafe>
     ) {
         for (i in 0 until jsonArray.length()) {
             val jsonItem = jsonArray.getJSONObject(i)
 
             // Parse individual fields from the JSON object
             val id = jsonItem.getInt("id")
-            val nameEN = jsonItem.getString("nameEN")
-            val nameUA = jsonItem.getString("nameUA")
-            val descriptionEN = jsonItem.getString("descriptionEN")
-            val descriptionUA = jsonItem.getString("descriptionUA")
+            val locationEN = jsonItem.getString("locationEN")
+            val locationUA = jsonItem.getString("locationUA")
+            val latitude = jsonItem.getDouble("latitude")
+            val longitude = jsonItem.getDouble("longitude")
             val imageUrl = jsonItem.getString("imageUrl")
-            val price = jsonItem.getDouble("price")
-            val ingredientsEN = jsonItem.getString("ingredientsEN")
-            val ingredientsUA = jsonItem.getString("ingredientsEN")
-            val weight = jsonItem.getDouble("weight")
-            val type = jsonItem.getString("type")
+            val phoneNumber = jsonItem.getString("phoneNumber")
             val averageRating = jsonItem.getDouble("averageRating")
             val totalReviews = jsonItem.getInt("totalReviews")
 
             // Create a MenuItem object and add it to the list
-            val menuItem = Food(
-                id, nameEN, nameUA, descriptionEN, descriptionUA, imageUrl, price, ingredientsEN,
-                ingredientsUA, weight, type, averageRating, totalReviews, emptyList()
+            val cafe = Cafe(
+                id, locationEN, locationUA, latitude, longitude, imageUrl, phoneNumber,
+                averageRating, totalReviews, emptyList()
             )
 
-            menuItems.add(menuItem)
+            cafes.add(cafe)
         }
     }
 }

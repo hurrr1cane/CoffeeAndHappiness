@@ -10,7 +10,7 @@ import com.google.gson.Gson
 import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Person
 import com.mdn.coffeeandhappiness.model.PersonInReview
-import com.mdn.coffeeandhappiness.tools.BackendAddress
+import com.mdn.coffeeandhappiness.tools.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -30,7 +30,7 @@ class AccountController {
             var personInReview: PersonInReview? = null
 
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/user/"
+            val url = "${Constants().address}/api/user/"
 
             val finalUrl = "$url$id"
 
@@ -77,7 +77,7 @@ class AccountController {
     ): Boolean {
         return withContext(Dispatchers.IO) {
 
-            val url = "${BackendAddress().address}/api/auth/login"
+            val url = "${Constants().address}/api/auth/login"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -173,7 +173,7 @@ class AccountController {
     ): Boolean {
         return withContext(Dispatchers.IO) {
 
-            val url = "${BackendAddress().address}/api/auth/register"
+            val url = "${Constants().address}/api/auth/register"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -254,7 +254,7 @@ class AccountController {
         return withContext(Dispatchers.IO) {
 
             if (sharedPreferences.getBoolean("IsAccountLogged", false)) {
-                val url = "${BackendAddress().address}/api/auth/refresh"
+                val url = "${Constants().address}/api/auth/refresh"
 
                 // Create an OkHttpClient instance
                 val client = OkHttpClient()
@@ -328,7 +328,7 @@ class AccountController {
             var person: Person? = null
 
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/user/me"
+            val url = "${Constants().address}/api/user/me"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -379,7 +379,7 @@ class AccountController {
             var person: Person? = null
 
             // Define the URL you want to send the GET request to
-            val url = "${BackendAddress().address}/api/user/me"
+            val url = "${Constants().address}/api/user/me"
 
             // Create an OkHttpClient instance
             val client = OkHttpClient()
@@ -435,7 +435,7 @@ class AccountController {
 
                 // Now, you can use tempFile for your HTTP request
 
-                val url = "${BackendAddress().address}/api/user/me/image/add"
+                val url = "${Constants().address}/api/user/me/image/add"
                 val token = sharedPreferences.getString("AccessToken", "")
 
                 // Create an OkHttpClient instance
@@ -477,7 +477,7 @@ class AccountController {
 
     suspend fun deletePicture(sharedPreferences: SharedPreferences) {
         return withContext(Dispatchers.IO) {
-            val url = "${BackendAddress().address}/api/user/me/image/delete"
+            val url = "${Constants().address}/api/user/me/image/delete"
 
             val token = sharedPreferences.getString("AccessToken", "")
 
@@ -512,7 +512,7 @@ class AccountController {
 
     suspend fun updateInformation(sharedPreferences: SharedPreferences, name: String, surname: String, phone: String) {
         return withContext(Dispatchers.IO) {
-            val url = "${BackendAddress().address}/api/user/me/edit"
+            val url = "${Constants().address}/api/user/me/edit"
 
 
             val json = """

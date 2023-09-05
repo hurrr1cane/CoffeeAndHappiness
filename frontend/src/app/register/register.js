@@ -48,12 +48,12 @@ export default function Register() {
             push('/user')
           }, 1500) 
         })
-        .catch(err => {setError(err.response.data.errorMessage); setShowErrorAlert(true)})
+        .catch(err => {setErrorMessage(err.response.data.errorMessage); setShowErrorAlert(true)})
 
         
     };
     return (
-    <Container Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs">
       <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8}}><AlertTitle>Account registered successfully!</AlertTitle> You will be redirected shortly.</Alert>
       <Alert  severity="error" onClose={() => {setShowErrorAlert(false)}} sx={{display: showErrorAlert ? "flex" : "none"}}>{errorMessage}</Alert>
         <Box
