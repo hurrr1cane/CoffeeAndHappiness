@@ -9,11 +9,15 @@ import {Fab, Stack} from "@mui/material"
 import { Edit } from '@mui/icons-material'
 import { Close } from '@mui/icons-material'
 import EditCafeModal from './EditCafeModal'
+import Button from '@mui/material/Button'
+import useWindowSize from '../menu/dish/[id]/Reviews/useWindow'
 export default function InstitutionCard({ cafe }) {
 
     const {user, _} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
+
+    const { width, height } = useWindowSize()
 
     const handleDeleteClick = () => {
         axios.delete(`http://localhost:8080/api//${cafe.id}`, {
@@ -49,15 +53,19 @@ export default function InstitutionCard({ cafe }) {
             height={200}
             width={200}
           />
-          <div>
+          <div style={{marginRight:height > 560 ? 0 : 10}}>
             <h1 className={styles.property}>{cafe?.locationEN}</h1>
             <p className={styles.property}>Phone number: {cafe.phoneNumber}</p>
-            <p className={styles.property}>
-              <Link href="https://www.google.com/maps">View on a map</Link>
-            </p>
-            <p className={styles.property}>
-              <Link href={`institutions/institution/${cafe?.id}`}>View reviews</Link>
-            </p>
+            <Button variant='contained'  fullWidth  sx={{marginBottom:1, bgcolor:"#4caf50", "&:hover":{bgcolor:"#4caf50"}}}>
+              <p>
+                <Link href="https://www.google.com/maps">View on a map</Link>
+              </p>
+            </Button>
+            <Button variant='contained'  fullWidth    sx={{marginBottom:1, bgcolor:"#4caf50", "&:hover":{bgcolor:"#4caf50"}}}>
+              <p>
+                <Link href={`institutions/institution/${cafe?.id}`}>View reviews</Link>
+              </p>
+            </Button>
           </div>
         {user.role === 'ADMIN' && (
           <div className={styles.adminActions}>

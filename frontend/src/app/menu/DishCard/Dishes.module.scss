@@ -4,3 +4,9 @@
     padding: 1rem;
     align-items: center;
 }
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0rem;
+    } 
+}

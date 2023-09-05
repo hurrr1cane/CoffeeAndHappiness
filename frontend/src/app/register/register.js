@@ -48,7 +48,7 @@ export default function Register() {
             push('/user')
           }, 1500) 
         })
-        .catch(err => {setError(err.response.data.errorMessage); setShowErrorAlert(true)})
+        .catch(err => {setErrorMessage(err.response.data.errorMessage); setShowErrorAlert(true)})
 
         
     };

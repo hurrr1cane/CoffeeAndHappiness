@@ -7,12 +7,14 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import Orders from "./orders"
-import { headers } from "../../../next.config"
-
+import useWindowSize from "../menu/dish/[id]/Reviews/useWindow"
 
 export default function User() {
 
     const {user, setUser} = useGlobalContext()
+
+    const { width, height } = useWindowSize()
+
     useEffect(() => {
       axios.get('http://localhost:8080/api/user/me', {
         headers: {
@@ -45,7 +47,7 @@ export default function User() {
     }
     return (
       <>
-      <h1>Welcome, {user?.firstName} {user?.lastName}</h1>
+      {height > 500 ? <h1 style={{fontWeight:400}}>Welcome, {user?.firstName} {user?.lastName}</h1> : <h1>Welcome, <br/>{user?.firstName} {user?.lastName} </h1>}
       <div className={styles.container}>
         <section className={styles.main}>
                 <div className={styles.user}>
