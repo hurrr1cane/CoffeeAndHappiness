@@ -22,10 +22,13 @@ import styles from './page.module.scss'
 import { MuiOtpInput } from 'mui-one-time-password-input'
 import KeyOutlinedIcon from '@mui/icons-material/KeyOutlined';
 import PasswordOutlinedIcon from '@mui/icons-material/PasswordOutlined';
+import useWindowSize from '../menu/dish/[id]/Reviews/useWindow';
 export default function Home() {
 
     const { push } = useRouter();
     const { handleSubmit, register, formState: { errors } } = useForm();
+
+    const { width, height } = useWindowSize()
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -50,6 +53,17 @@ export default function Home() {
     }
 
 
+    function matchIsNumeric(text) {
+        const isNumber = typeof text === 'number'
+        const isString = typeof text === 'string'
+        return (isNumber || (isString && text !== '')) && !isNaN(Number(text))
+      }
+      
+      const validateChar = (value, index) => {
+        return matchIsNumeric(value)
+      }
+
+
     const onEmailSubmit = (data) => {
         setEmail(data.email)
         console.log(data)
@@ -59,7 +73,7 @@ export default function Home() {
     }
 
     const handleOtpSubmit = (value) => {    
-        console.log(value)
+        console.log(otp)
         setShowOtpAlert(true)
         
         setTimeout(() => {
@@ -78,8 +92,8 @@ export default function Home() {
     return (
         <div className={styles.main}>
             <Container component="main" maxWidth="xs">
-              <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8, marginBottom: 1}}>Password reset code sent.</Alert>
-              <Alert severity='success' onClose={() => {setShowOtpAlert(false)}} sx={{display: showOtpAlert ? "flex" : "none", marginTop:8, marginBottom: 1}}>Code validated successfully.</Alert>  
+              <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8, marginBottom: 1, whiteSpace:"nowrap"}}>Password reset code sent.</Alert>
+              <Alert severity='success' onClose={() => {setShowOtpAlert(false)}} sx={{display: showOtpAlert ? "flex" : "none", marginTop:8, marginBottom: 1, whiteSpace:"nowrap"}}>Code validated successfully.</Alert>  
               <Alert onClose={() => {setShowAlert(false)}} sx={{display: showAlert ? "flex" : "none"}}
                severity="error">{error}</Alert>
                 <Box
@@ -96,15 +110,15 @@ export default function Home() {
                     <Avatar sx={{ m: 1, bgcolor: '#4caf50' }}>
                         <KeyOutlinedIcon />
                         </Avatar>
-                        <Typography sx={{whiteSpace:"nowrap", p:1}} component="h1" variant="h5">
+                        <Typography sx={{p:1}} component="h1" variant="h5">
                         Input the code sent to {email}
                         </Typography>
-                        <MuiOtpInput length={6} onComplete={() => setShowButton(true)} value={otp} onChange={handleChange} />
+                        <MuiOtpInput validateChar={validateChar} gap={1} length={6} onComplete={() => setShowButton(true)} value={otp} onChange={handleChange} />
                         <Button
                             onClick={handleOtpSubmit}
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "}, display: showButton ? "block" : "none" }}
+                            sx={{whiteSpace:"nowrap", mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "}, display: showButton ? "block" : "none" }}
                         >
                             Submit password reset code
                         </Button>
@@ -173,7 +187,7 @@ export default function Home() {
                         <Avatar sx={{ m: 1, bgcolor: '#4caf50' }}>
                         <EmailOutlinedIcon />
                         </Avatar>
-                        <Typography component="h1" variant="h5">
+                        <Typography sx={{whiteSpace:"nowrap"}} component="h1" variant="h5">
                         Reset password
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit(onEmailSubmit)} noValidate sx={{ mt: 1 }}>
@@ -201,7 +215,7 @@ export default function Home() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "} }}
+                            sx={{ mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "}, whiteSpace:"nowrap" }}
                         >
                             Send reset password code
                         </Button>

@@ -53,7 +53,7 @@ export default function Register() {
         
     };
     return (
-    <Container Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs">
       <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8}}><AlertTitle>Account registered successfully!</AlertTitle> You will be redirected shortly.</Alert>
       <Alert  severity="error" onClose={() => {setShowErrorAlert(false)}} sx={{display: showErrorAlert ? "flex" : "none"}}>{errorMessage}</Alert>
         <Box

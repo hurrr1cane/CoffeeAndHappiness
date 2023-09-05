@@ -35,7 +35,7 @@ export default function PositionedMenu() {
         }}
       >
         <MenuItem onClick={handleClose}>English 🇬🇧</MenuItem>
-        <MenuItem onClick={handleClose}>Ukrainian 🇺🇦</MenuItem>
+        <MenuItem onClick={handleClose}>Українська 🇺🇦</MenuItem>
       </Menu>
     </div>
   );
