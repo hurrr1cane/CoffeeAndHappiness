@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
 
       - name: Entering backend folder
-        run: pwd
+        run: cd /home/runner/work/CoffeeAndHappiness/CoffeeAndHappiness/backend
       - name: Build with Maven
         run: mvn clean install
 
