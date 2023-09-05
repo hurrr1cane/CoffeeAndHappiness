@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SCREEN_STYLE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.CafeAddReviewActivity">
+
+    <LinearLayout
+        android:id="@+id/cafeAddReviewActivityTopBar"
+        style="@style/FOOD_CARD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/cafeAddReviewActivityBackButton"
+            style="@style/FOOD_BACK_BUTTON"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:padding="5dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/cafeReviewsActivityContainer"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/cafeAddReviewActivityTopBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/sofiasans_straight"
+            android:gravity="center"
+            android:text="@string/food_review_add_review"
+            android:textSize="32sp" />
+
+        <androidx.cardview.widget.CardView
+            style="@style/FOOD_CARD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                style="@style/FOOD_CARD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/cafeAddReviewRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:isIndicator="false"
+                    android:max="5"
+                    android:progressTint="@color/default_green"
+                    android:rating="1"
+                    android:stepSize="1.0" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ACCOUNT_ENTER_TEXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="5dp"
+            app:hintTextColor="@color/default_green">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cafeAddReviewComment"
+                style="@style/ACCOUNT_ENTER_TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_margin="8dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:gravity="top"
+                android:hint="@string/food_review_comment"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:maxLines="10"
+                android:padding="8dp"
+                android:scrollbars="vertical"
+                android:textSize="20sp"
+                android:theme="@style/ACCOUNT_CURSOR" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cafeAddReviewButton"
+            style="@style/ACCOUNT_ENTER_BUTTON"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/account_button"
+            android:fontFamily="@font/sofiasans_straight"
+            android:padding="15dp"
+            android:text="@string/food_review_submit"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/cafeAddReviewNoInternet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sofiasans_straight"
+            android:text="@string/internet_no_connection_error"
+            android:textColor="@color/default_red"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

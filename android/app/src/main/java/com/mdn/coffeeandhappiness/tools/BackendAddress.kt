@@ -1,5 +1,5 @@
 package com.mdn.coffeeandhappiness.tools
 
 class BackendAddress {
-    val address = "http://192.168.0.23:8080"
+    val address = "http://172.20.32.1:8080"
 }
