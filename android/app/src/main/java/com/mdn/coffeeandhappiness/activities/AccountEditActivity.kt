@@ -12,12 +12,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.exception.NoInternetException
+import com.mdn.coffeeandhappiness.fragments.accountfragments.ConfirmationAccountEditedFragment
+import com.mdn.coffeeandhappiness.fragments.codefragments.ConfirmationOrderPlacedFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.net.URI
@@ -108,6 +111,23 @@ class AccountEditActivity : AppCompatActivity() {
                                 "Account",
                                 Context.MODE_PRIVATE
                             ), name.text.toString(), surname.text.toString(), phone.text.toString()
+                        )
+
+                        val confirmationDialog =
+                            ConfirmationAccountEditedFragment() {
+                                // This lambda function will be called when the user clicks "Yes"
+                                try {
+                                    lifecycleScope.launch(Dispatchers.IO) {
+                                        AccountController().updateMyself(sharedPreferences)
+                                    }
+                                }
+                                catch (e: NoInternetException) {
+
+                                }
+                            }
+                        confirmationDialog.show(
+                            (contextext as FragmentActivity).supportFragmentManager,
+                            "ConfirmationDialog"
                         )
                     } catch (e: NoInternetException) {
                         launch(Dispatchers.Main) {
