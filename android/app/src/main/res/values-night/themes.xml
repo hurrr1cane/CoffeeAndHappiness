@@ -187,7 +187,7 @@
     </style>
 
     <style name="ACCOUNT_EDIT_PHONE" parent="ACCOUNT_ENTER_TEXT">
-        <item name="android:drawableStart">@drawable/baseline_phone_black_24</item>
+        <item name="android:drawableStart">@drawable/baseline_phone_white_24</item>
     </style>
 
 
