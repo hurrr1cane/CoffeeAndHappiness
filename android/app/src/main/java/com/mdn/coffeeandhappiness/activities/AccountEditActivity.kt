@@ -162,10 +162,11 @@ class AccountEditActivity : AppCompatActivity() {
 
     private fun isPhoneNumberValid(phoneNumber: String): Boolean {
         // Define a regex pattern for the expected format
-        val pattern = Regex("^380\\d{9}$")
+        val pattern1 = Regex("^(?:\\+?3?8?0?)([1-9]\\d{8})\$")
+        val pattern2 = Regex("^(0\\d{9})\$")
 
         // Use the matches function to check if the phoneNumber matches the pattern
-        return pattern.matches(phoneNumber)
+        return (pattern1.matches(phoneNumber) || pattern2.matches(phoneNumber))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
