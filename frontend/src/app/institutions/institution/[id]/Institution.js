@@ -19,7 +19,7 @@ export default function Institution({reset}) {
     const [institution, setInstitution] = useState({})
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/cafe/${pathname}`)
+        axios.get(`https://coffee-and-happiness-backend.azurewebsites.net/api/cafe/${pathname}`)
         .then(res => setInstitution(res.data))
         .catch(err => console.log(err))
     }, [])

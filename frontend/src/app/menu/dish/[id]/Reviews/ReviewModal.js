@@ -21,7 +21,7 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
 
     const handleSubmit = () => {
         
-        axios.post(`http://localhost:8080/api/review/food/${id}`, 
+        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/review/food/${id}`, 
         {
             
             rating: rating,

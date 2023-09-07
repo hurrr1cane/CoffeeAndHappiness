@@ -38,18 +38,18 @@ export default function Login() {
         setUser({
           email: data.email
         })
-        axios.post('http://localhost:8080/api/auth/login', {
+        axios.post('https://coffee-and-happiness-backend.azurewebsites.net/api/auth/login', {
             email:data.email,
             password: data.password
         })
         .then(res => {
             setUser(prev => (
-              {...prev, token:res.data.accessToken, refreshToken: res.data.accessToken}
+              {...prev, token:res.data.accessToken, refreshToken: res.data.refreshToken}
             ))
             setShowSuccessAlert(true)
             setTimeout(() => {
               push('/user')
-            }, 1500)
+            }, 1000)
             
         })
         .catch(err => {setError(err.response.data.errorMessage); setShowAlert(true)})

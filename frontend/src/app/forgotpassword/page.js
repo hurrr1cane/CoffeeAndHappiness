@@ -65,7 +65,7 @@ export default function Home() {
 
 
     const onEmailSubmit = (data) => {
-        axios.post(`http://localhost:8080/api/auth/forgotpassword?email=${data?.email}`)
+        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/forgotpassword?email=${data?.email}`)
         .then(res => {
             console.log(res)
             setShowSuccessAlert(true)
@@ -77,7 +77,7 @@ export default function Home() {
     }
 
     const handleOtpSubmit = (value) => {    
-        axios.post(`http://localhost:8080/api/auth/reset-password`)
+        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/reset-password`)
         console.log(otp)
         setShowOtpAlert(true)
         

@@ -34,7 +34,7 @@ export default function EditNewsModal({open, id, setOpen, token, item}) {
       };
 
       const handleSubmit = () => {
-        axios.put(`http://localhost:8080/api/news/${id}`, formData, {
+        axios.put(`https://coffee-and-happiness-backend.azurewebsites.net/api/news/${id}`, formData, {
             headers: {
                 Authorization: "Bearer " + token
             }

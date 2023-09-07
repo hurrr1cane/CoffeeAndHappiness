@@ -23,14 +23,14 @@ function News() {
     const [createOpen, setCreateOpen] = useState(false)
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/news")
+        axios.get("https://coffee-and-happiness-backend.azurewebsites.net/api/news")
         .then(res => setNews(res.data))
         .catch(err => console.log(err))
     })
 
 
     const handleDeleteClick = (id) => {
-        axios.delete(`http://localhost:8080/api/news/${id}`, {
+        axios.delete(`https://coffee-and-happiness-backend.azurewebsites.net/api/news/${id}`, {
             headers: {
                 Authorization: "Bearer " + user.token
             }

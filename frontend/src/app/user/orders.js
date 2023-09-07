@@ -12,6 +12,8 @@ export default function Orders() {
 
     const { user, _} = useGlobalContext()
 
+    const [orders, setOrders] = useState([])
+
     const {width, heigth} = useWindowSize()
 
     const [expanded, setExpanded] = useState(false);
@@ -21,25 +23,16 @@ export default function Orders() {
     };
 
     useEffect(() => {
-      axios.get('http://localhost:8080/api/user/me', {
+      axios.get('https://coffee-and-happiness-backend.azurewebsites.net/api/user/me', {
         headers: {
           Authorization: "Bearer " + user.token
         }
       })
-      .then(res => console.log(res.data.orders))
+      .then(res => setOrders(res.data.orders))
       .catch(err => console.log(err))
-    }, [])
+    }, [user?.token])
 
-    function convertTimestampToFormattedDate(timestampString) {
-      const date = new Date(timestampString);
-    
-      const day = date.getDate().toString().padStart(2, '0');
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const year = date.getFullYear();
-    
-      const formattedDate = `${day}-${month}-${year}`;
-      return formattedDate;
-    }
+
 
 
     function groupArrayByFour(inputArray) {
@@ -66,10 +59,8 @@ export default function Orders() {
       //   { id: 11, name: "earl grey", date: "28-09-2023" }
       // ];
       
-      const orders = []
 
       const groupedOrders = groupArrayByFour(orders);
-
 
       const displayedOrders = groupedOrders[page - 1] || [];
 
@@ -77,14 +68,13 @@ export default function Orders() {
       return (
         <div className={styles['orders-container']}>
             <div className={styles['order-group']}>
-            {orders.length > 1 ? displayedOrders.map((order) => (
+            {orders.length >= 1 ? displayedOrders.map((order) => (
             <Order
                 width = {width}
                 key={order.id}
                 expanded={expanded}
                 handleChange={handleChange}
-                name={order.name} 
-                id={order.id}
+                order = {order}
                 date={order.date}
                
             />

@@ -45,7 +45,7 @@ export default function CreateNewsModal({open, setOpen}) {
       };
 
       const handleSubmit = () => {
-        axios.post(`http://localhost:8080/api/news`, formData, {
+        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/news`, formData, {
             headers: {
                 Authorization: "Bearer " + user.token
             }
