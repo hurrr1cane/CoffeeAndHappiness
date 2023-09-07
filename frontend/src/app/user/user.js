@@ -16,13 +16,12 @@ export default function User() {
     const { width, height } = useWindowSize()
 
     useEffect(() => {
-      axios.get('http://localhost:8080/api/user/me', {
+      axios.get('https://coffee-and-happiness-backend.azurewebsites.net/api/user/me', {
         headers: {
           Authorization: 'Bearer ' + user.token
         }
       })
       .then(res => {
-          console.log(res)
           setUser(
             prev => (
             {

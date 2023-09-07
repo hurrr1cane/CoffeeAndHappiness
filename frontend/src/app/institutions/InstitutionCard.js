@@ -20,7 +20,7 @@ export default function InstitutionCard({ cafe }) {
     const { width, height } = useWindowSize()
 
     const handleDeleteClick = () => {
-        axios.delete(`http://localhost:8080/api//${cafe.id}`, {
+        axios.delete(`https://coffee-and-happiness-backend.azurewebsites.net/api//${cafe.id}`, {
             headers: {
                 Authorization: "Bearer " + user.token
             }

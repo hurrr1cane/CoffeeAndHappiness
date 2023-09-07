@@ -11,7 +11,7 @@ export default function Reviews() {
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/food/${pathname}`, { cache: 'no-store' })
+        fetch(`https://coffee-and-happiness-backend.azurewebsites.net/api/food/${pathname}`, { cache: 'no-store' })
         .then(response => response.json())
         .then(data => setReviews(data.reviews))
         .catch(error => console.error('Error fetching data:', error));

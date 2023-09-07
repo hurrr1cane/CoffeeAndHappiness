@@ -34,7 +34,7 @@ export default function Register() {
         setUser({
           email: data.email
         })
-        axios.post('http://localhost:8080/api/auth/register', {
+        axios.post('https://coffee-and-happiness-backend.azurewebsites.net/api/auth/register', {
             firstName: data.firstName,
             lastName: data.lastName,
             email: data.email,
@@ -46,7 +46,7 @@ export default function Register() {
           setShowSuccessAlert(true)
           setTimeout(() => {
             push('/user')
-          }, 1500) 
+          }, 1000) 
         })
         .catch(err => {setErrorMessage(err.response.data.errorMessage); setShowErrorAlert(true)})
 

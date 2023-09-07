@@ -9,7 +9,7 @@ export default function InstitutionCards () {
     const [cafes, setCafes] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/cafe")
+        axios.get("https://coffee-and-happiness-backend.azurewebsites.net/api/cafe")
         .then(res => {setCafes(res.data); console.log(res)})
     }, [])
 

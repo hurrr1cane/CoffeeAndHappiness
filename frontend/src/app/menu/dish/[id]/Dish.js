@@ -21,7 +21,7 @@ export default function Dish({ reset }) {
     const [dish, setDish] = useState({})
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/food/${pathname}`)
+        axios.get(`https://coffee-and-happiness-backend.azurewebsites.net/api/food/${pathname}`)
         .then(res => setDish(res.data))
         .catch(err => console.log(err))
     }, [])

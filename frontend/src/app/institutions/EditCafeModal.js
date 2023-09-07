@@ -34,7 +34,7 @@ export default function EditCafeModal({open, id, setOpen, token, cafe}) {
       };
 
       const handleSubmit = () => {
-        axios.put(`http://localhost:8080/api/cafe/${id}`, formData, {
+        axios.put(`https://coffee-and-happiness-backend.azurewebsites.net/api/cafe/${id}`, formData, {
             headers: {
                 Authorization: "Bearer " + token
             }

@@ -20,7 +20,7 @@ export default function DishCard({dish}) {
 
 
     const handleDeleteClick = () => {
-        axios.delete(`http://localhost:8080/api/food/${dish.id}`, {
+        axios.delete(`https://coffee-and-happiness-backend.azurewebsites.net/api/food/${dish.id}`, {
             headers: {
                 Authorization: "Bearer " + user.token
             }

@@ -15,13 +15,13 @@ export default function Review( props ) {
     const { user, _ } = useGlobalContext()
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/user/${props?.userId}`)
+        axios.get(`https://coffee-and-happiness-backend.azurewebsites.net/api/user/${props?.userId}`)
         .then(res => setCommentUser(res.data))
         .catch(err => console.log(err))
     }, [])
 
     const handleClick = () => {
-        axios.delete(`http://localhost:8080/api/review/cafe/${props.id}`, {
+        axios.delete(`https://coffee-and-happiness-backend.azurewebsites.net/api/review/cafe/${props.id}`, {
             headers:{
                 Authorization: "Bearer " + user.token 
             }
