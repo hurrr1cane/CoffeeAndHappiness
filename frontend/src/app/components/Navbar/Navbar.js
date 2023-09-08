@@ -69,11 +69,7 @@
     };
     return (
       <nav className={`${styles.navbar} ${menuOpen ? styles.open : ''} ${isDark ? styles.dark : ""}`}>
-        {/* <div className={styles.highlight} style={{
-        left: stylesData.highlightLeft,
-        width: stylesData.highlightWidth,
-        height: stylesData.highlightHeight
-      }}></div> */}
+    
         <MenuIcon onClick={toggleMobileMenu} className={styles.menuButton}/>
         <Link ref={tabRefs.home} onClick={() => {handleTabClick('home')}} className={`${styles.link} ${stylesData.selectedTab === 'home' ? styles.selected : '' }`} href="/"><h1>Home</h1></Link>
         <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${stylesData.selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>Institutions</h1></Link>
