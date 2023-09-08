@@ -2,6 +2,7 @@ package com.mdn.backend.service;
 
 import com.mdn.backend.exception.InvalidPasswordException;
 import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.model.Cafe;
 import com.mdn.backend.model.review.CafeReview;
 import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.model.user.PasswordChangeRequest;
@@ -17,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,8 @@ public class UserService {
     private final AmazonS3StorageService storageService;
     private final PasswordEncoder passwordEncoder;
     private final TokenRepository tokenRepository;
+
+    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+380|0)?(\\d{9})$");
 
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -64,7 +69,10 @@ public class UserService {
         if (user.getFirstName() != null) myself.setFirstName(user.getFirstName());
         if (user.getLastName() != null) myself.setLastName(user.getLastName());
         if (user.getImageUrl() != null) myself.setImageUrl(user.getImageUrl());
-        if (user.getPhoneNumber() != null) myself.setPhoneNumber(user.getPhoneNumber());
+        if (user.getPhoneNumber() != null) {
+            formatPhoneNumber(myself);
+            myself.setPhoneNumber(user.getPhoneNumber());
+        }
 
         return userRepository.save(myself);
     }
@@ -135,5 +143,17 @@ public class UserService {
 
         tokenRepository.deleteAllByUser(user);
         userRepository.delete(user);
+    }
+
+    private void formatPhoneNumber(User user) {
+        String phoneNumber = user.getPhoneNumber();
+        if (phoneNumber != null) {
+            Matcher matcher = PHONE_NUMBER_PATTERN.matcher(phoneNumber);
+            if (matcher.matches()) {
+                user.setPhoneNumber("+380" + matcher.group(1));
+            } else {
+                throw new IllegalArgumentException("Invalid phone number format");
+            }
+        }
     }
 }
