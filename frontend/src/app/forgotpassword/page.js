@@ -23,10 +23,13 @@ import { MuiOtpInput } from 'mui-one-time-password-input'
 import KeyOutlinedIcon from '@mui/icons-material/KeyOutlined';
 import PasswordOutlinedIcon from '@mui/icons-material/PasswordOutlined';
 import useWindowSize from '../menu/dish/[id]/Reviews/useWindow';
+import { useGlobalContext } from '../store/store';
 export default function Home() {
 
     const { push } = useRouter();
     const { handleSubmit, register, formState: { errors } } = useForm();
+
+    const { isDark } = useGlobalContext()
 
     const { width, height } = useWindowSize()
 
@@ -65,14 +68,14 @@ export default function Home() {
 
 
     const onEmailSubmit = (data) => {
-        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/forgotpassword?email=${data?.email}`)
-        .then(res => {
-            console.log(res)
-            setShowSuccessAlert(true)
-            setTimeout(() => {setShowEmailInput(false)
-            setShowOtpInput(true); setShowSuccessAlert(false)}, 1000)
-        })
-        .catch(err => console.log(err))
+        // axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/forgotpassword?email=${data?.email}`)
+        // .then(res => {
+        // console.log(res)
+        setShowSuccessAlert(true)
+        setTimeout(() => {setShowEmailInput(false)
+        setShowOtpInput(true); setShowSuccessAlert(false)}, 1000)
+        // })
+        // .catch(err => console.log(err))
         setEmail(data.email)
     }
 
@@ -95,7 +98,7 @@ export default function Home() {
     }
 
     return (
-        <div className={styles.main}>
+        <div className={`${styles.main} ${isDark ? styles.dark : ""}`}>
             <Container component="main" maxWidth="xs">
               <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8, marginBottom: 1, whiteSpace:"nowrap"}}>Password reset code sent.</Alert>
               <Alert severity='success' onClose={() => {setShowOtpAlert(false)}} sx={{display: showOtpAlert ? "flex" : "none", marginTop:8, marginBottom: 1, whiteSpace:"nowrap"}}>Code validated successfully.</Alert>  
@@ -112,18 +115,18 @@ export default function Home() {
 
                 {showOtpInput ? 
                 (<>
-                    <Avatar sx={{ m: 1, bgcolor: '#4caf50' }}>
+                    <Avatar sx={{ m: 1, bgcolor:isDark ? "#6b6b6b" : '#4caf50'}}>
                         <KeyOutlinedIcon />
                         </Avatar>
-                        <Typography sx={{p:1}} component="h1" variant="h5">
+                        <Typography sx={{p:1, color: isDark && "#CCCCCC", whiteSpace:width > 500 ? "nowrap" : "default"}} component="h1" variant="h5">
                         Input the code sent to {email}
                         </Typography>
-                        <MuiOtpInput validateChar={validateChar} gap={1} length={6} onComplete={() => setShowButton(true)} value={otp} onChange={handleChange} />
+                        <MuiOtpInput sx={{color: isDark && "#CCCCCC"}} validateChar={validateChar} gap={1} length={6} onComplete={() => setShowButton(true)} value={otp} onChange={handleChange} />
                         <Button
                             onClick={handleOtpSubmit}
                             fullWidth
                             variant="contained"
-                            sx={{whiteSpace:"nowrap", mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "}, display: showButton ? "block" : "none" }}
+                            sx={{whiteSpace:"nowrap", mt: 3, mb: 2, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"}, display: showButton ? "block" : "none" }}
                         >
                             Submit password reset code
                         </Button>
@@ -134,10 +137,10 @@ export default function Home() {
 
                 {showPasswordInput ?
                     (   <>
-                        <Avatar sx={{ m: 1, bgcolor: '#4caf50' }}>
+                        <Avatar sx={{ m: 1, bgcolor:isDark ? "#6b6b6b" : '#4caf50' }}>
                         <PasswordOutlinedIcon />
                         </Avatar>
-                        <Typography sx={{whiteSpace:"nowrap", p:1}} component="h1" variant="h5">
+                        <Typography sx={{whiteSpace:"nowrap", p:1, color: isDark && "#CCCCCC"}} component="h1" variant="h5">
                         Input new password
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit(onPasswordSubmit)} noValidate sx={{ mt: 1 }}>
@@ -153,10 +156,13 @@ export default function Home() {
                         label="Password"
                         type={showPassword ? "text" : "password"}
                         sx = {{
+                            input : {
+                              color: isDark && "#CCCCCC"
+                            },
                             fieldset: {
                                 outlineColor: "red"
                             }
-                        }}
+                          }}
                         InputProps={{ 
                             endAdornment: (
                             <InputAdornment position="end">
@@ -165,7 +171,7 @@ export default function Home() {
                                 onClick={handleClickShowPassword}
                     
                                 >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                {showPassword ? <Visibility sx={{color: isDark && "#CCCCCC"}}/> : <VisibilityOff sx={{color: isDark && "#CCCCCC"}}/>}
                                 </IconButton>
                             </InputAdornment>)}}
                         id="password"
@@ -177,7 +183,7 @@ export default function Home() {
                             type="submit"                  
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "}}}
+                            sx={{ mt: 3, mb: 2, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"}}}
                         >
                             Submit password reset code
                         </Button>
@@ -189,10 +195,10 @@ export default function Home() {
 
                 {showEmailInput ? (
                     <>
-                        <Avatar sx={{ m: 1, bgcolor: '#4caf50' }}>
+                        <Avatar sx={{ m: 1, bgcolor:isDark ? "#6b6b6b" : '#4caf50' }}>
                         <EmailOutlinedIcon />
                         </Avatar>
-                        <Typography sx={{whiteSpace:"nowrap"}} component="h1" variant="h5">
+                        <Typography sx={{whiteSpace:"nowrap", color: isDark && "#CCCCCC"}} component="h1" variant="h5">
                         Reset password
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit(onEmailSubmit)} noValidate sx={{ mt: 1 }}>
@@ -215,19 +221,27 @@ export default function Home() {
                             autoFocus
                             error={!!errors.email}
                             helperText={errors.email?.message}
+                            sx = {{
+                                input : {
+                                  color: isDark && "#CCCCCC"
+                                },
+                                fieldset: {
+                                    outlineColor: "red"
+                                }
+                              }}
                         />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "}, whiteSpace:"nowrap" }}
+                            sx={{ mt: 3, mb: 2, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"}, whiteSpace:"nowrap" }}
                         >
                             Send reset password code
                         </Button>
                         <Grid container>
                             <Grid item xs>
                             </Grid>
-                            <Grid item>
+                            <Grid  sx ={{color: isDark && "#CCCCCC"}} item>
                             <Link component={NextLink} href='/login' variant='body2'>
                                 Already have an account? Log in
                             </Link>
