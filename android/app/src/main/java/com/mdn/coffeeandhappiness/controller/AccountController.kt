@@ -612,6 +612,38 @@ class AccountController {
         }
     }
 
+    suspend fun deleteAccount(sharedPreferences: SharedPreferences) {
+        return withContext(Dispatchers.IO) {
+            val url = "${Constants().address}/api/user/me/delete"
+
+            val token = sharedPreferences.getString("AccessToken", "")
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create a multi-part request
+            val request = Request.Builder()
+                .url(url) // Replace with your server URL
+                .delete()
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Execute the request
+                val response = client.newCall(request).execute()
+
+                // Handle the response as needed
+                if (response.isSuccessful) {
+                    logout(sharedPreferences)
+                }
+            } catch (e: IOException) {
+                throw NoInternetException()
+            }
+
+        }
+    }
+
 
 }
 

@@ -2,6 +2,7 @@ package com.mdn.coffeeandhappiness.fragments.accountfragments
 
 
 import ConfirmationLogoutFragment
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -110,7 +111,7 @@ class AccountMainFragment : Fragment() {
         myReviews.setOnClickListener() {
             // Handle the click event here, for example, open a new activity with details
             val intent = Intent(context, AccountReviewsActivity::class.java)
-            requireContext().startActivity(intent)
+            requireActivity().startActivity(intent)
         }
 
 
@@ -118,10 +119,29 @@ class AccountMainFragment : Fragment() {
 
         editAccount.setOnClickListener() {
             val intent = Intent(context, AccountEditActivity::class.java)
-            requireContext().startActivity(intent)
+            startActivityForResult(intent, 2)
         }
 
         return view
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
+            if (!requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE).getBoolean("IsAccountLogged", false)) {
+                replaceFragment(AccountLoginFragment())
+            }
+        }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(R.id.accountFrame, fragment)
+        fragmentTransaction.commit()
     }
 
     companion object {
