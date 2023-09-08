@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Fab } from '@mui/material';
 import { useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language'
-export default function PositionedMenu() {
+export default function PositionedMenu({ isDark }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -17,7 +17,7 @@ export default function PositionedMenu() {
   return (
     <div>
       <Fab sx={{bgcolor:"inherit", "&:hover":{bgcolor:"inherit"}, boxShadow:"none"}} aria-haspopup="true" aria-controls={open ? 'demo-positioned-menu' : undefined} aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
-          <LanguageIcon />
+          <LanguageIcon sx={{color: isDark ? "#CCCCCC" : "black"}}/>
       </Fab>
       <Menu
         id="demo-positioned-menu"

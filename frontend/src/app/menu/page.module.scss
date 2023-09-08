@@ -4,6 +4,13 @@
     height: 100dvh;
 }
 
+.dark {
+    background-color: #333333 !important;
+    h1, p {
+        color: #CCCCCC !important;
+    }
+}
+
 @media (max-width: 768px) {
     .main {
         padding: 2rem;

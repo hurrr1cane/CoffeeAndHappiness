@@ -1,6 +1,18 @@
   $green: #4caf50;
   $lightgreen: #66bb69;
 
+
+  .dark {
+    border: 1px solid #999999;
+    background-color: #333333 !important;
+    .link {
+      color: #CCCCCC;
+    }
+    .selected {
+      background-color: #00897B !important;
+    }
+  }
+
   .navbar {
     white-space: nowrap;
     padding-left: 10rem;

@@ -11,7 +11,7 @@ import { useGlobalContext } from "@/app/store/store"
 import ReviewModal from "./Reviews/ReviewModal"
 import useWindowSize from "./Reviews/useWindow"
 export default function Dish({ reset }) {
-    const { user, _ } = useGlobalContext()
+    const { user, isDark } = useGlobalContext()
     const pathname = usePathname().split('dish/')[1]
 
     const { width, height } = useWindowSize()
@@ -27,7 +27,7 @@ export default function Dish({ reset }) {
     }, [])
 
     return (
-            <section className={styles.section}>
+            <section className={`${styles.section} ${isDark ? styles.dark : ""}`}>
                 <ReviewModal width={width} reset={reset} open={open} id={dish.id} token={user.token} setOpen={setOpen}/>
                 <Image alt="picture of some food" className={styles.image} width={300} height={300} src={dish.imageUrl ?? "/placeholder.png"}></Image>
                 <section className={styles.info}>

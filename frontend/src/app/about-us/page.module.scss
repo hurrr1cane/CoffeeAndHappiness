@@ -3,3 +3,10 @@
 .main {
     height: 100dvh;
 }
+
+.dark {
+    background-color: #333333;
+    h1, p {
+        color: #CCCCCC;
+    }
+}

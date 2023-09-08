@@ -8,12 +8,11 @@ import { Rating } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import { Fab } from '@mui/material'
 import { useGlobalContext } from '@/app/store/store'
-import { headers } from '../../../../../../next.config'
 export default function Review( props ) {
 
     const [commentUser, setCommentUser] = useState({})
 
-    const { user, _ } = useGlobalContext()
+    const { user, isDark } = useGlobalContext()
 
     useEffect(() => {
         axios.get(`https://coffee-and-happiness-backend.azurewebsites.net/api/user/${props?.userId}`)
@@ -31,7 +30,7 @@ export default function Review( props ) {
 
 
     return (
-        <section className={styles['review-card']}>
+        <section className={`${styles['review-card']} ${isDark ? styles.dark : ""}`}>
             <section className={styles.user}>
               <Image alt='user avatar' width={70} height={70} src={commentUser.imageUrl ?? "/user.png"}/>
               

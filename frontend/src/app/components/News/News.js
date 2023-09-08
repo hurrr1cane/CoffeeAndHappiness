@@ -16,7 +16,7 @@ function News() {
 
     const [news, setNews] = useState([])
 
-    const {user, _} = useGlobalContext()
+    const {user, isDark} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
 
@@ -46,7 +46,7 @@ function News() {
 
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isDark ? styles.dark : ""}`}>
               {user.role === 'ADMIN' &&  <CreateNewsModal open={createOpen} setOpen={setCreateOpen}/>}
               {user.role === 'ADMIN' && <Fab onClick={() => {setCreateOpen(true)}} sx={{bgcolor:"#7aaf4c", "&:hover": {bgcolor:"#7aaf4c"}}}><Add/></Fab>} 
     <div className={styles.columnContainer}>

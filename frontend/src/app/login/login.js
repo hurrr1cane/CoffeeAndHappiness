@@ -25,7 +25,7 @@ import { Alert, AlertTitle } from '@mui/material';
 export default function Login() {
 
     const { push } = useRouter();
-    const {_, setUser} = useGlobalContext()
+    const {isDark, setUser} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
@@ -70,10 +70,10 @@ export default function Login() {
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: '#4caf50' }}>
+              <Avatar sx={{ m: 1, bgcolor:isDark ? "#6b6b6b" : '#4caf50' }}>
                 <LockOutlinedIcon />
               </Avatar>
-              <Typography component="h1" variant="h5">
+              <Typography component="h1" variant="h5" sx={{color: isDark && "#CCCCCC"}}>
                 Log in
               </Typography>
               <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
@@ -94,6 +94,11 @@ export default function Login() {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  sx={{
+                    input : {
+                      color: isDark && "#CCCCCC",
+                    }
+                  }}
                   error={!!errors.email}
                   helperText={errors.email?.message}
                 />
@@ -109,6 +114,9 @@ export default function Login() {
                   label="Password"
                   type={showPassword ? "text" : "password"}
                   sx = {{
+                    input : {
+                      color: isDark && "#CCCCCC"
+                    },
                     fieldset: {
                         outlineColor: "red"
                     }
@@ -121,7 +129,7 @@ export default function Login() {
                           onClick={handleClickShowPassword}
             
                         >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                          {showPassword ? <Visibility sx={{color: isDark && "#CCCCCC"}} /> : <VisibilityOff sx={{color: isDark && "#CCCCCC"}}/>}
                         </IconButton>
                       </InputAdornment>)}}
                   id="password"
@@ -129,26 +137,22 @@ export default function Login() {
                   error={!!errors.password}
                   helperText={errors.password?.message}
                 />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
                 <Button
             
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "} }}
+                  sx={{ mt: 3, mb: 2, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"} }}
                 >
                   Sign In
                 </Button>
                 <Grid container>
-                  <Grid item xs>
+                  <Grid sx={{color: isDark && "#CCCCCC"}} item xs>
                   <Link component={NextLink} href='/forgotpassword' variant='body2'>
                       Forgot password?
                     </Link>
                   </Grid>
-                  <Grid item>
+                  <Grid sx={{color: isDark && "#CCCCCC"}} item>
                     <Link component={NextLink} href='/register' variant='body2'>
                       Don't have an account? Register
                     </Link>
