@@ -1,6 +1,6 @@
-.reviews {
-    margin-top: 2rem;
+.wrapper {
     columns: 2;
+    margin-top: 1rem;
     @media (max-width: 768px) {
         margin-top: 1rem;
         columns: 1;
