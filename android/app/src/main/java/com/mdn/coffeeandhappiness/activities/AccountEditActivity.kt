@@ -120,8 +120,7 @@ class AccountEditActivity : AppCompatActivity() {
                                     lifecycleScope.launch(Dispatchers.IO) {
                                         AccountController().updateMyself(sharedPreferences)
                                     }
-                                }
-                                catch (e: NoInternetException) {
+                                } catch (e: NoInternetException) {
 
                                 }
                             }
@@ -136,6 +135,12 @@ class AccountEditActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        val changePassword = findViewById<AppCompatButton>(R.id.accountEditChangePassword)
+        changePassword.setOnClickListener() {
+            val intent = Intent(this, AccountChangePasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 
