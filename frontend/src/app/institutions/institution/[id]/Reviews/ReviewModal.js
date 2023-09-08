@@ -9,9 +9,12 @@ import DoneIcon from "@mui/icons-material/Done";
 import Rating from "@mui/material/Rating";
 import axios from "axios";
 import { useState } from "react";
+import { useGlobalContext } from "@/app/store/store";
 
 export default function ReviewModal({ open, id, setOpen, token, reset, width }) {
 
+
+    const { isDark } = useGlobalContext()
 
     const [rating, setRating] = useState(0)
 
@@ -45,7 +48,7 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
         left: "50%",
         transform: "translate(-50%, -50%)",
         width: width > 650 ? 650 : width-15,
-        bgcolor: "white",
+        bgcolor: isDark ? "#6b6b6b" : "white",
         boxShadow: 24,
         p: 4,
         borderRadius: 1,
@@ -68,14 +71,14 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
       >
         <Box sx={style}>
           <Stack direction="row" justifyContent="space-between">
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Typography id="modal-modal-title" variant="h6" component="h2" sx={{color: isDark && "#CCCCCC"}}>
               Add review
             </Typography>
             <IconButton onClick={handleClose}>
-              <CloseIcon sx={{ color: "black" }} />
+              <CloseIcon sx={{color: isDark ? "#CCCCCC" : "black" }} />
             </IconButton>
           </Stack>
-          <Typography component="legend">Add rating: </Typography>
+          <Typography component="legend" sx={{color: isDark && "#CCCCCC"}}>Add rating: </Typography>
           <Rating
             sx = {{right: "3px"}}
             name="simple-controlled"
@@ -104,9 +107,9 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
               alignSelf: "center",
               mt: 3,
               color: "black",
-              bgcolor: "#c6ffb3",
+              bgcolor: isDark ? "#388E3C" : "#c6ffb3",
               ":hover": {
-                bgcolor: "#c6ffb3",
+                bgcolor:isDark ? "#388E3C" : "#c6ffb3",
               },
             }}
           >
