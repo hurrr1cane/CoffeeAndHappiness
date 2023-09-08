@@ -169,7 +169,7 @@ class CafeController {
         val totalReviews = jsonItem.getInt("totalReviews")
         val reviews = jsonItem.getJSONArray("reviews")
 
-        val reviewsList: MutableList<Review> = mutableListOf<Review>()
+        var reviewsList: MutableList<Review> = mutableListOf<Review>()
 
         for (i in 0 until reviews.length()) {
             val jsonItemReview = reviews.getJSONObject(i)
@@ -186,6 +186,8 @@ class CafeController {
 
             reviewsList.add(singleReview)
         }
+
+        reviewsList = reviewsList.sortedByDescending {it.id}.toMutableList()
 
         // Create a MenuItem object
         val cafe = Cafe(

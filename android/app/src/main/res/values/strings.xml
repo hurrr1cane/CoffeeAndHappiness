@@ -79,6 +79,12 @@
     <string name="account_edit_change_password">Change password</string>
     <string name="account_edit_delete_account">Delete account</string>
 
+    <string name="account_edit_change_password_old">Old password</string>
+    <string name="account_edit_change_password_new">New password</string>
+    <string name="account_edit_change_password_new_hint">Please, enter new password</string>
+    <string name="account_edit_change_password_wrong_hint">Your old password is incorrect!</string>
+    <string name="account_edit_change_password_submit">Submit</string>
+
     <!-- This is a code section -->
     <string name="code_user_show_qr">Show your QR code to waiter</string>
     <string name="code_user_balance">Balance</string>

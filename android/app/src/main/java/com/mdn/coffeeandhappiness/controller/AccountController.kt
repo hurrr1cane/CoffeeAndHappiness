@@ -560,6 +560,90 @@ class AccountController {
         }
     }
 
+    suspend fun changePassword(sharedPreferences: SharedPreferences, oldPassword: String, newPassword: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            val url = "${Constants().address}/api/user/me/change-password"
+
+            var result = true
+
+            val json = """
+                {
+                   "oldPassword": "$oldPassword",
+                   "newPassword": "$newPassword"
+                }
+            """.trimIndent()
+
+            // Set the media type as JSON
+            val mediaType = "application/json; charset=utf-8".toMediaType()
+
+            // Create a request body
+            val requestBody = json.toRequestBody(mediaType)
+
+            val token = sharedPreferences.getString("AccessToken", "")
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create a multi-part request
+            val request = Request.Builder()
+                .url(url) // Replace with your server URL
+                .put(requestBody)
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Execute the request
+                val response = client.newCall(request).execute()
+
+                // Handle the response as needed
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+                    // Do something with the response
+                } else {
+                    // Handle the error
+                    result = false
+                }
+            } catch (e: IOException) {
+                throw NoInternetException()
+            }
+
+            result
+        }
+    }
+
+    suspend fun deleteAccount(sharedPreferences: SharedPreferences) {
+        return withContext(Dispatchers.IO) {
+            val url = "${Constants().address}/api/user/me/delete"
+
+            val token = sharedPreferences.getString("AccessToken", "")
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create a multi-part request
+            val request = Request.Builder()
+                .url(url) // Replace with your server URL
+                .delete()
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Execute the request
+                val response = client.newCall(request).execute()
+
+                // Handle the response as needed
+                if (response.isSuccessful) {
+                    logout(sharedPreferences)
+                }
+            } catch (e: IOException) {
+                throw NoInternetException()
+            }
+
+        }
+    }
+
 
 }
 
