@@ -15,7 +15,7 @@ class NewsController {
 
     public suspend fun getNews(): MutableList<News> {
         return withContext(Dispatchers.IO) {
-            val newsList: MutableList<News> = mutableListOf()
+            var newsList: MutableList<News> = mutableListOf()
 
             // Define the URL you want to send the GET request to
             val url = "${Constants().address}/api/news"
@@ -60,6 +60,8 @@ class NewsController {
                 e.printStackTrace()
                 throw NoInternetException()
             }
+
+            newsList = newsList.sortedByDescending {it.id}.toMutableList()
 
             newsList
         }
