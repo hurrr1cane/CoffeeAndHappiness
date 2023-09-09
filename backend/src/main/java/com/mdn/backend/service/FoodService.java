@@ -9,7 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,25 +47,15 @@ public class FoodService {
     }
 
     public List<Food> getFoodsByIds(List<Integer> foodIds) {
-        List<Food> foods = foodRepository.findByIdIn(foodIds);
 
-        if (foods.size() != foodIds.size()) {
-            List<Integer> foundFoodIds = foods.stream()
-                    .map(Food::getId)
-                    .toList();
+        var foods = new ArrayList<Food>();
 
-            List<Integer> notFoundFoodIds = foodIds.stream()
-                    .filter(id -> !foundFoodIds.contains(id))
-                    .toList();
-
-            throw new FoodNotFoundException("Food not found with IDs: " + notFoundFoodIds);
-        }
-
-        for (Food food : foods) {
-            for (FoodReview review : food.getReviews()) {
-                Integer userId = review.getUser().getId();
-                review.setUserId(userId);
-            }
+        for (Integer foodId : foodIds) {
+            Food food = foodRepository.findById(foodId).orElseThrow(
+                    () -> new FoodNotFoundException("No such food with id " + foodId + " found")
+            );
+            fetchReviewsToFood(food);
+            foods.add(food);
         }
 
         return foods;
