@@ -70,7 +70,7 @@
     return (
       <nav className={`${styles.navbar} ${menuOpen ? styles.open : ''} ${isDark ? styles.dark : ""}`}>
     
-        <MenuIcon onClick={toggleMobileMenu} className={styles.menuButton}/>
+        <MenuIcon onClick={toggleMobileMenu} sx={{color: isDark ? "#CCCCCC" : ""}} className={styles.menuButton}/>
         <Link ref={tabRefs.home} onClick={() => {handleTabClick('home')}} className={`${styles.link} ${stylesData.selectedTab === 'home' ? styles.selected : '' }`} href="/"><h1>Home</h1></Link>
         <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${stylesData.selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>Institutions</h1></Link>
         <Link ref={tabRefs.menu} onClick={() => {handleTabClick('menu')}} className={`${styles.link} ${stylesData.selectedTab === 'menu' ? styles.selected : '' }`} href="/menu"><h1>Menu</h1></Link>

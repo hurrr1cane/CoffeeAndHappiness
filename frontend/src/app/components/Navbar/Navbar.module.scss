@@ -10,6 +10,11 @@
     .selected {
       background-color: #00897B !important;
     }
+    @media (max-width: 800px) {
+      .selected {
+        background-color: inherit !important; 
+      }
+    }
   }
 
   .navbar {
@@ -139,11 +144,10 @@
   @media (max-width: 800px) {
 
     .open {
-        
         padding-left: 2rem; 
         height: auto; 
         flex-direction: column;
-        align-items: flex-start;
+        align-items: flex-start !important;
         background-color: $green;
 
           .link {
@@ -176,6 +180,7 @@
       margin-bottom: 0.5rem;
     }
     .navbar {
+      align-items: center;
       padding-left: 0rem;
       .link {
         margin: 0.25rem 0rem 0.25rem 0rem;

@@ -53,10 +53,10 @@ export default function InstitutionCard({ cafe }) {
             height={200}
             width={200}
           />
-          <div style={{marginRight:height > 1200 ? 0 : 10}}>
+          <div>
             <h1 className={styles.property}>{cafe?.locationEN}</h1>
             <p className={styles.property}>Phone number: {cafe.phoneNumber}</p>
-            <Button variant='contained'  fullWidth  sx={{marginBottom:1,  bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"}}}>
+            <Button variant='contained'  fullWidth  sx={{marginBottom:1, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"}}}>
               <p>
                 <Link href="https://www.google.com/maps">View on a map</Link>
               </p>
