@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class CafeService {
 
     private final CafeRepository cafeRepository;
-    private final AmazonS3StorageService storageService;
+    private final AzureBlobStorageService azureStorageService;
 
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+380|0)?(\\d{9})$");
 
@@ -84,8 +84,8 @@ public class CafeService {
                 () -> new CafeNotFoundException("No such cafe with id " + cafeId + " found")
         );
 
-        storageService.deleteImage("cafe", cafeId);
-        String imageUrl = storageService.saveImage(image, "cafe", cafeId);
+        azureStorageService.deleteImage("cafe", cafeId);
+        String imageUrl = azureStorageService.saveImage(image, "cafe", cafeId);
 
         cafe.setImageUrl(imageUrl);
         return cafeRepository.save(cafe);
@@ -98,7 +98,7 @@ public class CafeService {
                 () -> new CafeNotFoundException("No such cafe with id " + cafeId + " found")
         );
 
-        storageService.deleteImage("cafe", cafeId);
+        azureStorageService.deleteImage("cafe", cafeId);
 
         cafe.setImageUrl(null);
         return cafeRepository.save(cafe);

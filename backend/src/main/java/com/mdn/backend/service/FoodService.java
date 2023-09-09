@@ -11,16 +11,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class FoodService {
 
     private final FoodRepository foodRepository;
-    private final AmazonS3StorageService storageService;
+    private final AzureBlobStorageService azureStorageService;
 
     public List<Food> getAllFoods() {
         for (Food food : foodRepository.findAll()) {
@@ -109,8 +106,8 @@ public class FoodService {
                 () -> new FoodNotFoundException("No such food with id " + foodId + " found")
         );
 
-        storageService.deleteImage("food", foodId);
-        String imageUrl = storageService.saveImage(image, "food", foodId);
+        azureStorageService.deleteImage("food", foodId);
+        String imageUrl = azureStorageService.saveImage(image, "food", foodId);
 
         food.setImageUrl(imageUrl);
         return foodRepository.save(food);
@@ -119,13 +116,13 @@ public class FoodService {
 
     public Food deleteFoodImage(Integer foodId) {
 
-            Food food = foodRepository.findById(foodId).orElseThrow(
-                    () -> new FoodNotFoundException("No such food with id " + foodId + " found")
-            );
+        Food food = foodRepository.findById(foodId).orElseThrow(
+                () -> new FoodNotFoundException("No such food with id " + foodId + " found")
+        );
 
-            storageService.deleteImage("food", foodId);
+        azureStorageService.deleteImage("food", foodId);
 
-            food.setImageUrl(null);
-            return foodRepository.save(food);
+        food.setImageUrl(null);
+        return foodRepository.save(food);
     }
 }
