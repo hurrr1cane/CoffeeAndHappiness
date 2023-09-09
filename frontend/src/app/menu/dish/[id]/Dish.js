@@ -37,7 +37,7 @@ export default function Dish({ reset }) {
                     <p>Price: {dish.price} ₴</p>
                     <p>Weight : {dish?.weight} g</p>
                     <p>Rating: <Rating sx={{top: "5px"}} name="read-only" value={Number(dish.averageRating)} readOnly/></p>
-                    <div className={styles.buttons} style={{display: user !== {} ? "flex" : "none"}} >
+                    <div className={styles.buttons} style={{display: user != {} ? "flex" : "none"}} >
                         {user.token && <Button onClick={() => {setOpen(true)}} sx={{bgcolor: "#4caf50", '&:hover': {bgcolor:"#66bb69"}}} variant="contained">Add review</Button>}
                     </div>
                 </section>

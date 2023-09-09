@@ -1,8 +1,9 @@
 .wrapper {
-    columns: 2;
-    margin-top: 1rem;
-    @media (max-width: 768px) {
-        margin-top: 1rem;
-        columns: 1;
+    display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      @media (max-width: 930px) {
+        display: flex;
+        flex-direction: column;
+      }
     }
-}
