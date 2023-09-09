@@ -20,6 +20,16 @@
   }
 }
 
+.dark {
+  background-color: #333333;
+  .card {
+    background-color: #495057;
+    .property {
+      color: #CCCCCC 
+    }
+  }
+}
+
 .columnContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

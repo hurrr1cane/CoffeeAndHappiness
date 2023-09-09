@@ -11,7 +11,7 @@ import useWindowSize from "../menu/dish/[id]/Reviews/useWindow"
 
 export default function User() {
 
-    const {user, setUser} = useGlobalContext()
+    const {user, setUser, isDark} = useGlobalContext()
 
     const { width, height } = useWindowSize()
 
@@ -46,8 +46,8 @@ export default function User() {
     }
     return (
       <>
-      {height > 500 ? <h1 style={{fontWeight:400}}>Welcome, {user?.firstName} {user?.lastName}</h1> : <h1>Welcome, <br/>{user?.firstName} {user?.lastName} </h1>}
-      <div className={styles.container}>
+      {height > 500 ? <h1 style={{fontWeight:400, color: isDark ? "#CCCCCC" : "black"}}>Welcome, {user?.firstName} {user?.lastName}</h1> : <h1 style={{fontWeight:400, color: isDark ? "#CCCCCC" : "black"}}>Welcome, <br/>{user?.firstName} {user?.lastName} </h1>}
+      <div className={`${styles.container} ${isDark ? styles.dark : ""}`}>
         <section className={styles.main}>
                 <div className={styles.user}>
                   <Image className={styles.image} src={user?.imageUrl ? imageUrl : "/user.png"} width={100} height={100} alt="avatar image"/>

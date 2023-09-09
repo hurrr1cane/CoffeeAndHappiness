@@ -60,3 +60,19 @@
       width: 70dvw;
     }
   }
+
+.dark {
+  .main {
+    background-color: #495057;
+    .user {
+      h1 {
+        color: #CCCCCC
+      }
+    }
+    .info {
+      h2 {
+        color: #CCCCCC
+      }
+    }
+  }
+} 

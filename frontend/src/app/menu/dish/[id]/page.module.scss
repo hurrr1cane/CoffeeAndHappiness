@@ -5,6 +5,12 @@
     margin-top: 1rem;
 }
 
+.dark {
+    background-color: #333333 !important;
+    h1 {
+        color: #CCCCCC;
+    }
+}
 
 @media (max-width: 480px) {
     .main {

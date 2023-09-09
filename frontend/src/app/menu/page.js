@@ -11,11 +11,11 @@ import { useGlobalContext } from '../store/store'
 export default function Home() {
 
   const [tab, setTab] = useState("MAIN")
-  const {user, _} = useGlobalContext()
+  const {user, isDark} = useGlobalContext()
   const [open, setOpen] = useState(false)
 
   return (
-   <main className={styles.main}>
+   <main className={`${styles.main} ${isDark ? styles.dark : ""}`}>
       {user.role === 'ADMIN' &&   <CreateDishModal open={open} setOpen={setOpen}/>}
       <MenuBar tab={tab} setTab={setTab}/>
       <h1>Menu page</h1>

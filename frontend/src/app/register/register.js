@@ -23,7 +23,7 @@ import { Alert, AlertTitle } from '@mui/material';
 export default function Register() {
 
     const { push } = useRouter();
-    const {_, setUser} = useGlobalContext()
+    const {isDark, setUser} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
@@ -64,10 +64,10 @@ export default function Register() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: '#4caf50' }}>
+            <Avatar sx={{ m: 1, bgcolor:isDark ? "#6b6b6b" : '#4caf50'  }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" sx={{color: isDark && "#CCCCCC"}}>
               Sign up
             </Typography>
             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -82,6 +82,11 @@ export default function Register() {
                 id="firstName"
                 error={!!errors.firstName}
                 helperText={errors.firstName?.message}
+                sx={{
+                  input : {
+                    color: isDark && "#CCCCCC",
+                  }
+                }}
               />
               <TextField
                 {...register('lastName', { required: 'Last name is required' })}
@@ -94,6 +99,11 @@ export default function Register() {
                 id="lastName"
                 error={!!errors.lastName}
                 helperText={errors.lastName?.message}
+                sx={{
+                  input : {
+                    color: isDark && "#CCCCCC",
+                  }
+                }}
               />
               <TextField
                 {...register('email', {
@@ -114,6 +124,11 @@ export default function Register() {
                 autoFocus
                 error={!!errors.email}
                 helperText={errors.email?.message}
+                sx={{
+                  input : {
+                    color: isDark && "#CCCCCC",
+                  }
+                }}
               />
               <TextField
                 {...register('password', {
@@ -130,6 +145,11 @@ export default function Register() {
                 name="password"
                 label="Password"
                 type={showPassword ? "text" : "password"}
+                sx={{
+                  input : {
+                    color: isDark && "#CCCCCC",
+                  }
+                }}
                 InputProps={{ 
                   endAdornment: (
                     <InputAdornment position="end">
@@ -138,7 +158,7 @@ export default function Register() {
                         onClick={handleClickShowPassword}
 
                       >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                        {showPassword ? <Visibility sx={{color: isDark && "#CCCCCC"}}/> : <VisibilityOff sx={{color: isDark && "#CCCCCC"}}/>}
                       </IconButton>
                     </InputAdornment>)
                 }}
@@ -154,17 +174,13 @@ export default function Register() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, bgcolor:"#4caf50", '&:hover':{bgcolor:"#4caf50 "} }}
-              >
+                sx={{ mt: 3, mb: 2, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"} }}              >
                 Register
               </Button>
               <Grid container>
                 <Grid item xs>
-                <Link component={NextLink} href='/forgotpassword' variant='body2'>
-                      Forgot password?
-                    </Link>
                 </Grid>
-                <Grid item>
+                <Grid sx={{color: isDark && "#CCCCCC"}} item>
                   <Link component={NextLink} href='/login' variant="body2">
                       Already have an account? Log in
                   </Link>

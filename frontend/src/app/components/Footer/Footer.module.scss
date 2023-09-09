@@ -11,6 +11,16 @@
     font-weight: 500;
 }
 
+.dark {
+    background-color: #2c2c2c!important;
+    p {
+        color:#CCCCCC
+    }
+    .icons {
+        color: #CCCCCC;
+    }
+}
+
 .icons {
     justify-content: space-between;
     display: flex;
