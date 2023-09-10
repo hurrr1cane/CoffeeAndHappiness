@@ -17,6 +17,8 @@
     .user {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
   
       h1 {
         overflow: hidden;
@@ -48,7 +50,7 @@
     }
     .main {
         margin-bottom: 1rem;
-        width: 50%;
+        max-width: 50%;
         margin-left: auto;
         margin-right: auto;
     }
