@@ -10,10 +10,10 @@ import { useGlobalContext } from '../store/store'
 export default function Home() {
 
   const [open, setOpen] = useState(false)
-  const {user, _} = useGlobalContext()
+  const {user, isDark} = useGlobalContext()
 
   return (
-   <main className={styles.main}>
+   <main className={`${styles.main} ${isDark ? styles.dark : ""}`}>
       {user.role === 'ADMIN' && <CreateCafeModal open={open} setOpen={setOpen}/>}
       <h1>Institutions page</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum corrupti aspernatur dolorem eligendi cum deleniti commodi rem nihil vitae saepe necessitatibus quos esse, blanditiis laboriosam nesciunt doloribus quasi officiis aliquam.</p>

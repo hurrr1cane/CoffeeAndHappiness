@@ -2,6 +2,8 @@ import styles from './page.module.scss'
 import VideoBackground from './components/VideoBackground/VideoBackground'
 import News from './components/News/News'
 export default function Home() {
+
+
   return (
     <div className={styles.container}>
     <VideoBackground>

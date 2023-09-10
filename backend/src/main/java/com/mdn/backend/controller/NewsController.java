@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -98,6 +99,44 @@ public class NewsController {
             log.error("News not found with id: {}", id);
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("News not found with id: " + id);
+        }
+    }
+
+    @Operation(summary = "Add news image", description = "Add an image to a news by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "News not found"),
+    })
+    @PostMapping("{newsId}/image/add")
+    public ResponseEntity<?> addNewsImage(@PathVariable Integer newsId, @RequestParam("image") MultipartFile image) {
+        log.info("Adding image to news with id {}", newsId);
+
+        try {
+            News news = newsService.addNewsImage(newsId, image);
+            return ResponseEntity.ok(news);
+        } catch (NewsNotFoundException ex) {
+            log.error("News not found with id: {}", newsId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("News not found with id: " + newsId);
+        }
+    }
+
+    @Operation(summary = "Delete news image", description = "Delete an image from a news by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "News not found"),
+    })
+    @DeleteMapping("{newsId}/image/delete")
+    public ResponseEntity<?> deleteNewsImage(@PathVariable Integer newsId) {
+        log.info("Deleting image from news with id {}", newsId);
+
+        try {
+            News news = newsService.deleteNewsImage(newsId);
+            return ResponseEntity.ok(news);
+        } catch (NewsNotFoundException ex) {
+            log.error("News not found with id: {}", newsId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("News not found with id: " + newsId);
         }
     }
 }

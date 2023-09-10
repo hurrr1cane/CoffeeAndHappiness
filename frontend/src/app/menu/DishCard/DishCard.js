@@ -12,9 +12,10 @@ import axios from 'axios'
 import { useState } from 'react'
 import EditDishModal from './EditDishModal'
 
-export default function DishCard({dish}) {
 
-    const {user, _} = useGlobalContext()
+export default function DishCard({ dish }) {
+
+    const {user, isDark} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
 
@@ -35,13 +36,13 @@ export default function DishCard({dish}) {
     }
 
     return (
-        <div className={styles.card}>
+        <div className={`${styles.card} ${isDark ? styles.dark : ""}`}>
                 {user.role === 'ADMIN' && <EditDishModal dish={dish} open={open} setOpen={setOpen} id={dish.id} token={user.token}/>}
 
             <Link href={`/menu/dish/${dish.id}`} className={styles.link}>
                     <Image
                     className={styles.image}
-                    src={dish.imageUrl}
+                    src={dish?.imageUrl || "/placeholder.png"}
                     height={200}
                     width={200}
                     alt='picture of a pizza'

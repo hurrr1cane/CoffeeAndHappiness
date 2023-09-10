@@ -13,7 +13,7 @@ import Button from '@mui/material/Button'
 import useWindowSize from '../menu/dish/[id]/Reviews/useWindow'
 export default function InstitutionCard({ cafe }) {
 
-    const {user, _} = useGlobalContext()
+    const {user, isDark} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
 
@@ -35,10 +35,10 @@ export default function InstitutionCard({ cafe }) {
     }
 
     return (
-        <div className={styles.card}>
+        <div className={`${styles.card} ${isDark ? styles.dark : ""}`}>
         {user.role === 'ADMIN' && (
-          <EditModal
-            item={cafe}
+          <EditCafeModal
+            cafe={cafe}
             open={open}
             setOpen={setOpen}
             id={cafe.id}
@@ -53,15 +53,15 @@ export default function InstitutionCard({ cafe }) {
             height={200}
             width={200}
           />
-          <div style={{marginRight:height > 1200 ? 0 : 10}}>
+          <div>
             <h1 className={styles.property}>{cafe?.locationEN}</h1>
             <p className={styles.property}>Phone number: {cafe.phoneNumber}</p>
-            <Button variant='contained'  fullWidth  sx={{marginBottom:1, bgcolor:"#4caf50", "&:hover":{bgcolor:"#4caf50"}}}>
+            <Button variant='contained'  fullWidth  sx={{marginBottom:1, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"}}}>
               <p>
                 <Link href="https://www.google.com/maps">View on a map</Link>
               </p>
             </Button>
-            <Button variant='contained'  fullWidth    sx={{marginBottom:1, bgcolor:"#4caf50", "&:hover":{bgcolor:"#4caf50"}}}>
+            <Button variant='contained'  fullWidth    sx={{marginBottom:1,  bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"}}}>
               <p>
                 <Link href={`institutions/institution/${cafe?.id}`}>View reviews</Link>
               </p>
@@ -69,10 +69,10 @@ export default function InstitutionCard({ cafe }) {
           </div>
         {user.role === 'ADMIN' && (
           <div className={styles.adminActions}>
-            <Fab onClick={handleDeleteClick} className={styles.fab}>
+            <Fab onClick={handleDeleteClick} className={styles.fab} sx={{bgcolor:"#FF0000", "&:hover":{bgcolor:"#FF0000"}, m:1}}>
               <Close />
             </Fab>
-            <Fab onClick={handleEditClick} className={styles.fab}>
+            <Fab onClick={handleEditClick} className={styles.fab} sx={{bgcolor:"#4caf81", "&:hover":{bgcolor:"#4caf81"},  m:1}}>
               <Edit />
             </Fab>
           </div>

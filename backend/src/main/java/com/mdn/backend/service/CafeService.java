@@ -9,13 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
 public class CafeService {
 
     private final CafeRepository cafeRepository;
-    private final AmazonS3StorageService storageService;
+    private final AzureBlobStorageService azureStorageService;
+
+    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+380|0)?(\\d{9})$");
 
     public List<Cafe> getAllCafes() {
         for (Cafe cafe : cafeRepository.findAll()) {
@@ -47,11 +51,8 @@ public class CafeService {
     }
 
     public Cafe addCafe(Cafe cafe) {
-        try {
-            return cafeRepository.save(cafe);
-        } catch (Exception ex) {
-            throw new RuntimeException("Error while adding cafe: " + ex.getMessage(), ex);
-        }
+        formatPhoneNumber(cafe);
+        return cafeRepository.save(cafe);
     }
 
     public Cafe editCafe(Integer id, Cafe cafe) {
@@ -62,15 +63,12 @@ public class CafeService {
         editedCafe.setImageUrl(cafe.getImageUrl());
         editedCafe.setLocationEN(cafe.getLocationEN());
         editedCafe.setLocationUA(cafe.getLocationUA());
+        formatPhoneNumber(cafe);
         editedCafe.setPhoneNumber(cafe.getPhoneNumber());
         editedCafe.setLatitude(cafe.getLatitude());
         editedCafe.setLongitude(cafe.getLongitude());
 
-        try {
-            return cafeRepository.save(editedCafe);
-        } catch (Exception ex) {
-            throw new RuntimeException("Error while editing cafe: " + ex.getMessage(), ex);
-        }
+        return cafeRepository.save(editedCafe);
     }
 
     public void deleteCafe(Integer id) {
@@ -86,8 +84,8 @@ public class CafeService {
                 () -> new CafeNotFoundException("No such cafe with id " + cafeId + " found")
         );
 
-        storageService.deleteImage("cafe", cafeId);
-        String imageUrl = storageService.saveImage(image, "cafe", cafeId);
+        azureStorageService.deleteImage("cafe", cafeId);
+        String imageUrl = azureStorageService.saveImage(image, "cafe", cafeId);
 
         cafe.setImageUrl(imageUrl);
         return cafeRepository.save(cafe);
@@ -96,13 +94,25 @@ public class CafeService {
 
     public Cafe deleteCafeImage(Integer cafeId) {
 
-            Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(
-                    () -> new CafeNotFoundException("No such cafe with id " + cafeId + " found")
-            );
+        Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(
+                () -> new CafeNotFoundException("No such cafe with id " + cafeId + " found")
+        );
 
-            storageService.deleteImage("cafe", cafeId);
+        azureStorageService.deleteImage("cafe", cafeId);
 
-            cafe.setImageUrl(null);
-            return cafeRepository.save(cafe);
+        cafe.setImageUrl(null);
+        return cafeRepository.save(cafe);
+    }
+
+    private void formatPhoneNumber(Cafe cafe) {
+        String phoneNumber = cafe.getPhoneNumber();
+        if (phoneNumber != null) {
+            Matcher matcher = PHONE_NUMBER_PATTERN.matcher(phoneNumber);
+            if (matcher.matches()) {
+                cafe.setPhoneNumber("+380" + matcher.group(1));
+            } else {
+                throw new IllegalArgumentException("Invalid phone number format");
+            }
+        }
     }
 }

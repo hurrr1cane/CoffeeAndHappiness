@@ -1,4 +1,5 @@
 .section {
+    width: 100%;
     display: flex;
     flex-direction: row;
     // align-items: flex-start;
@@ -18,6 +19,7 @@
         p, h1 {
             padding-top: 0.25rem;
             padding-bottom: 0.25rem;
+            word-wrap: break-word;
         }
     }
     .buttons {
@@ -26,9 +28,14 @@
 }
 
 
-@media (max-width: 480px) {
+.dark {
+    color: #CCCCCC 
+}
+
+@media (max-width: 768px) {
     .section {
         flex-direction: column;
+        align-items: center;
         .info {
             margin-left: 0rem;
         }

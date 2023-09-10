@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import axios from "axios"
 import Review from "./Review"
 import { useEffect, useState } from "react"
-
+import styles from './reviews.module.scss'
 
 export default function Reviews() {
     const pathname = usePathname().split('dish/')[1]
@@ -19,7 +19,7 @@ export default function Reviews() {
 
 
     return (
-        <div>
+        <div className={styles.wrapper} style={{height: reviews.length >= 3 ? "auto" : "18.5dvh"}}>
         {reviews && reviews.map(review => (
             <Review key={review.id} {...review}/>
         ))}

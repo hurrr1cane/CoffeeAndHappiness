@@ -10,7 +10,7 @@ import axios from "axios";
 export default function Orders() {
     const [page, setPage] = useState(1)
 
-    const { user, _} = useGlobalContext()
+    const { user, isDark} = useGlobalContext()
 
     const [orders, setOrders] = useState([])
 
@@ -45,20 +45,6 @@ export default function Orders() {
         return groupedArrays;
       }
       
-      // const orders = [
-      //   { id: 1, name: "cappuccino", date: "18-09-2023" },
-      //   { id: 2, name: "latte", date: "19-09-2023" },
-      //   { id: 3, name: "espresso", date: "20-09-2023" },
-      //   { id: 4, name: "mocha", date: "21-09-2023" },
-      //   { id: 5, name: "americano", date: "22-09-2023" },
-      //   { id: 6, name: "macchiato", date: "23-09-2023" },
-      //   { id: 7, name: "chai latte", date: "24-09-2023" },
-      //   { id: 8, name: "caramel macchiato", date: "25-09-2023" },
-      //   { id: 9, name: "iced coffee", date: "26-09-2023" },
-      //   { id: 10, name: "flat white", date: "27-09-2023" },
-      //   { id: 11, name: "earl grey", date: "28-09-2023" }
-      // ];
-      
 
       const groupedOrders = groupArrayByFour(orders);
 
@@ -76,16 +62,16 @@ export default function Orders() {
                 handleChange={handleChange}
                 order = {order}
                 date={order.date}
+                id={order.id}
                
             />
-            )) : <h2 style={{fontWeight:400, marginBottom:"10rem"}}>No orders yet!</h2>}
+            )) : <h2 style={{fontWeight:400, marginBottom:"10rem", color: isDark ? "#CCCCCC" : "black"}}>No orders yet!</h2>}
         </div>
-          {orders.length > 1 && <Pagination
+          {orders.length >= 1 && <Pagination
             page={page}
             onChange={(event, value) => setPage(value)}
             count={Math.ceil(orders.length/5)}
-            sx={{ alignSelf: "center", marginTop: "1rem"}}
-            color="standard"
+            sx={{ alignSelf: "center", marginTop: "1rem" }}
           />}
         </div>
       );

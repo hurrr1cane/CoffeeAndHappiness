@@ -1,5 +1,29 @@
 $green: #4caf50;
 
+.dark {
+    outline: 2px solid #495057 !important;
+    .menuItem{
+        &:hover{
+            background-color: #495057 !important;
+        }
+        &:not(:first-of-type){
+            border-left: 2px solid #495057 !important;
+        }
+    }
+    .selected {
+        background-color: #495057 !important;
+    }
+        @media  (max-width: 768px) {
+            .menuItem {
+                &:not(:last-of-type){
+                    border-left: 0px;
+                    border-bottom: 2px solid #495057 !important;
+                }
+        }
+    }
+}
+
+
 .container {
     align-items: center;
     justify-content: space-evenly;

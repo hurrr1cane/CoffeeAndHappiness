@@ -17,6 +17,8 @@
     .user {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
   
       h1 {
         overflow: hidden;
@@ -26,7 +28,6 @@
     }
   
     .info {
-      margin-top: 1rem;
       h2 {
         font-size: 20px;
         font-weight: 400;
@@ -49,7 +50,7 @@
     }
     .main {
         margin-bottom: 1rem;
-        width: 50%;
+        max-width: 50%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -60,3 +61,19 @@
       width: 70dvw;
     }
   }
+
+.dark {
+  .main {
+    background-color: #495057;
+    .user {
+      h1 {
+        color: #CCCCCC
+      }
+    }
+    .info {
+      h2 {
+        color: #CCCCCC
+      }
+    }
+  }
+} 

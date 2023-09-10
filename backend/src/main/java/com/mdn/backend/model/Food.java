@@ -52,13 +52,9 @@ public class Food {
     private Double price;
 
     @Column(name = "ingredients_en")
-    @Pattern(regexp = "^[a-zA-Z\\s,]*$",
-            message = "Ingredients can only contain letters, commas, and spaces")
     private String ingredientsEN;
 
     @Column(name = "ingredients_ua")
-    @Pattern(regexp = "^[a-zA-Z\\s,]*$",
-            message = "Ingredients can only contain letters, commas, and spaces")
     private String ingredientsUA;
 
     @Column(name = "weight")
