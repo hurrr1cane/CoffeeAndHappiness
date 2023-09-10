@@ -42,7 +42,7 @@ export default function Register() {
             role: 'USER'
         })
         .then(res => {
-          setUser(prev => ({...prev, token: res.data.accessToken, refreshToken: res.data.refreshToken}))
+          setUser(prev => ({...prev, token: res.data.accessToken, refreshToken: res.data.refreshToken, date: Date.now()}))
           setShowSuccessAlert(true)
           setTimeout(() => {
             push('/user')

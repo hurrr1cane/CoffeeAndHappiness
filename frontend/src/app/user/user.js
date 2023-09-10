@@ -30,12 +30,40 @@ export default function User() {
       .then((res) => {
         setUser((prev) => ({
           ...prev,
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          // ... (other fields)
+              firstName: res.data.firstName,
+              lastName: res.data.lastName,
+              imageUrl: res.data.imageUrl,
+              role: res.data.role,
+              bonusPoints: res.data.bonusPoints,
+              orders: res.data.orders,
+              id: res.data.id,
+              orders: res.data.orders
         }));
       })
       .catch((err) => console.log(err));
+  }, []);
+
+
+  useEffect(() => {
+    if (Date.now() - user.date > 86400 * 1000) { 
+      console.log(Date.now(), user.date)
+      axios.post("https://coffee-and-happiness-backend.azurewebsites.net/api/auth/refresh", {}, {
+        headers: {
+          Authorization: "Bearer " + user.refreshToken
+        }
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        setUser(prev => ({
+          ...prev,
+          refreshToken: err.response.data.refreshToken,
+          accessToken: err.response.accessToken
+        }))
+      });
+    }
   }, []);
 
   const handleEditClick = () => {

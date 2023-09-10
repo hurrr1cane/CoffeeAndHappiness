@@ -13,7 +13,7 @@ import { useState } from 'react'
 import EditDishModal from './EditDishModal'
 
 
-export default function DishCard({dish}) {
+export default function DishCard({ dish }) {
 
     const {user, isDark} = useGlobalContext()
 
@@ -42,7 +42,7 @@ export default function DishCard({dish}) {
             <Link href={`/menu/dish/${dish.id}`} className={styles.link}>
                     <Image
                     className={styles.image}
-                    src={dish.imageUrl}
+                    src={dish?.imageUrl || "/placeholder.png"}
                     height={200}
                     width={200}
                     alt='picture of a pizza'

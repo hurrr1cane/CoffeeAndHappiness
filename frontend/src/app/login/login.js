@@ -44,7 +44,7 @@ export default function Login() {
         })
         .then(res => {
             setUser(prev => (
-              {...prev, token:res.data.accessToken, refreshToken: res.data.refreshToken}
+              {...prev, token:res.data.accessToken, refreshToken: res.data.refreshToken, date: Date.now()}
             ))
             setShowSuccessAlert(true)
             setTimeout(() => {
