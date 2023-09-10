@@ -51,6 +51,7 @@
     <string name="account_login_orLogin">Або ввійдіть через</string>
     <string name="account_login_dont_have">Не маєте облікового запису?</string>
     <string name="account_sign_up">Зареєструватися</string>
+    <string name="account_login_forgot_password">Забули пароль</string>
 
     <string name="account_register_top_text">Зареєструвати обліковий запис</string>
     <string name="accountName">Ім\'я</string>

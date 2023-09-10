@@ -134,6 +134,19 @@
                 android:visibility="gone" />
 
             <TextView
+                android:id="@+id/accountLoginForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/sofiasans_straight"
+                android:text="@string/account_login_forgot_password"
+                android:textColor="@color/default_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
                 style="@style/ACCOUNT_TEXT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
