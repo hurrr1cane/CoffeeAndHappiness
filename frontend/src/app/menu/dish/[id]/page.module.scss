@@ -12,11 +12,10 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        width: 100dvw;
         padding: 1rem;
+        margin: 0;
     }
 }
