@@ -166,7 +166,7 @@ class FoodController {
         val imageUrl = jsonItem.getString("imageUrl")
         val price = jsonItem.getDouble("price")
         val ingredientsEN = jsonItem.getString("ingredientsEN")
-        val ingredientsUA = jsonItem.getString("ingredientsEN")
+        val ingredientsUA = jsonItem.getString("ingredientsUA")
         val weight = jsonItem.getDouble("weight")
         val type = jsonItem.getString("type")
         val averageRating = jsonItem.getDouble("averageRating")

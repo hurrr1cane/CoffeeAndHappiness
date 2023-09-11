@@ -49,6 +49,7 @@
     <string name="account_login_orLogin">Or login with</string>
     <string name="account_login_dont_have">Don\'t have an account?</string>
     <string name="account_sign_up">Sign up</string>
+    <string name="account_login_forgot_password">Forgot password</string>
 
     <string name="account_register_top_text">Register an account</string>
     <string name="accountName">Name</string>
