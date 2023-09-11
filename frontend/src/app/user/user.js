@@ -14,14 +14,57 @@ import Edit from "@mui/icons-material/Edit";
 import { Save } from "@mui/icons-material";
 import { Stack } from "@mui/material";
 import { Close } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
+import ImageIcon from '@mui/icons-material/Image';
+
 export default function User() {
+
   const { user, setUser, isDark } = useGlobalContext();
   const { width, height } = useWindowSize();
+
   const [editing, setEditing] = useState(false);
   const [firstName, setFirstName] = useState(user.firstName || "");
   const [lastName, setLastName] = useState(user.lastName || "");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [addingPhoneNumber, setAddingPhoneNumber] = useState(false);
+  const [file, setFile] = useState(null)
+
+  const handleFileChange = (newFile) => {
+    setFile(newFile)
+    console.log(newFile)
+  }
+
+  const handleUploadClick = () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      axios
+        .post(
+          "https://coffee-and-happiness-backend.azurewebsites.net/api/user/me/image/add",
+          formData,
+          {
+            headers: {
+              Authorization: "Bearer " + user.token,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then((res) => {
+          console.log("File uploaded successfully", res);
+        })
+        .catch((error) => {
+          console.error("Error uploading file", error);
+        })
+        .finally(() => {
+          setFile(null)
+        });
+
+        
+    }
+  };
+  
+
   useEffect(() => {
     axios
       .get(
@@ -160,12 +203,25 @@ export default function User() {
       <div className={`${styles.container} ${isDark ? styles.dark : ""}`}>
         <section className={styles.main}>
           <div className={styles.user}>
-            <Image
-              className={styles.image}
-              src={user?.imageUrl ? imageUrl : "/user.png"}
-              width={100}
-              height={100}
-              alt="avatar image"
+          <Tooltip title="Add a profile photo" placement="top"  arrow>
+              <label htmlFor="fileInput">
+                <Image
+                  style={{borderRadius:"100px"}}
+                  className={styles.image}
+                  src={user?.imageUrl ? user.imageUrl : "/user.png"}
+                  width={100}
+                  height={100}
+                  alt="avatar image"
+                />
+              </label>
+            </Tooltip>
+            {/* Add the file input with an id */}
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(e) => handleFileChange(e.target.files[0])}
             />
             <h1>
               {user?.firstName} {user?.lastName}
@@ -304,6 +360,25 @@ export default function User() {
                 </Button>
               </Stack>
             )}
+            {
+              file && (
+                <Button
+                  fullWidth
+                  variant="contained"
+                  sx={{
+                    mt: 1,
+                    mb: 1,
+                    bgcolor: isDark ? "#388E3C" : "#4caf50",
+                    "&:hover": {
+                      bgcolor: isDark ? "#388E3C" : "#4caf50",
+                    },
+                  }}
+                  onClick={handleUploadClick}
+                >
+                  <ImageIcon sx={{ mr: 1 }} /> Submit profile picture
+                </Button>
+              )
+            }
           </div>
         </section>
         <Orders />

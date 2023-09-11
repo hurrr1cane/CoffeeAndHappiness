@@ -35,7 +35,7 @@ export default function Review( props ) {
     return (
         <section className={`${styles['review-card']} ${isDark ? styles.dark : ""}`}>
             <section className={styles.user}>
-              <Image alt='user avatar' width={70} height={70} src={commentUser.imageUrl ?? "/user.png"}/>
+              <Image alt='user avatar' width={70} height={70} style={{borderRadius: "999px"}} src={commentUser.imageUrl ?? "/user.png"}/>
               
             </section>
             <section className={styles.comment}>
