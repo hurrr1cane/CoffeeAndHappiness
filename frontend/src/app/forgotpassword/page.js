@@ -24,6 +24,7 @@ import KeyOutlinedIcon from '@mui/icons-material/KeyOutlined';
 import PasswordOutlinedIcon from '@mui/icons-material/PasswordOutlined';
 import useWindowSize from '../menu/dish/[id]/Reviews/useWindow';
 import { useGlobalContext } from '../store/store';
+
 export default function Home() {
 
     const { push } = useRouter();
@@ -37,15 +38,16 @@ export default function Home() {
     const handleClickShowPassword = () => setShowPassword(!showPassword);
 
     const [error, setError] = useState("")
-    const [showAlert, setShowAlert] = useState(false)
+    const [showErrorAlert, setShowErrorAlert] = useState(false)
     const [showSuccessAlert, setShowSuccessAlert] = useState(false)
     const [showOtpAlert, setShowOtpAlert] = useState(false)
+    const [showPasswordAlert, setShowPasswordAlert] = useState(false)
 
     const [showEmailInput, setShowEmailInput] = useState(true)
     const [showOtpInput, setShowOtpInput] = useState(false)
     const [showPasswordInput, setShowPasswordInput] = useState(false)
     const [showButton, setShowButton] = useState(false)
-
+    
 
     const [email, setEmail] = useState('')
 
@@ -68,33 +70,61 @@ export default function Home() {
 
 
     const onEmailSubmit = (data) => {
-        // axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/forgotpassword?email=${data?.email}`)
-        // .then(res => {
-        // console.log(res)
-        setShowSuccessAlert(true)
-        setTimeout(() => {setShowEmailInput(false)
-        setShowOtpInput(true); setShowSuccessAlert(false)}, 1000)
-        // })
-        // .catch(err => console.log(err))
+        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/forgot-password?email=${data?.email}`)
+        .then(res => {
+            console.log(res)
+            setShowSuccessAlert(true)
+            setTimeout(() => {setShowEmailInput(false)
+            setShowOtpInput(true); setShowSuccessAlert(false)}, 1000)
+            setShowErrorAlert(false)
+        })
+        .catch(err => {
+            console.log(err)
+            setShowErrorAlert(true)
+            setError(err.response.data.message)
+        })
         setEmail(data.email)
     }
 
     const handleOtpSubmit = (value) => {    
-        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/reset-password`)
-        console.log(otp)
-        setShowOtpAlert(true)
-        
-        setTimeout(() => {
-            setShowOtpInput(false)
-            setShowOtpAlert(false)
-            setShowPasswordInput(true)
-            setShowButton(false)
-        }, 1000)
-        
+        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/validate-verification-code`, {
+            verificationCode: otp,
+            email: email
+        })
+        .then(() => {
+            setShowOtpAlert(true)
+            setShowErrorAlert(false)
+            setTimeout(() => {
+                setShowOtpInput(false)
+                setShowOtpAlert(false)
+                setShowPasswordInput(true)
+                setShowButton(false)
+            }, 1000)
+        })
+        .catch((err => {
+            console.log(err.response.data.message)
+            setShowErrorAlert(true)
+            setError(err.response.data.message)
+        }))       
     }
 
     const onPasswordSubmit = (data) => {
-        console.log(data)
+        console.log(data.password)
+        axios.post('https://coffee-and-happiness-backend.azurewebsites.net/api/auth/reset-password', {
+            newPassword: data.password,
+            email: email
+        })
+        .then(() => {
+            showPasswordAlert(true)
+            setTimeout(() => {
+                push('/login')
+            }, 1000)
+        })
+        .catch(err => {
+            console.log(err)
+            setError(err.response.data.message)
+            setShowErrorAlert(true)
+        })
     }
 
     return (
@@ -102,7 +132,8 @@ export default function Home() {
             <Container component="main" maxWidth="xs">
               <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8, marginBottom: 1, whiteSpace:"nowrap"}}>Password reset code sent.</Alert>
               <Alert severity='success' onClose={() => {setShowOtpAlert(false)}} sx={{display: showOtpAlert ? "flex" : "none", marginTop:8, marginBottom: 1, whiteSpace:"nowrap"}}>Code validated successfully.</Alert>  
-              <Alert onClose={() => {setShowAlert(false)}} sx={{display: showAlert ? "flex" : "none"}}
+              <Alert severity='success' onClose={() => {setShowPasswordAlert(false)}} sx={{display: showPasswordAlert ? "flex" : "none", marginTop:8, marginBottom: 1, whiteSpace:"nowrap"}}>Password reset, you will be redirected shortly.</Alert>  
+              <Alert onClose={() => {setShowErrorAlert(false)}} sx={{display: showErrorAlert ? "flex" : "none"}}
                severity="error">{error}</Alert>
                 <Box
                   sx={{
@@ -121,7 +152,9 @@ export default function Home() {
                         <Typography sx={{p:1, color: isDark && "#CCCCCC", whiteSpace:width > 500 ? "nowrap" : "default"}} component="h1" variant="h5">
                         Input the code sent to {email}
                         </Typography>
-                        <MuiOtpInput sx={{color: isDark && "#CCCCCC"}} validateChar={validateChar} gap={1} length={6} onComplete={() => setShowButton(true)} value={otp} onChange={handleChange} />
+                        <MuiOtpInput sx={{color: isDark && "#CCCCCC", input: {
+                            color: isDark && "#CCCCCC"
+                        }}} validateChar={validateChar} gap={1} length={6} onComplete={() => setShowButton(true)} value={otp} onChange={handleChange} />
                         <Button
                             onClick={handleOtpSubmit}
                             fullWidth
@@ -201,34 +234,41 @@ export default function Home() {
                         <Typography sx={{whiteSpace:"nowrap", color: isDark && "#CCCCCC"}} component="h1" variant="h5">
                         Reset password
                         </Typography>
-                        <Box component="form" onSubmit={handleSubmit(onEmailSubmit)} noValidate sx={{ mt: 1 }}>
+                        <Box component="form" onSubmit={handleSubmit(onPasswordSubmit)} noValidate sx={{ mt: 1 }}>
                         <TextField
-                            color="success"
-                            {...register('email', {
-                            required: 'Email address is required',
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                message: 'Invalid email address'
-                            }
-                            })}
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            error={!!errors.email}
-                            helperText={errors.email?.message}
-                            sx = {{
-                                input : {
-                                  color: isDark && "#CCCCCC"
-                                },
-                                fieldset: {
-                                    outlineColor: "red"
-                                }
-                              }}
+                           color="success"
+                           {...register('password', {
+                             required: 'Password is required',
+                           })}
+                           margin="normal"
+                           required
+                           fullWidth
+                           name="password"
+                           label="Password"
+                           type={showPassword ? "text" : "password"}
+                           sx = {{
+                             input : {
+                               color: isDark && "#CCCCCC"
+                             },
+                             fieldset: {
+                                 outlineColor: "red"
+                             }
+                           }}
+                           InputProps={{ 
+                             endAdornment: (
+                               <InputAdornment position="end">
+                                 <IconButton
+                                   aria-label="toggle password visibility"
+                                   onClick={handleClickShowPassword}
+                     
+                                 >
+                                   {showPassword ? <Visibility sx={{color: isDark && "#CCCCCC"}} /> : <VisibilityOff sx={{color: isDark && "#CCCCCC"}}/>}
+                                 </IconButton>
+                               </InputAdornment>)}}
+                           id="password"
+                           autoComplete="current-password"
+                           error={!!errors.password}
+                           helperText={errors.password?.message}
                         />
                         <Button
                             type="submit"
