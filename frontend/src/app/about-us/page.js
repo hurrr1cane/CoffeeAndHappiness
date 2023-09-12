@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main className={`${styles.main} ${isDark ? styles.dark : ""}`}>
       <h1>About page</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi corporis soluta aliquam pariatur hic, illum voluptate omnis mollitia, quas, natus at! Similique dolores accusantium laborum minima repellat! Officiis!</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi nuni corporis soluta aliquam pariatur hic, illum voluptate omnis mollitia, quas, natus at! Similique dolores accusantium laborum minima repellat! Officiis!</p>
     </main>
 
   )
