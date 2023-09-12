@@ -2,6 +2,8 @@ name: Build and deploy JAR app to Azure Web App - coffee-and-happiness-backend
 
 on:
   push:
+    paths:
+      - 'backend/**' # Only trigger when changes are made in the backend folder
     branches:
       - main
   workflow_dispatch:
