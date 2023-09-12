@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -20,7 +20,7 @@ jobs:
         with:
           java-version: '17'
 
-      - name: Build with Maven
+      - name: Build with Maven in backend
         run: mvn clean install
         working-directory: backend
 
@@ -28,15 +28,16 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: 'backend/target/coffee-and-happiness.jar'
+          path: 'backend/target/a-mazing-journey-backend.jar'
+
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
@@ -48,7 +49,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'coffee-and-happiness-backend'
+          app-name: 'a-mazing-journey'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E797A1BFC3E2476AB2CFC1E2E41F7ED4 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F0EAC310B256452EAB0E469897E9AEF6 }}
           package: '*.jar'
