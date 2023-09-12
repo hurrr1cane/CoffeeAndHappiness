@@ -15,7 +15,7 @@ import EditDishModal from './EditDishModal'
 
 export default function DishCard({ dish }) {
 
-    const {user, isDark} = useGlobalContext()
+    const {user, isDark, language} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
 
@@ -48,10 +48,10 @@ export default function DishCard({ dish }) {
                     alt='picture of a pizza'
                     />
                     <div>
-                        <h1 className={styles.property}>{dish.nameEN}</h1>
-                        <p className={styles.property}>Description: {dish.descriptionEN}</p>
-                        <p className={styles.property}>Price: {dish.price}</p>
-                        <p className={styles.property}>Rating: <Rating sx={{top: "5px"}} name="read-only" value={Number(dish.averageRating)} readOnly /></p>
+                        <h1 className={styles.property}>{language === 'en' ? dish.nameEN : dish.nameUA}</h1>
+                        <p className={styles.property}>{language === 'en' ? 'Description:' : 'Опис:'} {language === 'en' ? dish.descriptionEN : dish.descriptionUA}</p>
+                        <p className={styles.property}>{language === 'en' ? 'Price: ' : 'Ціна: '} ₴{dish.price}</p>
+                        <p className={styles.property}>{language === 'en' ? 'Rating: ' : 'Рейтинг: '} <Rating sx={{top: "5px"}} name="read-only" value={Number(dish.averageRating)} readOnly /></p>
                     </div>
             </Link>
                     {user.role === 'ADMIN' ? 

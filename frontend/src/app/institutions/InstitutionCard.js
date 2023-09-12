@@ -13,7 +13,7 @@ import Button from '@mui/material/Button'
 import useWindowSize from '../menu/dish/[id]/Reviews/useWindow'
 export default function InstitutionCard({ cafe }) {
 
-    const {user, isDark} = useGlobalContext()
+    const {user, isDark, language} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
 
@@ -54,16 +54,16 @@ export default function InstitutionCard({ cafe }) {
             width={200}
           />
           <div>
-            <h1 className={styles.property}>{cafe?.locationEN}</h1>
-            <p className={styles.property}>Phone number: {cafe.phoneNumber}</p>
+            <h1 className={styles.property}>{language === 'en' ? cafe.locationEN : cafe.locationUA}</h1>
+            <p className={styles.property}>{language === 'en' ? "Phone number" : "Номер телефону"} {cafe.phoneNumber}</p>
             <Button variant='contained'  fullWidth  sx={{marginBottom:1, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"}}}>
               <p>
-                <Link href="https://www.google.com/maps">View on a map</Link>
+                <Link href="https://www.google.com/maps">{language === 'en' ? "View on a map" : "Переглянути на карті"}</Link>
               </p>
             </Button>
             <Button variant='contained'  fullWidth    sx={{marginBottom:1,  bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"}}}>
               <p>
-                <Link href={`institutions/institution/${cafe?.id}`}>View reviews</Link>
+                <Link href={`institutions/institution/${cafe?.id}`}>{language === 'en' ? "View reviews" : "Переглянути відгуки"}</Link>
               </p>
             </Button>
           </div>

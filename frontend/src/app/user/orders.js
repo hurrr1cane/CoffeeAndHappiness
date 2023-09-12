@@ -10,7 +10,7 @@ import axios from "axios";
 export default function Orders() {
     const [page, setPage] = useState(1)
 
-    const { user, isDark} = useGlobalContext()
+    const { user, isDark, language} = useGlobalContext()
 
     const [orders, setOrders] = useState([])
 
@@ -65,7 +65,7 @@ export default function Orders() {
                 id={order.id}
                
             />
-            )) : <h2 style={{fontWeight:400, marginBottom:"10rem", color: isDark ? "#CCCCCC" : "black"}}>No orders yet!</h2>}
+            )) : <h2 style={{fontWeight:400, marginBottom:"10rem", color: isDark ? "#CCCCCC" : "black"}}>{language === 'en' ? 'No orders yet.' : "Замовлення відсутні."}</h2>}
         </div>
           {orders.length >= 1 && <Pagination
             page={page}

@@ -25,7 +25,7 @@ import { Alert, AlertTitle } from '@mui/material';
 export default function Login() {
 
     const { push } = useRouter();
-    const {isDark, setUser} = useGlobalContext()
+    const {isDark, setUser, language} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
@@ -59,7 +59,8 @@ export default function Login() {
 
     return (
         <Container component="main" maxWidth="xs">
-          <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8, marginBottom: 1}}><AlertTitle>Logged in successfully</AlertTitle> You will be redirected shortly.</Alert>
+          <Alert severity='success' onClose={() => {setShowSuccessAlert(false)}} sx={{display: showSuccessAlert ? "flex" : "none", marginTop:8, marginBottom: 1}}><AlertTitle>{language === 'en' ? 'Logged in successfully' : "Вхід успішний"}
+          </AlertTitle> {language === 'en' ? 'You will be redirected shortly' : "Вас незабаром перенаправлять"}</Alert>
           <Alert onClose={() => {setShowAlert(false)}} sx={{display: showAlert ? "flex" : "none"}}
            severity="error">{error}</Alert>
             <Box
@@ -74,23 +75,23 @@ export default function Login() {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5" sx={{color: isDark && "#CCCCCC"}}>
-                Log in
+              {language === 'en' ? 'Log in' : "Логін"}
               </Typography>
               <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                 <TextField
                   color="success"
                   {...register('email', {
-                    required: 'Email address is required',
+                    required: language === 'en' ? 'Email address is required' : "Електронна пошта обов'язкова",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: 'Invalid email address'
+                      message: language === 'en' ? 'Invalid email address' : "Неправильна електронна пошта"
                     }
                   })}
                   margin="normal"
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label={language === 'en' ? 'Email adress' : "Електронна пошта"}
                   name="email"
                   autoComplete="email"
                   autoFocus
@@ -105,13 +106,13 @@ export default function Login() {
                 <TextField
                 color="success"
                   {...register('password', {
-                    required: 'Password is required',
+                    required: language === 'en' ? 'Password is required' : "Пароль обов'язковий",
                   })}
                   margin="normal"
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label={language === 'en' ? 'Password' : "Пароль"}
                   type={showPassword ? "text" : "password"}
                   sx = {{
                     input : {
@@ -144,17 +145,17 @@ export default function Login() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"} }}
                 >
-                  Sign In
+                  {language === 'en' ? 'Log in' : "Увійти"}
                 </Button>
                 <Grid container>
                   <Grid sx={{color: isDark && "#CCCCCC"}} item xs>
                   <Link component={NextLink} href='/forgotpassword' variant='body2'>
-                      Forgot password?
+                  {language === 'en' ? 'Forgot password?' : "Забули пароль?"}
                     </Link>
                   </Grid>
                   <Grid sx={{color: isDark && "#CCCCCC"}} item>
                     <Link component={NextLink} href='/register' variant='body2'>
-                      Don't have an account? Register
+                    {language === 'en' ? "Don't have an account? Register" : "Немає аккануту? Зареєструйся"}
                     </Link>
                   </Grid>
                 </Grid>

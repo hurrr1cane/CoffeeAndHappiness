@@ -4,7 +4,9 @@ import MenuItem from '@mui/material/MenuItem';
 import { Fab } from '@mui/material';
 import { useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language'
+import { useGlobalContext } from '@/app/store/store';
 export default function PositionedMenu({ isDark }) {
+  const { setLanguage } = useGlobalContext()
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -13,6 +15,16 @@ export default function PositionedMenu({ isDark }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleEnglish = () => {
+    setLanguage('en')
+    setAnchorEl(null);
+  }
+
+  const handleUkrainian = () => {
+    setLanguage('ua')
+    setAnchorEl(null);
+  }
 
   return (
     <div>
@@ -34,8 +46,8 @@ export default function PositionedMenu({ isDark }) {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose}>English 🇬🇧</MenuItem>
-        <MenuItem onClick={handleClose}>Українська 🇺🇦</MenuItem>
+        <MenuItem onClick={handleEnglish}>English 🇬🇧</MenuItem>
+        <MenuItem onClick={handleUkrainian}>Українська 🇺🇦</MenuItem>
       </Menu>
     </div>
   );
