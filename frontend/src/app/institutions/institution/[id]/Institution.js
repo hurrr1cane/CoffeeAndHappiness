@@ -13,7 +13,7 @@ import useWindowSize from "@/app/menu/dish/[id]/Reviews/useWindow"
 
 export default function Institution({ reset }) {
 
-    const { user, isDark } = useGlobalContext()
+    const { user, isDark, language } = useGlobalContext()
     const pathname = usePathname().split('institution/')[1]
     const [open, setOpen] = useState(false)
     const {width, height } = useWindowSize()
@@ -30,11 +30,11 @@ export default function Institution({ reset }) {
                 <ReviewModal width={width} reset={reset} open={open} id={institution.id} token={user.token} setOpen={setOpen}/>
                 <Image alt="picture of some food" className={styles.image} width={300} height={300} src={institution.imageUrl ?? "/placeholder.png"}></Image>
                 <section className={styles.info}>
-                    <h1>Located at {institution.locationEN}</h1>
-                    <p>Contact: {institution.phoneNumber}</p>
-                    <p>Rating: <Rating sx={{top: "5px"}} name="read-only" value={Number(institution.averageRating)} readOnly/></p>
-                    <div style={{display: user !== {} ? "flex" : "none"}} >
-                    {(user.role) && <Button onClick={() => {setOpen(true)}} sx={{marginTop: "1rem", bgcolor: "#4caf50", '&:hover': {bgcolor:"#66bb69"}}} variant="contained">Add review</Button>}
+                    <h1>{language === 'en' ? `Located at ${institution.locationEN}` : `Розташовано в ${institution.locationUA}`} </h1>
+                    <p>{language === 'en' ? 'Contact: ' : "Контактні дані: "} {institution.phoneNumber}</p>
+                    <p>{language === 'en' ? 'Rating:' : "Рейтинг"} <Rating sx={{top: "5px"}} name="read-only" value={Number(institution.averageRating)} readOnly/></p>
+                    <div style={{display: user != {} ? "flex" : "none"}} >
+                    {(user.role) && <Button onClick={() => {setOpen(true)}} sx={{marginTop: "1rem", bgcolor: "#4caf50", '&:hover': {bgcolor:"#66bb69"}}} variant="contained">{language === 'en' ? 'Add review' : "Додати відгук"}</Button>}
                     </div>
                 </section>
             </section>

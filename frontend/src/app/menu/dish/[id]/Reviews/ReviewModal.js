@@ -16,7 +16,7 @@ import { useGlobalContext } from "@/app/store/store";
 export default function ReviewModal({ open, id, setOpen, token, reset, width }) {
 
 
-    const { isDark } = useGlobalContext()
+    const { isDark, language } = useGlobalContext()
 
 
     const [rating, setRating] = useState(0)
@@ -75,13 +75,13 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
         <Box sx={style}>
           <Stack direction="row" justifyContent="space-between">
             <Typography id="modal-modal-title" variant="h6" component="h2" sx={{color: isDark && "#CCCCCC"}}>
-              Add review
+            {language === 'en' ? 'Add reivew' : 'Додати відгук'}
             </Typography>
             <IconButton onClick={handleClose}>
               <CloseIcon sx={{color: isDark ? "#CCCCCC" : "black" }} />
             </IconButton>
           </Stack>
-          <Typography component="legend" sx={{color: isDark && "#CCCCCC"}}>Add rating: </Typography>
+          <Typography component="legend" sx={{color: isDark && "#CCCCCC"}}>{language === 'en' ? 'Add rating: ' : 'Додати рейтинг: '} </Typography>
           <Rating
             sx = {{right: "3px"}}
             name="simple-controlled"
@@ -96,7 +96,7 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
             color="success"
             fullWidth
             id="standard-multiline-flexible"
-            placeholder="Leave your review here..."
+            placeholder={language === 'en' ? 'Leave your review here...' : 'Залиште свій відгук тут...'}
             value={comment} 
             onChange={(event) => setComment(event.target.value)} 
             multiline
@@ -117,7 +117,7 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
             }}
           >
             <DoneIcon sx={{mr:1}}/>
-            Add review
+            {language === 'en' ? 'Add review' : 'Залишити відгук'}
           </Fab>
         </Box>
       </Modal>

@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { useGlobalContext } from '@/app/store/store'
 export default function Home() {
 
-    const {isDark} = useGlobalContext()
+    const {isDark, language} = useGlobalContext()
 
     const [seed, setSeed] = useState(1);
        const reset = () => {
@@ -17,7 +17,7 @@ export default function Home() {
     return (
     <div className={`${styles.main} ${isDark ? styles.dark : ""}`}>
         <Dish reset={reset}/>
-        <h1 className={styles['reviews-header']}>Reviews:</h1>
+        <h1 className={styles['reviews-header']}>{language === 'en' ? 'Reviews:' : 'Відгуки:'}</h1>
         <Reviews key={seed}/>
      </div> 
     )
