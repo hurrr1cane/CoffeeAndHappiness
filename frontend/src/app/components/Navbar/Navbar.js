@@ -12,7 +12,7 @@
   import { Fab } from "@mui/material";
   import MenuIcon from '@mui/icons-material/Menu';
   //Todo: fix element positioning
-
+  import useWindowSize from "@/app/menu/dish/[id]/Reviews/useWindow";
   export default function Navbar() {
     const { push } = useRouter()
     const {user, setUser, isDark, setIsDark, language} = useGlobalContext()
@@ -22,6 +22,8 @@
       push('/login')
       setUser({})
     }
+
+    const {width, height} = useWindowSize()
 
     const pathname = usePathname();
     const [stylesData, setStylesData] = useState({
@@ -70,7 +72,7 @@
     return (
       <nav className={`${styles.navbar} ${menuOpen ? styles.open : ''} ${isDark ? styles.dark : ""}`}>
     
-        <MenuIcon onClick={toggleMobileMenu} sx={{color: isDark ? "#CCCCCC" : ""}} className={styles.menuButton}/>
+        <MenuIcon onClick={toggleMobileMenu} sx={{color: isDark ? "#CCCCCC" : "", display: width > 768 ? "none" : "block"}} className={styles.menuButton}/>
         <Link ref={tabRefs.home} onClick={() => {handleTabClick('home')}} className={`${styles.link} ${stylesData.selectedTab === 'home' ? styles.selected : '' }`} href="/"><h1>{language === 'en' ? "Home" : "Домашня"}</h1></Link>
         <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${stylesData.selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>{language === 'en' ? "Institutions" : "Заклади"}</h1></Link>
         <Link ref={tabRefs.menu} onClick={() => {handleTabClick('menu')}} className={`${styles.link} ${stylesData.selectedTab === 'menu' ? styles.selected : '' }`} href="/menu"><h1>{language === 'en' ? "Menu" : "Меню"}</h1></Link>
