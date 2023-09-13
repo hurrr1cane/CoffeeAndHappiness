@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: 'backend/target/a-mazing-journey-backend.jar'
+          path: 'backend/target/coffee-and-happiness.jar'
 
 
   deploy:
