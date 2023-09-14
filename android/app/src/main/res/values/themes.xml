@@ -142,7 +142,7 @@
 
     <style name="FOOD_BUTTON">
         <item name="android:textColor">@color/black_text</item>
-        <item name="android:background">@color/light_background_main</item>
+        <item name="android:background">@drawable/button_square_white</item>
     </style>
 
 

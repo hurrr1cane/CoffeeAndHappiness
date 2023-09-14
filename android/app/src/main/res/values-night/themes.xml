@@ -130,7 +130,7 @@
 
     <style name="FOOD_BUTTON">
         <item name="android:textColor">@color/white_text</item>
-        <item name="android:background">@color/dark_background_main</item>
+        <item name="android:background">@drawable/button_square_black</item>
     </style>
 
     <!-- Account section -->
