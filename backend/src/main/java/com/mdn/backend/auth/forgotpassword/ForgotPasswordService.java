@@ -28,24 +28,23 @@ public class ForgotPasswordService {
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
 
         VerificationCode existingCode = verificationCodeRepository.findByUser(user);
+
         if (existingCode != null) {
-            existingCode.setExpirationTime(LocalDateTime.now().plusMinutes(3));
-            verificationCodeRepository.save(existingCode);
-        } else {
-            var expirationTime = LocalDateTime.now().plusMinutes(3);
-
-            var verificationCode = VerificationCode.builder()
-                    .code(generateRandomCode())
-                    .expirationTime(expirationTime)
-                    .user(user)
-                    .build();
-
-            emailService.sendVerificationCode(user.getEmail(), verificationCode.getCode());
-
-            verificationCodeRepository.save(verificationCode);
+            verificationCodeRepository.delete(existingCode);
         }
-    }
 
+        var expirationTime = LocalDateTime.now().plusMinutes(3);
+
+        var verificationCode = VerificationCode.builder()
+                .code(generateRandomCode())
+                .expirationTime(expirationTime)
+                .user(user)
+                .build();
+
+        emailService.sendVerificationCode(user.getEmail(), verificationCode.getCode());
+
+        verificationCodeRepository.save(verificationCode);
+    }
 
     private String generateRandomCode() {
 
