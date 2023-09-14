@@ -240,7 +240,7 @@
                 android:visibility="gone" />
 
 
-            <TextView
+            <!--<TextView
                 style="@style/ACCOUNT_TEXT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:padding="2dp"
-                android:src="@drawable/google_icon" />
+                android:src="@drawable/google_icon" />-->
 
             <LinearLayout
                 android:layout_width="wrap_content"
