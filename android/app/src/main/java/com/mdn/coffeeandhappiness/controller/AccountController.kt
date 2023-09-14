@@ -25,6 +25,89 @@ import java.io.IOException
 
 class AccountController {
 
+    suspend fun forgotPasswordValidate(email: String, code: String): Boolean {
+        return withContext(Dispatchers.IO) {
+
+            val url = "${Constants().address}/api/auth/validate-verification-code"
+
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create JSON data for the request body
+            val json = """{"email":"$email","verificationCode":"$code"}"""
+
+            // Set the media type as JSON
+            val mediaType = "application/json; charset=utf-8".toMediaType()
+
+            // Create a request body
+            val requestBody = json.toRequestBody(mediaType)
+
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            var codeCorrect = false
+            try {
+                // Use the OkHttpClient to send the POST request
+                val response: Response = client.newCall(request).execute()
+
+                // Check if the request was successful
+                codeCorrect = response.isSuccessful
+
+                // Close the response body to release resources
+                response.close()
+
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+                throw NoInternetException()
+            }
+
+            codeCorrect
+        }
+    }
+
+    suspend fun forgotPasswordSendCode(email: String): Boolean {
+        return withContext(Dispatchers.IO) {
+
+            val url = "${Constants().address}/api/auth/forgot-password?email=$email"
+
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            val requestBody = RequestBody.create(null, ByteArray(0))
+
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            var sent = false
+            try {
+                // Use the OkHttpClient to send the POST request
+                val response: Response = client.newCall(request).execute()
+
+                // Check if the request was successful
+                sent = response.isSuccessful
+
+                // Close the response body to release resources
+                response.close()
+
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+                throw NoInternetException()
+            }
+
+            sent
+        }
+    }
+
     suspend fun getById(id: Int): PersonInReview? {
         return withContext(Dispatchers.IO) {
             var personInReview: PersonInReview? = null
@@ -641,6 +724,45 @@ class AccountController {
                 throw NoInternetException()
             }
 
+        }
+    }
+
+    suspend fun forgotPasswordSetNew(email: String, code: String, password: String) {
+        return withContext(Dispatchers.IO) {
+
+            val url = "${Constants().address}/api/auth/reset-password"
+
+
+            // Create an OkHttpClient instance
+            val client = OkHttpClient()
+
+            // Create JSON data for the request body
+            val json = """{"email":"$email","verificationCode":"$code","newPassword":"$password"}"""
+
+            // Set the media type as JSON
+            val mediaType = "application/json; charset=utf-8".toMediaType()
+
+            // Create a request body
+            val requestBody = json.toRequestBody(mediaType)
+
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .addHeader("Accept-Encoding", "gzip, deflate, br")
+                .build()
+
+            try {
+                // Use the OkHttpClient to send the POST request
+                val response: Response = client.newCall(request).execute()
+
+                // Close the response body to release resources
+                response.close()
+
+            } catch (e: IOException) {
+                // Handle failure, such as network issues
+                e.printStackTrace()
+                throw NoInternetException()
+            }
         }
     }
 

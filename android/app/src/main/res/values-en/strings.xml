@@ -85,6 +85,23 @@
     <string name="account_edit_change_password_wrong_hint">Your old password is incorrect!</string>
     <string name="account_edit_change_password_submit">Submit</string>
 
+    <string name="account_forgot_password_email_title">Forgot password</string>
+    <string name="account_forgot_password_email_description">Enter your email, so we can send you a verification code for resetting password.</string>
+    <string name="account_forgot_password_email_no_account">There is no registered account with this email</string>
+    <string name="account_forgot_password_email_button">Send verification code</string>
+
+    <string name="account_forgot_password_code_title">Verification code</string>
+    <string name="account_forgot_password_code_description_1">We have sent you a six-digit verification code on your email.</string>
+    <string name="account_forgot_password_code_description_2">Enter it here.</string>
+    <string name="account_forgot_password_code_code_hint">Please, enter the code</string>
+    <string name="account_forgot_password_code_wrong_code_hint">The code you entered is incorrect</string>
+    <string name="account_forgot_password_code_button">Verify</string>
+
+    <string name="account_forgot_password_new_password_title">New password</string>
+    <string name="account_forgot_password_new_password_button">Change password</string>
+
+    <string name="account_forgot_password_success_title">Your password was successfully changed.\nYou can close this page now.</string>
+
     <!-- This is a code section -->
     <string name="code_user_show_qr">Show your QR code to waiter</string>
     <string name="code_user_balance">Balance</string>
