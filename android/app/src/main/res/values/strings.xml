@@ -103,6 +103,8 @@
 
     <string name="account_forgot_password_success_title">Your password was successfully changed.\nYou can close this page now.</string>
 
+    <string name="account_feedback_text">If you have any comments or suggestions regarding the operation of the application, please, write to us by e-mail: email@gmail.com</string>
+
     <!-- This is a code section -->
     <string name="code_user_show_qr">Show your QR code to waiter</string>
     <string name="code_user_balance">Balance</string>
@@ -126,8 +128,6 @@
     <string name="internet_no_connection">We can\'t connect to the server</string>
     <string name="internet_no_connection_error">There is no connection to the server</string>
     <string name="empty_page_text">Wow, so empty!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
