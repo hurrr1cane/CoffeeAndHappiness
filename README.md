@@ -35,26 +35,42 @@ The Cafe Application is designed to streamline the operations of a cafe, providi
 ### Roles
 The application supports three roles:
 
-- User: Regular cafe visitors who can place orders, review food, and cafes.
-- Waiter: Staff members responsible for creating orders, scanning user QR codes, and processing requests.
-- Admin: Administrators who can manage food items, cafes, news, and more.
+- **User**: Regular cafe visitors who can place orders, review food, and cafes.
+- **Waiter**: Staff members responsible for creating orders, scanning user QR codes, and processing requests.
+- **Admin**: Administrators who can manage food items, cafes, news, and more.
 
 ### Food Management
-- Menu Display: Food items are displayed in both the application and website menu sections.
+- **Menu Display**: Food items are displayed in both the application and website menu sections.
 
 ### Cafe Management
-- Institutions Display: Cafes are displayed as institutions with coordinates on maps. Users can choose between viewing the list of institutions or using the map with cafe markers.
+- **Institutions Display**: Cafes are displayed as institutions with coordinates on maps. Users can choose between viewing the list of institutions or using the map with cafe markers.
 
 ### Review System
-- Rating and Reviews: Users can rate and write reviews for both food items and cafes. The average rating is displayed as stars in menus and institution details.
-- User Reviews: Users can view and manage their own reviews on their profile page.
+- **Rating and Reviews**: Users can rate and write reviews for both food items and cafes. The average rating is displayed as stars in menus and institution details.
+- **User Reviews**: Users can view and manage their own reviews on their profile page.
 
 ### Order System
-- Waiter-User Interaction: Waiters can create orders in real-time based on customer requests. Users place orders through waiters who scan their QR codes.
-- Order History: Users can view their order history in their profile.
+- **Waiter-User Interaction**: Waiters can create orders in real-time based on customer requests. Users place orders through waiters who scan their QR codes.
+- **Order History**: Users can view their order history in their profile.
 
 ### Bonus Points
-- Reward Mechanism: Users receive bonus points equal to the order price for each order. These points can be used for future orders, with a cost multiplier of x10.
+- **Reward Mechanism**: Users receive bonus points equal to the order price for each order. These points can be used for future orders, with a cost multiplier of x10.
 
 ### News
-- News Section: News and updates are displayed in both the application and website.
+- **News Section**: News and updates are displayed in both the application and website.
+
+## Technologies Used
+- **Spring Boot**: Backend logic, RESTful API development, authentication with Spring Security and JWT.
+- **Spring Data JPA**: For data access and management.
+- **Hibernate**: As the JPA provider.
+- **Next.js**: Frontend web application development and menu display.
+- **Kotlin**: Android application development with real-time order processing.
+- **Database**: MySQL hosted in Azure.
+- **Authentication**: User authentication with Spring Security and JWT, including role-based access control.
+- **Azure Services**:
+  - Azure App Services for hosting both backend and frontend.
+  - GitHub Actions for CI/CD for backend.
+  - Azure DevOps Pipelines for CI/CD for frontend.
+  - Azure Storage for saving images of food, user profile, cafe, and news.
+  - Azure Storage for hosting the Android APK file, which can be downloaded from the website.
+
