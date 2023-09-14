@@ -19,7 +19,7 @@ export default function Reviews() {
 
 
     return (
-        <div className={styles.wrapper} style={{height: reviews.length >= 3 ? "auto" : "18.5dvh"}}>
+        <div className={styles.wrapper} style={{height: reviews.length >= 3 ? "auto" : "20.5dvh"}}>
         {reviews && reviews.map(review => (
             <Review key={review.id} {...review}/>
         ))}

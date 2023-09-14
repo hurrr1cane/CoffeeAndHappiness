@@ -3,7 +3,7 @@ name: Build and deploy JAR app to Azure Web App - coffee-and-happiness-backend
 on:
   push:
     paths:
-      - 'backend/**' # Only trigger when changes are made in the backend folder
+      - 'backend/**'
     branches:
       - main
   workflow_dispatch:
@@ -49,7 +49,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'a-mazing-journey'
+          app-name: 'coffee-and-happiness-backend'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F0EAC310B256452EAB0E469897E9AEF6 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E797A1BFC3E2476AB2CFC1E2E41F7ED4 }}
           package: '*.jar'
