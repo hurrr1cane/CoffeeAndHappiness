@@ -43,6 +43,7 @@
                     android:fontFamily="@font/sofiasans_straight"
                     android:hint="@string/accountName"
                     android:inputType="textPersonName"
+                    android:nextFocusDown="@id/accountRegisterSurname"
                     android:textColorHint="@color/gray_black_text"
                     android:textSize="20sp"
                     android:theme="@style/ACCOUNT_CURSOR" />
@@ -79,6 +80,7 @@
                     android:fontFamily="@font/sofiasans_straight"
                     android:hint="@string/accountSurname"
                     android:inputType="textPersonName"
+                    android:nextFocusDown="@id/accountRegisterEmail"
                     android:textSize="20sp"
                     android:theme="@style/ACCOUNT_CURSOR" />
 
@@ -114,6 +116,7 @@
                     android:fontFamily="@font/sofiasans_straight"
                     android:hint="@string/account_email"
                     android:inputType="textEmailAddress"
+                    android:nextFocusDown="@id/accountRegisterPassword"
                     android:textSize="20sp"
                     android:theme="@style/ACCOUNT_CURSOR" />
 
@@ -150,6 +153,7 @@
                     android:fontFamily="@font/sofiasans_straight"
                     android:hint="@string/account_password"
                     android:inputType="textPassword"
+                    android:nextFocusDown="@id/accountRegisterReEnterPassword"
                     android:textSize="20sp"
                     android:theme="@style/ACCOUNT_CURSOR" />
 
@@ -186,6 +190,7 @@
                     android:fontFamily="@font/sofiasans_straight"
                     android:hint="@string/account_register_re_enter_password"
                     android:inputType="textPassword"
+                    android:nextFocusDown="@id/accountRegisterButton"
                     android:textSize="20sp"
                     android:theme="@style/ACCOUNT_CURSOR" />
 
