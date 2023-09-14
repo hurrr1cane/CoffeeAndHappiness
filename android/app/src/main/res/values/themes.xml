@@ -227,5 +227,9 @@
         <item name="android:src">@drawable/baseline_remove_black_24</item>
     </style>
 
+    <style name="CLICKABLE">
+        <item name="android:background">@drawable/button_square_white</item>
+    </style>
+
 
 </resources>
