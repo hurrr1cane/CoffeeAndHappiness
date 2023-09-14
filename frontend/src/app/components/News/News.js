@@ -16,7 +16,7 @@ function News() {
 
     const [news, setNews] = useState([])
 
-    const {user, isDark} = useGlobalContext()
+    const {user, isDark, language} = useGlobalContext()
 
     const [open, setOpen] = useState(false)
 
@@ -62,8 +62,8 @@ function News() {
               alt='picture of a cafe'
             />
             <div>
-              <h1 className={styles.property}>{newsItem.titleEN}</h1>
-              <p className={styles.property}>{newsItem.descriptionEN}</p>
+              <h1 className={styles.property}>{language === 'en' ?  newsItem.titleEN : newsItem.titleUA}</h1>
+              <p className={styles.property}>{language === 'en' ? newsItem.descriptionEN : newsItem.descriptionUA}</p>
             </div>
           </div>
           {user.role === 'ADMIN' ? 

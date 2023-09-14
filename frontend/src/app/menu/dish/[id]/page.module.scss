@@ -3,6 +3,7 @@
 
 .reviews-header {
     margin-top: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .dark {
@@ -11,7 +12,6 @@
         color: #CCCCCC;
     }
 }
-
 @media (max-width: 768px) {
     .main {
         width: 100dvw;

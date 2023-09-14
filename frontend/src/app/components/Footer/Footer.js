@@ -8,12 +8,12 @@ function getYear() {
 }
 
 export default function Footer() {
-    const { isDark } = useGlobalContext()
+    const { isDark, language } = useGlobalContext()
 
     return (
             <footer className={`${styles.footer} ${ isDark ? styles.dark : ""}`}>
-                <p>With Love</p>
-                <p>Coffee and Happiness © {getYear()}</p>
+                <p>{language === 'en' ? "With Love" : "З любов'ю"}</p>
+                <p>{language === 'en' ? "Coffee and Happiness" : "Кава та щастя"} © {getYear()}</p>
                 <div className={styles.icons}>
                 <Icons/>
                 </div>

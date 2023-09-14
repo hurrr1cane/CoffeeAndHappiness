@@ -23,7 +23,7 @@ import { Alert, AlertTitle } from '@mui/material';
 export default function Register() {
 
     const { push } = useRouter();
-    const {isDark, setUser} = useGlobalContext()
+    const {isDark, setUser, language} = useGlobalContext()
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const { handleSubmit, register, formState: { errors } } = useForm();
@@ -68,17 +68,17 @@ export default function Register() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5" sx={{color: isDark && "#CCCCCC"}}>
-              Sign up
+            {language === 'en' ? 'Register' : "Реєстрація"}
             </Typography>
             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
               <TextField
-                {...register('firstName', { required: 'First name is required' })}
+                {...register('firstName', { required: language === 'en' ? 'First name is required' : "Ім'я обов'язкове"})}
                 color="success"
                 margin="normal"
                 required
                 fullWidth
                 name="firstName"
-                label="First name"
+                label={language === 'en' ? 'First name' : "Ім'я"}
                 id="firstName"
                 error={!!errors.firstName}
                 helperText={errors.firstName?.message}
@@ -89,13 +89,13 @@ export default function Register() {
                 }}
               />
               <TextField
-                {...register('lastName', { required: 'Last name is required' })}
+                {...register('lastName', { required: language === 'en' ? 'Last name is required' : "Прізвище обов'язкове" })}
                 color="success"
                 margin="normal"
                 required
                 fullWidth
                 name="lastName"
-                label="Last name"
+                label={language === 'en' ? 'Last name' : "Прізвище"}
                 id="lastName"
                 error={!!errors.lastName}
                 helperText={errors.lastName?.message}
@@ -107,10 +107,10 @@ export default function Register() {
               />
               <TextField
                 {...register('email', {
-                  required: 'Email address is required',
+                  required: language === 'en' ? 'Email address is required' : "Електронна пошта обов'язкова",
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: 'Invalid email address'
+                    message: language === 'en' ? 'Invalid email address' : 'Неправильна електронна пошта'
                   }
                 })}
                 color="success"
@@ -118,7 +118,7 @@ export default function Register() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label={language === 'en' ? 'Email adress' : "Електронна пошта"}
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -132,10 +132,10 @@ export default function Register() {
               />
               <TextField
                 {...register('password', {
-                  required: 'Password is required',
+                  required: language === 'en' ? 'Password is required' : "Пароль обов'язковий",
                   minLength: {
                     value: 8,
-                    message: 'Password must be at least 8 characters long'
+                    message: language === 'en' ? 'Password must be at least 8 characters long' : "Пароль мусить мати хоча б 8 символів"
                   }
                 })}
                 color="success"
@@ -143,7 +143,7 @@ export default function Register() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label={language === 'en' ? 'Password' : "Пароль"}
                 type={showPassword ? "text" : "password"}
                 sx={{
                   input : {
@@ -175,14 +175,14 @@ export default function Register() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, bgcolor:isDark ? "#388E3C" : "#4caf50", '&:hover':{bgcolor:isDark ? "#388E3C" : "#4caf50"} }}              >
-                Register
+                {language === 'en' ? 'Register' : "Зареєструватися"}
               </Button>
               <Grid container>
                 <Grid item xs>
                 </Grid>
                 <Grid sx={{color: isDark && "#CCCCCC"}} item>
                   <Link component={NextLink} href='/login' variant="body2">
-                      Already have an account? Log in
+                  {language === 'en' ? 'Already have an account? Log in' : "Вже маєте аккаунт? Увійти"}
                   </Link>
                 </Grid>
               </Grid>

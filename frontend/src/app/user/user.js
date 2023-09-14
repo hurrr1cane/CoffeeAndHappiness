@@ -19,7 +19,7 @@ import ImageIcon from '@mui/icons-material/Image';
 
 export default function User() {
 
-  const { user, setUser, isDark } = useGlobalContext();
+  const { user, setUser, isDark, language } = useGlobalContext();
   const { width, height } = useWindowSize();
 
   const [editing, setEditing] = useState(false);
@@ -192,11 +192,11 @@ export default function User() {
     <>
       {height > 500 ? (
         <h1 style={{ fontWeight: 400, color: isDark ? "#CCCCCC" : "black" }}>
-          Welcome, {user?.firstName} {user?.lastName}
+          {language === 'en' ? 'Welcome, ' : 'Ласкаво просимо, '} {user?.firstName} {user?.lastName}
         </h1>
       ) : (
         <h1 style={{ fontWeight: 400, color: isDark ? "#CCCCCC" : "black" }}>
-          Welcome, <br />
+          {language === 'en' ? 'Welcome, ' : 'Ласкаво просимо, '} <br />
           {user?.firstName} {user?.lastName}{" "}
         </h1>
       )}
@@ -228,11 +228,11 @@ export default function User() {
             </h1>
           </div>
           <div className={styles.info}>
-            <h2>Bonus points: {user?.bonusPoints}</h2>
-            <h2>Email: {user?.email}</h2>
+            <h2> {language === 'en' ? 'Bonus points: ' : 'Бонусні бали: '} {user?.bonusPoints}</h2>
+            <h2> {language === 'en' ? 'Email: ' : 'Електронна пошта: '}{user?.email}</h2>
             <Stack direction="column">
               {user.phoneNumber ? (
-                <h2>Phone number: {user?.phoneNumber}</h2>
+                <h2>{language === 'en' ? 'Phone number: ' : 'Номер телефону: '}{user.phoneNumber}</h2>
               ) : (
                 <Button
                   fullWidth
@@ -250,7 +250,7 @@ export default function User() {
                     },
                   }}
                 >
-                  <LocalPhoneIcon sx={{ mr: 1 }} /> Add phone number
+                  <LocalPhoneIcon sx={{ mr: 1 }} /> {language === 'en' ? 'Add phone number' : 'Додати номер телефону'}
                 </Button>
               )}
               {addingPhoneNumber && (
@@ -266,8 +266,8 @@ export default function User() {
                   }}
                   id="standard-basic"
                   color="success"
-                  label="Phone number"
-                  placeholder="Input your phone number"
+                  label={language === 'en' ? 'Phone number' : 'Номер телефону'}
+                  placeholder={language === 'en' ? 'Input your phone number' : 'Введіть номер телефону'}
                   variant="standard"
                 />
               )}
@@ -285,7 +285,7 @@ export default function User() {
                   }}
                   onClick={handleEditClick}
                 >
-                  <Edit sx={{ mr: 1 }} /> Edit Profile
+                  <Edit sx={{ mr: 1 }} /> {language === 'en' ? 'Edit profile' : 'Редагувати профіль'}
                 </Button>
               )}
             </Stack>
@@ -303,8 +303,8 @@ export default function User() {
                   }}
                   id="standard-basic"
                   color="success"
-                  label="First name"
-                  placeholder="Input new first name"
+                  label={language === 'en' ? 'First name' : "Ім'я"}
+                  placeholder={language === 'en' ? 'Input new first name' : "Введіть нове ім'я"}
                   variant="standard"
                 />
                 <TextField
@@ -319,8 +319,8 @@ export default function User() {
                   }}
                   id="standard-basic"
                   color="success"
-                  label="Last name"
-                  placeholder="Input new last name"
+                  label={language === 'en' ? 'Last name' : "Прізвище"}
+                  placeholder={language === 'en' ? 'Input new last name' : "Введіть нове прізвище"}
                   variant="standard"
                 />
               </Stack>
@@ -341,7 +341,7 @@ export default function User() {
                   }}
                   onClick={handleSaveClick}
                 >
-                  <Save sx={{ mr: 1 }} /> Save
+                  <Save sx={{ mr: 1 }} /> {language === 'en' ? 'Save' : "Зберегти"}
                 </Button>
                 <Button
                   fullWidth
@@ -356,7 +356,7 @@ export default function User() {
                   }}
                   onClick={handleStopClick}
                 >
-                  <Close sx={{ mr: 1 }} /> Cancel
+                  <Close sx={{ mr: 1 }} /> {language === 'en' ? 'Cancel' : "Скасувати"}
                 </Button>
               </Stack>
             )}
@@ -375,7 +375,7 @@ export default function User() {
                   }}
                   onClick={handleUploadClick}
                 >
-                  <ImageIcon sx={{ mr: 1 }} /> Submit profile picture
+                  <ImageIcon sx={{ mr: 1 }} /> {language === 'en' ? 'Submit profile picture' : "Змінити фото  профілю"}
                 </Button>
               )
             }
