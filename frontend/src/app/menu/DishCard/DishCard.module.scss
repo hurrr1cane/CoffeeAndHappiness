@@ -6,11 +6,6 @@
     border-radius: 15px;
     box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     width: 100%;
-    .image {       
-    border-radius: 15px;
-    margin: 1rem;
-    
-    }
     .property {
         align-self: flex-start;
         padding: 0.75rem;
@@ -33,7 +28,10 @@
     .image {
     border-radius: 15px;
     margin: 1rem;
-    
+    }
+    div {
+        width: 65%
+        // max-height: 50%;
     }
     .property {
         align-self: flex-start;
