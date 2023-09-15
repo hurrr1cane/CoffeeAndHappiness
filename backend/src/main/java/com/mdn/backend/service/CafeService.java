@@ -63,12 +63,7 @@ public class CafeService {
                 () -> new CafeNotFoundException("No such cafe with id " + id + " found")
         );
 
-        if (cafeDTO.getLocationEN() != null) editedCafe.setLocationEN(cafeDTO.getLocationEN());
-        if (cafeDTO.getLocationUA() != null) editedCafe.setLocationUA(cafeDTO.getLocationUA());
-        if (cafeDTO.getImageUrl() != null) editedCafe.setImageUrl(cafeDTO.getImageUrl());
-        if (cafeDTO.getPhoneNumber() != null) editedCafe.setPhoneNumber(cafeDTO.getPhoneNumber());
-        if (cafeDTO.getLatitude() != null) editedCafe.setLatitude(cafeDTO.getLatitude());
-        if (cafeDTO.getLongitude() != null) editedCafe.setLongitude(cafeDTO.getLongitude());
+        editCafeWithCheckingForNull(cafeDTO, editedCafe);
 
         return cafeRepository.save(editedCafe);
     }
@@ -128,5 +123,14 @@ public class CafeService {
                 .imageUrl(cafeDTO.getImageUrl())
                 .phoneNumber(cafeDTO.getPhoneNumber())
                 .build();
+    }
+
+    private static void editCafeWithCheckingForNull(CafeDTO cafeDTO, Cafe editedCafe) {
+        if (cafeDTO.getLocationEN() != null) editedCafe.setLocationEN(cafeDTO.getLocationEN());
+        if (cafeDTO.getLocationUA() != null) editedCafe.setLocationUA(cafeDTO.getLocationUA());
+        if (cafeDTO.getImageUrl() != null) editedCafe.setImageUrl(cafeDTO.getImageUrl());
+        if (cafeDTO.getPhoneNumber() != null) editedCafe.setPhoneNumber(cafeDTO.getPhoneNumber());
+        if (cafeDTO.getLatitude() != null) editedCafe.setLatitude(cafeDTO.getLatitude());
+        if (cafeDTO.getLongitude() != null) editedCafe.setLongitude(cafeDTO.getLongitude());
     }
 }
