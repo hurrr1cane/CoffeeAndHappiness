@@ -1,5 +1,6 @@
 package com.mdn.backend.model.dto;
 
+import com.mdn.backend.model.FoodType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,13 @@ public class FoodDTO {
     private String descriptionEN;
     private String descriptionUA;
 
+    private String ingredientsEN;
+    private String ingredientsUA;
+
     private String imageUrl;
 
-    private double price;
-
-    private String foodType;
+    private Double weight;
+    private Double price;
+    private FoodType type;
 
 }
