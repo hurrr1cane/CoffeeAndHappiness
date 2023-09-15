@@ -45,6 +45,7 @@
     <string name="account_email_hint">Please, enter valid email</string>
     <string name="account_password">Password</string>
     <string name="account_password_hint">Please, enter password</string>
+    <string name="account_password_eight_hint">Password must have at least eight characters</string>
     <string name="account_login_wrong_password">The password is incorrect or account doesn\'t exist</string>
     <string name="account_login_sign_in">Sign in</string>
     <string name="account_login_orLogin">Or login with</string>

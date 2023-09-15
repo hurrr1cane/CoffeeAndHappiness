@@ -94,6 +94,15 @@ class AccountForgotPasswordNewPasswordFragment(var email: String, var code: Stri
             textHint.visibility = View.GONE
         }
 
+        if (password.length < 8) {
+            val textHint = view.findViewById<TextView>(R.id.accountForgotPasswordNewPasswordEightHint)
+            textHint.visibility = View.VISIBLE
+            areCorrect = false
+        } else {
+            val textHint = view.findViewById<TextView>(R.id.accountForgotPasswordNewPasswordEightHint)
+            textHint.visibility = View.GONE
+        }
+
 
 
         if (!password!!.equals(reEnteredPassword)) {

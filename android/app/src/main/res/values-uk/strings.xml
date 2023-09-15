@@ -46,6 +46,7 @@
     <string name="account_email_hint">Будь ласка, введіть коректну електронну пошту</string>
     <string name="account_password">Пароль</string>
     <string name="account_password_hint">Будь ласка, введіть пароль</string>
+    <string name="account_password_eight_hint">Пароль повинен містити принаймні вісім символів</string>
     <string name="account_login_wrong_password">Пароль невірний або облікового запису не існує</string>
     <string name="account_login_sign_in">Увійти</string>
     <string name="account_login_orLogin">Або ввійдіть через</string>

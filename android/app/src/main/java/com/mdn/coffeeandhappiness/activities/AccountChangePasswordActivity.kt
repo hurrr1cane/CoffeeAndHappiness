@@ -125,6 +125,18 @@ class AccountChangePasswordActivity : AppCompatActivity() {
             newPasswordHint.visibility = View.GONE
         }
 
+        if (newPassword.text!!.length < 8) {
+            result = false
+
+            val newPasswordHint =
+                findViewById<TextView>(R.id.accountChangePasswordActivityNewPasswordEightHint)
+            newPasswordHint.visibility = View.VISIBLE
+        } else {
+            val newPasswordHint =
+                findViewById<TextView>(R.id.accountChangePasswordActivityNewPasswordEightHint)
+            newPasswordHint.visibility = View.GONE
+        }
+
         val repeatedPassword =
             findViewById<TextInputEditText>(R.id.accountChangePasswordActivityReEnterPassword)
         if (repeatedPassword.text.toString() != newPassword.text.toString()) {
