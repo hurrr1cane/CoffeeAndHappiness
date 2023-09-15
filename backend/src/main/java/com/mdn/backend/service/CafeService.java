@@ -2,6 +2,7 @@ package com.mdn.backend.service;
 
 import com.mdn.backend.exception.CafeNotFoundException;
 import com.mdn.backend.model.Cafe;
+import com.mdn.backend.model.dto.CafeDTO;
 import com.mdn.backend.model.review.CafeReview;
 import com.mdn.backend.repository.CafeRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +21,7 @@ public class CafeService {
     private final CafeRepository cafeRepository;
     private final AzureBlobStorageService azureStorageService;
 
-    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+380|0)?(\\d{9})$");
+    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+?380|0)(\\d{9})$");
 
     public List<Cafe> getAllCafes() {
         for (Cafe cafe : cafeRepository.findAll()) {
@@ -50,23 +52,18 @@ public class CafeService {
         return cafe;
     }
 
-    public Cafe addCafe(Cafe cafe) {
-        formatPhoneNumber(cafe);
+    public Cafe addCafe(CafeDTO cafeDTO) {
+        Cafe cafe = buildCafeFromDTO(cafeDTO);
+        formatPhoneNumber(cafeDTO);
         return cafeRepository.save(cafe);
     }
 
-    public Cafe editCafe(Integer id, Cafe cafe) {
+    public Cafe editCafe(Integer id, CafeDTO cafeDTO) {
         var editedCafe = cafeRepository.findById(id).orElseThrow(
                 () -> new CafeNotFoundException("No such cafe with id " + id + " found")
         );
 
-        editedCafe.setImageUrl(cafe.getImageUrl());
-        editedCafe.setLocationEN(cafe.getLocationEN());
-        editedCafe.setLocationUA(cafe.getLocationUA());
-        formatPhoneNumber(cafe);
-        editedCafe.setPhoneNumber(cafe.getPhoneNumber());
-        editedCafe.setLatitude(cafe.getLatitude());
-        editedCafe.setLongitude(cafe.getLongitude());
+        editCafeWithCheckingForNull(cafeDTO, editedCafe);
 
         return cafeRepository.save(editedCafe);
     }
@@ -104,8 +101,9 @@ public class CafeService {
         return cafeRepository.save(cafe);
     }
 
-    private void formatPhoneNumber(Cafe cafe) {
-        String phoneNumber = cafe.getPhoneNumber();
+    private void formatPhoneNumber(CafeDTO cafeDTO) {
+        String phoneNumber = cafeDTO.getPhoneNumber();
+        Cafe cafe = buildCafeFromDTO(cafeDTO);
         if (phoneNumber != null) {
             Matcher matcher = PHONE_NUMBER_PATTERN.matcher(phoneNumber);
             if (matcher.matches()) {
@@ -114,5 +112,25 @@ public class CafeService {
                 throw new IllegalArgumentException("Invalid phone number format");
             }
         }
+    }
+
+    private static Cafe buildCafeFromDTO(CafeDTO cafeDTO) {
+        return Cafe.builder()
+                .locationEN(cafeDTO.getLocationEN())
+                .locationUA(cafeDTO.getLocationUA())
+                .latitude(cafeDTO.getLatitude())
+                .longitude(cafeDTO.getLongitude())
+                .imageUrl(cafeDTO.getImageUrl())
+                .phoneNumber(cafeDTO.getPhoneNumber())
+                .build();
+    }
+
+    private static void editCafeWithCheckingForNull(CafeDTO cafeDTO, Cafe editedCafe) {
+        if (cafeDTO.getLocationEN() != null) editedCafe.setLocationEN(cafeDTO.getLocationEN());
+        if (cafeDTO.getLocationUA() != null) editedCafe.setLocationUA(cafeDTO.getLocationUA());
+        if (cafeDTO.getImageUrl() != null) editedCafe.setImageUrl(cafeDTO.getImageUrl());
+        if (cafeDTO.getPhoneNumber() != null) editedCafe.setPhoneNumber(cafeDTO.getPhoneNumber());
+        if (cafeDTO.getLatitude() != null) editedCafe.setLatitude(cafeDTO.getLatitude());
+        if (cafeDTO.getLongitude() != null) editedCafe.setLongitude(cafeDTO.getLongitude());
     }
 }
