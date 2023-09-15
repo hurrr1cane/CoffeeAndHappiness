@@ -92,6 +92,8 @@ class ReviewController {
 
                     listFoodReviews = parseFoodReviewsFromJson(responseBody!!)
 
+                    listFoodReviews = listFoodReviews.sortedByDescending {it.id}.toMutableList()
+
                 }
             } catch (e: IOException) {
                 // Handle failure, such as network issues
@@ -158,6 +160,8 @@ class ReviewController {
                     val responseBody = response.body?.string()
 
                     listCafeReviews = parseCafeReviewsFromJson(responseBody!!)
+
+                    listCafeReviews = listCafeReviews.sortedByDescending {it.id}.toMutableList()
 
                 }
             } catch (e: IOException) {
