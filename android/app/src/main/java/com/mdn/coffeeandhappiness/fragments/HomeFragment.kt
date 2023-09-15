@@ -1,7 +1,9 @@
 package com.mdn.coffeeandhappiness.fragments
 
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -103,93 +105,30 @@ class HomeFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
         videoView = rootView.findViewById<VideoView>(R.id.homeBackgroundVideo)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            videoView.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE)
+        };
+
         val uri =
             Uri.parse("android.resource://" + requireContext().packageName + "/" + R.raw.cafe_video)
         videoView.setVideoURI(uri)
-        videoView.start()
+        //videoView.start()
 
         videoView.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
             override fun onPrepared(mp: MediaPlayer) {
+                mp.setVolume(0f, 0f)
                 // The video is prepared, you can start playback here if needed
                 mp.isLooping = true
+                videoView.start()
             }
         })
         return rootView
     }
-
-    /*private fun setNewsSection(rootView: View) {
-        val newsLayout = rootView.findViewById<LinearLayout>(R.id.homeNewsLayout)
-        val listOfNews = News().getNews()
-
-        for (singleNew in listOfNews) {
-            val cardView = layoutInflater.inflate(R.layout.dynamic_card_view, null) as CardView
-            val cardImageView = cardView.findViewById<ImageView>(R.id.cardImageView)
-            val cardTitleTextView = cardView.findViewById<TextView>(R.id.cardTitleTextView)
-            val cardDateTextView = cardView.findViewById<TextView>(R.id.cardDateTextView)
-
-            val sharedPreferences = context?.getSharedPreferences("Settings", Context.MODE_PRIVATE)
-            val language = sharedPreferences?.getString("Language", "uk")
-
-            val resourceName =
-                singleNew.photo // Replace with the name of your raw resource without file extension
-            val packageName = context?.packageName // Get the package name of your app's context
-
-            val resourceId = context?.resources?.getIdentifier(resourceName, "raw", packageName)
-
-            // Customize the card components as needed
-            // Load the image from the raw folder and set it to the ImageView
-            val imageResource =
-                context?.resources?.openRawResource(resourceId!!) // Assuming it's a raw resource
-            val bitmap = BitmapFactory.decodeStream(imageResource)
-            cardImageView.setImageBitmap(bitmap)
-
-            val text = when (language) {
-                "uk" -> singleNew.nameUk
-                "en" -> singleNew.nameEn
-                else -> {
-                    "No"
-                }
-            }
-            cardTitleTextView.text = text // Set your title text
-            cardDateTextView.text = singleNew.date // Set your date text
-
-            // Set margins if needed
-            val layoutParams = LinearLayout.LayoutParams(
-                resources.getDimensionPixelSize(R.dimen.card_width),
-                resources.getDimensionPixelSize(R.dimen.card_height)
-            )
-            val margin = resources.getDimensionPixelSize(R.dimen.card_margin)
-            layoutParams.setMargins(margin, margin, margin, margin) // Set margins if needed
-            cardView.layoutParams = layoutParams
-
-            newsLayout.addView(cardView)
-        }
-    }*/
 
     override fun onResume() {
         super.onResume()
         // to restart the video after coming from other activity like Sing up
         videoView.start();
 
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
