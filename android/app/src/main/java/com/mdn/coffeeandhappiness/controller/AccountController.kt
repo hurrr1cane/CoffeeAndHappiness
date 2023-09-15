@@ -19,6 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
+import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -625,6 +626,7 @@ class AccountController {
                 .addHeader("Accept-Encoding", "gzip, deflate, br")
                 .build()
 
+            Log.d("AccountController", requestBody.toString())
             try {
                 // Execute the request
                 val response = client.newCall(request).execute()
@@ -632,9 +634,10 @@ class AccountController {
                 // Handle the response as needed
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string()
-                    // Do something with the response
+                    Log.d("", responseBody!!)
                 } else {
                     // Handle the error
+                    Log.d("", "Error: ${response.code}")
                 }
             } catch (e: IOException) {
                 throw NoInternetException()

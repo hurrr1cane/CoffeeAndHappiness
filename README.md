@@ -73,4 +73,13 @@ The application supports three roles:
   - Azure DevOps Pipelines for CI/CD for frontend.
   - Azure Storage for saving images of food, user profile, cafe, and news.
   - Azure Storage for hosting the Android APK file, which can be downloaded from the website.
+ 
+
+
+## Authors
+
+- [Tsebulia Denys](https://github.com/d3nnyyy): Backend developer, DevOps.
+- [Horak Maksym](https://github.com/hurrr1cane): Android developer.
+- [Soloviy Nazariy](https://github.com/N1tingale): Frontend developer.
+
 
