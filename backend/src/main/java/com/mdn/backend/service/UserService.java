@@ -30,7 +30,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final TokenRepository tokenRepository;
 
-    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+380|0)?(\\d{9})$");
+    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+?380|0)(\\d{9})$");
 
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -70,7 +70,7 @@ public class UserService {
         if (user.getLastName() != null) myself.setLastName(user.getLastName());
         if (user.getImageUrl() != null) myself.setImageUrl(user.getImageUrl());
         if (user.getPhoneNumber() != null) {
-            formatPhoneNumber(myself);
+            formatPhoneNumber(user);
             myself.setPhoneNumber(user.getPhoneNumber());
         }
 
@@ -145,7 +145,7 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    private void formatPhoneNumber(User user) {
+    private void formatPhoneNumber(UserEditRequest user) {
         String phoneNumber = user.getPhoneNumber();
         if (phoneNumber != null) {
             Matcher matcher = PHONE_NUMBER_PATTERN.matcher(phoneNumber);

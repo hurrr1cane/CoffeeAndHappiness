@@ -19,7 +19,7 @@ public class CafeService {
     private final CafeRepository cafeRepository;
     private final AzureBlobStorageService azureStorageService;
 
-    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+380|0)?(\\d{9})$");
+    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+?380|0)(\\d{9})$");
 
     public List<Cafe> getAllCafes() {
         for (Cafe cafe : cafeRepository.findAll()) {
