@@ -2,6 +2,7 @@ package com.mdn.backend.controller;
 
 import com.mdn.backend.exception.CafeNotFoundException;
 import com.mdn.backend.model.Cafe;
+import com.mdn.backend.model.dto.CafeDTO;
 import com.mdn.backend.service.CafeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -58,7 +59,7 @@ public class CafeController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping
-    public ResponseEntity<?> addCafe(@RequestBody @Valid Cafe cafe) {
+    public ResponseEntity<?> addCafe(@RequestBody @Valid CafeDTO cafe) {
         log.info("Adding new cafe");
 
         Cafe addedCafe = cafeService.addCafe(cafe);
@@ -109,7 +110,7 @@ public class CafeController {
             @ApiResponse(responseCode = "404", description = "Cafe not found"),
     })
     @PutMapping("{id}")
-    public ResponseEntity<?> editCafe(@PathVariable Integer id, @RequestBody @Valid Cafe cafe) {
+    public ResponseEntity<?> editCafe(@PathVariable Integer id, @RequestBody @Valid CafeDTO cafe) {
         log.info("Editing cafe with id {}", id);
 
         try {

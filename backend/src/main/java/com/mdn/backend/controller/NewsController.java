@@ -2,6 +2,7 @@ package com.mdn.backend.controller;
 
 import com.mdn.backend.exception.NewsNotFoundException;
 import com.mdn.backend.model.News;
+import com.mdn.backend.model.dto.NewsDTO;
 import com.mdn.backend.service.NewsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -58,7 +59,7 @@ public class NewsController {
             @ApiResponse(responseCode = "200", description = "Success"),
     })
     @PostMapping
-    public ResponseEntity<?> addNews(@RequestBody @Valid News news) {
+    public ResponseEntity<?> addNews(@RequestBody @Valid NewsDTO news) {
         log.info("Adding new news");
 
         News addedNews = newsService.addNews(news);
@@ -71,7 +72,7 @@ public class NewsController {
             @ApiResponse(responseCode = "404", description = "News not found"),
     })
     @PutMapping("{id}")
-    public ResponseEntity<?> editNews(@PathVariable Integer id, @RequestBody @Valid News news) {
+    public ResponseEntity<?> editNews(@PathVariable Integer id, @RequestBody @Valid NewsDTO news) {
         log.info("Editing news with id {}", id);
 
         try {
