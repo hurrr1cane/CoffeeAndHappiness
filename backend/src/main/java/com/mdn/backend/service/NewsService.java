@@ -1,9 +1,8 @@
 package com.mdn.backend.service;
 
-import com.mdn.backend.exception.CafeNotFoundException;
 import com.mdn.backend.exception.NewsNotFoundException;
-import com.mdn.backend.model.Cafe;
 import com.mdn.backend.model.News;
+import com.mdn.backend.model.dto.NewsDTO;
 import com.mdn.backend.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,8 +28,9 @@ public class NewsService {
         );
     }
 
-    public News addNews(News news) {
+    public News addNews(NewsDTO newsDTO) {
         try {
+            News news = getNewsFromDTO(newsDTO);
             news.setPublishedAt(new Date());
             return newsRepository.save(news);
         } catch (Exception ex) {
@@ -38,19 +38,13 @@ public class NewsService {
         }
     }
 
-    public News editNews(Integer id, News news) {
+    public News editNews(Integer id, NewsDTO newsDTO) {
         var editedNews = newsRepository.findById(id).orElseThrow(
                 () -> new NewsNotFoundException("No news found with id " + id)
         );
 
-        editedNews.setTitleEN(news.getTitleEN());
-        editedNews.setTitleUA(news.getTitleUA());
-        editedNews.setDescriptionEN(news.getDescriptionEN());
-        editedNews.setDescriptionUA(news.getDescriptionUA());
-        editedNews.setImageUrl(news.getImageUrl());
-        editedNews.setPublishedAt(news.getPublishedAt());
-
         try {
+            editNewsWithCheckingForNull(newsDTO, editedNews);
             return newsRepository.save(editedNews);
         } catch (Exception ex) {
             throw new RuntimeException("Error while editing news: " + ex.getMessage(), ex);
@@ -77,7 +71,7 @@ public class NewsService {
         return newsRepository.save(news);
     }
 
-public News deleteNewsImage(Integer newsId) {
+    public News deleteNewsImage(Integer newsId) {
 
         News news = newsRepository.findById(newsId).orElseThrow(
                 () -> new NewsNotFoundException("No such news with id " + newsId + " found")
@@ -87,5 +81,24 @@ public News deleteNewsImage(Integer newsId) {
 
         news.setImageUrl(null);
         return newsRepository.save(news);
+    }
+
+    private static News getNewsFromDTO(NewsDTO newsDTO) {
+        return News.builder()
+                .titleEN(newsDTO.getTitleEN())
+                .titleUA(newsDTO.getTitleUA())
+                .descriptionEN(newsDTO.getDescriptionEN())
+                .descriptionUA(newsDTO.getDescriptionUA())
+                .imageUrl(newsDTO.getImageUrl())
+                .build();
+    }
+
+    private static void editNewsWithCheckingForNull(NewsDTO newsDTO, News editedNews) {
+        if (newsDTO.getTitleEN() != null) editedNews.setTitleEN(newsDTO.getTitleEN());
+        if (newsDTO.getTitleUA() != null) editedNews.setTitleUA(newsDTO.getTitleUA());
+        if (newsDTO.getDescriptionEN() != null) editedNews.setDescriptionEN(newsDTO.getDescriptionEN());
+        if (newsDTO.getDescriptionUA() != null) editedNews.setDescriptionUA(newsDTO.getDescriptionUA());
+        if (newsDTO.getImageUrl() != null) editedNews.setImageUrl(newsDTO.getImageUrl());
+        if (newsDTO.getPublishedAt() != null) editedNews.setPublishedAt(newsDTO.getPublishedAt());
     }
 }

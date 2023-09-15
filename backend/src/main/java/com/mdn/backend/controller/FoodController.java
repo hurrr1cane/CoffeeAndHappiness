@@ -3,6 +3,7 @@ package com.mdn.backend.controller;
 import com.mdn.backend.exception.FoodNotFoundException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.FoodType;
+import com.mdn.backend.model.dto.FoodDTO;
 import com.mdn.backend.service.FoodService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -78,7 +79,7 @@ public class FoodController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping
-    public ResponseEntity<?> addFood(@RequestBody @Valid Food food) {
+    public ResponseEntity<?> addFood(@RequestBody @Valid FoodDTO food) {
         log.info("Adding new food");
 
         Food addedFood = foodService.addFood(food);
@@ -129,7 +130,7 @@ public class FoodController {
             @ApiResponse(responseCode = "404", description = "Food not found"),
     })
     @PutMapping("{id}")
-    public ResponseEntity<?> editFood(@PathVariable Integer id, @RequestBody @Valid Food food) {
+    public ResponseEntity<?> editFood(@PathVariable Integer id, @RequestBody @Valid FoodDTO food) {
         log.info("Editing food with id {}", id);
 
         try {

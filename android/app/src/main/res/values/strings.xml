@@ -45,6 +45,7 @@
     <string name="account_email_hint">Please, enter valid email</string>
     <string name="account_password">Password</string>
     <string name="account_password_hint">Please, enter password</string>
+    <string name="account_password_eight_hint">Password must have at least eight characters</string>
     <string name="account_login_wrong_password">The password is incorrect or account doesn\'t exist</string>
     <string name="account_login_sign_in">Sign in</string>
     <string name="account_login_orLogin">Or login with</string>
@@ -104,6 +105,9 @@
     <string name="account_forgot_password_success_title">Your password was successfully changed.\nYou can close this page now.</string>
 
     <string name="account_feedback_text">If you have any comments or suggestions regarding the operation of the application, please, write to us by e-mail: email@gmail.com</string>
+
+    <string name="account_privacy_policy_text">PRIVACY POLICY\n\nLast Updated: 15.09.2023\n\n1. INTRODUCTION\n\nWelcome to "CoffeeAndHappiness". We respect your privacy and are committed to protecting your personal information. This Privacy Policy is designed to help you understand how we collect, use, disclose, and safeguard your personal information. By accessing or using the App, you consent to the practices described in this Privacy Policy.\n\n2. INFORMATION WE COLLECT\n\n2.1. Information You Provide\n\n- When you use our App, you may provide us with the following personal information:\n  - Email\n  - Name\n  - Surname\n  - Phone number\n  - Photo\n\n2.2. User Data\n\n- We also collect user-generated data, including but not limited to:\n  - Reviews\n  - Food orders\n\n3. HOW WE USE YOUR INFORMATION\n\nWe may use the information we collect for various purposes, including but not limited to:\n\n- To provide and maintain the App.\n- To personalize your experience.\n- To improve our App.\n- To respond to your requests and inquiries.\n- To comply with legal obligations.\n\n4. HOW WE SHARE YOUR INFORMATION\n\nWe do not send marketing communications. However, we may share your information with third parties for the following purposes:\n\n- With service providers who help us operate and improve the App.\n- With legal authorities when required by law.\n\n5. YOUR CHOICES\n\n- You have the right to access, update, or delete your personal information.\n- You may adjust your device settings to control the collection of certain information.\n\n6. SECURITY\n\nWe take reasonable measures to protect your personal information, but no method of transmission or storage is completely secure. We cannot guarantee the security of your information.\n\n7. CHILDREN\'S PRIVACY\n\nOur App is not intended for children under the age of 13. We do not knowingly collect or maintain personal information from children.\n\n8. CHANGES TO THIS PRIVACY POLICY\n\nWe may update this Privacy Policy from time to time. The date of the latest revision will be indicated at the beginning of the policy.\n\n9. CONTACT US\n\nIf you have questions or concerns about this Privacy Policy, please contact us at coffeeandhappiness+contact@gmail.com.\n\nCoffee and Happiness\nSvobody av.\nLviv, Lviv oblast\ncoffeeandhappiness+contact@gmail.com.</string>
+
 
     <!-- This is a code section -->
     <string name="code_user_show_qr">Show your QR code to waiter</string>

@@ -3,6 +3,7 @@ package com.mdn.backend.service;
 import com.mdn.backend.exception.FoodNotFoundException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.FoodType;
+import com.mdn.backend.model.dto.FoodDTO;
 import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.repository.FoodRepository;
 import lombok.RequiredArgsConstructor;
@@ -62,31 +63,22 @@ public class FoodService {
         return foodRepository.findByType(type);
     }
 
-    public Food addFood(Food food) {
+    public Food addFood(FoodDTO foodDTO) {
         try {
+            Food food = buildFoodFromDTO(foodDTO);
             return foodRepository.save(food);
         } catch (Exception ex) {
             throw new RuntimeException("Error while adding food: " + ex.getMessage(), ex);
         }
     }
 
-    public Food editFood(Integer id, Food food) {
+    public Food editFood(Integer id, FoodDTO foodDTO) {
         var editedFood = foodRepository.findById(id).orElseThrow(
                 () -> new FoodNotFoundException("No such food with id " + id + " found")
         );
 
-        editedFood.setImageUrl(food.getImageUrl());
-        editedFood.setIngredientsEN(food.getIngredientsEN());
-        editedFood.setIngredientsUA(food.getIngredientsUA());
-        editedFood.setNameEN(food.getNameEN());
-        editedFood.setNameUA(food.getNameUA());
-        editedFood.setPrice(food.getPrice());
-        editedFood.setType(food.getType());
-        editedFood.setWeight(food.getWeight());
-        editedFood.setDescriptionEN(food.getDescriptionEN());
-        editedFood.setDescriptionUA(food.getDescriptionUA());
-
         try {
+            editFoodWithCheckingForNull(foodDTO, editedFood);
             return foodRepository.save(editedFood);
         } catch (Exception ex) {
             throw new RuntimeException("Error while editing food: " + ex.getMessage(), ex);
@@ -124,5 +116,34 @@ public class FoodService {
 
         food.setImageUrl(null);
         return foodRepository.save(food);
+    }
+
+    private static void editFoodWithCheckingForNull(FoodDTO foodDTO, Food editedFood) {
+        if (foodDTO.getIngredientsEN() != null) editedFood.setIngredientsEN(foodDTO.getIngredientsEN());
+        if (foodDTO.getIngredientsUA() != null) editedFood.setIngredientsUA(foodDTO.getIngredientsUA());
+        if (foodDTO.getImageUrl() != null) editedFood.setImageUrl(foodDTO.getImageUrl());
+        if (foodDTO.getNameEN() != null) editedFood.setNameEN(foodDTO.getNameEN());
+        if (foodDTO.getNameUA() != null) editedFood.setNameUA(foodDTO.getNameUA());
+        if (foodDTO.getDescriptionEN() != null) editedFood.setDescriptionEN(foodDTO.getDescriptionEN());
+        if (foodDTO.getDescriptionUA() != null) editedFood.setDescriptionUA(foodDTO.getDescriptionUA());
+        if (foodDTO.getIngredientsEN() != null) editedFood.setIngredientsEN(foodDTO.getIngredientsEN());
+        if (foodDTO.getIngredientsUA() != null) editedFood.setIngredientsUA(foodDTO.getIngredientsUA());
+        if (foodDTO.getPrice() != null) editedFood.setPrice(foodDTO.getPrice());
+        if (foodDTO.getWeight() != null) editedFood.setWeight(foodDTO.getWeight());
+        if (foodDTO.getType() != null) editedFood.setType(foodDTO.getType());
+    }
+
+    private static Food buildFoodFromDTO(FoodDTO foodDTO) {
+        return Food.builder()
+                .nameEN(foodDTO.getNameEN())
+                .nameUA(foodDTO.getNameUA())
+                .descriptionEN(foodDTO.getDescriptionEN())
+                .descriptionUA(foodDTO.getDescriptionUA())
+                .ingredientsEN(foodDTO.getIngredientsEN())
+                .ingredientsUA(foodDTO.getIngredientsUA())
+                .price(foodDTO.getPrice())
+                .weight(foodDTO.getWeight())
+                .type(foodDTO.getType())
+                .build();
     }
 }
