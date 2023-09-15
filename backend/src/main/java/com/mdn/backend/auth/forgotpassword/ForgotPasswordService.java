@@ -27,6 +27,12 @@ public class ForgotPasswordService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
 
+        VerificationCode existingCode = verificationCodeRepository.findByUser(user);
+
+        if (existingCode != null) {
+            verificationCodeRepository.delete(existingCode);
+        }
+
         var expirationTime = LocalDateTime.now().plusMinutes(3);
 
         var verificationCode = VerificationCode.builder()

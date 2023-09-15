@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.activities.AccountEditActivity
+import com.mdn.coffeeandhappiness.activities.AccountFeedbackActivity
 import com.mdn.coffeeandhappiness.activities.AccountReviewsActivity
 import com.mdn.coffeeandhappiness.activities.FoodActivity
 import com.mdn.coffeeandhappiness.controller.AccountController
@@ -120,6 +121,13 @@ class AccountMainFragment : Fragment() {
         editAccount.setOnClickListener() {
             val intent = Intent(context, AccountEditActivity::class.java)
             startActivityForResult(intent, 2)
+        }
+
+        val feedbackButton = view.findViewById<AppCompatButton>(R.id.accountMainFeedback)
+        feedbackButton.setOnClickListener() {
+            // Handle the click event here, for example, open a new activity with details
+            val intent = Intent(context, AccountFeedbackActivity::class.java)
+            requireActivity().startActivity(intent)
         }
 
         return view

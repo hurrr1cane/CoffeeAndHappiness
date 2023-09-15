@@ -44,6 +44,7 @@
                     android:fontFamily="@font/sofiasans_straight"
                     android:hint="@string/account_email"
                     android:inputType="textEmailAddress"
+                    android:nextFocusDown="@id/accountLoginPassword"
                     android:textSize="20sp"
                     android:theme="@style/ACCOUNT_CURSOR" />
 
@@ -80,6 +81,7 @@
                     android:fontFamily="@font/sofiasans_straight"
                     android:hint="@string/account_password"
                     android:inputType="textPassword"
+                    android:nextFocusForward="@id/accountLoginButton"
                     android:textSize="20sp"
                     android:theme="@style/ACCOUNT_CURSOR" />
 
@@ -146,7 +148,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <!--<TextView
                 style="@style/ACCOUNT_TEXT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,7 +166,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:padding="2dp"
-                android:src="@drawable/google_icon" />
+                android:src="@drawable/google_icon" />-->
 
             <LinearLayout
                 android:layout_width="wrap_content"

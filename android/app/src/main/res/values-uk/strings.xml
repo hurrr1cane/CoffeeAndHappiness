@@ -87,6 +87,25 @@
     <string name="account_edit_change_password_wrong_hint">Ви ввели неправильний старий пароль</string>
     <string name="account_edit_change_password_submit">Змінити</string>
 
+    <string name="account_forgot_password_email_title">Забули пароль</string>
+    <string name="account_forgot_password_email_description">Введіть свою електронну пошту, щоб ми надіслали код підтвердження для скидання вашого паролю.</string>
+    <string name="account_forgot_password_email_no_account">Не існує облікового запису, зареєстрованого під цією адресою</string>
+    <string name="account_forgot_password_email_button">Надіслати код</string>
+
+    <string name="account_forgot_password_code_title">Код підтвердження</string>
+    <string name="account_forgot_password_code_description_1">Ми надіслали шестизначний код підтвердження на вашу електронну адресу</string>
+    <string name="account_forgot_password_code_description_2">Введіть його тут.</string>
+    <string name="account_forgot_password_code_code_hint">Будь ласка, введіть код</string>
+    <string name="account_forgot_password_code_wrong_code_hint">Ви ввели неправильний код</string>
+    <string name="account_forgot_password_code_button">Перевірити</string>
+
+    <string name="account_forgot_password_new_password_title">Новий пароль</string>
+    <string name="account_forgot_password_new_password_button">Змінити пароль</string>
+
+    <string name="account_forgot_password_success_title">Ваш пароль було успішно змінено. Ви можете закрити цю сторінку.</string>
+
+    <string name="account_feedback_text">Якщо у вас є якісь зауваження чи пропозиції стосовно роботи застосунку, напишіть нам на електронну пошту: email@gmail.com</string>
+
     <!-- This is a code section -->
     <string name="code_user_show_qr">Покажіть свій QR код офіціанту</string>
     <string name="code_user_balance">Баланс</string>

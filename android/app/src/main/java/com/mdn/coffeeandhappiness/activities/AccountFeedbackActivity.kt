@@ -4,34 +4,19 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
-import androidx.appcompat.widget.AppCompatButton
 import com.mdn.coffeeandhappiness.R
-import com.mdn.coffeeandhappiness.fragments.accountfragments.AccountSignupFragment
-import com.mdn.coffeeandhappiness.fragments.accountfragments.forgotpasswordfragments.AccountForgotPasswordEmailFragment
 import java.util.Locale
 
-class AccountForgotPasswordActivity : AppCompatActivity() {
+class AccountFeedbackActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setLanguage()
-        setContentView(R.layout.activity_account_forgot_password)
+        setContentView(R.layout.activity_account_feedback)
 
-        val backButton = findViewById<ImageButton>(R.id.accountForgotPasswordActivityBackButton)
+        val backButton = findViewById<ImageButton>(R.id.accountFeedbackActivityBackButton)
         backButton.setOnClickListener() {
             finish()
         }
-
-        val fragmentManager = supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        transaction.replace(
-            R.id.accountForgotPasswordActivityFrame,
-            AccountForgotPasswordEmailFragment()
-        )
-        transaction.addToBackStack(null) // Optional: Add to back stack for navigation
-        transaction.commit()
-
-
-
     }
 
     private fun setLanguage() {
@@ -47,6 +32,4 @@ class AccountForgotPasswordActivity : AppCompatActivity() {
             baseContext.resources.displayMetrics
         )
     }
-
-
 }

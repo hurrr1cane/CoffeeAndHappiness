@@ -1,6 +1,7 @@
 package com.mdn.coffeeandhappiness.fragments.accountfragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
+import com.mdn.coffeeandhappiness.activities.AccountChangePasswordActivity
+import com.mdn.coffeeandhappiness.activities.AccountForgotPasswordActivity
 import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
@@ -54,6 +57,12 @@ class AccountLoginFragment : Fragment() {
             transaction.replace(R.id.accountFrame, signUpFragment)
             transaction.addToBackStack(null) // Optional: Add to back stack for navigation
             transaction.commit()
+        }
+
+        val forgotPassword = view.findViewById<TextView>(R.id.accountLoginForgotPassword)
+        forgotPassword.setOnClickListener() {
+            val intent = Intent(requireContext(), AccountForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
 
         val loginButton = view.findViewById<AppCompatButton>(R.id.accountLoginButton)
