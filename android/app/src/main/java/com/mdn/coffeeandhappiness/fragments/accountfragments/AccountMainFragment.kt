@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.activities.AccountEditActivity
 import com.mdn.coffeeandhappiness.activities.AccountFeedbackActivity
+import com.mdn.coffeeandhappiness.activities.AccountPrivacyPolicyActivity
 import com.mdn.coffeeandhappiness.activities.AccountReviewsActivity
 import com.mdn.coffeeandhappiness.activities.FoodActivity
 import com.mdn.coffeeandhappiness.controller.AccountController
@@ -127,6 +128,13 @@ class AccountMainFragment : Fragment() {
         feedbackButton.setOnClickListener() {
             // Handle the click event here, for example, open a new activity with details
             val intent = Intent(context, AccountFeedbackActivity::class.java)
+            requireActivity().startActivity(intent)
+        }
+
+        val privacyPolicyButton = view.findViewById<AppCompatButton>(R.id.accountMainPrivacyPolicy)
+        privacyPolicyButton.setOnClickListener() {
+            // Handle the click event here, for example, open a new activity with details
+            val intent = Intent(context, AccountPrivacyPolicyActivity::class.java)
             requireActivity().startActivity(intent)
         }
 
