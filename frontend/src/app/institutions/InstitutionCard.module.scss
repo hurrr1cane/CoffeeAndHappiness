@@ -7,11 +7,32 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     width: 100%;
   
+    .container {
+      &:hover {
+        .overlay {
+          opacity: 1;
+          cursor: pointer;
+        }
+        .image {
+          filter: blur(1px);
+        }
+      }
+    }
+
     .image {
+      display: block;
       border-radius: 15px;
       margin: 1rem;
+      
     }
-  
+    
+    .overlay {
+      opacity: 0;
+      display: absolute;
+      color: darkgray;
+      position: absolute; bottom:90px; left:90px; 
+    }
+
     .property {
       align-self: flex-start;
       padding: 0.75rem;
