@@ -14,7 +14,7 @@ export default function InstitutionCards () {
     }, [])
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} style={{height: cafes.length >= 3 ? "auto" : "45.5dvh"}}>
             {cafes.map(cafe => (
                 <InstitutionCard cafe={cafe} key={cafe.id}/>
             ))}

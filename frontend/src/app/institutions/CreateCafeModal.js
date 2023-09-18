@@ -16,14 +16,15 @@ import { useGlobalContext } from "../store/store";
 
 export default function CreateCafeModal({open, setOpen}) {
 
-
     const defaultCafe = {
-        "locationEN": "",
-        "locationUA": "",
-        "imageUrl": "",
-        "phoneNumber": ""
-      }
-
+      "locationEN": "",
+      "locationUA": "",
+      "latitude": 0,
+      "longitude": 0,
+      "imageUrl": "",
+      "phoneNumber": ""
+    }
+    
     const {user, _} = useGlobalContext()
 
     const style = {
