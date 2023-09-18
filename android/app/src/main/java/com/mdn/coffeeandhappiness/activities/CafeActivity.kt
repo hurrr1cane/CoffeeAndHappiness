@@ -84,8 +84,7 @@ class CafeActivity : AppCompatActivity() {
 
                     Glide.with(applicationContext)
                         .load(currentCafe?.imageUrl)
-                        .placeholder(R.drawable.default_placeholder_image)
-                        .error(R.drawable.default_error_image)
+                        .error(R.drawable.cafe_icon)
                         .into(cafePicture)
 
 

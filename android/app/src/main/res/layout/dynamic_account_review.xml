@@ -17,11 +17,11 @@
             app:cardCornerRadius="8dp">
 
             <ImageView
+                style="@style/FOOD_CARD"
                 android:id="@+id/accountReviewImageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:src="@raw/news_1" />
+                android:scaleType="centerCrop" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout

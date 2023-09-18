@@ -48,8 +48,6 @@ class HomeNewsRecyclerViewAdapter(
 
         Glide.with(context)
             .load(listOfNews[position].imageUrl)
-            .placeholder(R.drawable.default_placeholder_image)
-            .error(R.drawable.default_error_image)
             .into(holder.cardImageView)
 
 

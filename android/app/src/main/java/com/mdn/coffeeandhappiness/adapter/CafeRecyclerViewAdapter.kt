@@ -48,8 +48,7 @@ class CafeRecyclerViewAdapter(
 
         Glide.with(context)
             .load(cafeList[position].imageUrl)
-            .placeholder(R.drawable.default_placeholder_image)
-            .error(R.drawable.default_error_image)
+            .error(R.drawable.cafe_icon)
             .into(holder.cardImageView)
 
 

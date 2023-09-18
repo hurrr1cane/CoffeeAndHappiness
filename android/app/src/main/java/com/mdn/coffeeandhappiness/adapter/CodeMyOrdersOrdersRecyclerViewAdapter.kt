@@ -69,8 +69,7 @@ class  CodeMyOrdersOrdersRecyclerViewAdapter(
 
             Glide.with(context)
                 .load(singleFood.imageUrl)
-                .placeholder(R.drawable.default_placeholder_image)
-                .error(R.drawable.default_error_image)
+                .error(R.drawable.food_icon)
                 .into(cardImageView)
 
             val text = when (language) {
