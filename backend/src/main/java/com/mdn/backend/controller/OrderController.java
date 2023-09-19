@@ -51,6 +51,11 @@ public class OrderController {
         }
     }
 
+    @Operation(summary = "Delete order", description = "Delete an order by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Order deleted"),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content(schema = @Schema(implementation = String.class), examples = {@ExampleObject(name = "Order not found", value = "Order not found with id: 1")})),
+    })
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Integer id) {
         log.info("Deleting order with id {}", id);
