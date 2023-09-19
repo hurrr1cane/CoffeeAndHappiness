@@ -1,6 +1,7 @@
 import styles from './page.module.scss'
 import VideoBackground from './components/VideoBackground/VideoBackground'
 import News from './components/News/News'
+import Image from 'next/image'
 export default function Home() {
 
 
@@ -12,7 +13,6 @@ export default function Home() {
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati commodi corporis soluta nisi aliquam pariatur hic, illum voluptate omnis mollitia, quas, natus at! Similique dolores accusantium laborum minima repellat! Officiis!</p>
     </main>
     </VideoBackground>
-    
     <News/>
    </div>
   )

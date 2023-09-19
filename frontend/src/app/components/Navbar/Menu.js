@@ -3,8 +3,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Fab } from '@mui/material';
 import { useState } from 'react';
-import LanguageIcon from '@mui/icons-material/Language'
+import SettingsIcon from '@mui/icons-material/Settings';
 import { useGlobalContext } from '@/app/store/store';
+
 export default function PositionedMenu({ isDark }) {
   const { setLanguage } = useGlobalContext()
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,7 +30,7 @@ export default function PositionedMenu({ isDark }) {
   return (
     <div>
       <Fab sx={{bgcolor:"inherit", "&:hover":{bgcolor:"inherit"}, boxShadow:"none"}} aria-haspopup="true" aria-controls={open ? 'demo-positioned-menu' : undefined} aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
-          <LanguageIcon sx={{color: isDark ? "#CCCCCC" : "black"}}/>
+          <SettingsIcon sx={{color: "white"}}/>
       </Fab>
       <Menu
         id="demo-positioned-menu"

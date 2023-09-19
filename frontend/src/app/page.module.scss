@@ -1,16 +1,17 @@
 @use './base.scss';
-
-.main {
-    font-size: 22px;
-    height: 100%;
-    color: white;
-    position: relative;
-    z-index: 1;
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    // align-items: center;
-}
+@use './variables' as *;
+// .main {
+//     font-size: 22px;
+//     height: 100%;
+//     color: white;
+//     background-color: $background;
+//     position: relative;
+//     z-index: 1;
+//     flex-direction: column;
+//     display: flex;
+//     justify-content: center;
+//     // align-items: center;
+// }
 
 
 .content {
@@ -18,4 +19,9 @@
     padding: 1rem;
     font-size: 18px;
     font-weight: 500;
+}
+
+.container {
+    color: white;
+    // background-color: $background;
 }
