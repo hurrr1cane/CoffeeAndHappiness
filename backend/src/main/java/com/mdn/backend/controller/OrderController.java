@@ -2,6 +2,7 @@ package com.mdn.backend.controller;
 
 import com.mdn.backend.exception.FoodNotFoundException;
 import com.mdn.backend.exception.NotEnoughBonusPointsException;
+import com.mdn.backend.exception.OrderNotFoundException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.order.Order;
 import com.mdn.backend.model.order.OrderRequest;
@@ -50,17 +51,15 @@ public class OrderController {
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity<?> deleteOrder(@RequestBody @Valid OrderRequest orderRequest) {
-        log.info("Deleting an order");
-
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable Integer id) {
+        log.info("Deleting order with id {}", id);
         try {
-            List<Food> selectedFoods = foodService.getFoodsByIds(orderRequest.getFoodIds());
-            Order order = orderService.deleteOrder(orderRequest.getUserId(), selectedFoods);
-            return new ResponseEntity<>(order, HttpStatus.NO_CONTENT);
-        } catch (FoodNotFoundException ex) {
-            log.error("One or more selected foods not found");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more selected foods not found");
+            orderService.deleteOrder(id);
+            return ResponseEntity.noContent().build();
+        } catch (OrderNotFoundException ex) {
+            log.error("Order not found with id: {}", id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found with id: " + id);
         }
     }
 

@@ -41,25 +41,15 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Order deleteOrder(Integer userId, List<Food> selectedFoods) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
+    public void deleteOrder(Integer id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Order not found with id: " + id));
 
-        double totalPrice = calculateTotalPrice(selectedFoods);
-        int bonusPointsEarned = (int) totalPrice;
-
-        Order order = Order.builder()
-                .user(user)
-                .foods(selectedFoods)
-                .totalPrice(totalPrice)
-                .orderDate(new Date())
-                .bonusPointsEarned(-bonusPointsEarned)
-                .build();
-
-        user.setBonusPoints(user.getBonusPoints() - bonusPointsEarned);
+        User user = order.getUser();
+        user.setBonusPoints(user.getBonusPoints() - order.getBonusPointsEarned());
         userRepository.save(user);
 
-        return orderRepository.save(order);
+        orderRepository.delete(order);
     }
 
     public Order spendPoints(Integer userId, List<Food> selectedFoods) {
