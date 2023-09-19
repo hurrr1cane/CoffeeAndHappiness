@@ -21,7 +21,7 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:scaleType="centerCrop"
-                android:src="@raw/news_1" />
+                android:src="@drawable/cafe_icon" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout

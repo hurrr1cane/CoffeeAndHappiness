@@ -14,8 +14,7 @@
             android:id="@+id/homeNewsImageView"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:src="@raw/news_1" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/homeNewsTitleTextView"

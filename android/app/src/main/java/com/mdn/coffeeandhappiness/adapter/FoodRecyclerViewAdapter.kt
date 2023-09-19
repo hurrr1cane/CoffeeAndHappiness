@@ -51,8 +51,7 @@ class FoodRecyclerViewAdapter(
 
         Glide.with(context)
             .load(foodList[position].imageUrl)
-            .placeholder(R.drawable.default_placeholder_image)
-            .error(R.drawable.default_error_image)
+            .error(R.drawable.food_icon)
             .into(holder.cardImageView)
 
 

@@ -22,11 +22,12 @@
             app:cardCornerRadius="8dp">
 
             <ImageView
+                style="@style/FOOD_CARD"
                 android:id="@+id/codeWaiterChosenFoodCardImageView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"
-                android:src="@raw/news_1" />
+                android:src="@drawable/food_icon" />
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout

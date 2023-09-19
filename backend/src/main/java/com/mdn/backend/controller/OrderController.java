@@ -2,6 +2,7 @@ package com.mdn.backend.controller;
 
 import com.mdn.backend.exception.FoodNotFoundException;
 import com.mdn.backend.exception.NotEnoughBonusPointsException;
+import com.mdn.backend.exception.OrderNotFoundException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.order.Order;
 import com.mdn.backend.model.order.OrderRequest;
@@ -18,10 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,6 +48,23 @@ public class OrderController {
         } catch (FoodNotFoundException ex) {
             log.error("One or more selected foods not found");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more selected foods not found");
+        }
+    }
+
+    @Operation(summary = "Delete order", description = "Delete an order by its id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Order deleted"),
+            @ApiResponse(responseCode = "404", description = "Order not found", content = @Content(schema = @Schema(implementation = String.class), examples = {@ExampleObject(name = "Order not found", value = "Order not found with id: 1")})),
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable Integer id) {
+        log.info("Deleting order with id {}", id);
+        try {
+            orderService.deleteOrder(id);
+            return ResponseEntity.noContent().build();
+        } catch (OrderNotFoundException ex) {
+            log.error("Order not found with id: {}", id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found with id: " + id);
         }
     }
 

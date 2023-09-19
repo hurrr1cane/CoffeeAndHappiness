@@ -48,8 +48,7 @@ class AccountReviewsCafeAdapter(
 
         Glide.with(context)
             .load(reviewsList[position].imageUrl)
-            .placeholder(R.drawable.default_placeholder_image)
-            .error(R.drawable.default_error_image)
+            .error(R.drawable.cafe_icon)
             .into(holder.cardImageView)
 
 
