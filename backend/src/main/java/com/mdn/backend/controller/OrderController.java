@@ -18,10 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,6 +44,20 @@ public class OrderController {
             List<Food> selectedFoods = foodService.getFoodsByIds(orderRequest.getFoodIds());
             Order order = orderService.placeOrder(orderRequest.getUserId(), selectedFoods);
             return new ResponseEntity<>(order, HttpStatus.CREATED);
+        } catch (FoodNotFoundException ex) {
+            log.error("One or more selected foods not found");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more selected foods not found");
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteOrder(@RequestBody @Valid OrderRequest orderRequest) {
+        log.info("Deleting an order");
+
+        try {
+            List<Food> selectedFoods = foodService.getFoodsByIds(orderRequest.getFoodIds());
+            Order order = orderService.deleteOrder(orderRequest.getUserId(), selectedFoods);
+            return new ResponseEntity<>(order, HttpStatus.NO_CONTENT);
         } catch (FoodNotFoundException ex) {
             log.error("One or more selected foods not found");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One or more selected foods not found");
