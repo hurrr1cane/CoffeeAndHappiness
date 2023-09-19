@@ -148,6 +148,15 @@ class AccountSignupFragment : Fragment() {
             textHint.visibility = View.GONE
         }
 
+        if (password.length < 8) {
+            val textHint = view.findViewById<TextView>(R.id.accountRegisterPasswordEightHint)
+            textHint.visibility = View.VISIBLE
+            areCorrect = false
+        } else {
+            val textHint = view.findViewById<TextView>(R.id.accountRegisterPasswordEightHint)
+            textHint.visibility = View.GONE
+        }
+
         if (name!!.isEmpty()) {
             val textHint = view.findViewById<TextView>(R.id.accountRegisterNameHint)
             textHint.visibility = View.VISIBLE

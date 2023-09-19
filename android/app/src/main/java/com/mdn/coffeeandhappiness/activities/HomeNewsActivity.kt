@@ -61,8 +61,6 @@ class HomeNewsActivity : AppCompatActivity() {
 
                     Glide.with(context)
                         .load(news.imageUrl)
-                        .placeholder(R.drawable.default_placeholder_image)
-                        .error(R.drawable.default_error_image)
                         .into(image)
                 }
             } catch (e: NoInternetException) {
