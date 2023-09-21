@@ -34,3 +34,6 @@ build/
 .mvn
 mvnw
 mvnw.cmd
+
+# application properties
+src/main/resources/application.properties

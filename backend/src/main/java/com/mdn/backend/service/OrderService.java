@@ -41,6 +41,17 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    public void deleteOrder(Integer id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Order not found with id: " + id));
+
+        User user = order.getUser();
+        user.setBonusPoints(user.getBonusPoints() - order.getBonusPointsEarned());
+        userRepository.save(user);
+
+        orderRepository.delete(order);
+    }
+
     public Order spendPoints(Integer userId, List<Food> selectedFoods) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
