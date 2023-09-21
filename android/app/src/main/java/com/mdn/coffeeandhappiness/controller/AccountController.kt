@@ -206,6 +206,7 @@ class AccountController {
                     editor.putString("RefreshToken", refreshToken)
                     editor.putString("Email", email)
                     editor.putString("Password", password)
+                    editor.putBoolean("IsAccountLogged", true)
 
                     editor.putLong("UpdateTime", java.util.Date().time)
 
@@ -309,6 +310,7 @@ class AccountController {
                     editor.putString("RefreshToken", refreshToken)
                     editor.putString("Email", email)
                     editor.putString("Password", password)
+                    editor.putBoolean("IsAccountLogged", true)
 
                     editor.putLong("UpdateTime", java.util.Date().time)
 
