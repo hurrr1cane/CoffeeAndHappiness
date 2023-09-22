@@ -157,6 +157,10 @@ class AccountMainFragment : Fragment() {
             if (!requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE).getBoolean("IsAccountLogged", false)) {
                 replaceFragment(AccountLoginFragment())
             }
+            else {
+                replaceFragment(AccountMainFragment())
+            }
+
         }
     }
 
