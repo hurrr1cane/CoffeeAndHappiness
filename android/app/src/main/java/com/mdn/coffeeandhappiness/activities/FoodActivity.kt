@@ -79,6 +79,10 @@ class FoodActivity : AppCompatActivity() {
 
                     val foodTypeTranslator = FoodTypeTranslator()
 
+                    if (foodController.isHavingReview(currentFood!!, accountSettings.getInt("Id", 0))) {
+                        addReviewButton.visibility = View.GONE
+                    }
+
                     if (language == "uk") {
                         foodName.text = currentFood?.nameUA
                         foodType.text = foodTypeTranslator.translateTo("uk", currentFood?.type!!)

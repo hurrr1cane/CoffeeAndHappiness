@@ -246,4 +246,17 @@ class FoodController {
             menuItems.add(menuItem)
         }
     }
+
+    fun isHavingReview(food: Food, id: Int): Boolean {
+        var havingReview = false
+
+        for (review in food.reviews) {
+            if (review.userId == id) {
+                havingReview = true
+                break
+            }
+        }
+
+        return havingReview
+    }
 }
