@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Cafe
+import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Review
 import com.mdn.coffeeandhappiness.tools.Constants
 import kotlinx.coroutines.Dispatchers
@@ -237,5 +238,18 @@ class CafeController {
 
             cafes.add(cafe)
         }
+    }
+
+    fun isHavingReview(cafe: Cafe, id: Int): Boolean {
+        var havingReview = false
+
+        for (review in cafe.reviews) {
+            if (review.userId == id) {
+                havingReview = true
+                break
+            }
+        }
+
+        return havingReview
     }
 }
