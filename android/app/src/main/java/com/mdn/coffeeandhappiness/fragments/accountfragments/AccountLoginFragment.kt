@@ -86,23 +86,29 @@ class AccountLoginFragment : Fragment() {
                                 try {
                                     lifecycleScope.launch(Dispatchers.IO) {
                                         AccountController().updateMyself(sharedPreferences)
+                                        launch(Dispatchers.Main) {
+                                            val mainFragment = AccountMainFragment()
+                                            val fragmentManager = requireActivity().supportFragmentManager
+                                            val transaction = fragmentManager.beginTransaction()
+                                            transaction.replace(R.id.accountFrame, mainFragment)
+                                            transaction.addToBackStack(null) // Optional: Add to back stack for navigation
+                                            transaction.commit()
+                                            var editor = sharedPreferences.edit()
+                                            editor.putBoolean("IsAccountLogged", true)
+                                            editor.apply()
+                                            val wrongCredentials =
+                                                view.findViewById<TextView>(R.id.accountLoginWrong)
+                                            wrongCredentials.visibility = View.GONE
+                                        }
                                     }
                                 } catch (e: NoInternetException) {
-
+                                    launch(Dispatchers.Main) {
+                                        val noInternet = view.findViewById<TextView>(R.id.accountLoginNoInternet)
+                                        noInternet.visibility = View.VISIBLE
+                                    }
                                 }
 
-                                val mainFragment = AccountMainFragment()
-                                val fragmentManager = requireActivity().supportFragmentManager
-                                val transaction = fragmentManager.beginTransaction()
-                                transaction.replace(R.id.accountFrame, mainFragment)
-                                transaction.addToBackStack(null) // Optional: Add to back stack for navigation
-                                transaction.commit()
-                                var editor = sharedPreferences.edit()
-                                editor.putBoolean("IsAccountLogged", true)
-                                editor.apply()
-                                val wrongCredentials =
-                                    view.findViewById<TextView>(R.id.accountLoginWrong)
-                                wrongCredentials.visibility = View.GONE
+
                             } else {
                                 val wrongCredentials =
                                     view.findViewById<TextView>(R.id.accountLoginWrong)
