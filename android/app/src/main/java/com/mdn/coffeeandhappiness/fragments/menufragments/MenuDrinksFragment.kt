@@ -66,6 +66,7 @@ class MenuDrinksFragment : Fragment() {
                             requireContext(),
                             listOfFood
                         ) // Provide your data here
+                    adapter.notifyDataSetChanged()
                     recyclerView.adapter = adapter
                 }
             } catch (e: NoInternetException) {
