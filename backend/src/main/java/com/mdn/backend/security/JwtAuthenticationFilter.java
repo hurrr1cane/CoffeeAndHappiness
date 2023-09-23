@@ -1,5 +1,7 @@
 package com.mdn.backend.security;
 
+import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.repository.UserRepository;
 import com.mdn.backend.token.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,6 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final TokenRepository tokenRepository;
+    private final UserRepository userRepository;
 
     /**
      * Filters incoming requests to authenticate using JWT tokens.
@@ -63,16 +66,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     .map(t -> !t.isExpired() && !t.isRevoked())
                     .orElse(false);
 
-            if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
+            var user = userRepository.findByEmail(email).orElseThrow(
+                    () -> new UserNotFoundException("User not found with email: " + email)
+            );
+            if (user.isEnabled()) {
+                if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
-                );
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities()
+                    );
 
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                } else {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                }
             } else {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             }
             filterChain.doFilter(request, response);
         }
