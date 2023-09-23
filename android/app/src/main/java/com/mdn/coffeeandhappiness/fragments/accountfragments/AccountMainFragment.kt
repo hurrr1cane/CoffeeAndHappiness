@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.activities.AccountEditActivity
+import com.mdn.coffeeandhappiness.activities.AccountFAQActivity
 import com.mdn.coffeeandhappiness.activities.AccountFeedbackActivity
 import com.mdn.coffeeandhappiness.activities.AccountPrivacyPolicyActivity
 import com.mdn.coffeeandhappiness.activities.AccountReviewsActivity
@@ -138,6 +139,13 @@ class AccountMainFragment : Fragment() {
             requireActivity().startActivity(intent)
         }
 
+        val faqButton = view.findViewById<AppCompatButton>(R.id.accountMainFAQ)
+        faqButton.setOnClickListener() {
+            // Handle the click event here, for example, open a new activity with details
+            val intent = Intent(context, AccountFAQActivity::class.java)
+            requireActivity().startActivity(intent)
+        }
+
         return view
     }
 
@@ -149,6 +157,10 @@ class AccountMainFragment : Fragment() {
             if (!requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE).getBoolean("IsAccountLogged", false)) {
                 replaceFragment(AccountLoginFragment())
             }
+            else {
+                replaceFragment(AccountMainFragment())
+            }
+
         }
     }
 

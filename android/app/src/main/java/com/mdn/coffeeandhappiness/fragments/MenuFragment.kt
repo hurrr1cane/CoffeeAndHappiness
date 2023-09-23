@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.adapter.MenuViewPagerAdapter
@@ -42,13 +43,17 @@ class MenuFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_menu, container, false)
 
         val menuTabs = rootView.findViewById<TabLayout>(R.id.menuTabs)
-        val viewPager = rootView.findViewById<ViewPager>(R.id.menu_viewPager)
+        val viewPager = rootView.findViewById<ViewPager2>(R.id.menu_viewPager)
 
         val adapter =
-            MenuViewPagerAdapter(requireContext(), requireFragmentManager(), menuTabs.tabCount)
+            MenuViewPagerAdapter(
+                childFragmentManager,
+                viewLifecycleOwner.lifecycle,
+                menuTabs.tabCount
+            )
         viewPager.adapter = adapter
 
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(menuTabs))
+        //viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(menuTabs))
         menuTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewPager.currentItem = tab!!.position
@@ -62,26 +67,16 @@ class MenuFragment : Fragment() {
 
         })
 
+        // Add a ViewPager2 listener to update selected tab when pages are swiped
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                menuTabs.selectTab(menuTabs.getTabAt(position))
+            }
+        })
+
         return rootView
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MenuFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MenuFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

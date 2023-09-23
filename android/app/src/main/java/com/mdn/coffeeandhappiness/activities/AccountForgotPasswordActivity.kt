@@ -27,7 +27,6 @@ class AccountForgotPasswordActivity : AppCompatActivity() {
             R.id.accountForgotPasswordActivityFrame,
             AccountForgotPasswordEmailFragment()
         )
-        transaction.addToBackStack(null) // Optional: Add to back stack for navigation
         transaction.commit()
 
 

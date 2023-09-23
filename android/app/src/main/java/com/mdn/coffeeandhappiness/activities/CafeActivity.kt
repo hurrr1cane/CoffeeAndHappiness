@@ -70,6 +70,10 @@ class CafeActivity : AppCompatActivity() {
                     val cafeRatingBar = findViewById<AppCompatRatingBar>(R.id.cafeActivityRatingBar)
                     val phoneNumber = findViewById<TextView>(R.id.cafeActivityPhoneNumber)
 
+                    if (cafeController.isHavingReview(currentCafe!!, accountSettings.getInt("Id", 0))) {
+                        addReviewButton.visibility = View.GONE
+                    }
+
                     if (language == "uk") {
                         cafeName.text = currentCafe?.locationUA
                     } else if (language == "en") {
