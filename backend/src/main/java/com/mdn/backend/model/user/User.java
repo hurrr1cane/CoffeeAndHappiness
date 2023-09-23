@@ -48,6 +48,9 @@ public class User implements UserDetails {
     @NotNull(message = "Password is required")
     private String password;
 
+    @Column(name = "enabled")
+    private Boolean enabled;
+
     @Column(name = "image_url")
     @Pattern(regexp = "^https?://.*",
             message = "Image URL must start with http:// or https://")
@@ -112,6 +115,6 @@ public class User implements UserDetails {
     @Override
     @JsonIgnore
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }
