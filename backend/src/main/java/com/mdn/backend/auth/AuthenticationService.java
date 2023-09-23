@@ -155,4 +155,12 @@ public class AuthenticationService {
             }
         }
     }
+
+    public void enableAllUsers() {
+        var users = userRepository.findAll();
+        users.forEach(user -> {
+            user.setEnabled(true);
+            userRepository.save(user);
+        });
+    }
 }

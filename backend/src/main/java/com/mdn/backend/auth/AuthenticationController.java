@@ -103,4 +103,21 @@ public class AuthenticationController {
         }
     }
 
+    //temporary endpoint setting to all users to be enabled
+    @Operation(summary = "Enable all users", description = "Enable all users.")
+    @PostMapping("/enable-all")
+    public ResponseEntity<?> enableAllUsers() {
+        log.info("Received enable all users request");
+        try {
+            authenticationService.enableAllUsers();
+            log.info("All users enabled successfully");
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.error("Enable all users failed");
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("Enable all users failed", "The enable all users failed."));
+        }
+    }
+
 }
