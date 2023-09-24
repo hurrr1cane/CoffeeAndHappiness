@@ -1,7 +1,6 @@
 @use '../../variables' as *;
 
   .navbar {
-    margin: 0.5rem auto 0rem auto;
     outline: 1px solid white;
     width: 70%;
     white-space: nowrap;
@@ -9,15 +8,23 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     // width: 100px;
-    background-color: inherit;
+    background-color: $background;
     h1 {
       font-size: 1rem;
       font-weight: 400;
     }
   }
 
+ 
+  
   .image {
     margin-left: 0.8rem;
     margin-bottom: 0.125rem;
@@ -26,9 +33,8 @@
   }
 
   .icons-container {
-    // margin-left: auto;
+    margin-left: auto !important;
     margin-right: 7.5rem;
-    margin-top: 0.25rem;
     display: flex;
   }
 
@@ -76,6 +82,10 @@
     .navbar {
       
       padding-left: 2rem;
+      padding-right: 2rem;
+      .icons-container {
+        margin-right: 0rem !important;
+      }
       .link {
         margin-left: 0rem;
         margin-right: 0rem;
@@ -92,11 +102,19 @@
 
   @media (max-width: 800px) {
 
+    .line {
+      display: none;
+    }
+
+
+
     .open {
         padding-left: 2rem; 
         height: auto; 
         flex-direction: column;
         align-items: flex-start !important;
+        z-index: 10000;
+        backdrop-filter: blur(4px);
         // background-color: $green;
 
           .link {
@@ -113,6 +131,7 @@
           // width: 20%;
           margin-left: auto !important;
           padding: 0.125rem;
+          margin-right: 0rem;
           margin-top: 0rem;
         }
   }
@@ -132,6 +151,9 @@
       z-index: 999;
       align-items: center;
       padding-left: 0rem;
+      .icons-container {
+        margin-right: 0rem !important;
+      }
       .link {
         margin: 0.25rem 0rem 0.25rem 0rem;
         padding: 0rem;

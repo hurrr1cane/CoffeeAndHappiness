@@ -69,30 +69,27 @@
     };
 
     return (
-      <nav style={tab === 'home' && {position: "absolute",
-        left: 0, 
-        right: 0, 
-        marginLeft: "auto", 
-        marginRight: "auto", }} className={`${styles.navbar} ${menuOpen ? styles.open : ''} ${isDark ? styles.dark : ""}`}>
+      <nav style={tab === 'home' && {background: "inherit"}} className={`${styles.navbar} ${menuOpen ? styles.open : ''} ${isDark ? styles.dark : ""}`}>
     
-        <MenuIcon onClick={toggleMobileMenu} sx={{color: isDark ? "#CCCCCC" : "", display: width > 768 ? "none" : "block"}} className={styles.menuButton}/>
-        <Link ref={tabRefs.home} onClick={() => {handleTabClick('home')}} className={`${styles.link} ${stylesData.selectedTab === 'home' ? styles.selected : '' }`} href="/"><h1>{language === 'en' ? "Home" : "Домашня"}</h1></Link>
-        <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${stylesData.selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>{language === 'en' ? "Institutions" : "Заклади"}</h1></Link>
-        <Link ref={tabRefs.menu} onClick={() => {handleTabClick('menu')}} className={`${styles.link} ${stylesData.selectedTab === 'menu' ? styles.selected : '' }`} href="/menu"><h1>{language === 'en' ? "Menu" : "Меню"}</h1></Link>
-        <Link ref={tabRefs["about-us"]} onClick={() => {handleTabClick('about-us')}} className={`${styles.link} ${stylesData.selectedTab === 'about-us' ? styles.selected : '' }`} href="/about-us"><h1>{language === 'en' ? "About us" : "Про нас"}</h1></Link>
-        <div className={styles.line}></div>
-        {user?.firstName ? 
-        <>
-        <Link ref={tabRefs.user} onClick={() => {handleTabClick('user')}} className={`${styles.link} ${stylesData.selectedTab === 'user' ? styles.selected : '' }`} href="/user"><h1>{user.firstName}</h1></Link>
-        <span onClick={() => {handleLogout()}} className={`${styles.link} ${styles.logout}`}><h1>{language === 'en' ? "Log out" : "Вийти"}</h1></span>  
-        </>:
         
-          <Link ref={tabRefs.login} onClick={() => {handleTabClick('login')}} className={`${styles.link} ${stylesData.selectedTab === 'login' ? styles.selected : '' }`} href="/login"><h1>{language === 'en' ? "Log in" : "Логін"}</h1></Link>
-        }
-        
-        <div className={styles['icons-container']}>
-          <PositionedMenu isDark={isDark}/>
-        </div>
+          <MenuIcon onClick={toggleMobileMenu} sx={{color: isDark ? "#CCCCCC" : "", display: width > 768 ? "none" : "block"}} className={styles.menuButton}/>
+          <Link ref={tabRefs.home} onClick={() => {handleTabClick('home')}} className={`${styles.link} ${stylesData.selectedTab === 'home' ? styles.selected : '' }`} href="/"><h1>{language === 'en' ? "Home" : "Домашня"}</h1></Link>
+          <Link ref={tabRefs.institutions} onClick={() => {handleTabClick('institutions')}} className={`${styles.link} ${stylesData.selectedTab === 'institutions' ? styles.selected : '' }`} href="/institutions"><h1>{language === 'en' ? "Institutions" : "Заклади"}</h1></Link>
+          <Link ref={tabRefs.menu} onClick={() => {handleTabClick('menu')}} className={`${styles.link} ${stylesData.selectedTab === 'menu' ? styles.selected : '' }`} href="/menu"><h1>{language === 'en' ? "Menu" : "Меню"}</h1></Link>
+          <Link ref={tabRefs["about-us"]} onClick={() => {handleTabClick('about-us')}} className={`${styles.link} ${stylesData.selectedTab === 'about-us' ? styles.selected : '' }`} href="/about-us"><h1>{language === 'en' ? "About us" : "Про нас"}</h1></Link>
+          <div className={styles.line}></div>
+          {user?.firstName ?
+          <>
+          <Link ref={tabRefs.user} onClick={() => {handleTabClick('user')}} className={`${styles.link} ${stylesData.selectedTab === 'user' ? styles.selected : '' }`} href="/user"><h1>{user.firstName}</h1></Link>
+          <span onClick={() => {handleLogout()}} className={`${styles.link} ${styles.logout}`}><h1>{language === 'en' ? "Log out" : "Вийти"}</h1></span>
+          </>:
+          
+            <Link ref={tabRefs.login} onClick={() => {handleTabClick('login')}} className={`${styles.link} ${stylesData.selectedTab === 'login' ? styles.selected : '' }`} href="/login"><h1>{language === 'en' ? "Log in" : "Логін"}</h1></Link>
+          }
+          
+          <div className={styles['icons-container']}>
+            <PositionedMenu isDark={isDark}/>
+          </div>
       </nav>
     );
   }

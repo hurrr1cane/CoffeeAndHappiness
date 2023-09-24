@@ -7,9 +7,23 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 400;
+    &::before{
+        position: absolute;
+        display: inline-block;
+        content: "";
+        border-top: 1px solid white;
+        width: 80dvw;
+        transform: translateY(-1.25rem);
+        @media (max-width: 800px) {
+            transform: translateY(-1rem);
+            width: 90dvw;
+        }
+    }
 }
+
+
 
 .dark {
     background-color: #2c2c2c!important;
@@ -39,10 +53,11 @@
         }
     }
     white-space: nowrap;
-    font-size: 16px;
+    font-size: 14px;
         .icons{
             a {
-                
+                height: 25px;
+                width: 25px;
                 margin: 0rem;
             }
            } 
