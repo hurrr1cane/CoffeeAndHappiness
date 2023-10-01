@@ -17,7 +17,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 class FoodController {
 
-    public suspend fun addReview(
+    suspend fun addReview(
         id: Int,
         rating: Int,
         comment: String,
@@ -83,7 +83,7 @@ class FoodController {
         }
     }
 
-    public suspend fun getFood(foodType: String): MutableList<Food> {
+    suspend fun getFood(foodType: String): MutableList<Food> {
         return withContext(Dispatchers.IO) {
             val foodList: MutableList<Food> = mutableListOf()
 
@@ -118,7 +118,7 @@ class FoodController {
         }
     }
 
-    public suspend fun getFood(id: Int): Food? {
+    suspend fun getFood(id: Int): Food? {
         return withContext(Dispatchers.IO) {
             var myFood: Food? = null
 
@@ -191,7 +191,7 @@ class FoodController {
             reviewsList.add(singleReview)
         }
 
-        reviewsList = reviewsList.sortedByDescending {it.id}.toMutableList()
+        reviewsList = reviewsList.sortedByDescending { it.id }.toMutableList()
 
         // Create a MenuItem object
         val menuItem = Food(

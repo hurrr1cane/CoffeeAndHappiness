@@ -1,7 +1,6 @@
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -17,7 +16,7 @@ class ConfirmationLogoutFragment : DialogFragment() {
 
         val languagePreferences =
             requireContext().getSharedPreferences("Settings", AppCompatActivity.MODE_PRIVATE)
-        var languageToSet = languagePreferences.getString("Language", "uk")
+        val languageToSet = languagePreferences.getString("Language", "uk")
 
         val title = if (languageToSet == "uk") {
             "Підтвердження"

@@ -10,11 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.mdn.coffeeandhappiness.R
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ConfirmationDeleteReviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ConfirmationAccountPasswordChangedFragment(
     private val onYesClicked: () -> Unit
 ) : DialogFragment() {
@@ -23,7 +18,7 @@ class ConfirmationAccountPasswordChangedFragment(
 
         val languagePreferences =
             requireContext().getSharedPreferences("Settings", AppCompatActivity.MODE_PRIVATE)
-        var languageToSet = languagePreferences.getString("Language", "uk")
+        val languageToSet = languagePreferences.getString("Language", "uk")
 
         val title = if (languageToSet == "uk") {
             "Підтвердження"

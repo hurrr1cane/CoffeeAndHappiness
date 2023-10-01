@@ -11,9 +11,12 @@ class FoodTypeTranslator {
                     "SALAD" -> "Салат"
                     "DESSERT" -> "Десерт"
                     "ICE_CREAM" -> "Морозиво"
-                    else -> {"Невідомо"}
+                    else -> {
+                        "Невідомо"
+                    }
                 }
             }
+
             "en" -> {
                 when (type) {
                     "MAIN" -> "Main"
@@ -22,9 +25,12 @@ class FoodTypeTranslator {
                     "SALAD" -> "Salad"
                     "DESSERT" -> "Dessert"
                     "ICE_CREAM" -> "Ice cream"
-                    else -> {"Unknown"}
+                    else -> {
+                        "Unknown"
+                    }
                 }
             }
+
             else -> "Unknown"
         }
     }

@@ -3,7 +3,6 @@ package com.mdn.coffeeandhappiness
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.ImageButton
@@ -21,7 +20,6 @@ import com.mdn.coffeeandhappiness.fragments.MapFragment
 import com.mdn.coffeeandhappiness.fragments.MenuFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 class MainActivity : LocalizationActivity() {
 
@@ -61,7 +59,7 @@ class MainActivity : LocalizationActivity() {
         /**
          * Settings
          */
-        var sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
 
         /**
          * Setting the mode
@@ -86,7 +84,7 @@ class MainActivity : LocalizationActivity() {
     private fun controllerLanguage(sharedPreferences: SharedPreferences) {
         var language = sharedPreferences.getString("Language", "uk")
 
-        var languageButton = findViewById<ImageButton>(R.id.languageButton)
+        val languageButton = findViewById<ImageButton>(R.id.languageButton)
 
         when (language) {
             "uk" -> {
@@ -102,7 +100,7 @@ class MainActivity : LocalizationActivity() {
         }
 
         val editor = sharedPreferences.edit()
-        languageButton.setOnClickListener() {
+        languageButton.setOnClickListener {
             language = sharedPreferences.getString("Language", "uk")
             when (language) {
                 "uk" -> {
@@ -121,59 +119,6 @@ class MainActivity : LocalizationActivity() {
         }
     }
 
-    private fun oldControllerLanguage(sharedPreferences: SharedPreferences) {
-        var language = sharedPreferences.getString("Language", "uk")
-
-        var languageButton = findViewById<ImageButton>(R.id.languageButton)
-
-        when (language) {
-            "uk" -> {
-                languageButton.setImageResource(R.drawable.ukrainian_flag_icon)
-            }
-
-            "en" -> {
-                languageButton.setImageResource(R.drawable.english_flag_icon)
-            }
-        }
-
-        var locale = Locale(language)
-        Locale.setDefault(locale)
-        var configuration: Configuration = resources.configuration
-        configuration.setLocale(locale)
-        baseContext.resources.updateConfiguration(
-            configuration,
-            baseContext.resources.displayMetrics
-        )
-
-
-        var editor = sharedPreferences.edit()
-        languageButton.setOnClickListener() {
-            language = sharedPreferences.getString("Language", "uk")
-            when (language) {
-                "uk" -> {
-                    editor.putString("Language", "en")
-                    editor.apply()
-                }
-
-                "en" -> {
-                    editor.putString("Language", "uk")
-                    editor.apply()
-                }
-            }
-            language = sharedPreferences.getString("Language", "uk")
-            locale = Locale(language)
-            Locale.setDefault(locale)
-            configuration.setLocale(locale)
-            baseContext.resources.updateConfiguration(
-                configuration,
-                baseContext.resources.displayMetrics
-            )
-            restartApp()
-        }
-
-    }
-
-
     private fun controllerLightDarkMode(sharedPreferences: SharedPreferences) {
         val nightMode: Boolean = sharedPreferences.getBoolean("Night", true)
         val modeButton = findViewById<ImageButton>(R.id.modeButton)
@@ -185,7 +130,7 @@ class MainActivity : LocalizationActivity() {
             modeButton.setImageResource(R.drawable.lightmode_icon)
         }
 
-        modeButton.setOnClickListener() {
+        modeButton.setOnClickListener {
             val editor = sharedPreferences.edit()
             if (nightMode) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

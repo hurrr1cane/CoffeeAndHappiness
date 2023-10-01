@@ -2,7 +2,6 @@ package com.mdn.coffeeandhappiness.fragments.accountfragments
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -13,16 +12,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.controller.AccountController
-import com.mdn.coffeeandhappiness.controller.ReviewController
 import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ConfirmationDeleteReviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ConfirmationAccountDeleteFragment(
     var sharedPreferences: SharedPreferences,
     private val onDeleteConfirmed: () -> Unit
@@ -32,7 +25,7 @@ class ConfirmationAccountDeleteFragment(
 
         val languagePreferences =
             requireContext().getSharedPreferences("Settings", AppCompatActivity.MODE_PRIVATE)
-        var languageToSet = languagePreferences.getString("Language", "uk")
+        val languageToSet = languagePreferences.getString("Language", "uk")
 
         val title = if (languageToSet == "uk") {
             "Підтвердження"

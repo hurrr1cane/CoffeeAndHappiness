@@ -16,11 +16,7 @@ import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ConfirmationDeleteReviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class ConfirmationDeleteCafeReviewFragment(
     var reviewId: Int,
     private val onDeleteConfirmed: () -> Unit
@@ -30,7 +26,7 @@ class ConfirmationDeleteCafeReviewFragment(
 
         val languagePreferences =
             requireContext().getSharedPreferences("Settings", AppCompatActivity.MODE_PRIVATE)
-        var languageToSet = languagePreferences.getString("Language", "uk")
+        val languageToSet = languagePreferences.getString("Language", "uk")
 
         val title = if (languageToSet == "uk") {
             "Підтвердження"
