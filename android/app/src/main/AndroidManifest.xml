@@ -101,7 +101,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCozRbMC1Qy7SLty1fC85afZi44_iHU_Ac" />
+            android:value="${mapsAPI}" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
