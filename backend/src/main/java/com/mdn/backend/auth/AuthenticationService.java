@@ -1,6 +1,8 @@
 package com.mdn.backend.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mdn.backend.auth.forgotpassword.ForgotPasswordService;
+import com.mdn.backend.auth.verifyemail.EmailVerificationService;
 import com.mdn.backend.exception.UserAlreadyExistsException;
 import com.mdn.backend.exception.UserNotFoundException;
 import com.mdn.backend.model.user.Role;
@@ -31,6 +33,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
+    private final EmailVerificationService emailVerificationService;
 
     private AuthenticationResponse register(RegisterRequest request, Role role) {
         Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
@@ -45,12 +48,15 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(role)
+                .enabled(false)
                 .build();
 
         User savedUser = userRepository.save(user);
         String jwtToken = jwtService.generateToken(savedUser);
         String refreshToken = jwtService.generateRefreshToken(savedUser);
         saveUserToken(savedUser, jwtToken);
+
+        emailVerificationService.sendEmailVerification(savedUser);
 
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
@@ -148,5 +154,13 @@ public class AuthenticationService {
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
         }
+    }
+
+    public void enableAllUsers() {
+        var users = userRepository.findAll();
+        users.forEach(user -> {
+            user.setEnabled(true);
+            userRepository.save(user);
+        });
     }
 }
