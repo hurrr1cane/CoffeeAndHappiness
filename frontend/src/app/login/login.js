@@ -91,7 +91,7 @@ export default function Login() {
                   required
                   fullWidth
                   id="email"
-                  label={language === 'en' ? 'Email adress' : "Електронна пошта"}
+                  label={language === 'en' ? 'Email address' : "Електронна пошта"}
                   name="email"
                   autoComplete="email"
                   autoFocus
