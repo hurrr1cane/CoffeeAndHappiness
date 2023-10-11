@@ -82,4 +82,6 @@ The application supports three roles:
 - [Horak Maksym](https://github.com/hurrr1cane): Android developer.
 - [Soloviy Nazariy](https://github.com/N1tingale): Frontend developer.
 
+## License
 
+This project is licensed under the [MIT License](LICENSE).
