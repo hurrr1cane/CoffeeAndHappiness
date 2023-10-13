@@ -16,35 +16,14 @@ import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountSignupFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AccountSignupFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_account_signup, container, false)
+        val view = inflater.inflate(R.layout.fragment_account_signup, container, false)
 
         val replaceButton = view.findViewById<TextView>(R.id.changeFragmentToLogin)
         replaceButton.setOnClickListener {
@@ -80,7 +59,8 @@ class AccountSignupFragment : Fragment() {
                             sharedPreferences
                         )
                         launch(Dispatchers.Main) {
-                            val noConnection = view.findViewById<TextView>(R.id.accountSignupNoInternet)
+                            val noConnection =
+                                view.findViewById<TextView>(R.id.accountSignupNoInternet)
                             noConnection.visibility = View.GONE
 
                             if (isLogged) {
@@ -90,7 +70,7 @@ class AccountSignupFragment : Fragment() {
                                 transaction.replace(R.id.accountFrame, mainFragment)
                                 transaction.addToBackStack(null) // Optional: Add to back stack for navigation
                                 transaction.commit()
-                                var editor = sharedPreferences.edit()
+                                val editor = sharedPreferences.edit()
                                 editor.putBoolean("IsAccountLogged", true)
                                 editor.apply()
 
@@ -110,7 +90,8 @@ class AccountSignupFragment : Fragment() {
                         }
                     } catch (e: NoInternetException) {
                         launch(Dispatchers.Main) {
-                            val noConnection = view.findViewById<TextView>(R.id.accountSignupNoInternet)
+                            val noConnection =
+                                view.findViewById<TextView>(R.id.accountSignupNoInternet)
                             noConnection.visibility = View.VISIBLE
                         }
                     }
@@ -139,7 +120,7 @@ class AccountSignupFragment : Fragment() {
             textHint.visibility = View.GONE
         }
 
-        if (password!!.isEmpty()) {
+        if (password.isEmpty()) {
             val textHint = view.findViewById<TextView>(R.id.accountRegisterPasswordHint)
             textHint.visibility = View.VISIBLE
             areCorrect = false
@@ -175,7 +156,7 @@ class AccountSignupFragment : Fragment() {
             textHint.visibility = View.GONE
         }
 
-        if (!password!!.equals(reEnteredPassword)) {
+        if (!password.equals(reEnteredPassword)) {
             val textHint = view.findViewById<TextView>(R.id.accountRegisterReEnterPasswordHint)
             textHint.visibility = View.VISIBLE
             areCorrect = false
@@ -193,25 +174,5 @@ class AccountSignupFragment : Fragment() {
     private fun isEmailValid(email: String): Boolean {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         return email.matches(emailPattern.toRegex())
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AccountSignupFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AccountSignupFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

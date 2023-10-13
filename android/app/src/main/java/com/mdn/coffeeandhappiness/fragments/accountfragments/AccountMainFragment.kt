@@ -21,41 +21,19 @@ import com.mdn.coffeeandhappiness.activities.AccountFAQActivity
 import com.mdn.coffeeandhappiness.activities.AccountFeedbackActivity
 import com.mdn.coffeeandhappiness.activities.AccountPrivacyPolicyActivity
 import com.mdn.coffeeandhappiness.activities.AccountReviewsActivity
-import com.mdn.coffeeandhappiness.activities.FoodActivity
 import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountMainFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AccountMainFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_account_main, container, false)
+        val view = inflater.inflate(R.layout.fragment_account_main, container, false)
 
         val accountController = AccountController()
         lifecycleScope.launch(Dispatchers.IO) {
@@ -154,10 +132,11 @@ class AccountMainFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
-            if (!requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE).getBoolean("IsAccountLogged", false)) {
+            if (!requireContext().getSharedPreferences("Account", Context.MODE_PRIVATE)
+                    .getBoolean("IsAccountLogged", false)
+            ) {
                 replaceFragment(AccountLoginFragment())
-            }
-            else {
+            } else {
                 replaceFragment(AccountMainFragment())
             }
 
@@ -172,23 +151,4 @@ class AccountMainFragment : Fragment() {
         fragmentTransaction.commit()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AccountMainFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AccountMainFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

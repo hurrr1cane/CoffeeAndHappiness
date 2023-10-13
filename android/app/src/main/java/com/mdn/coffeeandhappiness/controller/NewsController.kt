@@ -13,7 +13,7 @@ import java.io.IOException
 
 class NewsController {
 
-    public suspend fun getNews(): MutableList<News> {
+    suspend fun getNews(): MutableList<News> {
         return withContext(Dispatchers.IO) {
             var newsList: MutableList<News> = mutableListOf()
 
@@ -61,7 +61,7 @@ class NewsController {
                 throw NoInternetException()
             }
 
-            newsList = newsList.sortedByDescending {it.id}.toMutableList()
+            newsList = newsList.sortedByDescending { it.id }.toMutableList()
 
             newsList
         }

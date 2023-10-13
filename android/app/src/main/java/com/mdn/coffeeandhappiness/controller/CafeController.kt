@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.mdn.coffeeandhappiness.exception.NoInternetException
 import com.mdn.coffeeandhappiness.model.Cafe
-import com.mdn.coffeeandhappiness.model.Food
 import com.mdn.coffeeandhappiness.model.Review
 import com.mdn.coffeeandhappiness.tools.Constants
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +20,7 @@ import java.io.IOException
 class CafeController {
 
 
-    public suspend fun addReview(
+    suspend fun addReview(
         id: Int,
         rating: Int,
         comment: String,
@@ -87,7 +86,7 @@ class CafeController {
         }
     }
 
-    public suspend fun getCafe(): MutableList<Cafe> {
+    suspend fun getCafe(): MutableList<Cafe> {
         return withContext(Dispatchers.IO) {
             val cafeList: MutableList<Cafe> = mutableListOf()
 
@@ -120,7 +119,7 @@ class CafeController {
         }
     }
 
-    public suspend fun getCafe(id: Int): Cafe? {
+    suspend fun getCafe(id: Int): Cafe? {
         return withContext(Dispatchers.IO) {
             var myCafe: Cafe? = null
 
@@ -188,7 +187,7 @@ class CafeController {
             reviewsList.add(singleReview)
         }
 
-        reviewsList = reviewsList.sortedByDescending {it.id}.toMutableList()
+        reviewsList = reviewsList.sortedByDescending { it.id }.toMutableList()
 
         // Create a MenuItem object
         val cafe = Cafe(

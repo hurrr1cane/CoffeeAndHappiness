@@ -79,7 +79,11 @@ class FoodActivity : AppCompatActivity() {
 
                     val foodTypeTranslator = FoodTypeTranslator()
 
-                    if (foodController.isHavingReview(currentFood!!, accountSettings.getInt("Id", 0))) {
+                    if (foodController.isHavingReview(
+                            currentFood!!,
+                            accountSettings.getInt("Id", 0)
+                        )
+                    ) {
                         addReviewButton.visibility = View.GONE
                     }
 

@@ -18,35 +18,15 @@ import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountForgotPasswordCodeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AccountForgotPasswordCodeFragment(var email: String) : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_account_forgot_password_code, container, false)
+        val view =
+            inflater.inflate(R.layout.fragment_account_forgot_password_code, container, false)
 
         val emailField = view.findViewById<TextView>(R.id.accountForgotPasswordCodeEmail)
         emailField.text = email
@@ -66,12 +46,13 @@ class AccountForgotPasswordCodeFragment(var email: String) : Fragment() {
         editText5.addTextChangedListener(createTextWatcher(editText5, editText6, editText4))
         editText6.addTextChangedListener(createTextWatcher(editText6, null, editText5))
 
-        val verifyCodeButton = view.findViewById<AppCompatButton>(R.id.accountForgotPasswordCodeButton)
+        val verifyCodeButton =
+            view.findViewById<AppCompatButton>(R.id.accountForgotPasswordCodeButton)
         verifyCodeButton.setOnClickListener() {
             if (checkCredentials(view)) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     try {
-                        var successful =
+                        val successful =
                             AccountController().forgotPasswordValidate(email, getCode(view))
 
                         launch(Dispatchers.Main) {
@@ -80,17 +61,21 @@ class AccountForgotPasswordCodeFragment(var email: String) : Fragment() {
 
                                 val fragmentManager = requireActivity().supportFragmentManager
                                 val transaction = fragmentManager.beginTransaction()
-                                transaction.replace(R.id.accountForgotPasswordActivityFrame, AccountForgotPasswordNewPasswordFragment(email, getCode(view)))
+                                transaction.replace(
+                                    R.id.accountForgotPasswordActivityFrame,
+                                    AccountForgotPasswordNewPasswordFragment(email, getCode(view))
+                                )
                                 transaction.addToBackStack(null) // Optional: Add to back stack for navigation
                                 transaction.commit()
-                            }
-                            else {
-                                val wrongCode = view.findViewById<TextView>(R.id.accountForgotPasswordCodeWrongHint)
+                            } else {
+                                val wrongCode =
+                                    view.findViewById<TextView>(R.id.accountForgotPasswordCodeWrongHint)
                                 wrongCode.visibility = View.VISIBLE
                             }
                         }
                     } catch (e: NoInternetException) {
-                        val noInternet = view.findViewById<TextView>(R.id.accountForgotPasswordCodeNoInternet)
+                        val noInternet =
+                            view.findViewById<TextView>(R.id.accountForgotPasswordCodeNoInternet)
                         noInternet.visibility = View.VISIBLE
                     }
                 }
@@ -108,8 +93,7 @@ class AccountForgotPasswordCodeFragment(var email: String) : Fragment() {
         val wrongCode = view.findViewById<TextView>(R.id.accountForgotPasswordCodeHint)
         if (finalCode.length == 6) {
             wrongCode.visibility = View.GONE
-        }
-        else {
+        } else {
             wrongCode.visibility = View.VISIBLE
         }
 
@@ -124,10 +108,9 @@ class AccountForgotPasswordCodeFragment(var email: String) : Fragment() {
         val editText5 = view.findViewById<EditText>(R.id.accountForgotPasswordEnterCode5)
         val editText6 = view.findViewById<EditText>(R.id.accountForgotPasswordEnterCode6)
 
-        val finalCode = editText1.text.toString() + editText2.text.toString() +
+        return editText1.text.toString() + editText2.text.toString() +
                 editText3.text.toString() + editText4.text.toString() +
                 editText5.text.toString() + editText6.text.toString()
-        return finalCode
     }
 
     private fun createTextWatcher(

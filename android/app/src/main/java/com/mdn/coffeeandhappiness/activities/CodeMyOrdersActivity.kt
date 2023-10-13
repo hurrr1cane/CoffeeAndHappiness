@@ -63,7 +63,8 @@ class CodeMyOrdersActivity : AppCompatActivity() {
                 }
             } catch (e: NoInternetException) {
                 launch(Dispatchers.Main) {
-                    val noConnection = findViewById<LinearLayout>(R.id.codeMyOrdersActivityNoInternet)
+                    val noConnection =
+                        findViewById<LinearLayout>(R.id.codeMyOrdersActivityNoInternet)
                     noConnection.visibility = View.VISIBLE
                 }
             }
@@ -84,11 +85,11 @@ class CodeMyOrdersActivity : AppCompatActivity() {
 
     private fun setLanguage() {
         val languagePreferences = getSharedPreferences("Settings", MODE_PRIVATE)
-        var languageToSet = languagePreferences.getString("Language", "uk")
+        val languageToSet = languagePreferences.getString("Language", "uk")
 
-        var locale = Locale(languageToSet)
+        val locale = Locale(languageToSet)
         Locale.setDefault(locale)
-        var configuration: Configuration = resources.configuration
+        val configuration: Configuration = resources.configuration
         configuration.setLocale(locale)
         baseContext.resources.updateConfiguration(
             configuration,

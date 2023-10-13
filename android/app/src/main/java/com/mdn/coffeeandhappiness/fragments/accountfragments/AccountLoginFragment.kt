@@ -12,35 +12,13 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.lifecycleScope
 import com.mdn.coffeeandhappiness.R
-import com.mdn.coffeeandhappiness.activities.AccountChangePasswordActivity
 import com.mdn.coffeeandhappiness.activities.AccountForgotPasswordActivity
 import com.mdn.coffeeandhappiness.controller.AccountController
 import com.mdn.coffeeandhappiness.exception.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountLoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AccountLoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +57,8 @@ class AccountLoginFragment : Fragment() {
                     try {
                         val isLogged = accountController.login(email, password, sharedPreferences)
                         launch(Dispatchers.Main) {
-                            val noInternet = view.findViewById<TextView>(R.id.accountLoginNoInternet)
+                            val noInternet =
+                                view.findViewById<TextView>(R.id.accountLoginNoInternet)
                             noInternet.visibility = View.GONE
 
                             if (isLogged) {
@@ -88,12 +67,13 @@ class AccountLoginFragment : Fragment() {
                                         AccountController().updateMyself(sharedPreferences)
                                         launch(Dispatchers.Main) {
                                             val mainFragment = AccountMainFragment()
-                                            val fragmentManager = requireActivity().supportFragmentManager
+                                            val fragmentManager =
+                                                requireActivity().supportFragmentManager
                                             val transaction = fragmentManager.beginTransaction()
                                             transaction.replace(R.id.accountFrame, mainFragment)
                                             transaction.addToBackStack(null) // Optional: Add to back stack for navigation
                                             transaction.commit()
-                                            var editor = sharedPreferences.edit()
+                                            val editor = sharedPreferences.edit()
                                             editor.putBoolean("IsAccountLogged", true)
                                             editor.apply()
                                             val wrongCredentials =
@@ -103,7 +83,6 @@ class AccountLoginFragment : Fragment() {
                                     }
                                 } catch (e: NoInternetException) {
                                     launch(Dispatchers.Main) {
-                                        val noInternet = view.findViewById<TextView>(R.id.accountLoginNoInternet)
                                         noInternet.visibility = View.VISIBLE
                                     }
                                 }
@@ -115,10 +94,11 @@ class AccountLoginFragment : Fragment() {
                                 wrongCredentials.visibility = View.VISIBLE
                             }
                         }
-                    } catch(e: NoInternetException) {
+                    } catch (e: NoInternetException) {
                         // Handle network-related error (no internet connection)
                         launch(Dispatchers.Main) {
-                            val noInternet = view.findViewById<TextView>(R.id.accountLoginNoInternet)
+                            val noInternet =
+                                view.findViewById<TextView>(R.id.accountLoginNoInternet)
                             noInternet.visibility = View.VISIBLE
                         }
                     }
@@ -158,23 +138,4 @@ class AccountLoginFragment : Fragment() {
         return email.matches(emailPattern.toRegex())
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AccountLogin.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AccountLoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

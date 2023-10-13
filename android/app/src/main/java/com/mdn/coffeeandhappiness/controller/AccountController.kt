@@ -19,7 +19,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
-import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -50,7 +49,7 @@ class AccountController {
                 .addHeader("Accept-Encoding", "gzip, deflate, br")
                 .build()
 
-            var codeCorrect = false
+            val codeCorrect: Boolean
             try {
                 // Use the OkHttpClient to send the POST request
                 val response: Response = client.newCall(request).execute()
@@ -88,7 +87,7 @@ class AccountController {
                 .addHeader("Accept-Encoding", "gzip, deflate, br")
                 .build()
 
-            var sent = false
+            val sent: Boolean
             try {
                 // Use the OkHttpClient to send the POST request
                 val response: Response = client.newCall(request).execute()
@@ -181,7 +180,7 @@ class AccountController {
                 .addHeader("Accept-Encoding", "gzip, deflate, br")
                 .build()
 
-            var logined = false
+            val logined: Boolean
             try {
                 // Use the OkHttpClient to send the POST request
                 val response: Response = client.newCall(request).execute()
@@ -285,7 +284,7 @@ class AccountController {
                 .addHeader("Accept-Encoding", "gzip, deflate, br")
                 .build()
 
-            var logined = false
+            val logined: Boolean
             try {
                 // Use the OkHttpClient to send the POST request
                 val response: Response = client.newCall(request).execute()
@@ -411,7 +410,7 @@ class AccountController {
 
     suspend fun updateMyself(sharedPreferences: SharedPreferences) {
         return withContext(Dispatchers.IO) {
-            var person: Person? = null
+            val person: Person?
 
             // Define the URL you want to send the GET request to
             val url = "${Constants().address}/api/user/me"
@@ -596,7 +595,12 @@ class AccountController {
         }
     }
 
-    suspend fun updateInformation(sharedPreferences: SharedPreferences, name: String, surname: String, phone: String) {
+    suspend fun updateInformation(
+        sharedPreferences: SharedPreferences,
+        name: String,
+        surname: String,
+        phone: String
+    ) {
         return withContext(Dispatchers.IO) {
             val url = "${Constants().address}/api/user/me/edit"
 
@@ -648,7 +652,11 @@ class AccountController {
         }
     }
 
-    suspend fun changePassword(sharedPreferences: SharedPreferences, oldPassword: String, newPassword: String): Boolean {
+    suspend fun changePassword(
+        sharedPreferences: SharedPreferences,
+        oldPassword: String,
+        newPassword: String
+    ): Boolean {
         return withContext(Dispatchers.IO) {
             val url = "${Constants().address}/api/user/me/change-password"
 

@@ -161,7 +161,7 @@ class OrderController {
 
                     listOfOrders = parseOrdersFromJson(responseBody)
 
-                    listOfOrders = listOfOrders.sortedByDescending {it.id}.toMutableList()
+                    listOfOrders = listOfOrders.sortedByDescending { it.id }.toMutableList()
 
 
                 }
@@ -176,7 +176,7 @@ class OrderController {
     }
 
     private fun parseOrdersFromJson(responseBody: String?): MutableList<Order> {
-        var listOfOrders = mutableListOf<Order>()
+        val listOfOrders = mutableListOf<Order>()
         val jsonItem = JSONObject(responseBody)
 
         val orders = jsonItem.getJSONArray("orders")

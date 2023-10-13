@@ -18,7 +18,7 @@ class ReviewController {
 
     suspend fun getCafeReviewsWithCafe(sharedPreferences: SharedPreferences): MutableList<CafeReviewWithCafe> {
         return withContext(Dispatchers.IO) {
-            var listOfCafeReviewsWithCafe = mutableListOf<CafeReviewWithCafe>()
+            val listOfCafeReviewsWithCafe = mutableListOf<CafeReviewWithCafe>()
             val listOfCafeReviews = getCafeReviews(sharedPreferences)
             for (cafeReviews in listOfCafeReviews) {
                 val cafe = CafeController().getCafe(cafeReviews.cafeId)
@@ -42,7 +42,7 @@ class ReviewController {
 
     suspend fun getFoodReviewsWithFood(sharedPreferences: SharedPreferences): MutableList<FoodReviewWithFood> {
         return withContext(Dispatchers.IO) {
-            var listOfFoodReviewWithFood = mutableListOf<FoodReviewWithFood>()
+            val listOfFoodReviewWithFood = mutableListOf<FoodReviewWithFood>()
             val listOfFoodReviews = getFoodReviews(sharedPreferences)
             for (foodReview in listOfFoodReviews) {
                 val food = FoodController().getFood(foodReview.foodId)
@@ -92,7 +92,7 @@ class ReviewController {
 
                     listFoodReviews = parseFoodReviewsFromJson(responseBody!!)
 
-                    listFoodReviews = listFoodReviews.sortedByDescending {it.id}.toMutableList()
+                    listFoodReviews = listFoodReviews.sortedByDescending { it.id }.toMutableList()
 
                 }
             } catch (e: IOException) {
@@ -161,7 +161,7 @@ class ReviewController {
 
                     listCafeReviews = parseCafeReviewsFromJson(responseBody!!)
 
-                    listCafeReviews = listCafeReviews.sortedByDescending {it.id}.toMutableList()
+                    listCafeReviews = listCafeReviews.sortedByDescending { it.id }.toMutableList()
 
                 }
             } catch (e: IOException) {
@@ -227,7 +227,6 @@ class ReviewController {
 
                 if (response.isSuccessful) {
 
-
                 }
             } catch (e: IOException) {
                 // Handle failure, such as network issues
@@ -262,7 +261,6 @@ class ReviewController {
                 val response = client.newCall(request).execute()
 
                 if (response.isSuccessful) {
-
 
                 }
             } catch (e: IOException) {

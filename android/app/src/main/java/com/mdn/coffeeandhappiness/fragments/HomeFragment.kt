@@ -18,42 +18,18 @@ import com.mdn.coffeeandhappiness.R
 import com.mdn.coffeeandhappiness.adapter.HomeNewsRecyclerViewAdapter
 import com.mdn.coffeeandhappiness.controller.NewsController
 import com.mdn.coffeeandhappiness.exception.NoInternetException
-import com.mdn.coffeeandhappiness.model.News
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var videoView: VideoView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val rootView = setVideo(inflater, container)
-        //setNewsSection(rootView!!)
 
         val recyclerView = rootView!!.findViewById<RecyclerView>(R.id.homeNewsRecyclerView)
 
@@ -68,7 +44,6 @@ class HomeFragment : Fragment() {
             try {
                 val listOfNews = NewsController().getNews()
 
-
                 // Update the UI on the main thread
                 launch(Dispatchers.Main) {
 
@@ -80,7 +55,7 @@ class HomeFragment : Fragment() {
                     recyclerView.adapter = adapter
                 }
             } catch (e: NoInternetException) {
-                launch (Dispatchers.Main) {
+                launch(Dispatchers.Main) {
                     noInternetConnection(rootView)
                 }
             }
@@ -93,7 +68,7 @@ class HomeFragment : Fragment() {
         rootView: View
     ) {
         val noInternet = rootView.findViewById<LinearLayout>(R.id.homeNoInternet)
-            noInternet.visibility = View.VISIBLE
+        noInternet.visibility = View.VISIBLE
 
     }
 
@@ -107,7 +82,7 @@ class HomeFragment : Fragment() {
         videoView = rootView.findViewById<VideoView>(R.id.homeBackgroundVideo)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             videoView.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE)
-        };
+        }
 
         val uri =
             Uri.parse("android.resource://" + requireContext().packageName + "/" + R.raw.cafe_video)
@@ -128,7 +103,6 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // to restart the video after coming from other activity like Sing up
-        videoView.start();
-
+        videoView.start()
     }
 }
