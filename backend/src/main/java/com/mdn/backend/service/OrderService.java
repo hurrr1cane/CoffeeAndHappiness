@@ -1,7 +1,7 @@
 package com.mdn.backend.service;
 
 import com.mdn.backend.exception.NotEnoughBonusPointsException;
-import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.exception.notfound.UserNotFoundException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.order.Order;
 import com.mdn.backend.model.user.User;

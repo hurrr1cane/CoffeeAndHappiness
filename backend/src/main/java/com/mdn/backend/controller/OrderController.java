@@ -1,8 +1,8 @@
 package com.mdn.backend.controller;
 
-import com.mdn.backend.exception.FoodNotFoundException;
+import com.mdn.backend.exception.notfound.FoodNotFoundException;
 import com.mdn.backend.exception.NotEnoughBonusPointsException;
-import com.mdn.backend.exception.OrderNotFoundException;
+import com.mdn.backend.exception.notfound.OrderNotFoundException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.order.Order;
 import com.mdn.backend.model.order.OrderRequest;

@@ -1,6 +1,6 @@
 package com.mdn.backend.service;
 
-import com.mdn.backend.exception.CafeNotFoundException;
+import com.mdn.backend.exception.notfound.CafeNotFoundException;
 import com.mdn.backend.model.Cafe;
 import com.mdn.backend.model.dto.CafeDTO;
 import com.mdn.backend.model.review.CafeReview;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

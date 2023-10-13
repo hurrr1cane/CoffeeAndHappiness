@@ -1,6 +1,6 @@
 package com.mdn.backend.controller;
 
-import com.mdn.backend.exception.NewsNotFoundException;
+import com.mdn.backend.exception.notfound.NewsNotFoundException;
 import com.mdn.backend.model.News;
 import com.mdn.backend.model.dto.NewsDTO;
 import com.mdn.backend.service.NewsService;

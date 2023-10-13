@@ -1,8 +1,7 @@
 package com.mdn.backend.service;
 
 import com.mdn.backend.exception.InvalidPasswordException;
-import com.mdn.backend.exception.UserNotFoundException;
-import com.mdn.backend.model.Cafe;
+import com.mdn.backend.exception.notfound.UserNotFoundException;
 import com.mdn.backend.model.review.CafeReview;
 import com.mdn.backend.model.review.FoodReview;
 import com.mdn.backend.model.user.PasswordChangeRequest;

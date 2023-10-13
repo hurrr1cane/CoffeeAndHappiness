@@ -1,8 +1,8 @@
 package com.mdn.backend.auth;
 
-import com.mdn.backend.exception.ErrorResponse;
+import com.mdn.backend.exception.handle.ErrorResponse;
 import com.mdn.backend.exception.UserAlreadyExistsException;
-import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.exception.notfound.UserNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

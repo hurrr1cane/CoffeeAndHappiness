@@ -1,6 +1,6 @@
 package com.mdn.backend.controller;
 
-import com.mdn.backend.exception.CafeNotFoundException;
+import com.mdn.backend.exception.notfound.CafeNotFoundException;
 import com.mdn.backend.model.Cafe;
 import com.mdn.backend.model.dto.CafeDTO;
 import com.mdn.backend.service.CafeService;

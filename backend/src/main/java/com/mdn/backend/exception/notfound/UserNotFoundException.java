@@ -1,4 +1,4 @@
-package com.mdn.backend.exception;
+package com.mdn.backend.exception.notfound;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {

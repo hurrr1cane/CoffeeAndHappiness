@@ -1,6 +1,6 @@
 package com.mdn.backend.controller;
 
-import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.exception.notfound.UserNotFoundException;
 import com.mdn.backend.model.user.PasswordChangeRequest;
 import com.mdn.backend.model.user.User;
 import com.mdn.backend.model.user.UserEditRequest;

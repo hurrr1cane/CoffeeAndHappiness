@@ -1,4 +1,4 @@
-package com.mdn.backend.exception;
+package com.mdn.backend.exception.notfound;
 
 public class FoodNotFoundException extends RuntimeException {
     public FoodNotFoundException(String s) {

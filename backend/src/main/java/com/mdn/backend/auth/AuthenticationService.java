@@ -1,10 +1,9 @@
 package com.mdn.backend.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mdn.backend.auth.forgotpassword.ForgotPasswordService;
 import com.mdn.backend.auth.verifyemail.EmailVerificationService;
 import com.mdn.backend.exception.UserAlreadyExistsException;
-import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.exception.notfound.UserNotFoundException;
 import com.mdn.backend.model.user.Role;
 import com.mdn.backend.model.user.User;
 import com.mdn.backend.repository.UserRepository;

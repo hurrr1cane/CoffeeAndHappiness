@@ -1,9 +1,9 @@
 package com.mdn.backend.service;
 
-import com.mdn.backend.exception.CafeNotFoundException;
-import com.mdn.backend.exception.FoodNotFoundException;
+import com.mdn.backend.exception.notfound.CafeNotFoundException;
+import com.mdn.backend.exception.notfound.FoodNotFoundException;
 import com.mdn.backend.exception.UnauthorizedAccessException;
-import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.exception.notfound.UserNotFoundException;
 import com.mdn.backend.model.Cafe;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.review.CafeReview;

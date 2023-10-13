@@ -1,6 +1,6 @@
 package com.mdn.backend.auth.forgotpassword;
 
-import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.exception.notfound.UserNotFoundException;
 import com.mdn.backend.exception.verificationcode.VerificationCodeExpiredException;
 import com.mdn.backend.exception.verificationcode.VerificationCodeMismatchException;
 import com.mdn.backend.exception.verificationcode.VerificationCodeNotFoundException;

@@ -1,4 +1,4 @@
-package com.mdn.backend.exception.advice;
+package com.mdn.backend.exception.handle;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;

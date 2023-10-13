@@ -1,6 +1,6 @@
 package com.mdn.backend.service;
 
-import com.mdn.backend.exception.FoodNotFoundException;
+import com.mdn.backend.exception.notfound.FoodNotFoundException;
 import com.mdn.backend.model.Food;
 import com.mdn.backend.model.FoodType;
 import com.mdn.backend.model.dto.FoodDTO;

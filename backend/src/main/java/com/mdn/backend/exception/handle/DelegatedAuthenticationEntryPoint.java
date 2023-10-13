@@ -1,4 +1,4 @@
-package com.mdn.backend.exception;
+package com.mdn.backend.exception.handle;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,6 +1,6 @@
 package com.mdn.backend.security;
 
-import com.mdn.backend.exception.UserNotFoundException;
+import com.mdn.backend.exception.notfound.UserNotFoundException;
 import com.mdn.backend.repository.UserRepository;
 import com.mdn.backend.token.TokenRepository;
 import jakarta.servlet.FilterChain;

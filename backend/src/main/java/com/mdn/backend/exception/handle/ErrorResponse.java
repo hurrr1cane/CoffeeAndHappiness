@@ -1,4 +1,4 @@
-package com.mdn.backend.exception;
+package com.mdn.backend.exception.handle;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
