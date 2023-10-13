@@ -5,15 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
@@ -25,6 +24,8 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    public static final String URL_FOR_EVERYTHING = "/api/**";
+    private final AuthenticationEntryPoint authEntryPoint;
     private final AuthenticationProvider provider;
     private final JwtAuthenticationFilter filter;
     private final LogoutHandler logoutHandler;
@@ -59,16 +60,20 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers("/api/auth/**")
                 .permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/**")
-                .permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/**")
-                .hasAnyRole(Role.USER.name(), Role.WAITER.name(), Role.ADMIN.name())
-                .requestMatchers(HttpMethod.PUT, "/api/**")
-                .hasAnyRole(Role.USER.name(), Role.WAITER.name(), Role.ADMIN.name())
-                .requestMatchers(HttpMethod.DELETE, "/api/**")
-                .hasAnyRole(Role.USER.name(), Role.WAITER.name(), Role.ADMIN.name())
                 .requestMatchers("/api/order/**")
                 .hasAnyRole(Role.WAITER.name(), Role.ADMIN.name())
+                .requestMatchers("/api/user/me/**")
+                .hasAnyRole(Role.USER.name(), Role.WAITER.name(), Role.ADMIN.name())
+                .requestMatchers("/api/review/**")
+                .hasAnyRole(Role.USER.name(), Role.WAITER.name(), Role.ADMIN.name())
+                .requestMatchers(HttpMethod.GET, URL_FOR_EVERYTHING)
+                .permitAll()
+                .requestMatchers(HttpMethod.POST, URL_FOR_EVERYTHING)
+                .hasAnyRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.PUT, URL_FOR_EVERYTHING)
+                .hasAnyRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.DELETE, URL_FOR_EVERYTHING)
+                .hasAnyRole(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -78,7 +83,7 @@ public class SecurityConfig {
                 .authenticationProvider(provider)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
-                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .authenticationEntryPoint(authEntryPoint)
                 .and()
                 .logout()
                 .logoutUrl("/api/auth/logout")
