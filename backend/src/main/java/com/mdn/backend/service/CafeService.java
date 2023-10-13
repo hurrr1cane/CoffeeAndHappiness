@@ -31,11 +31,14 @@ public class CafeService {
     }
 
     private static void fetchReviewsToCafe(Cafe cafe) {
-        for (CafeReview review : cafe.getReviews()) {
-            Integer userId = review.getUser().getId();
-            Integer cafeId = review.getCafe().getId();
-            review.setUserId(userId);
-            review.setCafeId(cafeId);
+        List<CafeReview> reviews = cafe.getReviews();
+        if (reviews != null) {
+            for (CafeReview review : reviews) {
+                Integer userId = review.getUser().getId();
+                Integer cafeId = review.getCafe().getId();
+                review.setUserId(userId);
+                review.setCafeId(cafeId);
+            }
         }
     }
 
@@ -43,12 +46,7 @@ public class CafeService {
         Cafe cafe = cafeRepository.findById(id).orElseThrow(
                 () -> new CafeNotFoundException("No such cafe with id " + id + " found")
         );
-        for (CafeReview review : cafe.getReviews()) {
-            Integer cafeId = review.getCafe().getId();
-            Integer userId = review.getUser().getId();
-            review.setCafeId(cafeId);
-            review.setUserId(userId);
-        }
+        fetchReviewsToCafe(cafe);
         return cafe;
     }
 
