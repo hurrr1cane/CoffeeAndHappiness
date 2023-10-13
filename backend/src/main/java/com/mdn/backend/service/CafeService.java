@@ -29,7 +29,7 @@ public class CafeService {
         return cafeRepository.findAll();
     }
 
-    private static void fetchReviewsToCafe(Cafe cafe) {
+    static void fetchReviewsToCafe(Cafe cafe) {
         List<CafeReview> reviews = cafe.getReviews();
         if (reviews != null) {
             for (CafeReview review : reviews) {
@@ -50,8 +50,8 @@ public class CafeService {
     }
 
     public Cafe addCafe(CafeDTO cafeDTO) {
-        Cafe cafe = buildCafeFromDTO(cafeDTO);
         formatPhoneNumber(cafeDTO);
+        Cafe cafe = buildCafeFromDTO(cafeDTO);
         return cafeRepository.save(cafe);
     }
 
@@ -98,20 +98,19 @@ public class CafeService {
         return cafeRepository.save(cafe);
     }
 
-    private void formatPhoneNumber(CafeDTO cafeDTO) {
+    static void formatPhoneNumber(CafeDTO cafeDTO) {
         String phoneNumber = cafeDTO.getPhoneNumber();
-        Cafe cafe = buildCafeFromDTO(cafeDTO);
         if (phoneNumber != null) {
             Matcher matcher = PHONE_NUMBER_PATTERN.matcher(phoneNumber);
             if (matcher.matches()) {
-                cafe.setPhoneNumber("+380" + matcher.group(1));
+                cafeDTO.setPhoneNumber("+380" + matcher.group(1));
             } else {
                 throw new IllegalArgumentException("Invalid phone number format");
             }
         }
     }
 
-    private static Cafe buildCafeFromDTO(CafeDTO cafeDTO) {
+    static Cafe buildCafeFromDTO(CafeDTO cafeDTO) {
         return Cafe.builder()
                 .locationEN(cafeDTO.getLocationEN())
                 .locationUA(cafeDTO.getLocationUA())
@@ -126,7 +125,10 @@ public class CafeService {
         if (cafeDTO.getLocationEN() != null) editedCafe.setLocationEN(cafeDTO.getLocationEN());
         if (cafeDTO.getLocationUA() != null) editedCafe.setLocationUA(cafeDTO.getLocationUA());
         if (cafeDTO.getImageUrl() != null) editedCafe.setImageUrl(cafeDTO.getImageUrl());
-        if (cafeDTO.getPhoneNumber() != null) editedCafe.setPhoneNumber(cafeDTO.getPhoneNumber());
+        if (cafeDTO.getPhoneNumber() != null) {
+            formatPhoneNumber(cafeDTO);
+            editedCafe.setPhoneNumber(cafeDTO.getPhoneNumber());
+        }
         if (cafeDTO.getLatitude() != null) editedCafe.setLatitude(cafeDTO.getLatitude());
         if (cafeDTO.getLongitude() != null) editedCafe.setLongitude(cafeDTO.getLongitude());
     }
