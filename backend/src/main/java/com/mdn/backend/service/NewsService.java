@@ -22,38 +22,34 @@ public class NewsService {
         return newsRepository.findAll();
     }
 
+    private static String noNewsFoundWithId(Integer id) {
+        return "No news found with id " + id;
+    }
+
     public News getNewsById(Integer id) {
         return newsRepository.findById(id).orElseThrow(
-                () -> new NewsNotFoundException("No news found with id " + id)
+                () -> new NewsNotFoundException(noNewsFoundWithId(id))
         );
     }
 
     public News addNews(NewsDTO newsDTO) {
-        try {
-            News news = getNewsFromDTO(newsDTO);
-            news.setPublishedAt(new Date());
-            return newsRepository.save(news);
-        } catch (Exception ex) {
-            throw new RuntimeException("Error while adding news: " + ex.getMessage(), ex);
-        }
+        News news = getNewsFromDTO(newsDTO);
+        news.setPublishedAt(new Date());
+        return newsRepository.save(news);
     }
 
     public News editNews(Integer id, NewsDTO newsDTO) {
         var editedNews = newsRepository.findById(id).orElseThrow(
-                () -> new NewsNotFoundException("No news found with id " + id)
+                () -> new NewsNotFoundException(noNewsFoundWithId(id))
         );
 
-        try {
-            editNewsWithCheckingForNull(newsDTO, editedNews);
-            return newsRepository.save(editedNews);
-        } catch (Exception ex) {
-            throw new RuntimeException("Error while editing news: " + ex.getMessage(), ex);
-        }
+        editNewsWithCheckingForNull(newsDTO, editedNews);
+        return newsRepository.save(editedNews);
     }
 
     public void deleteNews(Integer id) {
         var newsToDelete = newsRepository.findById(id).orElseThrow(
-                () -> new NewsNotFoundException("No news found with id " + id)
+                () -> new NewsNotFoundException(noNewsFoundWithId(id))
         );
         newsRepository.delete(newsToDelete);
     }
@@ -61,7 +57,7 @@ public class NewsService {
     public News addNewsImage(Integer newsId, MultipartFile image) {
 
         News news = newsRepository.findById(newsId).orElseThrow(
-                () -> new NewsNotFoundException("No such news with id " + newsId + " found")
+                () -> new NewsNotFoundException(noNewsFoundWithId(newsId))
         );
 
         azureStorageService.deleteImage("news", newsId);
@@ -74,7 +70,7 @@ public class NewsService {
     public News deleteNewsImage(Integer newsId) {
 
         News news = newsRepository.findById(newsId).orElseThrow(
-                () -> new NewsNotFoundException("No such news with id " + newsId + " found")
+                () -> new NewsNotFoundException(noNewsFoundWithId(newsId))
         );
 
         azureStorageService.deleteImage("news", newsId);
