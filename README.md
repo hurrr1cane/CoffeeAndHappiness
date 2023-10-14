@@ -74,7 +74,13 @@ The application supports three roles:
   - Azure Storage for saving images of food, user profile, cafe, and news.
   - Azure Storage for hosting the Android APK file, which can be downloaded from the website.
  
+#### Testing
 
+- **JUnit**: We use JUnit, a widely-used testing framework for Java applications, to create and run unit tests for our Spring Boot backend. JUnit enables us to test individual components and functions to ensure they work as expected.
+
+- **Mockito**: Mockito is a popular mocking framework that complements JUnit. We use Mockito to create mock objects and simulate interactions between various parts of our application during testing. This helps us isolate and verify the behavior of specific components without relying on real implementations.
+
+Our testing approach ensures that the CoffeeAndHappiness application maintains high-quality standards and reliability in the backend logic. It is an integral part of our development process to deliver a seamless experience for both cafe staff and customers.
 
 ## Authors
 
