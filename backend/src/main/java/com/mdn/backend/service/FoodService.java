@@ -27,12 +27,15 @@ public class FoodService {
         return foodRepository.findAll();
     }
 
-    private static void fetchReviewsToFood(Food food) {
-        for (FoodReview review : food.getReviews()) {
-            Integer userId = review.getUser().getId();
-            Integer foodId = review.getFood().getId();
-            review.setUserId(userId);
-            review.setFoodId(foodId);
+    static void fetchReviewsToFood(Food food) {
+        List<FoodReview> reviews = food.getReviews();
+        if (reviews != null) {
+            for (FoodReview review : reviews) {
+                Integer userId = review.getUser().getId();
+                Integer foodId = review.getFood().getId();
+                review.setUserId(userId);
+                review.setFoodId(foodId);
+            }
         }
     }
 
@@ -64,12 +67,8 @@ public class FoodService {
     }
 
     public Food addFood(FoodDTO foodDTO) {
-        try {
-            Food food = buildFoodFromDTO(foodDTO);
-            return foodRepository.save(food);
-        } catch (Exception ex) {
-            throw new RuntimeException("Error while adding food: " + ex.getMessage(), ex);
-        }
+        Food food = buildFoodFromDTO(foodDTO);
+        return foodRepository.save(food);
     }
 
     public Food editFood(Integer id, FoodDTO foodDTO) {
@@ -77,12 +76,8 @@ public class FoodService {
                 () -> new FoodNotFoundException("No such food with id " + id + " found")
         );
 
-        try {
-            editFoodWithCheckingForNull(foodDTO, editedFood);
-            return foodRepository.save(editedFood);
-        } catch (Exception ex) {
-            throw new RuntimeException("Error while editing food: " + ex.getMessage(), ex);
-        }
+        editFoodWithCheckingForNull(foodDTO, editedFood);
+        return foodRepository.save(editedFood);
     }
 
     public void deleteFood(Integer id) {
