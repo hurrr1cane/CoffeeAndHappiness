@@ -55,7 +55,7 @@ public class AuthenticationService {
         String refreshToken = jwtService.generateRefreshToken(savedUser);
         saveUserToken(savedUser, jwtToken);
 
-        emailVerificationService.sendEmailVerification(savedUser);
+//        emailVerificationService.sendEmailVerification(savedUser);
 
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
