@@ -4,13 +4,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**",
+        hostname: "**", // Allow all HTTPS images
       },
       {
         protocol: "http",
-        hostname: "**",
+        hostname: "**", // Allow all HTTP images
       },
     ],
+    domains: ['localhost'], // Allow images served from localhost
   }
 }
 

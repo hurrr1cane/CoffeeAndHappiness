@@ -7,7 +7,7 @@ export default function Dishes({ tab }) {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        axios.get(`https://coffee-and-happiness-backend.azurewebsites.net/api/food/type/${tab}`)
+        axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/food/type/${tab}`)
         .then(res => setData(res.data))
         .catch(err => console.log(err))
     }, [tab])

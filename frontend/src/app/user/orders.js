@@ -23,7 +23,7 @@ export default function Orders() {
     };
 
     useEffect(() => {
-      axios.get('https://coffee-and-happiness-backend.azurewebsites.net/api/user/me', {
+      axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/me`, {
         headers: {
           Authorization: "Bearer " + user.token
         }

@@ -37,3 +37,4 @@ mvnw.cmd
 
 # application properties
 src/main/resources/application.properties
+/src/main/resources/env.properties

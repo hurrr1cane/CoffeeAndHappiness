@@ -70,7 +70,7 @@ export default function Home() {
 
 
     const onEmailSubmit = (data) => {
-        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/forgot-password?email=${data?.email}`)
+        axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/forgot-password?email=${data?.email}`)
         .then(res => {
             console.log(res)
             setShowSuccessAlert(true)
@@ -87,7 +87,7 @@ export default function Home() {
     }
 
     const handleOtpSubmit = (value) => {    
-        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/auth/validate-verification-code`, {
+        axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/validate-verification-code`, {
             verificationCode: otp,
             email: email
         })
@@ -110,7 +110,7 @@ export default function Home() {
 
     const onPasswordSubmit = (data) => {
         console.log(data.password)
-        axios.post('https://coffee-and-happiness-backend.azurewebsites.net/api/auth/reset-password', {
+        axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/reset-password`, {
             newPassword: data.password,
             email: email
         })

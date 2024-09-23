@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,7 @@ import java.io.IOException;
 /**
  * Custom authentication filter that processes JWT tokens.
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -45,6 +47,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NotNull HttpServletRequest request,
             @NotNull HttpServletResponse response,
             @NotNull FilterChain filterChain) throws ServletException, IOException {
+
+        String requestURI = request.getServletPath();
+        if (isWhitelisted(requestURI)) {
+            log.info("I am white listed");
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
@@ -87,5 +96,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }
 
+    }
+
+
+    /**
+     * Check if the request URI is part of the whitelisted URLs.
+     *
+     * @param path The request URI.
+     * @return true if the URL is whitelisted, false otherwise.
+     */
+    private boolean isWhitelisted(String path) {
+        // Example: Whitelist the /images/* endpoints
+        log.info("Request URI: {}", path);
+        return path.matches("/images/.*");
     }
 }

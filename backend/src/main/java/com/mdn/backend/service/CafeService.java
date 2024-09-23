@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class CafeService {
 
     private final CafeRepository cafeRepository;
-    private final AzureBlobStorageService azureStorageService;
+    private final LocalStorageService azureStorageService;
 
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(?:\\+?380|0)(\\d{9})$");
 

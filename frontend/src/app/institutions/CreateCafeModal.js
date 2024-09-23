@@ -46,7 +46,7 @@ export default function CreateCafeModal({open, setOpen}) {
       };
 
       const handleSubmit = () => {
-        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/cafe`, formData, {
+        axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/cafe`, formData, {
             headers: {
                 Authorization: "Bearer " + user.token
             }

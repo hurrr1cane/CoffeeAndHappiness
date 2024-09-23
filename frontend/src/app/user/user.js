@@ -41,7 +41,7 @@ export default function User() {
 
       axios
         .post(
-          "https://coffee-and-happiness-backend.azurewebsites.net/api/user/me/image/add",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/me/image/add`,
           formData,
           {
             headers: {
@@ -68,7 +68,7 @@ export default function User() {
   useEffect(() => {
     axios
       .get(
-        "https://coffee-and-happiness-backend.azurewebsites.net/api/user/me",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/me`,
         {
           headers: {
             Authorization: "Bearer " + user.token,
@@ -96,7 +96,7 @@ export default function User() {
       console.log(Date.now(), user.date);
       axios
         .post(
-          "https://coffee-and-happiness-backend.azurewebsites.net/api/auth/refresh",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/refresh`,
           {},
           {
             headers: {
@@ -131,7 +131,7 @@ export default function User() {
     if (phoneNumber.length == 0) {
       axios
       .put(
-        "https://coffee-and-happiness-backend.azurewebsites.net/api/user/me/edit",
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/me/edit`,
         {
           firstName: firstName,
           lastName: lastName,
@@ -155,7 +155,7 @@ export default function User() {
       else {
         axios
         .put(
-          "https://coffee-and-happiness-backend.azurewebsites.net/api/user/me/edit",
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/me/edit`,
           {
             phoneNumber: phoneNumber
           },

@@ -50,7 +50,7 @@ export default function CreateDishModal({open, setOpen}) {
       };
 
       const handleSubmit = () => {
-        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/food`, formData, {
+        axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/food`, formData, {
             headers: {
                 Authorization: "Bearer " + user.token
             }

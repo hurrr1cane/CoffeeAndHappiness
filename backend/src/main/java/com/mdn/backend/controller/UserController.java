@@ -85,10 +85,6 @@ public class UserController {
         } catch (UserNotFoundException ex) {
             log.error("User not found with email: {}", principal.getName());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + principal.getName());
-        } catch (Exception ex) {
-            log.error("Error while editing image to user: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error while editing image to user: " + ex.getMessage());
         }
     }
 

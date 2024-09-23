@@ -22,7 +22,7 @@ export default function ReviewModal({ open, id, setOpen, token, reset, width }) 
 
     const handleSubmit = () => {
         
-        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/review/cafe/${id}`, 
+        axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/review/cafe/${id}`, 
         {
             
             rating: rating,

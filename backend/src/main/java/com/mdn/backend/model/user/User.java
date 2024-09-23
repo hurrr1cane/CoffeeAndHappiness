@@ -52,8 +52,8 @@ public class User implements UserDetails {
     private Boolean enabled;
 
     @Column(name = "image_url")
-    @Pattern(regexp = "^https?://.*",
-            message = "Image URL must start with http:// or https://")
+//    @Pattern(regexp = "^https?://.*",
+//            message = "Image URL must start with http:// or https://")
     private String imageUrl;
 
     @Column(name = "phone_number")
@@ -115,6 +115,6 @@ public class User implements UserDetails {
     @Override
     @JsonIgnore
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }

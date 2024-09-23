@@ -38,7 +38,7 @@ export default function Login() {
         setUser({
           email: data.email
         })
-        axios.post('https://coffee-and-happiness-backend.azurewebsites.net/api/auth/login', {
+        axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, {
             email:data.email,
             password: data.password
         })

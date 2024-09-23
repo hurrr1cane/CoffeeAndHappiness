@@ -60,6 +60,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers("/api/auth/**")
                 .permitAll()
+                .requestMatchers("/images/**")
+                .permitAll()
                 .requestMatchers("/api/order/**")
                 .hasAnyRole(Role.WAITER.name(), Role.ADMIN.name())
                 .requestMatchers("/api/user/me/**")

@@ -34,7 +34,7 @@ export default function EditDishModal({open, id, setOpen, token, dish}) {
       };
 
       const handleSubmit = () => {
-        axios.put(`https://coffee-and-happiness-backend.azurewebsites.net/api/food/${id}`, formData, {
+        axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/food/${id}`, formData, {
             headers: {
                 Authorization: "Bearer " + token
             }

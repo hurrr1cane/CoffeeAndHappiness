@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final AzureBlobStorageService azureStorageService;
+    private final LocalStorageService localStorageService;
     private final PasswordEncoder passwordEncoder;
     private final TokenRepository tokenRepository;
 
@@ -96,12 +96,14 @@ public class UserService {
         User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
 
-        azureStorageService.deleteImage("user", user.getId());
-        String imageUrl = azureStorageService.saveImage(image, "user", user.getId());
+        // Delete old image
+        localStorageService.deleteImage("user", user.getId());
+
+        // Save new image and get its URL
+        String imageUrl = localStorageService.saveImage(image, "user", user.getId());
 
         user.setImageUrl(imageUrl);
         return userRepository.save(user);
-
     }
 
     public User deleteUserImage(Principal principal) {
@@ -109,7 +111,7 @@ public class UserService {
         User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + principal.getName()));
 
-        azureStorageService.deleteImage("user", user.getId());
+        localStorageService.deleteImage("user", user.getId());
 
         user.setImageUrl(null);
         return userRepository.save(user);

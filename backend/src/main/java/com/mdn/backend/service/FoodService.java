@@ -18,7 +18,7 @@ import java.util.List;
 public class FoodService {
 
     private final FoodRepository foodRepository;
-    private final AzureBlobStorageService azureStorageService;
+    private final LocalStorageService azureStorageService;
 
     public List<Food> getAllFoods() {
         for (Food food : foodRepository.findAll()) {

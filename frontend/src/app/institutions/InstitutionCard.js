@@ -31,7 +31,7 @@ export default function InstitutionCard({ cafe }) {
   const submitImage = () => {
     const formData = new FormData();
     formData.append("image", file);
-    axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/cafe/${cafe.id}/image/add`, formData, {
+    axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/cafe/${cafe.id}/image/add`, formData, {
       headers: {
         Authorization: "Bearer " + user.token,
         "Content-Type": "multipart/form-data"
@@ -45,7 +45,7 @@ export default function InstitutionCard({ cafe }) {
   const handleDeleteClick = () => {
     axios
       .delete(
-        `https://coffee-and-happiness-backend.azurewebsites.net/api/cafe/${cafe.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/cafe/${cafe.id}`,
         {
           headers: {
             Authorization: "Bearer " + user.token,

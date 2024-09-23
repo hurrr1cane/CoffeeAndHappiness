@@ -30,7 +30,7 @@ export default function DishCard({ dish }) {
     const submitImage = () => {
         const formData = new FormData();
         formData.append("image", file);
-        axios.post(`https://coffee-and-happiness-backend.azurewebsites.net/api/food/${dish.id}/image/add`, formData, {
+        axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/food/${dish.id}/image/add`, formData, {
           headers: {
             Authorization: "Bearer " + user.token,
             "Content-Type": "multipart/form-data"
@@ -42,7 +42,7 @@ export default function DishCard({ dish }) {
       }
 
     const handleDeleteClick = () => {
-        axios.delete(`https://coffee-and-happiness-backend.azurewebsites.net/api/food/${dish.id}`, {
+        axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/food/${dish.id}`, {
             headers: {
                 Authorization: "Bearer " + user.token
             }

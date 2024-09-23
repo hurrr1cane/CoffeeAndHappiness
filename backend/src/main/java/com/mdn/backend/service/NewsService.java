@@ -16,7 +16,7 @@ import java.util.List;
 public class NewsService {
 
     private final NewsRepository newsRepository;
-    private final AzureBlobStorageService azureStorageService;
+    private final LocalStorageService azureStorageService;
 
     public List<News> getAllNews() {
         return newsRepository.findAll();
