@@ -398,11 +398,15 @@ class AccountController {
                         e.printStackTrace()
                     }
                 } else if ((currentTime - storedTime > 1000 * 60 * 60 * 24 * 13)) {
-                    login(
-                        sharedPreferences.getString("Email", "")!!,
-                        sharedPreferences.getString("Password", "")!!,
-                        sharedPreferences
-                    )
+                    try {
+                        login(
+                            sharedPreferences.getString("Email", "")!!,
+                            sharedPreferences.getString("Password", "")!!,
+                            sharedPreferences
+                        )
+                    } catch (e: NoInternetException) {
+
+                    }
                 }
             }
         }
